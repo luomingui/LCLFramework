@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C729B19F-3EFD-49F3-B918-85203044507C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LCL.Tools</RootNamespace>
+    <AssemblyName>LCL.Tools</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>LCL.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Build\Common\BuildBase.cs" />
+    <Compile Include="Build\IBuild.cs" />
+    <Compile Include="Build\Providers\EntityBuild.cs" />
+    <Compile Include="Build\Providers\ServiceLocatorBuild.cs" />
+    <Compile Include="Build\Providers\EntityFrameworkBuild.cs" />
+    <Compile Include="Build\Providers\WinFromBuild.cs" />
+    <Compile Include="Build\WorkBuild.cs" />
+    <Compile Include="ConnectionString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectionString.designer.cs">
+      <DependentUpon>ConnectionString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DbHelperSQL.cs" />
+    <Compile Include="Data\Generate2000Sql.cs" />
+    <Compile Include="Data\Generate2005Sql.cs" />
+    <Compile Include="Data\Generate2008Sql.cs" />
+    <Compile Include="Data\GenerateSql.cs" />
+    <Compile Include="Data\IDbo.cs" />
+    <Compile Include="Data\TableModel.cs" />
+    <Compile Include="library\BLLFactory.cs" />
+    <Compile Include="library\DbObjects.cs" />
+    <Compile Include="library\INIFile.cs" />
+    <Compile Include="library\MyExcelUtls.cs" />
+    <Compile Include="library\SandData.cs" />
+    <Compile Include="library\StringPlus.cs" />
+    <Compile Include="library\Utils.cs" />
+    <Compile Include="MainFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFrm.designer.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\AsyncMultiActions.cs" />
+    <Compile Include="Threading\AsyncWorker.cs" />
+    <Compile Include="Threading\ForeAsyncLoader.cs" />
+    <Compile Include="Threading\ParallelActions.cs" />
+    <Compile Include="Threading\ThreadHelper.cs" />
+    <Compile Include="WinFrm\FrmDbBuild.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbBuild.Designer.cs">
+      <DependentUpon>FrmDbBuild.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbBuildWinFromUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbBuildWinFromUI.Designer.cs">
+      <DependentUpon>FrmDbBuildWinFromUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbTableRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbTableRelation.Designer.cs">
+      <DependentUpon>FrmDbTableRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbTablesColumnsLable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbTablesColumnsLable.Designer.cs">
+      <DependentUpon>FrmDbTablesColumnsLable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbTablesLable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbTablesLable.Designer.cs">
+      <DependentUpon>FrmDbTablesLable.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ConnectionString.resx">
+      <DependentUpon>ConnectionString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFrm.resx">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="WinFrm\FrmDbBuild.resx">
+      <DependentUpon>FrmDbBuild.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinFrm\FrmDbBuildWinFromUI.resx">
+      <DependentUpon>FrmDbBuildWinFromUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinFrm\FrmDbTableRelation.resx">
+      <DependentUpon>FrmDbTableRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinFrm\FrmDbTablesColumnsLable.resx">
+      <DependentUpon>FrmDbTablesColumnsLable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinFrm\FrmDbTablesLable.resx">
+      <DependentUpon>FrmDbTablesLable.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LCL.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

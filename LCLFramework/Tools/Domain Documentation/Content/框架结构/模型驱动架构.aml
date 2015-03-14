@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="813981b5-3631-4d47-84ee-314aed1346ff" revisionNumber="1">
+    <developerConceptualDocument
+      xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+
+        <introduction>
+            <para>为了实现整个程序的可配置性，框架使用了模型驱动架构（Model Driven Architecture，MDA）的架构思想。</para>
+            <autoOutline />
+        </introduction>
+
+        <section address="rafyMDA">
+            <title>LCL 模型驱动架构</title>
+            <content>
+                <para>下图是 LCL 的多层结构图，在各层中，都有相应的元数据（应用模型）支撑。只有绿色的部分是需要开发人员编写的。</para>
+                <mediaLink>
+                    <caption>模型驱动架构</caption>
+                    <image xlink:href="MDA_RafyMDA"/>
+                </mediaLink>
+            </content>
+        </section>
+
+        <section address="mda">
+            <title>附 - 模型驱动架构</title>
+            <content>
+                <mediaLink>
+                    <caption>模型驱动架构</caption>
+                    <image xlink:href="MDA_Overview"/>
+                </mediaLink>
+                <mediaLink>
+                    <caption>模型转换</caption>
+                    <image xlink:href="MDA_Transform"/>
+                </mediaLink>
+                <mediaLink>
+                    <caption>三大模型</caption>
+                    <image xlink:href="MDA_Transform2"/>
+                </mediaLink>
+                <mediaLink>
+                    <caption>代码生成</caption>
+                    <image xlink:href="MDA_Generate"/>
+                </mediaLink>
+
+                <para>
+                    关于模型驱动架构的详细概念，参考：《<externalLink>
+                        <linkText>MDA</linkText>
+                        <linkUri>http://www.omg.org/mda/</linkUri>
+                    </externalLink> 》。
+                </para>
+            </content>
+        </section>
+
+        <relatedTopics>
+            <externalLink>
+                <linkText>MDA</linkText>
+                <linkUri>http://www.omg.org/mda/</linkUri>
+            </externalLink>
+        </relatedTopics>
+    </developerConceptualDocument>
+</topic>

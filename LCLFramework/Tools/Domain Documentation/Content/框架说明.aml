@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="69b641cf-d1fe-4f06-877f-b479d268a3fc" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>LCL 帮助文档</para>
+      <para>文档版本号：1.0</para>
+    </introduction>
+    <section address="intro">
+      <title>简介</title>
+      <content>
+        <para>LCLFramework就是一套在.NET下支持面向领域驱动的软件系统开发框架。http://www.cnblogs.com/luomingui/category/279664.html </para>
+        <para>使用框架开发的好处： </para>
+        <list class="ordered">
+          <listItem>
+            <para>框架在技术上为软件系统提供了完整的模式实践</para>
+          </listItem>
+          <listItem>
+            <para>框架为团队提供了合理可行的软件开发过程模式</para>
+          </listItem>
+          <listItem>
+            <para>框架的应用大大提高了团队的开发效率，团队只需要关注与领域相关的业务实现，而无需关注具体的技术实现</para>
+          </listItem>
+          <listItem>
+            <para>框架的应用大大降低了出现缺陷（Bug）的几率，因为大多数支撑业务系统的代码都经过了严格的测试和实战的考验</para>
+          </listItem>
+          <listItem>
+            <para>框架的应用还为软件系统的整合与集成带来了便捷</para>
+          </listItem>
+        </list>
+        <para>LCLFramework框架特点： </para>
+        <list class="ordered">
+          <listItem>
+            <para>基于NuGet Package Manager提供方便快捷的类库包发布方式，开发人员无需关心程序集之间的版本依赖关系</para>
+          </listItem>
+          <listItem>
+            <para>提供对领域驱动设计中基本元素的封装。比如：实体、聚合根、领域仓储等概念进行了有效的封装和实现</para>
+          </listItem>
+          <listItem>
+            <para>提供对现有流行框架的支持。比如：能够很好地支持ASP.NET MVC以及ASP.NET Web API的使用和开发</para>
+          </listItem>
+          <listItem>
+            <para>提供基于Microsoft Practices Unity的IoC容器和服务定位器（Service Locator）的实现。不仅如此，开发人员还能根据项目的实际需求对IoC容器和服务定位器进行扩展，使其能够支持更多的Dependency Injection（DI）框架。比如可以很方便地扩展LCLFramework，使其能够支持基于StructureMap、Ninject等流行的DI框架</para>
+          </listItem>
+          <listItem>
+            <para>提供基于Entity Framework的仓储实现。在应用程序中使用这种仓储，也就基本涵盖了所有面向关系型数据库的对象持久化方案。不仅如此，开发人员还能根据项目的实际需求，对仓储实现进行扩展，以支持更多种类的对象持久化机制</para>
+          </listItem>
+        </list>
+        <para>为什么要用本框架？</para>
+        <list class="bullet">
+          <listItem>
+            <para>提升开发效率</para>
+            <para>AutoUI、AutoDB、DDD</para>
+          </listItem>
+          <listItem>
+            <para>大规模复用</para>
+            <para>Plugin、721、RBAC</para>
+          </listItem>
+          <listItem>
+            <para>高度可扩展</para>
+            <para>Plugin、721</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

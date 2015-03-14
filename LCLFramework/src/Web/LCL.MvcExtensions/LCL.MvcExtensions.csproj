@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{06EDA144-8636-412F-8061-595A592D7514}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LCL.MvcExtensions</RootNamespace>
+    <AssemblyName>LCL.MvcExtensions</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LCL.MvcExtensions.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="LCL.Utils, Version=4.5.0.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\LCL.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\_Items\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\_Items\SharedAssemblyVersionInfo.cs">
+      <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionFilter\CacheFilterAttribute.cs" />
+    <Compile Include="ActionFilter\CompressFilterAttribute.cs" />
+    <Compile Include="ActionFilter\JsonExceptionFilterAttribute.cs" />
+    <Compile Include="ActionFilter\LayoutFilterAttribute.cs" />
+    <Compile Include="ActionFilter\MyAuthorizeAttribute.cs" />
+    <Compile Include="ActionFilter\PermissionAttribute.cs" />
+    <Compile Include="ActionFilter\RedirectOnErrorAttribute.cs" />
+    <Compile Include="ActionFilter\RedirectToActionOnErrorAttribute.cs" />
+    <Compile Include="ActionFilter\RedirectToRouteResult.cs" />
+    <Compile Include="ActionFilter\RedirectToUrlOnErrorAttribute.cs" />
+    <Compile Include="ActionResult\CompoundActionResult.cs" />
+    <Compile Include="ActionResult\JsonResult.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="Controller\ControllerTypeCache.cs" />
+    <Compile Include="Controller\DefaultControllerConfig.cs" />
+    <Compile Include="Controller\PluginControllerFactory.cs" />
+    <Compile Include="Controller\BaseRepoController.cs" />
+    <Compile Include="Extensions\ActionExtension.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\HttpContextBaseExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\PluginExtensions.cs" />
+    <Compile Include="Extensions\RouteExtension.cs" />
+    <Compile Include="Helpers\KnownTypes.cs" />
+    <Compile Include="MetaModel\MvcModuleMeta.cs" />
+    <Compile Include="Model\LCLMetadataProvider.cs" />
+    <Compile Include="Model\LCLModelBinder.cs" />
+    <Compile Include="Model\BaseLCLModel.cs" />
+    <Compile Include="PageFlowService\IPageFlowService.cs" />
+    <Compile Include="Permission\MyFormsAuthentication.cs" />
+    <Compile Include="Permission\MyFormsPrincipal.cs" />
+    <Compile Include="Permission\MyUserDataPrincipal.cs" />
+    <Compile Include="PluginMvcApplication.cs" />
+    <Compile Include="MvcPathUtility.cs" />
+    <Compile Include="UI\DropDownListExtension.cs" />
+    <Compile Include="UI\HtmlHelperExtensions.cs" />
+    <Compile Include="Utilities\LRequest.cs" />
+    <Compile Include="ViewEngine\PluginRuntimeViewEngine.cs" />
+    <Compile Include="ViewEngine\IPluginViewEngine.cs" />
+    <Compile Include="ViewEngine\IPluginViewEngineFactory.cs" />
+    <Compile Include="ViewEngine\PluginRazorViewEngine.cs" />
+    <Compile Include="ViewEngine\PluginWebFormViewEngine.cs" />
+    <Compile Include="ViewModels\AddOrEditViewModel.cs" />
+    <Compile Include="ViewModels\PagedListViewModel.cs" />
+    <Compile Include="View\TempDataToViewData.cs" />
+    <Compile Include="ActionResult\ChartResult.cs" />
+    <Compile Include="ActionResult\HeadResult.cs" />
+    <Compile Include="ActionResult\RssResult.cs" />
+    <Compile Include="ActionResult\XmlResult.cs" />
+    <Compile Include="Controller\BaseController.cs" />
+    <Compile Include="Helpers\MethodInvoker.cs" />
+    <Compile Include="Helpers\Culture.cs" />
+    <Compile Include="Helpers\KnownActionNames.cs" />
+    <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Routing\FastRoute.cs" />
+    <Compile Include="Routing\IRouteBinder.cs" />
+    <Compile Include="Routing\MvcRoute.cs" />
+    <Compile Include="Routing\RouteBindingContext.cs" />
+    <Compile Include="Routing\RouteDictionaryExtensions.cs" />
+    <Compile Include="Routing\RouteNameAttribute.cs" />
+    <Compile Include="Sorting\SortDirection.cs" />
+    <Compile Include="Sorting\SortExtensions.cs" />
+    <Compile Include="ViewEngine\HtmlView.cs" />
+    <Compile Include="Extensions\ViewDataExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routing\EnumConstraint.cs" />
+    <Compile Include="Routing\GuidConstraint.cs" />
+    <Compile Include="Routing\PathBuilder.cs" />
+    <Compile Include="Routing\PositiveIntegerConstraint.cs" />
+    <Compile Include="Routing\PositiveLongConstraint.cs" />
+    <Compile Include="Routing\RangeConstraint.cs" />
+    <Compile Include="Routing\RegexConstraint.cs" />
+    <Compile Include="Routing\RESTfulActionConstraint.cs" />
+    <Compile Include="WebApp.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="_Versions Log\read.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LCL.MvcExtensions.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\LCL\LCL.csproj">
+      <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
+      <Name>LCL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

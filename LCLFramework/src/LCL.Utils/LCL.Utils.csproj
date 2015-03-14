@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C19BC1F7-549F-424D-B987-2282F6D889E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LCL.Utils</RootNamespace>
+    <AssemblyName>LCL.Utils</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LCL.Utils.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\_Items\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
+      <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Caching\Cache.cs" />
+    <Compile Include="Caching\CacheInstance.cs" />
+    <Compile Include="Caching\CacheProvider\CacheProvider.cs" />
+    <Compile Include="Caching\CacheProvider\HybirdCacheProvider.cs" />
+    <Compile Include="Caching\CacheProvider\MemoryCacheProvider.cs" />
+    <Compile Include="Caching\CacheProvider\SQLCompactCacheProvider.cs" />
+    <Compile Include="Caching\CacheProvider\SystemCaching\NormalProvider.cs" />
+    <Compile Include="Caching\CacheProvider\SystemCaching\RegionCache.cs" />
+    <Compile Include="Caching\ChangeChecker.cs" />
+    <Compile Include="Caching\MemoryHelper.cs" />
+    <Compile Include="Caching\Policy.cs" />
+    <Compile Include="Configuration\ConfigurationExtension.cs" />
+    <Compile Include="Configuration\ConfigurationHelper.cs" />
+    <Compile Include="Configuration\XmlHelper.cs" />
+    <Compile Include="Configuration\XMLProcess.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\CacheHelper.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\CookieHelper.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\SessionHelper.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\SessionHelper2.cs" />
+    <Compile Include="CSV文件转换\CsvHelper.cs" />
+    <Compile Include="Data\DbAccesser.cs" />
+    <Compile Include="Data\DbConnectionSchema.cs" />
+    <Compile Include="Data\DbSetting.cs" />
+    <Compile Include="Data\FormattedSql.cs" />
+    <Compile Include="Data\FormattedSqlParameters.cs" />
+    <Compile Include="Data\IDbAccesser.cs" />
+    <Compile Include="Data\IDbBackuper.cs" />
+    <Compile Include="Data\IDbParameterFactory.cs" />
+    <Compile Include="Data\IRawDbAccesser.cs" />
+    <Compile Include="Data\LiteDataTable\LiteDataColumn.cs" />
+    <Compile Include="Data\LiteDataTable\LiteDataColumnCollection.cs" />
+    <Compile Include="Data\LiteDataTable\LiteDataRow.cs" />
+    <Compile Include="Data\LiteDataTable\LiteDataRowCollection.cs" />
+    <Compile Include="Data\LiteDataTable\LiteDataTable.cs" />
+    <Compile Include="Data\LiteDataTable\LiteDataTableAdapter.cs" />
+    <Compile Include="Data\LocalTransactionBlock.cs" />
+    <Compile Include="Data\LocalTransactionBlock_1_0.cs" />
+    <Compile Include="Data\LongTimeDbAccesser.cs" />
+    <Compile Include="Data\Providers\ConverterFactory.cs" />
+    <Compile Include="Data\Providers\ISqlProvider.cs" />
+    <Compile Include="Data\Providers\ODBCProvider.cs" />
+    <Compile Include="Data\Providers\OracleProvider.cs" />
+    <Compile Include="Data\Providers\SqlServer2005Backuper.cs" />
+    <Compile Include="Data\Providers\SqlServer2008Backuper.cs" />
+    <Compile Include="Data\Providers\SqlServerBackuper.cs" />
+    <Compile Include="Data\Providers\SqlServerProvider.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Extensions\SystemExtension.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Files\FTP.cs" />
+    <Compile Include="IHasName.cs" />
+    <Compile Include="Log\FileLogger.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LoggerBase.cs" />
+    <Compile Include="Log\TraceLogger.cs" />
+    <Compile Include="PagingInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\AssemblyExtensions.cs" />
+    <Compile Include="Reflection\DynamicMemberHandle.cs" />
+    <Compile Include="Reflection\DynamicMethodHandle.cs" />
+    <Compile Include="Reflection\DynamicMethodHandlerFactory.cs" />
+    <Compile Include="Reflection\EmitContext.cs" />
+    <Compile Include="Reflection\ExpressionHelper.cs" />
+    <Compile Include="Reflection\MemberInfoExtension.cs" />
+    <Compile Include="Reflection\MethodCacheKey.cs" />
+    <Compile Include="Reflection\MethodCaller.cs" />
+    <Compile Include="Reflection\ObjectHelper.cs" />
+    <Compile Include="Reflection\Reflect.cs" />
+    <Compile Include="Reflection\ReflectionUtil.cs" />
+    <Compile Include="Reflection\TypeExtentions.cs" />
+    <Compile Include="Reflection\TypeHelper.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="Context\ServerContext.cs" />
+    <Compile Include="Context\ServerContextProvider.cs" />
+    <Compile Include="Context\ServerContextScope.cs" />
+    <Compile Include="Utilities\DESEncrypt.cs" />
+    <Compile Include="OpenLicense\LicenseEntity.cs" />
+    <Compile Include="OpenLicense\SignVerifyEnvelope.cs" />
+    <Compile Include="Serialization\BinaryFormatterWrapper.cs" />
+    <Compile Include="Serialization\DesirializedArgs.cs" />
+    <Compile Include="Serialization\ISerializationFormatter.cs" />
+    <Compile Include="Serialization\MobileAndBinaryFormatter.cs" />
+    <Compile Include="Serialization\Mobile\BitArray.cs" />
+    <Compile Include="Serialization\Mobile\FieldsSerializationHelper.cs" />
+    <Compile Include="Serialization\Mobile\IMobileObject.cs" />
+    <Compile Include="Serialization\Mobile\ISerializationContext.cs" />
+    <Compile Include="Serialization\Mobile\ISerializationNotification.cs" />
+    <Compile Include="Serialization\Mobile\MobileBindingList.cs" />
+    <Compile Include="Serialization\Mobile\MobileDictionary.cs" />
+    <Compile Include="Serialization\Mobile\MobileFormatter.cs" />
+    <Compile Include="Serialization\Mobile\MobileList.cs" />
+    <Compile Include="Serialization\Mobile\MobileNonSerializedAttribute.cs" />
+    <Compile Include="Serialization\Mobile\MobileObject.cs" />
+    <Compile Include="Serialization\Mobile\NullPlaceholder.cs" />
+    <Compile Include="Serialization\Mobile\ReferenceComparer.cs" />
+    <Compile Include="Serialization\Mobile\SerializationContainerContext.cs" />
+    <Compile Include="Serialization\Mobile\SerializationInfo.cs" />
+    <Compile Include="Serialization\Mobile\SysState.cs" />
+    <Compile Include="Serialization\NetDataContractSerializerWrapper.cs" />
+    <Compile Include="Serialization\SerializationFormatterFactory.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Serialization\XmlFormatterSerializer.cs" />
+    <Compile Include="SysHelper.cs" />
+    <Compile Include="Threading\AsyncHelper.cs" />
+    <Compile Include="Threading\AsyncMultiActions.cs" />
+    <Compile Include="Threading\SimpleRWLock!.cs" />
+    <Compile Include="Threading\ForeAsyncLoader.cs" />
+    <Compile Include="Threading\IObservableActions.cs" />
+    <Compile Include="Threading\IParallelActions.cs" />
+    <Compile Include="Threading\ParallelActions.cs" />
+    <Compile Include="Threading\SimpleRWLock.cs" />
+    <Compile Include="Utilities\ByteUtil.cs" />
+    <Compile Include="Utilities\InstanceEventArgs.cs" />
+    <Compile Include="Utilities\NamedTypeFactory.cs" />
+    <Compile Include="Utilities\PinYinConverter.cs" />
+    <Compile Include="Utilities\TextFormatter.cs" />
+    <Compile Include="Utilities\ValidateUtils.cs" />
+    <Compile Include="文件操作类\DirFile.cs" />
+    <Compile Include="文件操作类\FileOperate.cs" />
+    <Compile Include="文件操作类\INIFile.cs" />
+    <Compile Include="条形码\BarCodeToHTML.cs" />
+    <Compile Include="随机数类\BaseRandom.cs" />
+    <Compile Include="随机数类\RandomHelper.cs" />
+    <Compile Include="随机数类\RandomOperate.cs" />
+    <Compile Include="验证码\YZMHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LCL.Utils.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

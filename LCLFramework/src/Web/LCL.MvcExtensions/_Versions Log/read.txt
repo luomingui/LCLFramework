@@ -1,0 +1,27 @@
+﻿http://www.cnblogs.com/lukun/tag/MVC/
+http://www.microsoft.com/china/msdn/events/webcasts/shared/webcast/Series/MVC.aspx
+
+ASP.NET MVC Action Filter - 缓存与压缩 
+http://www.cnblogs.com/QLeelulu/archive/2008/03/28/1127119.html
+ASP.NET MVC : 实现我们自己的视图引擎
+http://www.cnblogs.com/QLeelulu/archive/2008/07/14/1242935.html
+ASP.NET MVC Routing组件
+http://mvcpatch.codeplex.com/
+https://msevents.microsoft.com/CUI/EventDetail.aspx?culture=zh-CN&EventID=1032402074&CountryCode=CN
+http://blog.zhaojie.me/2009/08/set-the-path-in-http-context.html
+http://www.soso.io/article/1086.html
+http://www.codeproject.com/Articles/648707/Routing-in-MVC
+http://www.cnblogs.com/Kevin-moon/archive/2009/03/10/1403118.html
+http://www.cnblogs.com/lukun/archive/2011/07/21/2112567.html
+
+http://www.codeproject.com/Articles/565934/ASP-NET-MVC-plugin-framework
+ModelBinder 过滤敏感信息
+http://www.cnblogs.com/ldp615/archive/2010/07/30/SensitiveWordsFilterModelBinder.html
+ASP.NET MVC中你必须知道的13个扩展点
+http://www.cnblogs.com/kirinboy/archive/2009/06/01/13-asp-net-mvc-extensibility-points-you-have-to-know.html
+
+View
+http://blog.csdn.net/jackvs/article/details/7788743
+ASP.NET MVC - Area的路由映射（使用NampSpace）
+http://blog.csdn.net/jackvs/article/details/7793034
+
