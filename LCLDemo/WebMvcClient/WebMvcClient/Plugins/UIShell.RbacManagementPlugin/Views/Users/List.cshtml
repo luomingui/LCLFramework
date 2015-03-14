@@ -1,0 +1,50 @@
+﻿@using LCL.MvcExtensions;
+@using UIShell.RbacPermissionService;
+
+@{
+    ViewBag.Title = "用户管理";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary pull-right"
+                    onclick="javascript: location.href='@Url.Action("AddOrEdit", new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
+                新增
+            </button>
+        </div> 
+    </div>
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>密码</th>
+                    <th>姓名</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (User user in Model.PagedModels)
+                    {
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-warning"
+                                        onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { id = @user.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-xs btn-danger"
+                                        onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { id = @user.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button> 
+
+                            </td>
+                            <td>@user.Password</td>
+                            <td>@user.Name</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

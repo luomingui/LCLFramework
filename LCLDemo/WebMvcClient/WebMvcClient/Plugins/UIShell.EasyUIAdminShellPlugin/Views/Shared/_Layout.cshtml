@@ -1,0 +1,24 @@
+﻿@using LCL.MvcExtensions;
+@using UIShell.EasyUIAdminShellPlugin;
+@using UIShell.RbacPermissionService;
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Title here -->
+    <title>@AppConfig.AppName</title>
+
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "easyui/themes/gray/easyui.css"))">
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "easyui/themes/icon.css"))">
+
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.easyui.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/locale/easyui-lang-zh_CN.js"))"></script>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+@RenderBody()
+</body>
+</html>

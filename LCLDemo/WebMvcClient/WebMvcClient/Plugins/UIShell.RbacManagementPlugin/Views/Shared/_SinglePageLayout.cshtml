@@ -1,0 +1,94 @@
+﻿@using UIShell.RbacManagementPlugin;
+@using LCL.MvcExtensions;
+@using UIShell.RbacPermissionService;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@AppConfig.AppName</title>
+    <meta name="description" content="维修、维护、维护维修、保修、报修、cneefix、教育装备、修理、运维、故障维修、故障报修" />
+    <meta name="keywords" content="维修,维护,维护维修,保修,报修,cneefix,教育装备,修理,运维,故障维修,故障报修" />
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "easyui/themes/gray/easyui.css"))" />
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/login.css"))" />
+    
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.easyui.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/locale/easyui-lang-zh_CN.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/plugins/jquery.qrcode.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/plugins/jquery.cookie.js"))"></script>
+
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery-url.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.ua.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.pngFix.pack.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/validate.js"))"></script>
+
+    <script src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Scripts/textualizer.min.js"))"></script>
+    <script src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Scripts/Marquee.js"))"></script>
+    <script src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Scripts/Login.js"))"></script>
+
+    @RenderSection("header", required: false)
+</head>
+<body>
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/killie.css"))" />
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/killie.js"))"></script>
+    <![endif]-->
+    <!--[if lte IE 6]>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/iepng.js"))"></script>
+    <script type="text/javascript" >
+    EvPNG.fix('img,a,div.alertDiv');
+    </script>
+    <![endif]-->
+    <ul id="btnList"></ul>
+    <div class="vcenter">
+        <div class="hcenter">
+            <div class="top">
+                <!--顶部-->
+                <div class="logo">
+                    <dl>
+                        <dt><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/images/login/logo.jpg"))" alt="" title="" width="55" height="55" /></a></dt>
+                        <dd>
+                            <h2><span class="nav"><a></a></span><a class="tit"><span class="t">@AppConfig.AppName</span></a></h2>
+                        </dd>
+                    </dl>
+                </div>
+                <!--中部-->
+                <div class="loginbox">
+                    <!----登录框---->
+                    @RenderBody()
+                    <div class="runarea1">
+                        <div class="runbox1" id="runbox1">
+                            <ul class="piclist1 runlist1">
+                                <li><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/login/textpic_1.png"))" /></li>
+                                <li><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/login/textpic_2.png"))" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list">
+                <div class="logobox">
+                    <div class="picbox" id="loginrunbox">
+                        <ul class="piclist mainlist">
+                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_junfei.png"))" /></a></li>
+                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_junfei.png"))" /></a></li>
+                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_somac.png"))" /></a></li>
+                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_eac.png"))" /></a></li>
+                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_motic.png"))" /></a></li>
+                        </ul>
+                    </div>
+                    <div class="og_prev" id="og_prev"></div>
+                    <div class="og_next" id="og_next"></div>
+
+                </div>
+                <div class="foot">
+                    @AppConfig.CompanyName&nbsp;   &nbsp;   
+                    <span style="cursor:pointer;">联系我们</span>&nbsp;&nbsp;
+                    苏ICP备10041657号-2
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- foot end -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

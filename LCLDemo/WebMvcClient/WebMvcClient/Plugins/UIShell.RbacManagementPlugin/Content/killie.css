@@ -1,0 +1,39 @@
+body{position:relative;}
+table,td,tr{width:100%;margin:0;padding:0;}
+.alertDiv {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: none;
+	background: url(images/alertBg.png) repeat 0 0;
+	z-index: 199;
+	_position: absolute;
+	_bottom: auto;
+	_top: expression(eval(document.documentElement.scrollTop));            
+	_position:absolute;
+	_right:auto;
+	_left:
+	expression(eval(document.documentElement.scrollLeft + document.documentElement.clientWidth-this.offsetWidth) -(parseInt(this.currentStyle.marginLeft,10)||0)-(parseInt(this.currentStyle.marginRight,10)||0));
+	font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
+} 
+.alertDiv .showhide {width: 600px;margin: 0 auto;} 
+#letskillie6 p{margin:10px;line-height:20px;font-size:20px;line-height:1.5em;
+*margin:35px 10px 20px 10px;}
+#letskillie6 a{color:#006699;text-decoration:none;font-weight:normal;}
+#letskillie6 a:hover{text-decoration:underline;}
+#letskillie6 .fixed{clear:both;}
+#letskillie6 .content{width:600px;background:#fff;padding:20px; height:180px;overflow:hidden;font-weight:normal;}
+#letskillie6 .r1,#letskillie6 .r2,#letskillie6 .r4{background:#fff;height:1px;overflow:hidden;*padding:0px;*line-height:1px; font-size:1px;}
+#letskillie6 .r1{margin:0px 1px;}
+#letskillie6 .r2{margin:0px 2px;}
+#letskillie6 .r4{margin:0px 4px;}
+#letskillie6 .browsers{margin-left:100px;}
+#letskillie6 .browsers a{background: url(images/killie6.jpg) -134px 0 no-repeat;height:26px;line-height:1.5em;padding-left:28px;margin-left:40px;display:block;float:left;font-size:14px;font-weight:normal;}
+#letskillie6 a.ie8{margin-left:0;background-position: -134px 0px;}
+#letskillie6 a.firefox{background-position: -134px -52px;}
+#letskillie6 a.chrome{background-position: -134px -26px;}
+#letskillie6 p.meta{text-align:center;font-size:12px;}
+#letskillie6 .pic{background: url(images/killie6.jpg) -15px 0 no-repeat;width:71px;height:71px;float:left;display:inline;margin:10px 10px 10px 20px;}
+#letskillie6 a#close{background: url(images/killie6.jpg) no-repeat;color:#C00;text-indent:-999em;float:right;width:15px;height:15px;margin:0 0 10px 10px;display:inline;overflow:hidden;cursor:pointer;}
+#letskillie6 a#close:hover{background-position:0 -15px;}

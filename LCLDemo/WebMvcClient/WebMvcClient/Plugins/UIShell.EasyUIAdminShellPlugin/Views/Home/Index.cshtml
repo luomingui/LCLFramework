@@ -1,0 +1,143 @@
+﻿@using LCL.MvcExtensions;
+@using UIShell.EasyUIAdminShellPlugin;
+@using UIShell.RbacPermissionService;
+@using LCL.MetaModel;
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Title here -->
+    <title>@AppConfig.AppName</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "easyui/themes/gray/easyui.css"))">
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "easyui/themes/icon.css"))">
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
+
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/jquery.easyui.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "easyui/locale/easyui-lang-zh_CN.js"))"></script>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script type="text/javascript">
+        $(function () {
+            //绑定菜单单击事件
+            BindMenuClickHrefEvent();
+
+            //读取动态时间的变化
+            ReadDateTimeShow();
+
+            //这里实现对时间动态的变化
+            var setTimeInterval = setInterval(ReadDateTimeShow, 1000);
+
+            //实现Tab布局
+            $("#ttTab").tabs({});
+
+        });
+
+        //实现用户单击导航栏跳转页面的方法
+        function BindMenuClickHrefEvent() {
+            $(".menuLink").click(function () {
+                //获取按钮里面的Src属性
+                var src = $(this).attr("src");
+                //Tab页面添加页面标签，每当单击左边的导航栏的时候跳转
+                var titleShow = $(this).text();
+                var strHtml = '<iframe id="frmWorkArea" width="100%" height="100%" frameborder="0" scrolling="yes" src="' + src + '"></iframe>';
+                //判断Tab标签中是否有相同的数据标签
+                var isExist = $("#ttTab").tabs('exists', titleShow);
+                if (!isExist) {
+                    $("#ttTab").tabs('add', {
+                        title: titleShow,
+                        content: strHtml,
+                        iconCls: 'icon-save',
+                        closable: true,
+                    });
+                }
+                else {
+                    $('#leftmenu').tabs('select', titleShow);
+                }
+            });
+        }
+
+        //读取动态时间的变化
+        function ReadDateTimeShow() {
+            var year = new Date().getFullYear();
+            var Month = new Date().getMonth() + 1;
+            var Day = new Date().getDate();
+            var Time = new Date().toLocaleTimeString();
+            var AddDate = year + "年" + Month + "月" + Day + "日,时间:" + Time;
+            $("#date").text(AddDate);
+        }
+    </script>
+
+</head>
+
+<body class="easyui-layout" style="overflow-y: hidden" scroll="no">
+    <noscript>
+        <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+            <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+        </div>
+    </noscript>
+    <!-- head begin -->
+    <div data-options="region:'north',split:true" style="overflow: hidden;">
+        <div class="index_top_box">
+            <h1>@AppConfig.AppName</h1>
+            <div class="index_top_box_rt">
+                <span id="bgclock"></span>
+                <span><a id="btnUser" href="#">用户，您好！</a>|&nbsp;&nbsp;<a href="Logout"><b>退出</b>&nbsp;&nbsp;</a></span>
+            </div>
+        </div>
+    </div>
+    <!-- head end -->
+    <!-- left begin -->
+    <div data-options="region:'west',split:true" title="操作平台" style="width: 200px; padding: 1px; overflow: hidden;">
+        <div id="leftmenu" class="easyui-accordion left-Accordion" data-options="fit:true,border:false">
+            @for (int i = 0; i < CommonModel.Modules.Roots.Count; i++)
+            {
+                var node = CommonModel.Modules.Roots[i];
+                string divdataoption = "false";
+                if (i == 0)
+                {
+                    divdataoption = "true";
+                }
+                <div title="@node.Label" data-options='selected:@divdataoption' style="overflow: auto; padding: 10px;">
+                    @foreach (var child in node.Children)
+                    {
+                        <ul class="zyl_left">
+                            <li>
+                                <div>
+                                    <a href="javascript:void(0)" src="@Url.Content(child.CustomUI)" class="menuLink">
+                                        <span class="icon-ok">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span class="nav">&nbsp;@child.Label</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <!-- left end -->
+    <!-- center begin -->
+    <div id="mainPanle" data-options="region:'center'" style="background: #eee; overflow-y: hidden">
+        <div id="ttTab" class="easyui-tabs" data-options="tools:'#tab-tools'" fit="true">
+        </div>
+    </div>
+    <!-- center end -->
+    <!-- foot begin -->
+    <div data-options="region:'south',split:true" title="" style="height: 30px; background: #eee;">
+        <div style="text-align: center; padding: 2px;">
+            <span>&copy; 2015 </span><span><a href="http://www.junfei.net.cn/" target="_blank">@AppConfig.CompanyName</a></span>
+            <span><a href="#">联系我们</a></span>&nbsp;&nbsp; 当前时间：<b id="date"></b>
+        </div>
+    </div>
+    <!-- foot end -->
+
+</body>
+</html>

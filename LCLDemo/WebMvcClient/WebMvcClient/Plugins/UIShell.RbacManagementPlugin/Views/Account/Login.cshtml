@@ -1,0 +1,36 @@
+﻿@using UIShell.RbacManagementPlugin;
+@using LCL.MvcExtensions;
+@model UIShell.RbacManagementPlugin.ViewModels.Account
+
+@{
+    ViewBag.Title = "系统登录";
+    Layout = @Url.Content("../Shared/_SinglePageLayout.cshtml");
+}
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new {  }))
+{
+    <div class="loginfrom" id="frmLogin">
+        <div class="loginformName">
+            <input class="loginFormIpt_name" tabindex="1" title="请输入帐号" id="Name" name="Name"  type="text" maxlength="50" placeholder="帐号" />
+        </div>
+        <div class="loginformPwd">
+            <input class="loginFormIpt_pwd" tabindex="2" title="请输入密码" id="Password" name="Password" type="password" maxlength="50" placeholder="密码" />
+        </div>
+        <div class="loginformYzm">
+            <div class="inyzm"><a><img id="imgCode" style="cursor: pointer;" src="GetValidateCode" alt="验证码" title="点击刷新" width="80" height="38" />
+                </a><p>点击图片<br />更换验证码</p></div>
+            <div class="ininput"><input class="loginFormIpt_yzm" tabindex="3" title="请输入验证码" id="VerifyCode" name="VerifyCode" type="text" maxlength="8" placeholder="验证码" /></div>
+        </div>
+        <div class="loginformSb">
+            <input class="loginFormIpt_sb" tabindex="4" id="btnLogin" name="btnLogin" type="submit" maxlength="50" value="登 录" />
+        </div>
+        <div class="loginformInfo">
+            推荐浏览器 <a href="download/ChromeStandaloneSetup_v33.exe">Chrome</a>
+            <a href="download/Firefox-full-latest_v28.exe">Firefox</a>
+        </div>
+        <div class="loginformEwm">
+            <div class="ewm"><div id="qrcode" ></div><p><br />扫描二维码<br />登录维修平台</p></div>
+        </div>
+    </div>
+}
+
+
