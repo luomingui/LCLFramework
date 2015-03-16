@@ -11,6 +11,7 @@ namespace LCL.MvcExtensions
     /// <typeparam name="TModel">The type of the model.</typeparam>
     public class PagedListViewModel<TModel>:PagedResult<TModel>
     {
+        public const int DefaultPageSize = 10;
         public PagedListViewModel(int currentPageNum, int pageSize, List<TModel> allModels)
             :base(currentPageNum,pageSize,allModels)
         {

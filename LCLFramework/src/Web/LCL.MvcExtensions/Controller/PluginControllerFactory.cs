@@ -26,9 +26,9 @@ namespace LCL.MvcExtensions
                 }
                 return controller;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //throw;
+                Logger.LogError("PluginControllerFactory CreateController :  ", ex);
                 return null;
             }
         }
@@ -52,21 +52,21 @@ namespace LCL.MvcExtensions
                         {
                             controllerType = type;
                             ControllerTypeCache.AddControllerType(symbolicName.ToString(), controllerName, controllerType);
-                            Debug.WriteLine(string.Format("Loaded controller '{0}' from bundle '{1}' and then added to cache.", controllerName, symbolicName));
+                            Logger.LogInfo(string.Format("Loaded controller '{0}' from bundle '{1}' and then added to cache.", controllerName, symbolicName));
                             return controllerType;
                         }
                     }
                 }
-                Debug.WriteLine(string.Format("Failed to load controller '{0}' from bundle '{1}'.", controllerName, symbolicName));
+                Logger.LogInfo(string.Format("Failed to load controller '{0}' from bundle '{1}'.", controllerName, symbolicName));
             }
             try
             {
                 //if exists duplicated controller type, below will throw an exception.
                 return base.GetControllerType(requestContext, controllerName);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //intentionally suppress the duplication error.
+                Logger.LogError("PluginControllerFactory GetControllerType :  ", ex);
             }
             requestContext.RouteData.DataTokens["pluginName"] = symbolicName;
             requestContext.RouteData.DataTokens["Namespaces"] = ControllerTypeCache.DefaultNamespaces;
@@ -75,6 +75,7 @@ namespace LCL.MvcExtensions
             {
                 return result;
             }
+            Logger.LogWarn(string.Format("no is controller '{0}' from bundle '{1}' and then added to cache.", controllerName, symbolicName));
             return null;
         }
     }

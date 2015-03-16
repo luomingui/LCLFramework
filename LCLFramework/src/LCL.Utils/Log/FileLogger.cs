@@ -17,7 +17,7 @@ namespace LCL
         /// <summary>
         /// 错误日志的文件名。
         /// </summary>
-        public static readonly string FileName = "log.txt";
+        public static readonly string FileName = System.Environment.CurrentDirectory + "/log.txt";
         /// <summary>
         /// Logs the information.
         /// </summary>

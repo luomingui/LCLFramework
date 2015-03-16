@@ -41,7 +41,6 @@ namespace LCL.MvcExtensions
             (
                 contents, 
                 @"\{#(.+)#\}", 
-
                 // 委托类型 public delegate string MatchEvaluator(Match match)
                 p => GetMatch(p, viewData)
             );

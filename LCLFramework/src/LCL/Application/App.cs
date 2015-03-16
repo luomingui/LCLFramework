@@ -65,10 +65,10 @@ namespace LCL
             LEnvironment.AppObjectContainer = new TinyIoCObjectContainer();
             LEnvironment.InitApp(this);
 
-            if (AssemblyExtensions.IsDebugBuild(Assembly.GetExecutingAssembly()))
-            {
-                Logger.SetImplementation(new TraceLogger());
-            }
+            //if (AssemblyExtensions.IsDebugBuild(Assembly.GetExecutingAssembly()))
+            //{
+            //    Logger.SetImplementation(new TraceLogger());
+            //}
         }
         protected virtual void InitServiceLocator()
         {

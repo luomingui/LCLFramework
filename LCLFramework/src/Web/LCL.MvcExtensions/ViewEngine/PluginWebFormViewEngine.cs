@@ -34,10 +34,12 @@ namespace LCL.MvcExtensions
                                                   string masterName, bool useCache)
         {
             object symbolicName = controllerContext.GetPluginSymbolicName();
+            Logger.LogDebug("FindView symbolicName:" + Bundle.Assembly.GetName().Name + "viewName:" + viewName);
             if (symbolicName != null && Bundle.Assembly.GetName().Name.Equals(symbolicName))
             {
                 return base.FindView(controllerContext, viewName, masterName, useCache);
             }
+         
             return new ViewEngineResult(new string[0]);
         }
         public override ViewEngineResult FindPartialView(ControllerContext controllerContext, string partialViewName,

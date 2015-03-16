@@ -85,12 +85,14 @@ namespace LCL.MvcExtensions
         public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName,
                                                   string masterName, bool useCache)
         {
+            Logger.LogDebug("FindView symbolicName:" + Bundle.Assembly.GetName().Name + "viewName:" + viewName);
             object symbolicName = controllerContext.GetPluginSymbolicName();
             if (symbolicName != null && Bundle.Assembly.GetName().Name.Equals(symbolicName))
             {
                 this.CodeGeneration(Bundle.Assembly.GetName().Name);
                 return base.FindView(controllerContext, viewName, masterName, useCache);
             }
+        
             return new ViewEngineResult(new string[0]);
         }
 
