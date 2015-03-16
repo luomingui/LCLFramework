@@ -24,7 +24,7 @@ namespace LCL.DomainServices
         private static Dictionary<Type, ContractImplList> _allServices = new Dictionary<Type, ContractImplList>(100);
         internal static void TryAddPluginsService()
         {
-            Debug.WriteLine("DomainServiceLocator Initialize......");
+            Logger.LogInfo("DomainServiceLocator Initialize......");
             //TODO:组件初始化
             var plugins = LEnvironment.GetAllPluginAssembly();
             foreach (var plugin in plugins)

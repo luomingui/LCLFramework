@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace LCL
         /// <summary>
         /// 错误日志的文件名。
         /// </summary>
-        public static readonly string FileName = System.Environment.CurrentDirectory + "/log.txt";
+        public static readonly string FileName = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "/log.txt";
         /// <summary>
         /// Logs the information.
         /// </summary>
@@ -25,9 +26,7 @@ namespace LCL
         public override void LogInfo(string message)
         {
             string msg = string.Format(@"{0}|{1}|Inform|{2}" + Environment.NewLine, DateTime.Now, Thread.CurrentThread.ManagedThreadId, message);
-
-
-            File.AppendAllText(FileName, msg);
+            AppendAllText(FileName, msg);
         }
         /// <summary>
         /// Logs the warn.
@@ -36,7 +35,7 @@ namespace LCL
         public override void LogWarn(string message)
         {
             string msg = string.Format(@"{0}|{1}|Warn|{2}" + Environment.NewLine, DateTime.Now, Thread.CurrentThread.ManagedThreadId, message);
-            File.AppendAllText(FileName, msg);
+            AppendAllText(FileName, msg);
         }
         /// <summary>
         /// Logs the debug.
@@ -45,7 +44,7 @@ namespace LCL
         public override void LogDebug(string message)
         {
             string msg = string.Format(@"{0}|{1}|Debug|{2}" + Environment.NewLine, DateTime.Now, Thread.CurrentThread.ManagedThreadId, message);
-            File.AppendAllText(FileName, msg);
+            AppendAllText(FileName, msg);
         }
         public override void LogError(string title, Exception e)
         {
@@ -53,7 +52,7 @@ namespace LCL
             e = e.GetBaseException();
 
             string msg = string.Format(@"{0}|{1}|Error|{2}" + Environment.NewLine, DateTime.Now, Thread.CurrentThread.ManagedThreadId, e.ToString());
-            File.AppendAllText(FileName, msg);
+            AppendAllText(FileName, msg);
         }
 
         private string _sqlTraceFile;
@@ -72,11 +71,9 @@ namespace LCL
             {
                 _sqlTraceFile = ConfigurationHelper.GetAppSettingOrDefault("SQL_TRACE_FILE", string.Empty);
             }
-
             if (_sqlTraceFile.Length > 0)
             {
                 var content = sql;
-
                 if (parameters.Length > 0)
                 {
                     var pValues = parameters.Select(p =>
@@ -90,11 +87,13 @@ namespace LCL
                     });
                     content += Environment.NewLine + "Parameters:" + string.Join(",", pValues);
                 }
-
                 content = DateTime.Now + Environment.NewLine + "Database:  " + connectionSchema.Database + Environment.NewLine + content + "\r\n\r\n\r\n";
-
-                File.AppendAllText(_sqlTraceFile, content, Encoding.UTF8);
+                AppendAllText(_sqlTraceFile, content);
             }
+        }
+        private void AppendAllText(string path, string contents)
+        {
+            File.AppendAllText(path, contents);
         }
     }
 }

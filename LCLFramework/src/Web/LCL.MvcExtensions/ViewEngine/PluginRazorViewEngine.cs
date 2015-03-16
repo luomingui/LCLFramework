@@ -46,12 +46,12 @@ namespace LCL.MvcExtensions
         }
         public void InitPath()
         {
-            Debug.WriteLine("PluginRazorViewEngine InitPath....");
+            Logger.LogInfo("PluginRazorViewEngine InitPath....");
             foreach (var item in LEnvironment.GetPluginsName())
             {
                 if (item.EndsWith("Plugin"))
                 {
-                    Debug.WriteLine("~/Plugins/" + item + "/Views/{1}/{0}.cshtml");
+                    Logger.LogInfo("~/Plugins/" + item + "/Views/{1}/{0}.cshtml");
 
                     this._areaViewLocationFormats.Add("~/Plugins/" + item + "/Views/{1}/{0}.cshtml");
                     this._areaViewLocationFormats.Add("~/Plugins/" + item + "/Views/Shared/{0}.cshtml");

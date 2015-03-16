@@ -19,7 +19,7 @@ namespace LCL.Tests.Common
 
         public void ChangeEmail(string Name, string Code)
         {
-            Debug.WriteLine("User Name=" + Name + " Code=" + Code + "");
+            Logger.LogInfo("User Name=" + Name + " Code=" + Code + "");
         }
     }
 

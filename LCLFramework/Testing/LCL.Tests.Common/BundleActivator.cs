@@ -14,7 +14,7 @@ namespace LCL.Tests.Common
     {
         public override void Initialize(IApp app)
         {
-            Debug.WriteLine("LCL.Tests.Common Initialize....");
+            Logger.LogInfo("LCL.Tests.Common Initialize....");
 
             DatabaseInitializer.Initialize();
             //注册

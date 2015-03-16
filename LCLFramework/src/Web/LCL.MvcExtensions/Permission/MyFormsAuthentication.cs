@@ -68,7 +68,7 @@ namespace LCL.MvcExtensions
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                Logger.LogError("MyFormsAuthentication ",ex);
                 /* 有异常也不要抛出，防止攻击者试探。 */
                 return null;
             }
@@ -98,7 +98,7 @@ namespace LCL.MvcExtensions
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                Logger.LogError("MyFormsAuthentication ", ex);
                 /* 有异常也不要抛出，防止攻击者试探。 */
                 return null;
             }
