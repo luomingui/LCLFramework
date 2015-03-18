@@ -95,6 +95,7 @@
     <Compile Include="ActionFilter\RedirectToActionOnErrorAttribute.cs" />
     <Compile Include="ActionFilter\RedirectToRouteResult.cs" />
     <Compile Include="ActionFilter\RedirectToUrlOnErrorAttribute.cs" />
+    <Compile Include="ActionFilter\TrackPageLoadPerformanceAttribute.cs" />
     <Compile Include="ActionResult\CompoundActionResult.cs" />
     <Compile Include="ActionResult\JsonResult.cs" />
     <Compile Include="Bootstrapper.cs" />

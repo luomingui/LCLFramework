@@ -29,6 +29,7 @@ namespace LCL.MvcExtensions
         public virtual void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new TrackPageLoadPerformanceAttribute());
         }
 
         public virtual void RegisterRoutes(RouteCollection routes)
