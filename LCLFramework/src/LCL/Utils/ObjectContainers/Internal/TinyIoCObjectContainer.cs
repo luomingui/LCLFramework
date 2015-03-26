@@ -114,12 +114,18 @@ namespace LCL.ObjectContainers.TinyIoC
         {
             return _container.Resolve(type, key, ResolveOptions.Default);
         }
-
+        public T[] ResolveAll<T>() where T : class
+        {
+            return _container.ResolveAll<T>().ToArray();
+        }
         private LifeStyle ParseLife(Type type)
         {
             var componentAttributes = type.GetCustomAttributes(typeof(ComponentAttribute), false);
             return componentAttributes.Count() <= 0 ? LifeStyle.Transient : (componentAttributes[0] as ComponentAttribute).LifeStyle;
         }
+
+
+       
     }
 
     public static class TinyIoCContainerExtensions

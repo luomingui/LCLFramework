@@ -35,10 +35,6 @@ namespace LCL
         {
             _container.RegisterType(type, key);
         }
-        public void RegisterType(Type type, Type Impl)
-        {
-            //_container.RegisterType()
-        }
         /// <summary>
         /// 注册给定程序集中符合条件的所有类型
         /// </summary>
@@ -162,6 +158,10 @@ namespace LCL
         public object Resolve(string key, Type type)
         {
             return _container.Resolve(key, type);
+        }
+        public T[] ResolveAll<T>() where T : class
+        {
+            return _container.ResolveAll<T>();
         }
     }
 }

@@ -61,19 +61,22 @@ namespace LCL.MvcExtensions
         }
 
         private IViewEngine GetViewEngine(ControllerContext controllerContext)
-        { 
+        {
             IPluginViewEngine tmp;
             object symbolicName = controllerContext.GetPluginSymbolicName();
-            Logger.LogDebug("GetViewEngine symbolicName:" + symbolicName.ToString() + "isIViewEngine:" + _viewEngines.TryGetValue(symbolicName.ToString(), out tmp));
             if (symbolicName == null)
             {
+                Logger.LogDebug("GetViewEngine symbolicName:" + symbolicName.ToString() + "isIViewEngine:" + _viewEngines.TryGetValue(symbolicName.ToString(), out tmp));
                 return null;
             }
             if (_viewEngines.TryGetValue(symbolicName.ToString(), out tmp))
             {
                 return tmp;
             }
-
+            else
+            {
+                Logger.LogDebug("GetViewEngine symbolicName:" + symbolicName.ToString() + "isIViewEngine:" + _viewEngines.TryGetValue(symbolicName.ToString(), out tmp));
+            }
             return null;
         }
     }

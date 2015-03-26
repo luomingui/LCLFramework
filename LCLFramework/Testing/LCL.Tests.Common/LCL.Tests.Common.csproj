@@ -52,16 +52,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BundleActivator.cs" />
+    <Compile Include="Commands\CreateCustomerCommand.cs" />
     <Compile Include="EFContexts\EFTestContext.cs" />
     <Compile Include="Entity\Org.cs" />
     <Compile Include="Entity\OrgPositionOperationDeny.cs" />
     <Compile Include="Entity\Position.cs" />
     <Compile Include="Entity\User.cs" />
+    <Compile Include="Events\ChangeEmailDomainEvent.cs" />
     <Compile Include="MyEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Services\AddBookService.cs" />
     <Compile Include="Services\TestAddService.cs" />
+    <Compile Include="Specification\UserSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\LCL.Repositories.EntityFramework\LCL.Repositories.EntityFramework.csproj">

@@ -31,7 +31,7 @@ namespace LCL.MvcExtensions
         protected override void InitEnvironment()
         {
             //如果在初始化时发生异常，则会引发再次启动。这时应该保证之前的所有的初始化工作归零。
-            var isWcfServer = ConfigurationHelper.GetAppSettingOrDefault("Rafy_IsWCFServer", false);
+            var isWcfServer = ConfigurationHelper.GetAppSettingOrDefault("LCL_IsWCFServer", false);
             LEnvironment.Location.IsWebUI = !isWcfServer;
             LEnvironment.Location.IsWPFUI = false;
             LEnvironment.Location.DataPortalMode = DataPortalMode.ConnectDirectly;

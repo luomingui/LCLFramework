@@ -102,6 +102,9 @@
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Events\InlineDomainEventHandler.cs" />
+    <Compile Include="Events\Internal\DomainEvent.cs" />
+    <Compile Include="Events\Internal\EventHandler.cs" />
+    <Compile Include="Events\ParallelExecutionAttribute.cs" />
     <Compile Include="Exception\BusinessException.cs" />
     <Compile Include="Exception\ComponentException.cs" />
     <Compile Include="Exception\DataAccessException.cs" />
@@ -228,9 +231,7 @@
     <Compile Include="Exception\PublicHelper.cs" />
     <Compile Include="Utils\Utility.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MetaModel\Attributes\Command\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

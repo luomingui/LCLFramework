@@ -184,11 +184,17 @@ namespace LCL.ObjectContainers.Unity
         {
             return _unityContainer.Resolve(type, key);
         }
-
+        public T[] ResolveAll<T>() where T : class
+        {
+            return _unityContainer.ResolveAll<T>().ToArray();
+        }
         private static LifeStyle ParseLife(Type type)
         {
             var componentAttributes = type.GetCustomAttributes(typeof(ComponentAttribute), false);
             return componentAttributes.Count() <= 0 ? LifeStyle.Transient : (componentAttributes[0] as ComponentAttribute).LifeStyle;
         }
+
+
+       
     }
 }

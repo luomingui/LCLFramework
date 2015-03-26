@@ -11,6 +11,18 @@ namespace LCL.Tests.Common
     [Serializable]
     public class MyEntity : AggregateRoot
     {
-       
+        public MyEntity()
+        {
+            AddDate = DateTime.Now;
+            UpdateDate = DateTime.Now;
+        }
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        public DateTime AddDate { get; set; }
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public DateTime UpdateDate { get; set; }
     }
 }

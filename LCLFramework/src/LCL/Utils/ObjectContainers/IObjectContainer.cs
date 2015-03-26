@@ -108,5 +108,6 @@ namespace LCL
         /// <param name="type"></param>
         /// <returns></returns>
         object Resolve(string key, Type type);
+        T[] ResolveAll<T>() where T : class;
     }
 }
