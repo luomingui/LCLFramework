@@ -62,8 +62,16 @@ namespace LCL.MvcExtensions
             }
             return List(currentPageNum, pageSize, collection);
         }
-        public virtual ActionResult AddOrEdit(int currentPageNum, int pageSize, Guid? id, FormCollection collection)
+        public virtual ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
         {
+            if (!currentPageNum.HasValue)
+            {
+                currentPageNum = 1;
+            }
+            if (!pageSize.HasValue)
+            {
+                pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
+            }
             if (!id.HasValue)
             {
                 if (!Check("Add"))
@@ -74,8 +82,8 @@ namespace LCL.MvcExtensions
                 return View(new AddOrEditViewModel<TAggregateRoot>
                 {
                     Added = true,
-                    CurrentPageNum = currentPageNum,
-                    PageSize = pageSize
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
                 });
             }
             else
@@ -91,15 +99,22 @@ namespace LCL.MvcExtensions
                 {
                     Added = false,
                     Entity = village,
-                    CurrentPageNum = currentPageNum,
-                    PageSize = pageSize
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
                 });
             }
         }
         [Permission("删除", "Delete")]
-        public virtual ActionResult Delete(TAggregateRoot village, int currentPageNum, int pageSize, FormCollection collection)
+        public virtual ActionResult Delete(TAggregateRoot village, int? currentPageNum, int? pageSize, FormCollection collection)
         {
-
+            if (!currentPageNum.HasValue)
+            {
+                currentPageNum = 1;
+            }
+            if (!pageSize.HasValue)
+            {
+                pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
+            }
             repo.Delete(village);
             repo.Context.Commit();
 

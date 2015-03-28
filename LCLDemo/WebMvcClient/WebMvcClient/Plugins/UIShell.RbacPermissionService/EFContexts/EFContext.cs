@@ -14,7 +14,7 @@ namespace UIShell.RbacPermissionService
     public partial class EFContext : RbacDbContext
     {
         public EFContext()
-            : base("RBAC2015")
+            : base("LCL_Rbac")
         {
 
         }

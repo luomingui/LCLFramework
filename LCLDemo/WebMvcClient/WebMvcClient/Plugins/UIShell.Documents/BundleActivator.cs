@@ -22,7 +22,9 @@ namespace UIShell.Documents
         void app_AllPluginsIntialized(object sender, System.EventArgs e)
         {
             DatabaseInitializer.Initialize();
-            ServiceLocator.Instance.Register<DbContext, DocContext>();
+
+            ServiceLocator.Instance.Register<DbContext, DocContext>(LifeStyle.PerRequest);
+
 
             #region 默认仓库
             ServiceLocator.Instance.Register<IRepository<ProjectDocument>, EntityFrameworkRepository<ProjectDocument>>();

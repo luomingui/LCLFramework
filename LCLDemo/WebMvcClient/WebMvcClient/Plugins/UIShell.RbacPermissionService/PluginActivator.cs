@@ -28,9 +28,12 @@ namespace UIShell.RbacPermissionService
         }
         void app_AllPluginsIntialized(object sender, System.EventArgs e)
         {
+
+            ServiceLocator.Instance.Register<DbContext, EFContext>(LifeStyle.PerRequest);
+
             ServiceLocator.Instance.Register<ILCLIdentity, LCLIdentity>();
             ServiceLocator.Instance.Register<IRepositoryContext, EntityFrameworkRepositoryContext>();
-            ServiceLocator.Instance.Register<DbContext, EFContext>();
+            
             ServiceLocator.Instance.Register<IRepository<Org>, EntityFrameworkRepository<Org>>();
             ServiceLocator.Instance.Register<IRepository<Role>, EntityFrameworkRepository<Role>>();
             ServiceLocator.Instance.Register<IRepository<RoleAuthority>, EntityFrameworkRepository<RoleAuthority>>();

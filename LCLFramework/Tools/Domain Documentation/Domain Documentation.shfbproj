@@ -91,7 +91,6 @@
     <ContentLayout Include="Documentation.content" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\授权说明.aml" />
     <None Include="Content\框架结构\产品线工程.aml" />
     <None Include="Content\框架结构\插件化架构.aml" />
     <None Include="Content\框架结构\模型驱动架构.aml" />
@@ -99,6 +98,11 @@
     <None Include="Content\框架结构\领域驱动设计.aml" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Media\框架基础\领域驱动设计\规约模式.jpg">
+      <ImageId>规约模式</ImageId>
+      <AlternateText>规约模式</AlternateText>
+      <ImageId>规约模式</ImageId>
+    </Image>
     <Image Include="Media\框架基础\插件化架构\Plugin2.png">
       <ImageId>Plugin2</ImageId>
       <AlternateText>Plugin 2</AlternateText>
@@ -220,7 +224,15 @@
     <None Include="Content\LCL设计\Plugin模式.aml" />
     <None Include="Content\LCL设计\领域服务.aml" />
     <None Include="Content\常见问题.aml" />
-    <None Include="Content\EmptyAssembly.aml" />
+    <None Include="Content\框架结构\平台如何产生.aml" />
+    <None Include="Content\框架结构\Roadmap.aml" />
+    <None Include="Content\LCL使用\使用必备知识.aml" />
+    <None Include="Content\LCL使用\学习内部实现必备知识.aml" />
+    <None Include="Content\LCL使用\UI组合框架.aml" />
+    <None Include="Content\LCL使用\UI组合框架.aml" />
+    <None Include="Content\LCL设计\规约模式.aml" />
+    <None Include="Content\LCL设计\控制反转.aml" />
+    <None Include="Content\LCL设计\统一的接口.aml" />
     <None Include="_To Do List.txt" />
   </ItemGroup>
   <!-- Import the SHFB build targets -->

@@ -12,7 +12,7 @@ namespace UIShell.Documents
     public partial class DocContext : DbContext
     {
         public DocContext()
-            : base("LCLDocuments")
+            : base("LCL_Documents")
         {
 
         }
