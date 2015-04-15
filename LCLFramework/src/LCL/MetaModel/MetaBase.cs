@@ -12,7 +12,8 @@ namespace LCL.MetaModel
     /// </summary>
     public abstract class MetaBase : Freezable, INotifyPropertyChanged
     {
-        protected void SetValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        // protected void SetValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected void SetValue<T>(ref T field, T value, string propertyName = null)
         {
             this.CheckUnFrozen();
 

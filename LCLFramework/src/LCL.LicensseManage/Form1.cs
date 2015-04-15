@@ -21,9 +21,30 @@ namespace LCL.LicensseManage
             InitializeComponent();
 
             this.txt_PastDate.Value = DateTime.Now.AddDays(90);
+
+            try
+            {
+                  var ass = Assembly.Load("LCL");
+                   this.txt_AssemblyName.Text = ass.FullName;
+            }
+            catch (Exception )
+            {
+                  this.txt_AssemblyName.Text = "LCL, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7e4a2438e8435554";
+            }
         }
         private void but_Save_Click(object sender, EventArgs e)
         {
+            if (txt_Name.Text.Length == 0)
+            {
+                MessageBox.Show("许可证名称不能为空!");
+                return;
+            }
+            if (txt_AssemblyName.Text.Length == 0)
+            {
+                MessageBox.Show("程序集名称不能为空!");
+                return;
+            }
+            but_Save.Enabled = false;
             LicenseEntity license = new LicenseEntity();
             license.ID = Guid.NewGuid();
             license.Name = txt_Name.Text;
@@ -43,6 +64,7 @@ namespace LCL.LicensseManage
             File.WriteAllText(licenseFile, context);
 
             MessageBox.Show("写入成功");
+            but_Save.Enabled = true;
         }
         private void button1_Click(object sender, EventArgs e)
         {

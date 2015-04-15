@@ -33,10 +33,10 @@ namespace LCL.MvcExtensions
         [Permission("列表", "List")]
         public virtual ActionResult List(int? currentPageNum, int? pageSize, FormCollection collection)
         {
-            if (!Check("List"))
-            {
-                return NoPermissionView();
-            }
+            //if (!Check("List"))
+            //{
+            //    return NoPermissionView();
+            //}
             if (!currentPageNum.HasValue)
             {
                 currentPageNum = 1;
@@ -56,10 +56,10 @@ namespace LCL.MvcExtensions
         [Permission("首页", "Index")]
         public virtual ActionResult Index(int? currentPageNum, int? pageSize, FormCollection collection)
         {
-            if (!Check("Index"))
-            {
-                return NoPermissionView();
-            }
+            //if (!Check("Index"))
+            //{
+            //    return NoPermissionView();
+            //}
             return List(currentPageNum, pageSize, collection);
         }
         public virtual ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
@@ -74,10 +74,10 @@ namespace LCL.MvcExtensions
             }
             if (!id.HasValue)
             {
-                if (!Check("Add"))
-                {
-                    return NoPermissionView();
-                }
+                //if (!Check("Add"))
+                //{
+                //    return NoPermissionView();
+                //}
                 ViewBag.Action = "Add";
                 return View(new AddOrEditViewModel<TAggregateRoot>
                 {
@@ -88,10 +88,10 @@ namespace LCL.MvcExtensions
             }
             else
             {
-                if (!Check("Edit"))
-                {
-                    return NoPermissionView();
-                }
+                //if (!Check("Edit"))
+                //{
+                //    return NoPermissionView();
+                //}
                 ViewBag.Action = "Edit";
                 var repo = RF.FindRepo<TAggregateRoot>();
                 var village = repo.GetByKey(id.Value);

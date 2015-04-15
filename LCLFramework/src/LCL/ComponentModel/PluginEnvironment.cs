@@ -32,29 +32,49 @@ namespace LCL
                     }
                 }
             }
-//#if !DEBUG
-//            PluginWatcher.Start();
-//#endif
+            //#if !DEBUG
+            //            PluginWatcher.Start();
+            //#endif
         }
         private static List<PluginAssembly> _libraries;
         public static List<string> GetPluginsName()
         {
+            if (_libraries == null)
+            {
+                Logger.LogWarn("LEnvironment libraries==null:" + LCL.LEnvironment.Provider.PluginsDirectory);
+            }
             return _libraries.Select(p => p.Assembly.GetName().Name).ToList();
         }
         public static List<PluginAssembly> GetAllPluginAssembly()
         {
+            if (_libraries == null)
+            {
+                Logger.LogWarn("LEnvironment libraries==null:" + LCL.LEnvironment.Provider.PluginsDirectory);
+            }
             return _libraries.ToList();
         }
         public static List<IPlugin> GetAllPlugins()
         {
+            if (_libraries == null)
+            {
+                Logger.LogWarn("LEnvironment libraries==null:" + LCL.LEnvironment.Provider.PluginsDirectory);
+            }
             return _libraries.Select(p => p.Instance).ToList();
         }
         public static PluginAssembly GetPlugin(string pluginName)
         {
+            if (_libraries == null)
+            {
+                Logger.LogWarn("LEnvironment libraries==null:" + LCL.LEnvironment.Provider.PluginsDirectory);
+            }
             return _libraries.FirstOrDefault(p => p.Assembly.GetName().Name == pluginName);
         }
         public static List<Assembly> GetAllPluginAssemblys()
         {
+            if (_libraries == null)
+            {
+                Logger.LogWarn("LEnvironment libraries==null:" + LCL.LEnvironment.Provider.PluginsDirectory);
+            }
             return _libraries.Select(p => p.Assembly).ToList();
         }
     }

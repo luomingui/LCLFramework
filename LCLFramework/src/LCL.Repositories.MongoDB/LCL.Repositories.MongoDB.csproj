@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LCL.Repositories.MongoDB</RootNamespace>
     <AssemblyName>LCL.Repositories.MongoDB</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LCL">
-      <HintPath>G:\ProCode\trunk\LCLFramework\Lib\LCL.dll</HintPath>
-    </Reference>
-    <Reference Include="LCL.Utils">
-      <HintPath>G:\ProCode\trunk\LCLFramework\Lib\LCL.Utils.dll</HintPath>
-    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\Lib\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -59,6 +54,16 @@
     <Compile Include="MongoDBRepository.cs" />
     <Compile Include="MongoDBRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LCL.Utils\LCL.Utils.csproj">
+      <Project>{c19bc1f7-549f-424d-b987-2282f6d889e3}</Project>
+      <Name>LCL.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LCL\LCL.csproj">
+      <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
+      <Name>LCL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
