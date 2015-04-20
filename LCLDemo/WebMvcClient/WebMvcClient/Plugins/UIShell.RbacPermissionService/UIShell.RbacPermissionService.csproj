@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UIShell.RbacPermissionService</RootNamespace>
     <AssemblyName>UIShell.RbacPermissionService</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,17 +35,27 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\LCLFramework\Lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="LCL">
+      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.dll</HintPath>
+    </Reference>
+    <Reference Include="LCL.MvcExtensions">
+      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.MvcExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="LCL.ObjectContainers.Unity">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
     </Reference>
     <Reference Include="LCL.Repositories.EntityFramework">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.Repositories.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="LCL.Utils">
+      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,36 +63,56 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfig.cs" />
+    <Compile Include="BusinessModel\CompanyInfo.cs" />
     <Compile Include="BusinessModel\Dictionary.cs" />
+    <Compile Include="BusinessModel\DictType.cs" />
     <Compile Include="BusinessModel\Role.cs" />
     <Compile Include="BusinessModel\RoleAuthority.cs" />
+    <Compile Include="BusinessModel\ScheduledEvents.cs" />
+    <Compile Include="BusinessModel\SchoolInfo.cs" />
+    <Compile Include="BusinessModel\TLog.cs" />
     <Compile Include="BusinessModel\ValueObject.cs" />
+    <Compile Include="BusinessModel\Xzqy.cs" />
+    <Compile Include="Config\GeneralConfig.cs" />
+    <Compile Include="Config\ScheduleConfig.cs" />
+    <Compile Include="Config\ScheduledEvents\Event.cs" />
+    <Compile Include="Config\ScheduledEvents\EventDb.cs" />
+    <Compile Include="Config\ScheduledEvents\EventManager.cs" />
+    <Compile Include="Config\ScheduledEvents\IEvent.cs" />
+    <Compile Include="Config\ScriptEventConfigs.cs" />
     <Compile Include="EFContexts\DbFactory.cs" />
     <Compile Include="EFContexts\EFContext.cs" />
+    <Compile Include="Mvc\Tree.cs" />
     <Compile Include="PluginActivator.cs" />
     <Compile Include="BusinessModel\BaseModel.cs" />
     <Compile Include="EFContexts\RbacDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BusinessModel\Org.cs" />
+    <Compile Include="BusinessModel\UnitInfo.cs" />
     <Compile Include="BusinessModel\User.cs" />
+    <Compile Include="Repository\CompanyInfoRepository.cs" />
+    <Compile Include="Repository\DictionaryRepository.cs" />
+    <Compile Include="Repository\DictTypeRepository.cs" />
+    <Compile Include="Repository\RoleAuthorityRepository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\ScheduledEventsRepository.cs" />
+    <Compile Include="Repository\SchoolInfoRepository.cs" />
+    <Compile Include="Repository\TLogRepository.cs" />
+    <Compile Include="Repository\UnitInfoRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="Repository\OrgRepository.cs" />
+    <Compile Include="Repository\XzqyRepository.cs" />
     <Compile Include="Security\LCLPermissionProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\LCLFramework\src\LCL.Utils\LCL.Utils.csproj">
-      <Project>{c19bc1f7-549f-424d-b987-2282f6d889e3}</Project>
-      <Name>LCL.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\LCLFramework\src\LCL\LCL.csproj">
-      <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
-      <Name>LCL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\LCLFramework\src\Web\LCL.MvcExtensions\LCL.MvcExtensions.csproj">
-      <Project>{06eda144-8636-412f-8061-595a592d7514}</Project>
-      <Name>LCL.MvcExtensions</Name>
-    </ProjectReference>
+    <Compile Include="Security\RbacController.cs" />
+    <Compile Include="ValidationModel\CompanyInfo.cs" />
+    <Compile Include="ValidationModel\Dictionary.cs" />
+    <Compile Include="ValidationModel\DictType.cs" />
+    <Compile Include="ValidationModel\Role.cs" />
+    <Compile Include="ValidationModel\RoleAuthority.cs" />
+    <Compile Include="ValidationModel\ScheduledEvents.cs" />
+    <Compile Include="ValidationModel\SchoolInfo.cs" />
+    <Compile Include="ValidationModel\TLog.cs" />
+    <Compile Include="ValidationModel\UnitInfo.cs" />
+    <Compile Include="ValidationModel\User.cs" />
+    <Compile Include="ValidationModel\Xzqy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />

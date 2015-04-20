@@ -1,4 +1,4 @@
-﻿namespace SF.Tools.WinFrm
+﻿namespace LCL.Tools.WinFrm
 {
     partial class FrmDbTablesColumnsLable
     {

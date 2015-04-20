@@ -15,11 +15,16 @@ namespace UIShell.RbacPermissionService
 
         }
         //RBAC
-        public DbSet<Org> Org { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<RoleAuthority> RoleAuthority { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Dictionary> Dictionary { get; set; }
+        public DbSet<ScheduledEvents> ScheduledEvents { get; set; }
+        public DbSet<TLog> TLog { get; set; }
+        public DbSet<Xzqy> Xzqy { get; set; }
+        public DbSet<UnitInfo> UnitInfo { get; set; }
+        public DbSet<CompanyInfo> CompanyInfo { get; set; }
+        public DbSet<SchoolInfo> SchoolInfo { get; set; }
         
     }
 }

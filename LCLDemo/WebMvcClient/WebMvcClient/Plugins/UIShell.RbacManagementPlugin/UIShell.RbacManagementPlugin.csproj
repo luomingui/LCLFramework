@@ -45,6 +45,10 @@
     <Reference Include="LCL">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.dll</HintPath>
     </Reference>
+    <Reference Include="LCL.MvcExtensions, Version=4.5.3.0, Culture=neutral, PublicKeyToken=f50a43e59c86799d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.MvcExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
@@ -93,9 +97,16 @@
     </Compile>
     <Compile Include="Code\ValidateCode.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\OrgController.cs" />
+    <Compile Include="Controllers\CompanyInfoController.cs" />
+    <Compile Include="Controllers\DictionaryController.cs" />
+    <Compile Include="Controllers\DictTypeController.cs" />
+    <Compile Include="Controllers\RoleAuthorityController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\SchoolInfoController.cs" />
+    <Compile Include="Controllers\TLogController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\XzqyController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account.cs" />
   </ItemGroup>
@@ -137,14 +148,6 @@
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Users\AddOrEdit.cshtml" />
-    <Content Include="Views\Users\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\LCLFramework\src\Web\LCL.MvcExtensions\LCL.MvcExtensions.csproj">
-      <Project>{06eda144-8636-412f-8061-595a592d7514}</Project>
-      <Name>LCL.MvcExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UIShell.RbacPermissionService\UIShell.RbacPermissionService.csproj">
       <Project>{b91f2399-6395-439b-9645-c83e747c356f}</Project>
       <Name>UIShell.RbacPermissionService</Name>
@@ -160,19 +163,33 @@
     <Content Include="Views\Shared\_SinglePageLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Org\AddOrEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Org\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Code\RbacBusinessHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Role\AddOrEdit.cshtml" />
+    <Content Include="Views\Shared\_PagedListBottom.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Role\List.cshtml" />
+    <Content Include="Views\CompanyInfo\AddOrEdit.cshtml" />
+    <Content Include="Views\CompanyInfo\Index.cshtml" />
+    <Content Include="Views\Dictionary\AddOrEdit.cshtml" />
+    <Content Include="Views\Dictionary\Index.cshtml" />
+    <Content Include="Views\DictType\AddOrEdit.cshtml" />
+    <Content Include="Views\DictType\Index.cshtml" />
+    <Content Include="Views\RoleAuthority\AddOrEdit.cshtml" />
+    <Content Include="Views\RoleAuthority\Index.cshtml" />
+    <Content Include="Views\Role\AddOrEdit.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\SchoolInfo\AddOrEdit.cshtml" />
+    <Content Include="Views\SchoolInfo\Index.cshtml" />
+    <Content Include="Views\TLog\Index.cshtml" />
+    <Content Include="Views\User\AddOrEdit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Xzqy\AddOrEdit.cshtml" />
+    <Content Include="Views\Xzqy\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Schedule\AddOrEdit.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

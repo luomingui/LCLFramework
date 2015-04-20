@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     public class BuildBase
     {
@@ -31,7 +31,7 @@ namespace SF.Tools
             builder.AppendLine("    /// 实体类" + tableModel.TableNameRemark + " 。(属性说明自动提取数据库字段的描述信息) ");
             builder.AppendLine("    /// </summary> ");
             builder.AppendLine("    [Serializable]");
-            builder.AppendLine("    public class " + tableModel.TableName + ":Entity<" + tableModel.TableName + ">");
+            builder.AppendLine("    public partial class " + tableModel.TableName + ":AggregateRoot");
             builder.AppendLine("    { ");
             int num = 0;
             if (progressBar != null)

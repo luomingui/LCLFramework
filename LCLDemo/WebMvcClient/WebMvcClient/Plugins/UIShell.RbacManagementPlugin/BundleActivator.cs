@@ -27,11 +27,16 @@ namespace UIShell.RbacManagementPlugin
                 Bundle = this,
                 Children =
                     {
-                        new MvcModuleMeta{ Image="icon-add", Label = "公司管理", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-nav", Label = "部门管理",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-role", Label = "岗位管理", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+                        new MvcModuleMeta{ Image="icon-add", Label = "公司管理", CustomUI="/UIShell.RbacManagementPlugin/CompanyInfo/Index"},
+                        new MvcModuleMeta{ Image="icon-nav", Label = "学校管理",CustomUI="/UIShell.RbacManagementPlugin/SchoolInfo/Index"},
+                       // new MvcModuleMeta{ Image="icon-role", Label = "小区管理", CustomUI="/UIShell.RbacManagementPlugin/Xzqy/Index"},
                         new MvcModuleMeta{ Image="icon-role", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index"},
                         new MvcModuleMeta{ Image="icon-users", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index"},
+                        new MvcModuleMeta{ Image="icon-role", Label = "行政区域", CustomUI="/UIShell.RbacManagementPlugin/Xzqy/Index"},
+                        new MvcModuleMeta{ Image="icon-role", Label = "字典管理", CustomUI="/UIShell.RbacManagementPlugin/DictType/Index"},
+                        new MvcModuleMeta{ Image="icon-role", Label = "计划任务", CustomUI="/UIShell.RbacManagementPlugin/Schedule/Index"},
+                        new MvcModuleMeta{ Image="icon-role", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index"},
+                        
                     }
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
@@ -46,45 +51,67 @@ namespace UIShell.RbacManagementPlugin
                         new MvcModuleMeta{ Image="icon-nav", Label = "修改密码", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
                     }
             });
-            //-------------------------------------------------------
-            CommonModel.Modules.AddRoot(new MvcModuleMeta
-            {
-                Label = "客户管理",
-                Image = "icon-sys",
-                Bundle = this,
-                Children =
-                    {
-                        new MvcModuleMeta{ Image="icon-nav",  Label = "添加客户", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-users", Label = "修改客户",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-nav", Label = "客户列表", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
-                    }
-            });
-            CommonModel.Modules.AddRoot(new MvcModuleMeta
-            {
-                Label = "财务管理",
-                Image = "icon-sys",
-                Bundle = this,
-                Children =
-                    {
-                        new MvcModuleMeta{ Image="icon-nav",  Label = "收支分类", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-users", Label = "报表统计",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-nav", Label = "添加支出", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
-                    }
-            });
-            CommonModel.Modules.AddRoot(new MvcModuleMeta
-            {
-                Label = "员工管理",
-                Image = "icon-sys",
-                Bundle = this,
-                Children =
-                    {
-                        new MvcModuleMeta{ Image="icon-nav",  Label = "添加员工", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-users", Label = "修改员工",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
-                        new MvcModuleMeta{ Image="icon-nav", Label = "员工列表", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
-                    }
-            });
-
-            //-----------end--------------------
+            //_________________________________________________________________________________________________________________________
+            //CommonModel.Modules.AddRoot(new MvcModuleMeta
+            //{
+            //    Label = "报修维修",
+            //    Image = "icon-sys",
+            //    Bundle = this,
+            //    Children =
+            //        {
+            //            new MvcModuleMeta{ Image="icon-nav",  Label = "单位信息", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-users", Label = "个人信息",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-nav", Label = "修改密码", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
+            //        }
+            //});
+            //CommonModel.Modules.AddRoot(new MvcModuleMeta
+            //{
+            //    Label = "考试管理",
+            //    Image = "icon-sys",
+            //    Bundle = this,
+            //    Children =
+            //        {
+            //            new MvcModuleMeta{ Image="icon-nav",  Label = "单位信息", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-users", Label = "个人信息",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-nav", Label = "修改密码", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
+            //        }
+            //});
+            //CommonModel.Modules.AddRoot(new MvcModuleMeta
+            //{
+            //    Label = "成绩管理",
+            //    Image = "icon-sys",
+            //    Bundle = this,
+            //    Children =
+            //        {
+            //            new MvcModuleMeta{ Image="icon-nav",  Label = "单位信息", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-users", Label = "个人信息",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-nav", Label = "修改密码", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
+            //        }
+            //});
+            //CommonModel.Modules.AddRoot(new MvcModuleMeta
+            //{
+            //    Label = "教师培训",
+            //    Image = "icon-sys",
+            //    Bundle = this,
+            //    Children =
+            //        {
+            //            new MvcModuleMeta{ Image="icon-nav",  Label = "单位信息", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-users", Label = "个人信息",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-nav", Label = "修改密码", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
+            //        }
+            //});
+            //CommonModel.Modules.AddRoot(new MvcModuleMeta
+            //{
+            //    Label = "资源管理",
+            //    Image = "icon-sys",
+            //    Bundle = this,
+            //    Children =
+            //        {
+            //            new MvcModuleMeta{ Image="icon-nav",  Label = "单位信息", CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-users", Label = "个人信息",CustomUI="/UIShell.RbacManagementPlugin/Org/List"},
+            //            new MvcModuleMeta{ Image="icon-nav", Label = "修改密码", CustomUI="/UIShell.RbacManagementPlugin/Users/List"},
+            //        }
+            //});
         }
     }
 }

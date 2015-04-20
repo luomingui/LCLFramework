@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     /// <summary>
     /// 描述：對Excel文件的創建表、讀取、寫入數據操作.

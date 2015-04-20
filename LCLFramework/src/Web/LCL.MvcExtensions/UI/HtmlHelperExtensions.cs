@@ -26,7 +26,6 @@ namespace LCL.MvcExtensions
             string url = basePath + relativeUrl.Substring(1);
             return url.Replace("//", "/");
         }
-
         /// <summary>
         /// Renders a link tag referencing the stylesheet.  Assumes the CSS is in the /content/css directory unless a
         /// full relative URL is specified.
@@ -41,7 +40,6 @@ namespace LCL.MvcExtensions
             string url = ResolveUrl(html, cssPath);
             return string.Format("<link type=\"text/css\" rel=\"stylesheet\" href=\"{0}\" />\n", url);
         }
-
         /// <summary>
         /// Renders a link tag referencing the stylesheet.  Assumes the CSS is in the /content/css directory unless a
         /// full relative URL is specified.  Also provides an additional parameter to specify the media
@@ -58,7 +56,6 @@ namespace LCL.MvcExtensions
             string url = ResolveUrl(html, cssPath);
             return string.Format("<link type=\"text/css\" rel=\"stylesheet\" href=\"{0}\" media=\"{1}\" />\n", url, media);
         }
-
         /// <summary>
         /// Renders a script tag referencing the javascript file.  Assumes the file is in the /scripts directory
         /// unless a full relative URL is specified.
@@ -84,6 +81,10 @@ namespace LCL.MvcExtensions
         {
             string path = ResolveUrl(html, "~/favicon.ico");
             return string.Format("<link rel=\"shortcut icon\" href=\"{0}\" />\n", path);
+        }
+        public static Action<T> Fix<T>(this HtmlHelper helper, Func<Action<T>, Action<T>> f)
+        {
+            return x => f(Fix(helper, f))(x);
         }
     }
 }

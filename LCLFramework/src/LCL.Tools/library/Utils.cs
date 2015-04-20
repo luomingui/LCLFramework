@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     /// <summary>
     /// 全局变量

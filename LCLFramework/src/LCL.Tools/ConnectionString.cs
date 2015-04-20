@@ -2,7 +2,7 @@ using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     public partial class ConnectionString : Form
     {

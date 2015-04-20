@@ -1,5 +1,5 @@
 ﻿
-namespace SF.Tools
+namespace LCL.Tools
 {
     public class WorkBuild
     {

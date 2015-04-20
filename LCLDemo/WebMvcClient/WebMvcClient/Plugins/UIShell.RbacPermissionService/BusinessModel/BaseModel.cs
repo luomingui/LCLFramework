@@ -1,5 +1,6 @@
 ﻿using LCL;
 using System;
+using System.ComponentModel;
 
 namespace UIShell.RbacPermissionService
 {
@@ -7,15 +8,27 @@ namespace UIShell.RbacPermissionService
     /// 模型基类
     /// </summary>
     [Serializable]
-    public class BaseModel : AggregateRoot
+    public partial class BaseModel : AggregateRoot
     {
-
+        public BaseModel()
+        {
+            AddDate = DateTime.Now;
+            UpdateDate = DateTime.Now;
+        }
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        public Nullable<DateTime> AddDate { get; set; }
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public Nullable<DateTime> UpdateDate { get; set; }
     }
     /// <summary>
     /// 树形模型基类
     /// </summary>
     [Serializable]
-    public class BaseTreeModel : AggregateRoot, ITreeNode
+    public partial class BaseTreeModel : BaseModel, ITreeNode
     {
         public BaseTreeModel()
         {
@@ -23,15 +36,17 @@ namespace UIShell.RbacPermissionService
             Level = 0;
             NodePath = "";
             OrderBy = 0;
-            ParentId = Guid.NewGuid();
+            ParentId = Guid.Empty;
         }
         /// <summary>
         /// 是否最后一级
         /// </summary>
+        [DefaultValue(false)]
         public bool IsLast { get; set; }
         /// <summary>
         /// 树形深度
         /// </summary>
+        [DefaultValue(0)]
         public int Level { get; set; }
         /// <summary>
         /// 树形路径
@@ -40,10 +55,13 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 排序
         /// </summary>
+        [DefaultValue(0)]
         public int OrderBy { get; set; }
         /// <summary>
         /// 上一级
         /// </summary>
         public Guid ParentId { get; set; }
+
+        //public int ChildNum { get; set; }
     }
 }

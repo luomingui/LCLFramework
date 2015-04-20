@@ -2,7 +2,7 @@
 using System.Net;
 using System.Windows.Forms;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     static class Program
     {

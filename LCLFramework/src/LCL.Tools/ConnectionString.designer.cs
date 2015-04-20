@@ -1,4 +1,4 @@
-﻿namespace SF.Tools
+﻿namespace LCL.Tools
 {
     partial class ConnectionString
     {
@@ -93,7 +93,7 @@
             this.txtEntityNameSpace.Name = "txtEntityNameSpace";
             this.txtEntityNameSpace.Size = new System.Drawing.Size(294, 21);
             this.txtEntityNameSpace.TabIndex = 132;
-            this.txtEntityNameSpace.Text = "SF.Demo";
+            this.txtEntityNameSpace.Text = "UIShell.RbacPermissionService";
             this.txtEntityNameSpace.Validating += new System.ComponentModel.CancelEventHandler(this.txtEntityNameSpace_Validating);
             // 
             // comboBoxDBType

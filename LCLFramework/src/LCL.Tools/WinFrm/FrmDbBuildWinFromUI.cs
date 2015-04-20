@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SF.Tools.WinFrm
+namespace LCL.Tools.WinFrm
 {
     public partial class FrmDbBuildWinFromUI : Form
     {

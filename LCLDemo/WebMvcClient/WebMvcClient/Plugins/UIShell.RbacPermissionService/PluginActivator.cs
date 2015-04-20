@@ -28,17 +28,37 @@ namespace UIShell.RbacPermissionService
         }
         void app_AllPluginsIntialized(object sender, System.EventArgs e)
         {
-
             ServiceLocator.Instance.Register<DbContext, EFContext>(LifeStyle.PerRequest);
-
             ServiceLocator.Instance.Register<ILCLIdentity, LCLIdentity>();
             ServiceLocator.Instance.Register<IRepositoryContext, EntityFrameworkRepositoryContext>();
-            
-            ServiceLocator.Instance.Register<IRepository<Org>, EntityFrameworkRepository<Org>>();
+            #region 默认仓库 
+            ServiceLocator.Instance.Register<IRepository<UnitInfo>, EntityFrameworkRepository<UnitInfo>>();
             ServiceLocator.Instance.Register<IRepository<Role>, EntityFrameworkRepository<Role>>();
             ServiceLocator.Instance.Register<IRepository<RoleAuthority>, EntityFrameworkRepository<RoleAuthority>>();
             ServiceLocator.Instance.Register<IRepository<User>, EntityFrameworkRepository<User>>();
+            ServiceLocator.Instance.Register<IRepository<Xzqy>, EntityFrameworkRepository<Xzqy>>();
+            ServiceLocator.Instance.Register<IRepository<CompanyInfo>, EntityFrameworkRepository<CompanyInfo>>();
+            ServiceLocator.Instance.Register<IRepository<SchoolInfo>, EntityFrameworkRepository<SchoolInfo>>();
+            ServiceLocator.Instance.Register<IRepository<ScheduledEvents>, EntityFrameworkRepository<ScheduledEvents>>();
+            ServiceLocator.Instance.Register<IRepository<Dictionary>, EntityFrameworkRepository<Dictionary>>();
+            ServiceLocator.Instance.Register<IRepository<DictType>, EntityFrameworkRepository<DictType>>();
+            ServiceLocator.Instance.Register<IRepository<TLog>, EntityFrameworkRepository<TLog>>();
 
+            #endregion
+
+            #region 扩展仓库
+            ServiceLocator.Instance.Register<ICompanyInfoRepository, CompanyInfoRepository>();
+            ServiceLocator.Instance.Register<IDictionaryRepository, DictionaryRepository>();
+            ServiceLocator.Instance.Register<IDictTypeRepository, DictTypeRepository>();
+            ServiceLocator.Instance.Register<IRoleRepository, RoleRepository>();
+            ServiceLocator.Instance.Register<IRoleAuthorityRepository, RoleAuthorityRepository>();
+            ServiceLocator.Instance.Register<IScheduledEventsRepository, ScheduledEventsRepository>();
+            ServiceLocator.Instance.Register<ISchoolInfoRepository, SchoolInfoRepository>();
+            ServiceLocator.Instance.Register<ITLogRepository, TLogRepository>();
+            ServiceLocator.Instance.Register<IUnitInfoRepository, UnitInfoRepository>();
+            ServiceLocator.Instance.Register<IUserRepository, UserRepository>();
+            ServiceLocator.Instance.Register<IXzqyRepository, XzqyRepository>();
+            #endregion
         }
     }
 }

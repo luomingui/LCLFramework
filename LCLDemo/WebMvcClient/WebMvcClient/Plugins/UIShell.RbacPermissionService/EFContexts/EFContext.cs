@@ -1,5 +1,4 @@
 ﻿using LCL;
-using LCL.MvcExtensions;
 using LCL.Repositories.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,20 @@ namespace UIShell.RbacPermissionService
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //表前缀
-            modelBuilder.Types().Configure(entity => entity.ToTable("Edms_" + entity.ClrType.Name));
+            //modelBuilder.Types().Configure(entity => entity.ToTable(AppConstant.Tableprefix + entity.ClrType.Name));
+
+            // 忽略列映射 Fluent API:NotMapped
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.ScheduleType);
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.ExetimeType);
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Exetime);
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.hour);
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.minute);
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.timeserval);
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Enable);
+            modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Issystemevent);
+
+            base.OnModelCreating(modelBuilder);
+
         }
     }
     /// <summary>
@@ -58,86 +70,18 @@ namespace UIShell.RbacPermissionService
     {
         protected override void Seed(EFContext context)
         {
-            //单位信息
-            var org = context.Set<Org>().Add(new Org
-            {
-                ID = Guid.NewGuid(),
-                Name = "学苑传媒集团",
-                HelperCode = "01",
-                NameShort = "xueyuan",
-                OrgType = OrgType.集团,
-                Linkman = "陈元虎",
-                Phone = "110",
-                Fax = "120",
-                IsValid = true,
-                Describe = ""
-            });
-            var org1 = context.Set<Org>().Add(new Org
-            {
-                ID = Guid.NewGuid(),
-                ParentId = org.ID,
-                Name = "江西学苑传媒有限公司",
-                HelperCode = "0101",
-                NameShort = "xueyuan",
-                OrgType = OrgType.公司,
-                Linkman = "陈元虎",
-                Phone = "110",
-                Fax = "120",
-                IsValid = true,
-                Describe = ""
-            });
-            var org2 = context.Set<Org>().Add(new Org
-            {
-                ID = Guid.NewGuid(),
-                ParentId = org1.ID,
-                Name = "研发部",
-                HelperCode = "010101",
-                NameShort = "xueyuan",
-                OrgType = OrgType.部门,
-                Linkman = "陈元虎",
-                Phone = "110",
-                Fax = "120",
-                IsValid = true,
-                Describe = ""
-            });
-            var org3 = context.Set<Org>().Add(new Org
-            {
-                ID = Guid.NewGuid(),
-                ParentId = org2.ID,
-                Name = "工程师",
-                HelperCode = "01010101",
-                NameShort = "xueyuan",
-                OrgType = OrgType.部门,
-                Linkman = "陈元虎",
-                Phone = "110",
-                Fax = "120",
-                IsValid = true,
-                Describe = ""
-            });
+            context.Set<TLog>().Add(
+                new TLog
+                {
+                    ID = Guid.NewGuid(),
+                    UpdateDate = DateTime.Now,
+                    AddDate = DateTime.Now,
+                    UserId = Guid.Empty,
+                    Org_Id = Guid.Empty,
+                    Content = "测试日志"
+                }
+                );
 
-            //角色
-            var role = context.Set<Role>().Add(new Role
-            {
-                ID = Guid.NewGuid(),
-                Name = "系统管理员",
-                IsValid = true,
-                HelperCode = "01",
-                Describe = ""
-            });
-            var user = new User
-            {
-                ID = Guid.NewGuid(),
-                Name = "管理员",
-                NameShort = "administrator",
-                HelperCode = "admin",
-                Password = "123456",
-                Org = org3,
-                Phone = "13026209315",
-            };
-            user.Role.Add(role);
-
-            context.Set<User>().Add(user);
-           
             try
             {
                 context.SaveChanges();
@@ -159,4 +103,18 @@ namespace UIShell.RbacPermissionService
             }
         }
     }
+
+    public class AppConstant
+    {
+        /// <summary>
+        /// The system admin
+        /// </summary>
+        public static readonly string SystemAdmin = "admin";
+        /// <summary>
+        /// Edms_
+        /// </summary>
+        public static readonly string Tableprefix = "";
+
+    }
+
 }

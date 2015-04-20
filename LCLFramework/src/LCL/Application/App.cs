@@ -25,10 +25,12 @@ namespace LCL
             try
             {
                 license = LicenseManager.Validate(typeof(App), this);
+                if (license != null && license.LicenseKey != null&&license.LicenseKey.Length>5)
+                    throw new Exception("LCL组件授权失败," + license.LicenseKey + ",请联系程序开发商,邮箱是：minguiluo@163.com .");
             }
             catch
             {
-                throw new Exception("LCL组件未授权,请联系程序开发商,邮箱是：minguiluo@163.com .");
+                throw;
             }
         }
         protected override void Dispose(bool disposing)

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-namespace SF.Tools.WinFrm
+namespace LCL.Tools.WinFrm
 {
     partial class FrmDbTablesLable
     {

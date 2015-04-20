@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 
-namespace SF.Tools.WinFrm
+namespace LCL.Tools.WinFrm
 {
     public partial class FrmDbTablesColumnsLable : Form
     {

@@ -35,6 +35,14 @@
     <ApplicationIcon>LCL.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LCL, Version=4.5.3.0, Culture=neutral, PublicKeyToken=7e4a2438e8435554, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\LCL.dll</HintPath>
+    </Reference>
+    <Reference Include="LCL.Utils, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\LCL.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,8 +58,11 @@
     <Compile Include="Build\Common\BuildBase.cs" />
     <Compile Include="Build\IBuild.cs" />
     <Compile Include="Build\Providers\EntityBuild.cs" />
+    <Compile Include="Build\Providers\MVCUIBuild.cs" />
+    <Compile Include="Build\Providers\RepositoryBuild.cs" />
     <Compile Include="Build\Providers\ServiceLocatorBuild.cs" />
     <Compile Include="Build\Providers\EntityFrameworkBuild.cs" />
+    <Compile Include="Build\Providers\ValidationModelBuild.cs" />
     <Compile Include="Build\Providers\WinFromBuild.cs" />
     <Compile Include="Build\WorkBuild.cs" />
     <Compile Include="ConnectionString.cs">
@@ -67,6 +78,10 @@
     <Compile Include="Data\GenerateSql.cs" />
     <Compile Include="Data\IDbo.cs" />
     <Compile Include="Data\TableModel.cs" />
+    <Compile Include="Document\DocumentHelper.cs" />
+    <Compile Include="Document\PropertyDoc.cs" />
+    <Compile Include="Document\PropertyDocParser.cs" />
+    <Compile Include="Document\TypeHelper.cs" />
     <Compile Include="library\BLLFactory.cs" />
     <Compile Include="library\DbObjects.cs" />
     <Compile Include="library\INIFile.cs" />
@@ -87,6 +102,12 @@
     <Compile Include="Threading\ForeAsyncLoader.cs" />
     <Compile Include="Threading\ParallelActions.cs" />
     <Compile Include="Threading\ThreadHelper.cs" />
+    <Compile Include="WinFrm\FrmDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinFrm\FrmDoc.designer.cs">
+      <DependentUpon>FrmDoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinFrm\FrmDbBuild.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +154,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="WinFrm\FrmDoc.resx">
+      <DependentUpon>FrmDoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinFrm\FrmDbBuild.resx">
       <DependentUpon>FrmDbBuild.cs</DependentUpon>
     </EmbeddedResource>

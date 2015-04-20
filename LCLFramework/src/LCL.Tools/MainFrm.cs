@@ -1,13 +1,13 @@
 ﻿using LCL.Tools;
 using SF.Threading;
-using SF.Tools.WinFrm;
+using LCL.Tools.WinFrm;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     public partial class MainFrm : Form
     {
@@ -300,7 +300,7 @@ namespace SF.Tools
             List<TableModel> tablenames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
             EntityFrameworkBuild entityframework = new EntityFrameworkBuild();
             entityframework.BuildDbContext(dir, tablenames);
-            MessageBox.Show("已经生成到桌面的Entities文件夹下！！！", "提示");
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
         }
 
         private void iOCToolStripMenuItem_Click(object sender, EventArgs e)
@@ -308,7 +308,7 @@ namespace SF.Tools
             string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             ServiceLocatorBuild build = new ServiceLocatorBuild();
             build.BuildServiceLocator(dir);
-            MessageBox.Show("已经生成到桌面的Entities文件夹下！！！", "提示");
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
         }
 
         private void entityToolStripMenuItem_Click(object sender, EventArgs e)
@@ -316,12 +316,39 @@ namespace SF.Tools
             string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             EntityBuild build = new EntityBuild();
             build.BuildEntity(dir);
-            MessageBox.Show("已经生成到桌面的Entities文件夹下！！！", "提示");
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
         }
 
         private void repositoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            RepositoryBuild build = new RepositoryBuild();
+            build.BuildRepository(dir);
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+        }
 
+        private void bootstrapAdminToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //控制器，视图
+            string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            MVCUIBuild build = new MVCUIBuild();
+            build.GenerateControllers(dir);
+            build.GenerateViews(dir);
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+        }
+
+        private void 根据类库生成数据库描述ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmDoc frm = new FrmDoc();
+            frm.ShowDialog();
+        }
+
+        private void mVC验证模型ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            ValidationModelBuild build = new ValidationModelBuild();
+            build.GenerateValidationModel(dir);
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
         }
     }
 }

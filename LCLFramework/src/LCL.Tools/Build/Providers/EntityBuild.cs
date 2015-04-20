@@ -1,4 +1,4 @@
-﻿using SF.Tools;
+﻿using LCL.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +52,7 @@ namespace LCL.Tools
 
                 if (path.Length > 0)
                 {
-                    string folder = path + @"\Entities\";
+                    string folder = path + @"\LCL\Entity\";
                     Utils.FolderCheck(folder);
                     string filename = folder + @"\" + tablename + ".cs";
                     Utils.CreateFiles(filename, builder.ToString());

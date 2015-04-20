@@ -69,6 +69,8 @@ namespace LCL.Repositories.EntityFramework
         /// <param name="entity">The entity.</param>
         protected override void DoAdd(TAggregateRoot entity)
         {
+            //判断是否是树形
+
             efContext.RegisterNew(entity);
         }
         /// <summary>

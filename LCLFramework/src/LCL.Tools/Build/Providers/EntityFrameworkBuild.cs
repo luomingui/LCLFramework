@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     //ClassLib
     public class EntityFrameworkBuild : BuildBase, IBuild
@@ -117,7 +117,7 @@ namespace SF.Tools
             builder.AppendLine("} ");
             if (path.Length > 0)
             {
-                string folder = path + @"\Entities\";
+                string folder = path + @"\LCL\EFContexts\";
                 Utils.FolderCheck(folder);
                 string filename = folder + @"\" + Utils.dbName + "Context.cs";
                 Utils.CreateFiles(filename, builder.ToString());

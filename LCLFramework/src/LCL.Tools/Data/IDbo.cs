@@ -1,9 +1,9 @@
 ﻿
 using System.Collections.Generic;
 using System.Data;
-using SF.Tools.Data;
+using LCL.Tools.Data;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     public interface IDbo
     {
@@ -11,7 +11,7 @@ namespace SF.Tools
         DataBaseModel GetDatabaseModel(string dbName, bool flg = false);
         TableModel GetTableModel(string TableName, string dbName = "master");
         List<TableModel> GetTableModelList(string DbName, bool flg = false);
-        List<TableColumn> GetColumnsList(string TableName, string DbName);
+        List<TableColumn> GetColumnsList(string TableName, string DbName, out bool istree);
 
         void AddTableByKey(string DbName);
         DataTable GetEqualColumnsList(string DbName);

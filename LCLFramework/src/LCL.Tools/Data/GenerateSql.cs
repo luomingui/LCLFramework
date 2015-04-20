@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace SF.Tools.Data
+namespace LCL.Tools.Data
 {
     public class GenerateSql : DbHelperSQL, IDbo
     {
@@ -52,8 +52,10 @@ WHERE a.xtype = 'F' AND c.xtype = 'U'";
             model.TableName = TableName;
             model.TableNameRemark = this.GetTableAlone(dbName, model.TableName, TableFlg.表说明);
             model.TablePK = this.GetTableAlone(dbName, model.TableName, TableFlg.主键列);
-            List<TableColumn> columnsList = this.GetColumnsList(TableName, dbName);
+            bool istree = false;
+            List<TableColumn> columnsList = this.GetColumnsList(TableName, dbName, out istree);
             model.Columns = columnsList;
+            model.IsTree = istree;
             return model;
         }
         public List<TableModel> GetTableModelList(string DbName, bool flg = false)
@@ -67,14 +69,17 @@ WHERE a.xtype = 'F' AND c.xtype = 'U'";
                 tm.TableName = drs[i]["表名"].ToString();
                 tm.TableNameRemark = drs[i]["表说明"].ToString();
                 tm.TablePK = this.GetTableAlone(DbName, tm.TableName, TableFlg.主键列);
+                bool istree = false ;
                 if (flg)
-                    tm.Columns = this.GetColumnsList(tm.TableName, DbName);
+                    tm.Columns = this.GetColumnsList(tm.TableName, DbName,out istree);
+                tm.IsTree = istree;
                 list.Add(tm);
             }
             return list;
         }
-        public List<TableColumn> GetColumnsList(string TableName, string DbName)
+        public List<TableColumn> GetColumnsList(string TableName, string DbName,out bool istree)
         {
+            istree = false;
             DataTable dtcolumns = this.GetTablesColumnsList(TableName, DbName);
             List<TableColumn> columnsList = new List<TableColumn>();
             foreach (DataRow row in dtcolumns.Rows)
@@ -94,6 +99,11 @@ WHERE a.xtype = 'F' AND c.xtype = 'U'";
                     column.Identifying = true;
                 }
                 columnsList.Add(column);
+
+                if (column.ColumnName.ToLower() == "parentid")
+                {
+                    istree = true;
+                }
             }
             return columnsList;
         }

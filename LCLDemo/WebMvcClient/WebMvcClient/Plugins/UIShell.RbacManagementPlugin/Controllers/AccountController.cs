@@ -64,40 +64,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             else
             {
                 #region 读库
-                ISpecification<User> spec = Specification<User>.Eval(p => p.HelperCode == account.Name).And(Specification<User>.Eval(p => p.Password == account.Password));
-                var repository = RF.FindRepo<User>();
-                var c = repository.Find(spec);
-
-                if (c != null)
-                {
-                    MemoryCacheHelper.RemoveCache(account.Name);
-                    #region Cookies
-                    //验证成功，用户名密码正确，构造用户数据（可以添加更多数据，这里只保存用户Id）
-                    var userData = new MyUserDataPrincipal(new LCLIdentity { Name = account.Name, IsAuthenticated = true });
-                    userData.UserId = c.ID;
-                    userData.UnitName = c.Name;
-                    userData.OrgId = Guid.Empty;
-                    //保存Cookie
-                    MyFormsAuthentication<MyUserDataPrincipal>.SetAuthCookie(account.Name, userData, account.RememberMe, Response.Cookies);
-                    return RedirectIndex();
-                    #endregion
-
-                    //var _list = CommonModel.Modules.GetBlockWithPermission();
-                    //if (_list.Count() > 0)
-                    //{
-                    //    return RedirectIndex();
-                    //}
-                    //else
-                    //{
-                    //    ModelState.AddModelError("Name", "消息：此用户没有权限！");
-                    //    return View();
-                    //}
-                }
-                else
-                {
-                    ModelState.AddModelError("Name", "消息：登录验证失败，请确定用户名和密码是否正确！");
-                    return View();
-                }
+                return RedirectIndex();
                 #endregion
             }
 

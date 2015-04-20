@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     /// <summary>
     /// 操作ini文件

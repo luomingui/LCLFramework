@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebMvcClient</RootNamespace>
     <AssemblyName>WebMvcClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -49,9 +49,21 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\..\LCLFramework\Lib\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LCL, Version=4.5.3.0, Culture=neutral, PublicKeyToken=7e4a2438e8435554, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LCLFramework\Lib\LCL.dll</HintPath>
+    </Reference>
+    <Reference Include="LCL.MvcExtensions, Version=4.5.3.0, Culture=neutral, PublicKeyToken=f50a43e59c86799d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LCLFramework\Lib\LCL.MvcExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="LCL.Utils, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LCLFramework\Lib\LCL.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\LCLFramework\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -64,14 +76,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\LCLFramework\Lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
-      <HintPath>..\..\..\LCLFramework\Lib\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -116,7 +128,6 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="LCLServer.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -127,24 +138,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LCL.lic" />
+    <Content Include="Config\general.config" />
+    <Content Include="Config\schedule.config" />
+    <Content Include="Config\scriptevent_sqlserver.config" />
     <None Include="Properties\PublishProfiles\LCLMvc.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\Bin\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\LCLFramework\src\LCL.Utils\LCL.Utils.csproj">
-      <Project>{c19bc1f7-549f-424d-b987-2282f6d889e3}</Project>
-      <Name>LCL.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\LCLFramework\src\LCL\LCL.csproj">
-      <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
-      <Name>LCL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\LCLFramework\src\Web\LCL.MvcExtensions\LCL.MvcExtensions.csproj">
-      <Project>{06eda144-8636-412f-8061-595a592d7514}</Project>
-      <Name>LCL.MvcExtensions</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -160,11 +160,13 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3920</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3458/</IISUrl>
+          <IISUrl>http://localhost:3921/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:3921/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

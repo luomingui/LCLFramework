@@ -1,6 +1,6 @@
 ﻿
 
-namespace SF.Tools.Data
+namespace LCL.Tools.Data
 {
     public class Generate2000Sql : GenerateSql
     {

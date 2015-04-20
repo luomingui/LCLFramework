@@ -78,6 +78,7 @@
     <Compile Include="Configuration\ConfigurationHelper.cs" />
     <Compile Include="Configuration\XmlHelper.cs" />
     <Compile Include="Configuration\XMLProcess.cs" />
+    <Compile Include="Configuration\XmlUtil.cs" />
     <Compile Include="Cookie&amp;Session&amp;Cache\CacheHelper.cs" />
     <Compile Include="Cookie&amp;Session&amp;Cache\CookieHelper.cs" />
     <Compile Include="Cookie&amp;Session&amp;Cache\SessionHelper.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Data\Providers\SqlServer2008Backuper.cs" />
     <Compile Include="Data\Providers\SqlServerBackuper.cs" />
     <Compile Include="Data\Providers\SqlServerProvider.cs" />
+    <Compile Include="Extensions\DataTableConvertJson.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Context\ServerContext.cs" />
     <Compile Include="Context\ServerContextProvider.cs" />
     <Compile Include="Context\ServerContextScope.cs" />
+    <Compile Include="Threading\ManagedThreadPool.cs" />
     <Compile Include="Utilities\DESEncrypt.cs" />
     <Compile Include="OpenLicense\LicenseEntity.cs" />
     <Compile Include="OpenLicense\SignVerifyEnvelope.cs" />

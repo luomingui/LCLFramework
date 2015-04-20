@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     /// <summary>
     /// ×Ö·û´®²Ù×÷Àà

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     /// <summary>
     /// 界面数据绑定 接口

@@ -95,6 +95,7 @@
     <Compile Include="Convensions\RepositoryForAttribute.cs" />
     <Compile Include="Convensions\TypeComparer.cs" />
     <Compile Include="Convensions\TypeMatrix.cs" />
+    <Compile Include="Entity\BaseModel.cs" />
     <Compile Include="Entity\ISourcedAggregateRoot.cs" />
     <Compile Include="Entity\SourcedAggregateRoot.cs" />
     <Compile Include="Events\IDomainEvent.cs" />

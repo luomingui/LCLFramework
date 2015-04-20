@@ -52,7 +52,6 @@ namespace LCL.OpenLicense
             this.owner = owner;
             this.key = key;
         }
-
         //许可Key,通俗的理解是序列号。 
         public override string LicenseKey
         {
@@ -61,7 +60,6 @@ namespace LCL.OpenLicense
                 return key;
             }
         }
-
         public override void Dispose()
         {
 
@@ -73,50 +71,58 @@ namespace LCL.OpenLicense
     {
         public override License GetLicense(LicenseContext context, Type type, object instance, bool allowExceptions)
         {
-            //首先判断是否是设计时
-            if (context.UsageMode == LicenseUsageMode.Designtime)
+            FileLicense license = null;
+            StringBuilder listMsg =new StringBuilder();
+            if (context != null)
             {
-                // 开发人员设计时不需要许可，直接颁发许可证 
-                return new FileLicense(this, Guid.Empty.ToString());
-            }
-            else
-            {
+                if (context.UsageMode == LicenseUsageMode.Designtime)
+                {
+                    license = new FileLicense(this, "");
+                }
+                if (license != null)
+                {
+                    return license;
+                }
                 //licenses
                 string licenseFile = GetlicFilePath();
                 if (!string.IsNullOrWhiteSpace(licenseFile) && File.Exists(licenseFile))
                 {
                     try
                     {
+
                         StreamReader sr = new StreamReader(licenseFile, Encoding.Default);
                         String xmlStr = DESEncrypt.Decrypt(sr.ReadToEnd());
                         var entity = XmlFormatterSerializer.DeserializeFromXml<LicenseEntity>(xmlStr, typeof(LicenseEntity));
                         if (entity != null)
                         {
-                            //验证
-                            StringBuilder listMsg = new StringBuilder();
-                            listMsg.AppendLine("许可证名称：" + entity.Name);
                             var pastDate = DateTime.Parse(entity.PastDate);
                             if (DateTime.Now > pastDate)
                             {
-                                listMsg.AppendLine("许可证已过期");
-                                return null;
+                                listMsg.AppendLine(" 许可证已过期");
                             }
-                            return new FileLicense(this, entity.ID.ToString());
                         }
-                        return null;
+
+                        if (listMsg.Length > 5)
+                        {
+                            listMsg.Insert(0, " 许可证编号:" + entity.ID);
+                            listMsg.Insert(1, " 许可证名称:"+entity.Name);
+                            listMsg.Insert(2, " 程序集版本号:" + entity.AssemblyName);
+                            license = new FileLicense(this, listMsg.ToString());
+                        }
+                        else
+                            license = new FileLicense(this, "");
                     }
                     catch (IOException e)
                     {
                         Logger.LogError("检查许可证失败", e);
-                        return null;
                     }
                 }
                 else
                 {
                     Logger.LogWarn("lic文件不存在，路径是：" + licenseFile);
-                    return null;
                 }
             }
+            return license;
         }
         public string GetlicFilePath()
         {
@@ -128,22 +134,22 @@ namespace LCL.OpenLicense
             if (!File.Exists(licenseFile))
             {
                 licenseFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "LCL.lic");
-                return licenseFile;
+            }
+            if (!File.Exists(licenseFile))
+            {
+                licenseFile = LEnvironment.Provider.ToAbsolute("LCL.lic");
             }
             if (!File.Exists(licenseFile))
             {
                 licenseFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "LCL.lic");
-                return licenseFile;
             }
             if (!File.Exists(licenseFile))
             {
                 licenseFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "LCL.lic");
-                return licenseFile;
             }
             if (!File.Exists(licenseFile))
             {
                 licenseFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "LCL.lic");
-                return licenseFile;
             }
             if (File.Exists(licenseFile))
             {

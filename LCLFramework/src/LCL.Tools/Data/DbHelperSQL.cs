@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace SF.Tools.Data
+namespace LCL.Tools.Data
 {
     public class DbHelperSQL
     {

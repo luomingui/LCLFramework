@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     public class DataBaseModel
     {
@@ -12,6 +12,7 @@ namespace SF.Tools
         public string TableName { get; set; }
         public string TableNameRemark { get; set; }
         public string TablePK { get; set; }
+        public bool IsTree { get; set; }
         public List<TableColumn> Columns { get; set; }
     }
     public class TableColumn
@@ -20,6 +21,7 @@ namespace SF.Tools
         public bool Identifying { get; set; }
         public string ColumnName { get; set; }
         public string ColumnType { get; set; }
+        //字段说明
         public string ColumnRemark { get; set; }
         public string DefaultValue { get; set; }
         public string ColumnNameRemark

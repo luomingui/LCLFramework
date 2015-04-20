@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     /// <summary>
     /// 元数据

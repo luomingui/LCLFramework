@@ -6,12 +6,10 @@ using System.Text;
 namespace UIShell.RbacPermissionService
 {
     public enum OrgType
-    {
+    { 
         集团,
         公司,
-        分公司,
-        部门,
-        岗位
+        学校
     }
     public enum AuthorityType
     {

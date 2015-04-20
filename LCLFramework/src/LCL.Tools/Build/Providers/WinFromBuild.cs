@@ -2,7 +2,7 @@
 using System.Data;
 using System.Text;
 
-namespace SF.Tools
+namespace LCL.Tools
 {
     public class WinFromBaseBuild : BuildBase
     {

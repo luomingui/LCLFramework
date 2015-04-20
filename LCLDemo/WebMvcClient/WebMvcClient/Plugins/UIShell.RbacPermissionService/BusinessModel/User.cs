@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace UIShell.RbacPermissionService
@@ -7,7 +8,6 @@ namespace UIShell.RbacPermissionService
     /// <summary>
     /// 用户
     /// </summary>
-    [Serializable]
     public partial class User : BaseModel
     {
         public User()
@@ -15,22 +15,18 @@ namespace UIShell.RbacPermissionService
             this.Role =new HashSet<Role>();
         }
         /// <summary>
-        /// 编码
+        /// 登录密码
         /// </summary>
-        public string HelperCode { get; set; }
+        public string Password { set; get; }
         /// <summary>
-        /// 名称
+        /// 登录名称
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 简称
+        /// 是否锁定
         /// </summary>
-        public string NameShort { get; set; }
-        /// <summary>
-        /// 电话
-        /// </summary>
-        public string Phone { get; set; }
-        public string Password { set; get; }
+        [DefaultValue(false)]
+        public bool IsLockedOut { get; set; }
         /// <summary>
         /// 角色列表
         /// </summary>
@@ -38,7 +34,7 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// Gets or sets the org.
         /// </summary>
-        public Org Org { get; set; }
+        public UnitInfo UnitInfo { get; set; }
     }
 
 }

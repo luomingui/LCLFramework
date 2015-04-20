@@ -1,5 +1,5 @@
 ﻿
-namespace SF.Tools
+namespace LCL.Tools
 {
     //[System.Diagnostics.DebuggerStepThrough]
     //    public class DbObjects

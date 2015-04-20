@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Windows.Forms;
-namespace SF.Tools
+namespace LCL.Tools
 {
     public enum BuildType
     {

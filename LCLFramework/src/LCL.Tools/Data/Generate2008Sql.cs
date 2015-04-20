@@ -1,6 +1,6 @@
 ﻿
 using System.Data;
-namespace SF.Tools.Data
+namespace LCL.Tools.Data
 {
     public class Generate2008Sql : GenerateSql
     {

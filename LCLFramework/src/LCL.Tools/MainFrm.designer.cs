@@ -1,4 +1,4 @@
-﻿namespace SF.Tools
+﻿namespace LCL.Tools
 {
     partial class MainFrm
     {
@@ -37,6 +37,7 @@
             this.添加表主键ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改表说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改字段说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.根据类库生成数据库描述ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出数据库里相同的字段ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.相同字段说明一样ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置数据表关系ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +69,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.mVC验证模型ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -109,6 +111,7 @@
             this.添加表主键ToolStripMenuItem,
             this.修改表说明ToolStripMenuItem,
             this.修改字段说明ToolStripMenuItem,
+            this.根据类库生成数据库描述ToolStripMenuItem,
             this.导出数据库里相同的字段ToolStripMenuItem,
             this.相同字段说明一样ToolStripMenuItem,
             this.设置数据表关系ToolStripMenuItem,
@@ -117,7 +120,7 @@
             this.批量生成代码ToolStripMenuItem,
             this.生成代码ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(207, 252);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(207, 274);
             // 
             // 刷新列表ToolStripMenuItem
             // 
@@ -146,6 +149,13 @@
             this.修改字段说明ToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.修改字段说明ToolStripMenuItem.Text = "修改字段说明";
             this.修改字段说明ToolStripMenuItem.Click += new System.EventHandler(this.修改字段说明ToolStripMenuItem_Click);
+            // 
+            // 根据类库生成数据库描述ToolStripMenuItem
+            // 
+            this.根据类库生成数据库描述ToolStripMenuItem.Name = "根据类库生成数据库描述ToolStripMenuItem";
+            this.根据类库生成数据库描述ToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.根据类库生成数据库描述ToolStripMenuItem.Text = "根据类库生成数据库描述";
+            this.根据类库生成数据库描述ToolStripMenuItem.Click += new System.EventHandler(this.根据类库生成数据库描述ToolStripMenuItem_Click);
             // 
             // 导出数据库里相同的字段ToolStripMenuItem
             // 
@@ -201,7 +211,8 @@
             this.winFromUIToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bUIAdiniseShellToolStripMenuItem,
             this.easyUIAdiniShellToolStripMenuItem,
-            this.bootstrapAdminToolStripMenuItem});
+            this.bootstrapAdminToolStripMenuItem,
+            this.mVC验证模型ToolStripMenuItem});
             this.winFromUIToolStripMenuItem.Name = "winFromUIToolStripMenuItem";
             this.winFromUIToolStripMenuItem.ShowShortcutKeys = false;
             this.winFromUIToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
@@ -225,6 +236,7 @@
             this.bootstrapAdminToolStripMenuItem.Name = "bootstrapAdminToolStripMenuItem";
             this.bootstrapAdminToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.bootstrapAdminToolStripMenuItem.Text = "BootstrapAdminShell";
+            this.bootstrapAdminToolStripMenuItem.Click += new System.EventHandler(this.bootstrapAdminToolStripMenuItem_Click);
             // 
             // classLibToolStripMenuItem
             // 
@@ -444,6 +456,13 @@
             this.dataGridView2.Size = new System.Drawing.Size(485, 110);
             this.dataGridView2.TabIndex = 1;
             // 
+            // mVC验证模型ToolStripMenuItem
+            // 
+            this.mVC验证模型ToolStripMenuItem.Name = "mVC验证模型ToolStripMenuItem";
+            this.mVC验证模型ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.mVC验证模型ToolStripMenuItem.Text = "MVC验证模型";
+            this.mVC验证模型ToolStripMenuItem.Click += new System.EventHandler(this.mVC验证模型ToolStripMenuItem_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -522,6 +541,8 @@
         private System.Windows.Forms.ToolStripMenuItem bUIAdiniseShellToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem easyUIAdiniShellToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bootstrapAdminToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 根据类库生成数据库描述ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mVC验证模型ToolStripMenuItem;
 
     }
 }
