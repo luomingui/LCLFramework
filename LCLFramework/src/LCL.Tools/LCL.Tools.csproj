@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Build\Common\BuildBase.cs" />
     <Compile Include="Build\IBuild.cs" />
+    <Compile Include="Build\Providers\AdoNetBuild.cs" />
     <Compile Include="Build\Providers\EntityBuild.cs" />
     <Compile Include="Build\Providers\MVCUIBuild.cs" />
     <Compile Include="Build\Providers\RepositoryBuild.cs" />

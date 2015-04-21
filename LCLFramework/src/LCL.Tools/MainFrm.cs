@@ -350,5 +350,12 @@ namespace LCL.Tools
             build.GenerateValidationModel(dir);
             MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
         }
+        private void adoNetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            AdoNetBuild build = new AdoNetBuild();
+            build.GenerateDAL(dir);
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+        }
     }
 }

@@ -110,6 +110,7 @@
     <Compile Include="Data\Providers\SqlServer2008Backuper.cs" />
     <Compile Include="Data\Providers\SqlServerBackuper.cs" />
     <Compile Include="Data\Providers\SqlServerProvider.cs" />
+    <Compile Include="Data\SqlUtil.cs" />
     <Compile Include="Extensions\DataTableConvertJson.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
