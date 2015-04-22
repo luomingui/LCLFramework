@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "编辑行政区域";
+}
+
+@using LCL.MvcExtensions
+@using UIShell.RbacPermissionService
+@model AddOrEditViewModel<Xzqy>
+
+<!-- Page title -->
+<div class="page-title">
+    <h2>
+        <i class="icon-desktop color"></i> 行政区域 <small>
+            @{
+                string actionTag = "";
+                if (Model.Added) { actionTag = "新增一个行政区域"; } else { actionTag = "编辑一个行政区域"; }
+            }@actionTag
+        </small>
+    </h2> <hr />
+</div>
+<!-- Page title -->
+
+<div class="row">
+    <!--col-md-6 start-->
+    <div class="col-md-12">
+        <!--box-info start-->
+        <div class="col-md-12">
+            <!--box-info start-->
+            <div class="awidget">
+                <div class="awidget-head">
+                    <h3>行政区域</h3>
+                </div>
+                <div class="awidget-body">
+                    <!--form-horizontal row-border start-->
+                    @using (Html.BeginForm(Model.Added ? "Add" : "Edit", "Xzqy", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                    {
+                        @Html.HiddenFor(c => c.CurrentPageNum)
+                        @Html.HiddenFor(c => c.PageSize)
+                        @Html.HiddenFor(c => c.Entity.ID)
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.HelperCode)</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(c => c.Entity.HelperCode, new { @class = "form-control", @placeholder = "请输入区划代码" })
+                                @Html.ValidationMessageFor(c => c.Entity.HelperCode)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Name)</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(c => c.Entity.Name, new { @class = "form-control", @placeholder = "请输入区划名称" })
+                                @Html.ValidationMessageFor(c => c.Entity.Name)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Intro)</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(c => c.Entity.Intro, new { @class = "form-control", @placeholder = "请输入区划介绍" })
+                                @Html.ValidationMessageFor(c => c.Entity.Intro)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">保存</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-default" onclick="javascript: window.history.back();">返回</button>
+                            </div>
+                        </div>
+                        @Html.HiddenFor(c => c.Entity.ParentId) <br />
+                        @Html.HiddenFor(c => c.Entity.AddDate) <br />
+                        @Html.HiddenFor(c => c.Entity.Level) <br />
+                        @Html.HiddenFor(c => c.Entity.NodePath) <br />
+                        @Html.HiddenFor(c => c.Entity.OrderBy) <br />
+                        @Html.HiddenFor(c => c.Entity.IsLast) <br />
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

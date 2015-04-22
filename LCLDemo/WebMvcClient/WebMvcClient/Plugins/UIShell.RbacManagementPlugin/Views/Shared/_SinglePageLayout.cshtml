@@ -1,79 +1,130 @@
-﻿@using UIShell.RbacManagementPlugin;
-@using LCL.MvcExtensions;
-@using UIShell.RbacPermissionService;
+﻿@using LCL.MvcExtensions;
+@using UIShell.RbacManagementPlugin;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ASP.NET MVC 开发框架</title>
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/login.css"))" />
-    
-    <script src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Scripts/textualizer.min.js"))"></script>
-    <script src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Scripts/Marquee.js"))"></script>
-    <script src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Scripts/Login.js"))"></script>
+    <!-- Title here -->
+    <title>@ViewBag.Title</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
 
-    @RenderSection("header", required: false)
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='@(Url.BundleContent(BundleActivator.Bundle, "css/font-css.css"))' rel='stylesheet' type='text/css'>
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/bootstrap.min.css"))" rel="stylesheet">
+    <!-- Animate css -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/animate.min.css"))" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/jquery.gritter.css"))" rel="stylesheet">
+    <!-- Calendar -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/fullcalendar.css"))" rel="stylesheet">
+    <!-- Bootstrap toggable -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/bootstrap-switch.css"))" rel="stylesheet">
+    <!-- Date and Time picker -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/bootstrap-datetimepicker.min.css"))" rel="stylesheet">
+    <!-- Star rating -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/rateit.css"))" rel="stylesheet">
+    <!-- Star rating -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/jquery.cleditor.css"))" rel="stylesheet">
+    <!-- jQuery UI -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/jquery-ui.css"))" rel="stylesheet">
+    <!-- prettyPhoto -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/prettyPhoto.css"))" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/font-awesome.min.css"))" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="@(Url.BundleContent(BundleActivator.Bundle, "css/style.css"))" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
 </head>
-<body>
-    <!--[if lte IE 7]>
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/killie.css"))" />
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/killie.js"))"></script>
-    <![endif]-->
-    <!--[if lte IE 6]>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/iepng.js"))"></script>
-    <script type="text/javascript" >
-    EvPNG.fix('img,a,div.alertDiv');
-    </script>
-    <![endif]-->
-    <ul id="btnList"></ul>
-    <div class="vcenter">
-        <div class="hcenter">
-            <div class="top">
-                <!--顶部-->
-                <div class="logo">
-                    <dl>
-                        <dt><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/images/login/logo.jpg"))" alt="" title="" width="55" height="55" /></a></dt>
-                        <dd>
-                            <h2><span class="nav"><a></a></span><a class="tit"><span class="t">ASP.NET MVC 开发框架</span></a></h2>
-                        </dd>
-                    </dl>
-                </div>
-                <!--中部-->
-                <div class="loginbox">
-                    <!----登录框---->
-                    @RenderBody()
-                    <div class="runarea1">
-                        <div class="runbox1" id="runbox1">
-                            <ul class="piclist1 runlist1">
-                                <li><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/login/textpic_1.png"))" /></li>
-                                <li><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/login/textpic_2.png"))" /></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="list">
-                <div class="logobox">
-                    <div class="picbox" id="loginrunbox">
-                        <ul class="piclist mainlist">
-                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_junfei.png"))" /></a></li>
-                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_junfei.png"))" /></a></li>
-                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_somac.png"))" /></a></li>
-                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_eac.png"))" /></a></li>
-                            <li><a><img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Images/company/logo_motic.png"))" /></a></li>
-                        </ul>
-                    </div>
-                    <div class="og_prev" id="og_prev"></div>
-                    <div class="og_next" id="og_next"></div>
 
-                </div>
-                <div class="foot">
-                    ASP.NET MVC 开发框架&nbsp;   &nbsp;   
-                    <span style="cursor:pointer;">联系我们</span>&nbsp;&nbsp;
+<body>
+
+
+    <!-- Logo & Navigation starts -->
+
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Logo -->
+                    <div class="logo text-center">
+                        <h1><a href="#">江西精英科技</a></h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- foot end -->
+
+    <!-- Logo & Navigation ends -->
+    <!-- Page content -->
+
+    <div class="page-content blocky">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+
+
+    <!-- Footer starts -->
+    <footer>
+        <div class="container">
+
+            <div class="copy text-center">
+                Copyright 2015 &copy; - <a href="http://www.cnblogs.com/luomingui">luomingui</a>
+            </div>
+
+        </div>
+    </footer>
+    <!-- Footer ends -->
+    <!-- Scroll to top -->
+    <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.js"))"></script>
+    <!-- Bootstrap JS -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/bootstrap.min.js"))"></script>
+    <!-- jQuery UI -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery-ui-1.10.2.custom.min.js"))"></script>
+    <!-- jQuery Peity -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/peity.js"))"></script>
+    <!-- Calendar -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/fullcalendar.min.js"))"></script>
+    <!-- jQuery Star rating -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.rateit.min.js"))"></script>
+    <!-- prettyPhoto -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.prettyPhoto.js"))"></script>
+
+    <!-- jQuery flot -->
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="@(Url.BundleContent(BundleActivator.Bundle, "js/excanvas.min.js"))"></script><![endif]-->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.flot.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.flot.pie.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.flot.stack.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.flot.resize.js"))"></script>
+
+
+
+    <!-- Gritter plugin -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.gritter.min.js"))"></script>
+    <!-- CLEditor -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.cleditor.min.js"))"></script>
+    <!-- Date and Time picker -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/bootstrap-datetimepicker.min.js"))"></script>
+    <!-- jQuery Toggable -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/bootstrap-switch.min.js"))"></script>
+    <!-- Respond JS for IE8 -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/respond.min.js"))"></script>
+    <!-- HTML5 Support for IE -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/html5shiv.js"))"></script>
+    <!-- Custom JS -->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/custom.js"))"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

@@ -1,0 +1,420 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- Page title -->
+<div class="page-title">
+    <h2><i class="icon-desktop color"></i> Dashboard <small>Subtext for header</small></h2>
+    <hr />
+</div>
+<!-- Page title -->
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="awidget">
+            <div class="awidget-head">
+                <h3>Today's Status</h3>
+            </div>
+            <div class="awidget-body">
+                <div class="chart-container">
+                    <div id="home-chart" class="chart-placeholder"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin hero. Peity bar plugin used -->
+
+<div class="admin-hero">
+    <ul class="list-inline">
+        <li>
+            <span class="peity-bar">10,12,14,16,26,23,20,18,16,13,-10,-13,-20,-18,10,12,14,11,10,12,14,22,26,23,20,18</span>
+            <hr />
+            <h2>610% <span class="label label-danger"><i class="icon-double-angle-up"></i></span></h2>
+        </li>
+        <li>
+            <span class="peity-bar">13,-10,-13,-20,-18,10,12,10,12,14,16,26,23,20,18,16,14,11,10,12,14,22,26,23,20,18</span>
+            <hr />
+            <h2>40% <span class="label label-warning"><i class="icon-double-angle-down"></i></span></h2>
+        </li>
+        <li>
+            <span class="hero-icon"><i class="icon-group"></i></span>
+            <hr />
+            <h2>200 <span class="label label-success"><i class="icon-user"></i></span></h2>
+        </li>
+        <li>
+            <span class="hero-icon"><i class="icon-calendar"></i></span>
+            <hr />
+            <h2>30% <span class="label label-warning"><i class="icon-double-angle-up"></i></span></h2>
+        </li>
+        <li>
+            <span class="peity-bar">10,12,14,16,26,23,20,18,16,13,-10,-13,-20,-18,10,12,14,11,10,12,14,22,26,23,20,18</span>
+            <hr />
+            <h2>$20000 <span class="label label-danger"><i class="icon-double-angle-up"></i></span></h2>
+        </li>
+    </ul>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+
+        <!-- Chat widget -->
+        <div class="awidget">
+            <div class="awidget-head">
+                <h3>Chat Widget</h3>
+            </div>
+            <div class="awidget-body">
+                <ul class="chats">
+
+                    <!-- Chat by us. Use the class "by-me". -->
+                    <li class="by-me">
+                        <!-- Use the class "pull-left" in avatar -->
+                        <div class="avatar pull-left">
+                            <img src="img/user.jpg" alt="" class="img-responsive" />
+                        </div>
+
+                        <div class="chat-content">
+                            <!-- In meta area, first include "name" and then "time" -->
+                            <div class="chat-meta">Ashok <span class="pull-right">3 hours ago</span></div>
+                            Vivamus diam elit diam, consectetur dapibus adipiscing elit.
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+
+                    <!-- Chat by other. Use the class "by-other". -->
+                    <li class="by-other">
+                        <!-- Use the class "pull-right" in avatar -->
+                        <div class="avatar pull-right">
+                            <img src="img/user.jpg" alt="" class="img-responsive" />
+                        </div>
+
+                        <div class="chat-content">
+                            <!-- In the chat meta, first include "time" then "name" -->
+                            <div class="chat-meta">3 hours ago <span class="pull-right">Ravi</span></div>
+                            Vivamus diam elit diam, consectetur fconsectetur dapibus adipiscing elit.
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+
+                    <li class="by-me">
+                        <div class="avatar pull-left">
+                            <img src="img/user.jpg" alt="" class="img-responsive" />
+                        </div>
+
+                        <div class="chat-content">
+                            <div class="chat-meta">Ashok <span class="pull-right">4 hours ago</span></div>
+                            Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+
+
+                </ul>
+                <hr />
+                <!-- Chat input box -->
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button">Send</button>
+                    </span>
+                </div><!-- /input-group -->
+                <br />
+            </div>
+        </div>
+        <!-- Chat widget -->
+
+    </div>
+
+    <!-- Quick post widget -->
+    <div class="col-md-6">
+        <div class="awidget">
+            <div class="awidget-head">
+                <h3>Quick Post</h3>
+            </div>
+            <div class="awidget-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Title</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" placeholder="Enter Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Content</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="3" placeholder="Enter Content"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Category</label>
+                        <div class="col-lg-10">
+                            <select class="form-control">
+                                <option>General</option>
+                                <option>Web Designing</option>
+                                <option>Software Designing</option>
+                                <option>UI/UX</option>
+                                <option>Android App</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Tags</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" placeholder="Enter Tags">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Publish Immediatly
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-danger">Publish</button>
+                            <button type="submit" class="btn btn-success">Save Draft</button>
+                            <button type="submit" class="btn btn-default">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Quick post widget -->
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <!-- Project widget -->
+        <div class="awidget">
+            <div class="awidget-head">
+                <h3>Projects</h3>
+            </div>
+            <div class="awidget-body">
+                <ul class="project">
+
+                    <li>
+                        <p>
+                            <!-- Checkbox -->
+                            <input value="check1" type="checkbox">
+                            <!-- Name -->
+                            Hospital Management System
+                        </p>
+
+                        <p class="p-meta">
+                            <!-- Due date & % Completed -->
+                            <span>Due : 26/2/2012 - 80% Done</span>
+                        </p>
+
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <li>
+                        <p>
+                            <!-- Checkbox -->
+                            <input value="check1" type="checkbox">
+                            <!-- Name -->
+                            School Download System
+                        </p>
+
+                        <p class="p-meta">
+                            <!-- Due date & % Completed -->
+                            <span>Due : 26/2/2012 - 80% Done</span>
+                        </p>
+
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                <span class="sr-only">80% Complete (success)</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <p>
+                            <!-- Checkbox -->
+                            <input value="check1" type="checkbox">
+                            <!-- Name -->
+                            Question and Answers Script
+                        </p>
+
+                        <p class="p-meta">
+                            <!-- Due date & % Completed -->
+                            <span>Due : 26/2/2012 - 80% Done</span>
+                        </p>
+
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                <span class="sr-only">20% Complete (success)</span>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- Project widget -->
+
+    </div>
+
+    <div class="col-md-4">
+
+        <!-- Browser widget -->
+        <div class="awidget">
+            <div class="awidget-head">
+                <h3>Browsers</h3>
+            </div>
+            <div class="awidget-body no-table-bor">
+                <table class="table">
+                    <tr>
+                        <th><center>#</center></th>
+                        <th>Browsers</th>
+                        <th>Visits</th>
+                    </tr>
+                    <tr>
+                        <td><img src="img/icons/chrome.png" alt="" />
+                        <td>Google Chrome</td>
+                        <td>3,005</td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/icons/firefox.png" alt="" />
+                        <td>Mozilla Firefox</td>
+                        <td>2,505</td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/icons/ie.png" alt="" />
+                        <td>Internet Explorer</td>
+                        <td>1,405</td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/icons/opera.png" alt="" />
+                        <td>Opera</td>
+                        <td>4,005</td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/icons/safari.png" alt="" />
+                        <td>Safari</td>
+                        <td>505</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- Browser widget -->
+
+    </div>
+
+    <div class="col-md-4">
+        <!-- Server status widget -->
+        <div class="awidget">
+            <div class="awidget-head">
+                <h3>Server Status</h3>
+            </div>
+            <div class="awidget-body no-table-bor">
+                <table class="table">
+                    <tr>
+                        <td>Domain</td>
+                        <td>sitedomain.com</td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>192.425.2.4</td>
+                    </tr>
+                    <tr>
+                        <td>Disk Space</td>
+                        <td>600GB / 60000GB</td>
+                    </tr>
+                    <tr>
+                        <td>Bandwidth</td>
+                        <td>1000GB / 2000GB</td>
+                    </tr>
+                    <tr>
+                        <td>PHP Version</td>
+                        <td>5.1.1</td>
+                    </tr>
+                    <tr>
+                        <td>MySQL Databases</td>
+                        <td>10</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- Server status widget -->
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            /* Bar Chart starts */
+
+            var d1 = [];
+            for (var i = 0; i <= 35; i += 1)
+                d1.push([i, parseInt(Math.random() * 30)]);
+
+            var d2 = [];
+            for (var i = 0; i <= 35; i += 1)
+                d2.push([i, parseInt(Math.random() * 30)]);
+
+
+            var stack = 0, bars = true, lines = false, steps = false;
+
+            function plotWithOptions() {
+                $.plot($("#home-chart"), [d1, d2], {
+                    series: {
+                        stack: stack,
+                        lines: { show: lines, fill: true, steps: steps },
+                        bars: { show: bars, barWidth: 0.8 }
+                    },
+                    grid: {
+                        borderWidth: 0, hoverable: true, color: "#777"
+                    },
+                    colors: ["#16cbe6", "#0fa6bc"],
+                    bars: {
+                        show: true,
+                        lineWidth: 0,
+                        fill: true,
+                        fillColor: { colors: [{ opacity: 0.9 }, { opacity: 0.8 }] }
+                    }
+                });
+            }
+
+            plotWithOptions();
+
+            $(".stackControls input").click(function (e) {
+                e.preventDefault();
+                stack = $(this).val() == "With stacking" ? true : null;
+                plotWithOptions();
+            });
+            $(".graphControls input").click(function (e) {
+                e.preventDefault();
+                bars = $(this).val().indexOf("Bars") != -1;
+                lines = $(this).val().indexOf("Lines") != -1;
+                steps = $(this).val().indexOf("steps") != -1;
+                plotWithOptions();
+            });
+
+            /* Bar chart ends */
+
+        });
+    </script>
+}
+<!-- Row End -->

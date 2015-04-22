@@ -1,0 +1,20 @@
+﻿@{
+    var actionName = ViewData["Action"] == null ? ViewContext.RouteData.Values["Action"].ToString() : ViewData["Action"].ToString();
+}
+
+<div class="inline pull-right page">
+    <a href="@Url.Action(actionName, new { currentPageNum =1, pageSize = Model.PageSize })">首页</a>
+    @if (Model.HasPreviousPage)
+    {
+        <a href="@Url.Action(actionName, new { currentPageNum = Model.CurrentPageNum - 1, pageSize = Model.PageSize })">上一页</a>
+    }
+    @if (Model.HasNextPage)
+    {
+        <a href="@Url.Action(actionName, new { currentPageNum = Model.CurrentPageNum + 1, pageSize = Model.PageSize })">下一页</a>
+    }
+    <a href="@Url.Action(actionName, new { currentPageNum = Model.PageCount, pageSize = Model.PageSize })">尾页</a>
+    @Model.TotalCount 条记录 @Model.CurrentPageNum/@Model.PageCount 页  
+</div>
+<br /><br />
+
+

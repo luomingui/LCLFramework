@@ -5,32 +5,48 @@
 @{
     ViewBag.Title = "系统登录";
     Layout = @Url.Content("../Shared/_SinglePageLayout.cshtml");
+
 }
-@using (Html.BeginForm("Login", "Account", FormMethod.Post, new {  }))
-{
-    <div class="loginfrom" id="frmLogin">
-        <div class="loginformName">
-            <input class="loginFormIpt_name" tabindex="1" title="请输入帐号" id="Name" name="Name"  type="text" maxlength="50" placeholder="帐号" />
-        </div>
-        <div class="loginformPwd">
-            <input class="loginFormIpt_pwd" tabindex="2" title="请输入密码" id="Password" name="Password" type="password" maxlength="50" placeholder="密码" />
-        </div>
-        <div class="loginformYzm">
-            <div class="inyzm"><a><img id="imgCode" style="cursor: pointer;" src="GetValidateCode" alt="验证码" title="点击刷新" width="80" height="38" />
-                </a><p>点击图片<br />更换验证码</p></div>
-            <div class="ininput"><input class="loginFormIpt_yzm" tabindex="3" title="请输入验证码" id="VerifyCode" name="VerifyCode" type="text" maxlength="8" placeholder="验证码" /></div>
-        </div>
-        <div class="loginformSb">
-            <input class="loginFormIpt_sb" tabindex="4" id="btnLogin" name="btnLogin" type="submit" maxlength="50" value="登 录" />
-        </div>
-        <div class="loginformInfo">
-            推荐浏览器 <a href="download/ChromeStandaloneSetup_v33.exe">Chrome</a>
-            <a href="download/Firefox-full-latest_v28.exe">Firefox</a>
-        </div>
-        <div class="loginformEwm">
-            <div class="ewm"><div id="qrcode" ></div><p><br />扫描二维码<br />登录维修平台</p></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="awidget login-reg">
+            <div class="awidget-head">
+
+            </div>
+            <div class="awidget-body">
+                <!-- Page title -->
+                <div class="page-title text-center">
+                    <h2>登&nbsp;&nbsp;录</h2>
+                    <hr />
+                </div>
+                <!-- Page title -->
+                <br />
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-lg-2 control-label">登录名</label>
+                        <div class="col-lg-10">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "用户名" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword1" class="col-lg-2 control-label">密码</label>
+                        <div class="col-lg-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "密码" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-info">登录</button>
+                            <button type="reset" class="btn btn-default">重置</button>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-}
+</div>
+
 
 

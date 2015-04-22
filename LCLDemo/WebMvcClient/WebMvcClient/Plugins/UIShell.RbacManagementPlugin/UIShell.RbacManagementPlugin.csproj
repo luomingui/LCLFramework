@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UIShell.RbacManagementPlugin</RootNamespace>
     <AssemblyName>UIShell.RbacManagementPlugin</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -59,12 +59,11 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -89,15 +88,14 @@
       <Private>True</Private>
       <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BundleActivator.cs" />
-    <Compile Include="Code\RbacBusinessHandler.ashx.cs">
-      <DependentUpon>RbacBusinessHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Code\ValidateCode.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompanyInfoController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DictionaryController.cs" />
     <Compile Include="Controllers\DictTypeController.cs" />
     <Compile Include="Controllers\RoleAuthorityController.cs" />
@@ -106,35 +104,15 @@
     <Compile Include="Controllers\SchoolInfoController.cs" />
     <Compile Include="Controllers\TLogController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\User_EmployeeController.cs" />
+    <Compile Include="Controllers\User_StudentController.cs" />
+    <Compile Include="Controllers\User_TeacherCheckController.cs" />
+    <Compile Include="Controllers\User_TeacherController.cs" />
     <Compile Include="Controllers\XzqyController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\company\logo_eac.png" />
-    <Content Include="Content\Images\company\logo_junfei.png" />
-    <Content Include="Content\Images\company\logo_motic.png" />
-    <Content Include="Content\Images\company\logo_somac.png" />
-    <Content Include="Content\Images\company\logo_swr.png" />
-    <Content Include="Content\Images\contact.png" />
-    <Content Include="Content\Images\login\icon.png" />
-    <Content Include="Content\Images\login\ipt_bg_loginname.jpg" />
-    <Content Include="Content\Images\login\ipt_bg_loginpw-04.jpg" />
-    <Content Include="Content\Images\login\ipt_bg_loginpw.jpg" />
-    <Content Include="Content\Images\login\ipt_bg_loginyzm.jpg" />
-    <Content Include="Content\Images\login\logo.jpg" />
-    <Content Include="Content\Images\login\logo_adbg.jpg" />
-    <Content Include="Content\Images\login\logo_bg.jpg" />
-    <Content Include="Content\Images\login\logo_r.jpg" />
-    <Content Include="Content\Images\login\textpic_1.png" />
-    <Content Include="Content\Images\login\textpic_2.png" />
-    <Content Include="Content\Images\phone.png" />
-    <Content Include="Content\Images\qq.png" />
-    <Content Include="Content\killie.css" />
-    <Content Include="Content\login.css" />
-    <Content Include="Scripts\Login.js" />
-    <Content Include="Scripts\Marquee.js" />
-    <Content Include="Scripts\textualizer.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -163,9 +141,6 @@
     <Content Include="Views\Shared\_SinglePageLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Code\RbacBusinessHandler.ashx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_PagedListBottom.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +165,20 @@
   <ItemGroup>
     <Content Include="Views\Schedule\AddOrEdit.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Department\AddOrEdit.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User_Employee\AddOrEdit.cshtml" />
+    <Content Include="Views\User_Employee\Index.cshtml" />
+    <Content Include="Views\User_Student\AddOrEdit.cshtml" />
+    <Content Include="Views\User_Student\Index.cshtml" />
+    <Content Include="Views\User_TeacherCheck\AddOrEdit.cshtml" />
+    <Content Include="Views\User_TeacherCheck\Index.cshtml" />
+    <Content Include="Views\User_Teacher\AddOrEdit.cshtml" />
+    <Content Include="Views\User_Teacher\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

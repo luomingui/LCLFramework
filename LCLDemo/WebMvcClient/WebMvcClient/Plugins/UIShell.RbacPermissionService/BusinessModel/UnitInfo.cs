@@ -61,6 +61,6 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 单位类型
         /// </summary>
-        public OrgType OrgType { get; set; }
+        public UnitType UnitType { get; set; }
     }
 }

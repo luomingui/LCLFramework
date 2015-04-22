@@ -15,13 +15,13 @@ namespace UIShell.RbacPermissionService
             this.Role =new HashSet<Role>();
         }
         /// <summary>
-        /// 登录密码
-        /// </summary>
-        public string Password { set; get; }
-        /// <summary>
         /// 登录名称
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// 登录密码
+        /// </summary>
+        public string Password { set; get; }
         /// <summary>
         /// 是否锁定
         /// </summary>
@@ -32,9 +32,11 @@ namespace UIShell.RbacPermissionService
         /// </summary>
         public ICollection<Role> Role { get; set; }
         /// <summary>
-        /// Gets or sets the org.
+        /// 隶属单位
         /// </summary>
         public UnitInfo UnitInfo { get; set; }
+
+        
     }
 
 }

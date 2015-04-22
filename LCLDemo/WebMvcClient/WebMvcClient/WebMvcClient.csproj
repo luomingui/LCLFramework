@@ -49,20 +49,16 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\..\LCLFramework\Lib\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="LCL, Version=4.5.3.0, Culture=neutral, PublicKeyToken=7e4a2438e8435554, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="LCL">
       <HintPath>..\..\..\LCLFramework\Lib\LCL.dll</HintPath>
     </Reference>
-    <Reference Include="LCL.MvcExtensions, Version=4.5.3.0, Culture=neutral, PublicKeyToken=f50a43e59c86799d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="LCL.MvcExtensions">
       <HintPath>..\..\..\LCLFramework\Lib\LCL.MvcExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="LCL.ObjectContainers.Unity">
       <HintPath>..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="LCL.Utils, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="LCL.Utils">
       <HintPath>..\..\..\LCLFramework\Lib\LCL.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">

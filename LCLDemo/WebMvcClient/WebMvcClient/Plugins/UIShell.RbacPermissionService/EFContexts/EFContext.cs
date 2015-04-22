@@ -22,7 +22,7 @@ namespace UIShell.RbacPermissionService
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //表前缀
-            //modelBuilder.Types().Configure(entity => entity.ToTable(AppConstant.Tableprefix + entity.ClrType.Name));
+            modelBuilder.Types().Configure(entity => entity.ToTable(AppConstant.Tableprefix + entity.ClrType.Name));
 
             // 忽略列映射 Fluent API:NotMapped
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.ScheduleType);
@@ -41,7 +41,7 @@ namespace UIShell.RbacPermissionService
     /// <summary>
     /// 数据库初始化操作类
     /// </summary>
-    public static class DatabaseInitializer
+    internal static class DatabaseInitializer
     {
         /// <summary>
         /// 数据库初始化
@@ -104,17 +104,5 @@ namespace UIShell.RbacPermissionService
         }
     }
 
-    public class AppConstant
-    {
-        /// <summary>
-        /// The system admin
-        /// </summary>
-        public static readonly string SystemAdmin = "admin";
-        /// <summary>
-        /// Edms_
-        /// </summary>
-        public static readonly string Tableprefix = "";
-
-    }
-
+ 
 }

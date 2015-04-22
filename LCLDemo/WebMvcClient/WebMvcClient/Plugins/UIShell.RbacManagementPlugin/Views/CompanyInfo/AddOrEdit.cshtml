@@ -1,0 +1,74 @@
+﻿@{ 
+    ViewBag.Title = "编辑企业信息"; 
+} 
+@using LCL.MvcExtensions; 
+@using UIShell.RbacPermissionService;
+@model AddOrEditViewModel<CompanyInfo> 
+<div class="doc-content"> 
+@using (Html.BeginForm(Model.Added ? "Add" : "Edit", "CompanyInfo", FormMethod.Post)) 
+{ 
+    @Html.HiddenFor(c => c.CurrentPageNum) 
+    @Html.HiddenFor(c => c.PageSize) 
+    @Html.HiddenFor(c => c.Entity.ID) 
+    <table class="table table-hover table-bordered"> 
+        <tr>
+            <td width="10%" class="tableleft">上一级</td>
+            <td>
+                @Html.DropDownList("ddlCompanyInfo", ViewData["ddlCompanyInfo"] as IEnumerable<SelectListItem>)
+            </td>
+        </tr> 
+        <tr> 
+            <td width="10%" class="tableleft">机构类型</td> 
+            <td> 
+                @Html.TextBoxFor(c => c.Entity.OrgType, new { @placeholder = "请输入机构类型" }) 
+                @Html.ValidationMessageFor(c => c.Entity.OrgType) 
+            </td> 
+        </tr> 
+        <tr> 
+            <td width="10%" class="tableleft">经济类型</td> 
+            <td> 
+                @Html.TextBoxFor(c => c.Entity.EconomicType, new { @placeholder = "请输入经济类型" }) 
+                @Html.ValidationMessageFor(c => c.Entity.EconomicType) 
+            </td> 
+        </tr> 
+        <tr> 
+            <td width="10%" class="tableleft">注册日期</td> 
+            <td> 
+                @Html.TextBoxFor(c => c.Entity.RegisterDate, new { @placeholder = "请输入注册日期" }) 
+                @Html.ValidationMessageFor(c => c.Entity.RegisterDate) 
+            </td> 
+        </tr> 
+        <tr> 
+            <td width="10%" class="tableleft">注册资金</td> 
+            <td> 
+                @Html.TextBoxFor(c => c.Entity.RegisterMoney, new { @placeholder = "请输入注册资金" }) 
+                @Html.ValidationMessageFor(c => c.Entity.RegisterMoney) 
+            </td> 
+        </tr> 
+        <tr> 
+            <td width="10%" class="tableleft">注册地址</td> 
+            <td> 
+                @Html.TextBoxFor(c => c.Entity.RegisterAddress, new { @placeholder = "请输入注册地址" }) 
+                @Html.ValidationMessageFor(c => c.Entity.RegisterAddress) 
+            </td> 
+        </tr> 
+        <tr> 
+            <td width="10%" class="tableleft">法人代表</td> 
+            <td> 
+                @Html.TextBoxFor(c => c.Entity.EgalPerson, new { @placeholder = "请输入法人代表" }) 
+                @Html.ValidationMessageFor(c => c.Entity.EgalPerson) 
+            </td> 
+        </tr> 
+      
+        <tr> 
+            <td class="tableleft"></td> 
+            <td> 
+                <button type="submit" class="btn btn-primary">提交</button> 
+                <button type="button" class="btn btn-success" id="backid" onclick="javacript:history.go(-1);">返回列表</button> 
+            </td> 
+        </tr> 
+    </table> 
+} 
+</div> 
+ 
+ 

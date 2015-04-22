@@ -1,0 +1,53 @@
+﻿@using LCL.MvcExtensions; 
+@{ 
+    ViewBag.Title = "企业信息"; 
+} 
+<form class="form-inline definewidth m20"> 
+    <button type="button" class="btn btn-success" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit", 
+    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';"> 
+        新 增 
+    </button> 
+</form> 
+<table class="table table-hover table-bordered"> 
+    <thead> 
+        <tr> 
+            <th>操作</th> 
+            <th>组织机构代码</th>
+            <th>名称</th>
+            <th>办公电话</th>
+
+            <th>机构类型</th> 
+            <th>经济类型</th> 
+            <th>注册日期</th> 
+            <th>注册资金</th> 
+            <th>法人代表</th> 
+            <th>更新时间</th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+        @{ 
+            foreach (var view in Model.PagedModels) 
+            { 
+                <tr> 
+                    <td> 
+                        <a onclick="javascript: location.href = '@Url.Action("AddOrEdit", 
+                            new { ID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">编辑</a> 
+                        <a onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", 
+                            new { ID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">删除</a> 
+                    </td> 
+                    <td>@view.HelperCode</td>
+                    <td>@view.Name</td>
+                    <td>@view.OfficePhone</td>
+                    <td>@view.CompanyType</td> 
+                    <td>@view.EconomicType</td> 
+                    <td>@view.RegisterDate.ToString("yyyy-MM-dd")</td> 
+                    <td>@view.RegisterMoney</td> 
+                    <td>@view.EgalPerson</td> 
+                    <td>@view.UpdateDate.ToString("yyyy-MM-dd")</td> 
+                </tr> 
+            } 
+        } 
+    </tbody> 
+</table> 
+@Html.Partial("_PagedListBottom")
+ 

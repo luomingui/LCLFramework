@@ -1,0 +1,69 @@
+﻿@using LCL.MvcExtensions;  
+@{  
+    ViewBag.Title = "学生";  
+}  
+<!-- Page title --> 
+<div class="page-title"> 
+    <h2><i class="icon-desktop color"></i> 学生 <small>显示所有学生</small></h2> 
+    <hr /> 
+</div> 
+<!-- Page title --> 
+<div class="awidget"> 
+    <div class="awidget-head"> 
+        <div class="row"> 
+            <div class="col-md-10"> 
+                <span>总数：@Model.TotalCount</span> 
+            </div> 
+            <div class="col-md-2"> 
+                <button type="button" class="btn btn-warning pull-right" onclick="javascript: location.href='@Url.Action("AddOrEdit", 
+    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';"> 
+                    新 增 
+                </button>  
+            </div> 
+        </div> 
+    </div> 
+    <div class="awidget-body"> 
+        <div class="row"> 
+            <div class="col-md-12"> 
+                <table class="table table-hover table-bordered"> 
+                    <thead> 
+                        <tr> 
+                           <th>操作</th> 
+            <th>学生姓名</th> 
+            <th>更新时间</th> 
+            <th>所属学校</th> 
+            <th>所属用户</th> 
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        @{ 
+                            foreach (var view in Model.PagedModels) 
+                            { 
+                                <tr> 
+                                    <td> 
+                                        <button type="button" class="btn btn-xs btn-warning" 
+                                                onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';"> 
+                                            <i class="icon-pencil"></i> 
+                                        </button> 
+                                        <button type="button" class="btn btn-xs btn-danger" 
+                                                onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };"> 
+                                            <i class="icon-remove"></i> 
+                                        </button> 
+                                    </td> 
+                    <td>@view.Name</td> 
+                    <td>@view.UpdateDate</td> 
+                    <td>@view.SchoolInfo_ID</td> 
+                    <td>@view.User_ID</td> 
+                                </tr> 
+                            } 
+                        } 
+                    </tbody> 
+                </table> 
+            </div> 
+        </div> 
+        @Html.Partial("_PagedListBottom") 
+    </div> 
+</div>  
+  
+ 
+  

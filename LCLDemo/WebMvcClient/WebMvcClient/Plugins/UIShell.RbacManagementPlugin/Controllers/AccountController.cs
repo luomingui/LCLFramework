@@ -28,11 +28,11 @@ namespace UIShell.RbacManagementPlugin.Controllers
         [HttpPost, ActionName("Login")]
         public ActionResult Login(Account account)
         {
-            if (Session["ValidateCode"].ToString() != account.VerifyCode)
-            {
-                ModelState.AddModelError("VerifyCode", "validate code is error");
-                return View();
-            }
+            //if (Session["ValidateCode"].ToString() != account.VerifyCode)
+            //{
+            //    ModelState.AddModelError("VerifyCode", "validate code is error");
+            //    return View();
+            //}
             if (!ModelState.IsValid)
             {
                 return View();
