@@ -19,7 +19,7 @@ namespace LCL.Tools
                 TableModel tm = tableNames[i];
                 string tablename = tm.TableName;
                 string tableInfo = tm.TableNameRemark;
-                if (tablename != "__MigrationHistory")
+                if (tablename != "__MigrationHistory" && tablename != "sysdiagrams")
                 {
                     ben.AppendLine("ServiceLocator.Instance.Register<IRepository<" + tablename + ">, EntityFrameworkRepository<" + tablename + ">>();");
 

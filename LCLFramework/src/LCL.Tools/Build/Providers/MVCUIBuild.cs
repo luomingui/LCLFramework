@@ -17,7 +17,10 @@ namespace LCL.Tools
                 TableModel tm = tableNames[i];
                 string tablename = tm.TableName;
                 string tableInfo = tm.TableNameRemark;
-
+                if (tablename == "__MigrationHistory" && tablename == "sysdiagrams")
+                {
+                    continue;
+                }
                 StringBuilder builder = new StringBuilder();
                 builder.AppendLine("/******************************************************* ");
                 builder.AppendLine("*  ");
@@ -49,9 +52,9 @@ namespace LCL.Tools
                 StringBuilder crto = new StringBuilder();
                 foreach (var item in list)
                 {
-                    crto.AppendLine("       ddl" + tablename + "(Guid.Empty); ");
+                    crto.AppendLine("       ddl" + item.ColumnName.Remove(item.ColumnName.Length - 3) + "(Guid.Empty); ");
 
-                    ddl.AppendLine("        public void ddl" + tablename + "(Guid dtId) ");
+                    ddl.AppendLine("        public void ddl" + item.ColumnName.Remove(item.ColumnName.Length - 3) + "(Guid dtId) ");
                     ddl.AppendLine("        { ");
                     ddl.AppendLine("            var repo = RF.FindRepo<" + item.ColumnName.Remove(item.ColumnName.Length - 3) + ">(); ");
                     ddl.AppendLine("            var list = repo.FindAll(); ");
@@ -116,15 +119,20 @@ namespace LCL.Tools
     }
     public class MVCUIBuild : MVCUIBuildBase
     {
-        public void GenerateViews(string path)
+        //bootstrapAdmin
+        public void GenerateBootstrapAdminViews(string path)
         {
-
             List<TableModel> tableNames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
             for (int i = 0; i < tableNames.Count; i++)
             {
                 TableModel tm = tableNames[i];
                 string tablename = tm.TableName;
                 string tableInfo = tm.TableNameRemark;
+
+                if (tablename == "__MigrationHistory" && tablename == "sysdiagrams")
+                {
+                    continue;
+                }
 
                 string fileListPath = path + @"\LCL\Views\" + tablename + @"\Index.cshtml";
                 string fileAddOrEditPath = path + @"\LCL\Views\" + tablename + @"\AddOrEdit.cshtml";
@@ -133,22 +141,37 @@ namespace LCL.Tools
                 StringBuilder builder = new StringBuilder();
 
                 #region Index.cshtml
-                builder.AppendLine("@using LCL.MvcExtensions; ");
-
-                builder.AppendLine("@{ ");
-                builder.AppendLine("    ViewBag.Title = \"" + tableInfo + "\"; ");
-                builder.AppendLine("} ");
-                builder.AppendLine("<form class=\"form-inline definewidth m20\"> ");
-                builder.AppendLine("    <button type=\"button\" class=\"btn btn-success\" id=\"addnew\" onclick=\"javascript: location.href='@Url.Action(\"AddOrEdit\", ");
+                builder.AppendLine("@using LCL.MvcExtensions;  ");
+                builder.AppendLine("@{  ");
+                builder.AppendLine("    ViewBag.Title = \"" + tableInfo + "\";  ");
+                builder.AppendLine("}  ");
+                builder.AppendLine("<!-- Page title --> ");
+                builder.AppendLine("<div class=\"page-title\"> ");
+                builder.AppendLine("    <h2><i class=\"icon-desktop color\"></i> " + tableInfo + " <small>显示所有" + tableInfo + "</small></h2> ");
+                builder.AppendLine("    <hr /> ");
+                builder.AppendLine("</div> ");
+                builder.AppendLine("<!-- Page title --> ");
+                builder.AppendLine("<div class=\"awidget\"> ");
+                builder.AppendLine("    <div class=\"awidget-head\"> ");
+                builder.AppendLine("        <div class=\"row\"> ");
+                builder.AppendLine("            <div class=\"col-md-10\"> ");
+                builder.AppendLine("                <span>总数：@Model.TotalCount</span> ");
+                builder.AppendLine("            </div> ");
+                builder.AppendLine("            <div class=\"col-md-2\"> ");
+                builder.AppendLine("                <button type=\"button\" class=\"btn btn-warning pull-right\" onclick=\"javascript: location.href='@Url.Action(\"AddOrEdit\", ");
                 builder.AppendLine("    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';\"> ");
-                builder.AppendLine("        新 增 ");
-                builder.AppendLine("    </button> ");
-                builder.AppendLine("</form> ");
-                builder.AppendLine("<table class=\"table table-hover table-bordered\"> ");
-                builder.AppendLine("    <thead> ");
-                builder.AppendLine("        <tr> ");
-                builder.AppendLine("            <th>操作</th> ");
-
+                builder.AppendLine("                    新 增 ");
+                builder.AppendLine("                </button>  ");
+                builder.AppendLine("            </div> ");
+                builder.AppendLine("        </div> ");
+                builder.AppendLine("    </div> ");
+                builder.AppendLine("    <div class=\"awidget-body\"> ");
+                builder.AppendLine("        <div class=\"row\"> ");
+                builder.AppendLine("            <div class=\"col-md-12\"> ");
+                builder.AppendLine("                <table class=\"table table-hover table-bordered\"> ");
+                builder.AppendLine("                    <thead> ");
+                builder.AppendLine("                        <tr> ");
+                builder.AppendLine("                           <th>操作</th> ");
                 foreach (var item in tm.Columns)
                 {
                     if (item.ColumnName == "ID")
@@ -164,40 +187,50 @@ namespace LCL.Tools
                         builder.AppendLine("            <th>" + item.ColumnRemark + "</th> ");
                     }
                 }
-                builder.AppendLine("        </tr> ");
-                builder.AppendLine("    </thead> ");
-                builder.AppendLine("    <tbody> ");
-                builder.AppendLine("        @{ ");
-                builder.AppendLine("            foreach (var view in Model.PagedModels) ");
-                builder.AppendLine("            { ");
-                builder.AppendLine("                <tr> ");
+                builder.AppendLine("                        </tr> ");
+                builder.AppendLine("                    </thead> ");
+                builder.AppendLine("                    <tbody> ");
+                builder.AppendLine("                        @{ ");
+                builder.AppendLine("                            foreach (var view in Model.PagedModels) ");
+                builder.AppendLine("                            { ");
+                builder.AppendLine("                                <tr> ");
                 foreach (var item in tm.Columns)
                 {
                     if (item.ColumnName == "ID")
                     {
-                        builder.AppendLine("                    <td> ");
-                        builder.AppendLine("                        <a href=\"##\"  onclick=\"javascript: location.href = '@Url.Action(\"AddOrEdit\", ");
-                        builder.AppendLine("                            new { ID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';\">编辑</a> ");
-                        builder.AppendLine("                        <a href=\"##\"  onclick=\"javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action(\"Delete\", ");
-                        builder.AppendLine("                            new { ID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };\">删除</a> ");
-                        builder.AppendLine("                    </td> ");
-                    }                   
+                        builder.AppendLine("                                    <td> ");
+                        builder.AppendLine("                                        <button type=\"button\" class=\"btn btn-xs btn-warning\" ");
+                        builder.AppendLine("                                                onclick=\"javascript: location.href = '@Url.Action(\"AddOrEdit\", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';\"> ");
+                        builder.AppendLine("                                            <i class=\"icon-pencil\"></i> ");
+                        builder.AppendLine("                                        </button> ");
+                        builder.AppendLine("                                        <button type=\"button\" class=\"btn btn-xs btn-danger\" ");
+                        builder.AppendLine("                                                onclick=\"javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action(\"Delete\", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };\"> ");
+                        builder.AppendLine("                                            <i class=\"icon-remove\"></i> ");
+                        builder.AppendLine("                                        </button> ");
+                        builder.AppendLine("                                    </td> ");
+                    }
                     else if (item.ColumnName == "AddDate")
                     {
 
                     }
                     else
                     {
-                            builder.AppendLine("                    <td>@view." + item.ColumnName + "</td> ");
+                        builder.AppendLine("                    <td>@view." + item.ColumnName + "</td> ");
                     }
                 }
-                builder.AppendLine("                </tr> ");
-                builder.AppendLine("            } ");
-                builder.AppendLine("        } ");
-                builder.AppendLine("    </tbody> ");
-                builder.AppendLine("</table> ");
-                builder.AppendLine("@Html.Partial(\"_PagedListBottom\")");
+                builder.AppendLine("                                </tr> ");
+                builder.AppendLine("                            } ");
+                builder.AppendLine("                        } ");
+                builder.AppendLine("                    </tbody> ");
+                builder.AppendLine("                </table> ");
+                builder.AppendLine("            </div> ");
+                builder.AppendLine("        </div> ");
+                builder.AppendLine("        @Html.Partial(\"_PagedListBottom\") ");
+                builder.AppendLine("    </div> ");
+                builder.AppendLine("</div>  ");
+                builder.AppendLine("  ");
                 builder.AppendLine(" ");
+                builder.AppendLine("  ");
 
                 File.AppendAllText(fileListPath, builder.ToString(), Encoding.UTF8);
                 #endregion
@@ -207,64 +240,88 @@ namespace LCL.Tools
                 builder.AppendLine("@{ ");
                 builder.AppendLine("    ViewBag.Title = \"编辑" + tableInfo + "\"; ");
                 builder.AppendLine("} ");
-                builder.AppendLine("@using LCL.MvcExtensions; ");
-                builder.AppendLine("@using UIShell.RbacPermissionService;");
-
+                builder.AppendLine(" ");
+                builder.AppendLine("@using LCL.MvcExtensions ");
+                builder.AppendLine("@using UIShell.RbacPermissionService ");
                 builder.AppendLine("@model AddOrEditViewModel<" + tablename + "> ");
-                builder.AppendLine("<div class=\"doc-content\"> ");
-                builder.AppendLine("@using (Html.BeginForm(Model.Added ? \"Add\" : \"Edit\", \"" + tablename + "\", FormMethod.Post)) ");
-                builder.AppendLine("{ ");
-                builder.AppendLine("    @Html.HiddenFor(c => c.CurrentPageNum) ");
-                builder.AppendLine("    @Html.HiddenFor(c => c.PageSize) ");
-                builder.AppendLine("    @Html.HiddenFor(c => c.Entity.ID) ");
-                builder.AppendLine("    <table class=\"table table-hover table-bordered\"> ");
-                
+                builder.AppendLine(" ");
+                builder.AppendLine("<!-- Page title --> ");
+                builder.AppendLine("<div class=\"page-title\"> ");
+                builder.AppendLine("    <h2><i class=\"icon-desktop color\"></i> " + tableInfo + " <small>  ");
+                builder.AppendLine("          @{ ");
+                builder.AppendLine("            string actionTag=\"\"; ");
+                builder.AppendLine("            if (Model.Added) { actionTag = \"新增一个" + tableInfo + "\"; } else { actionTag = \"编辑一个" + tableInfo + "\"; } ");
+                builder.AppendLine("            }@actionTag ");
+                builder.AppendLine("   </small></h2> <hr /> ");
+                builder.AppendLine("</div> ");
+                builder.AppendLine("<!-- Page title --> ");
+                builder.AppendLine(" ");
+                builder.AppendLine("<div class=\"row\"> ");
+                builder.AppendLine("    <!--col-md-6 start--> ");
+                builder.AppendLine("    <div class=\"col-md-12\"> ");
+                builder.AppendLine("        <!--box-info start--> ");
+                builder.AppendLine("        <div class=\"col-md-12\"> ");
+                builder.AppendLine("            <!--box-info start--> ");
+                builder.AppendLine("            <div class=\"awidget\"> ");
+                builder.AppendLine("                <div class=\"awidget-head\"> ");
+                builder.AppendLine("                    <h3>" + tableInfo + "</h3> ");
+                builder.AppendLine("                </div> ");
+                builder.AppendLine("                <div class=\"awidget-body\"> ");
+                builder.AppendLine("                    <!--form-horizontal row-border start--> ");
+                builder.AppendLine("                    @using (Html.BeginForm(Model.Added ? \"Add\" : \"Edit\", \"" + tablename + "\", FormMethod.Post, new { @class = \"form-horizontal\", @role = \"form\" })) ");
+                builder.AppendLine("                    { ");
+                builder.AppendLine("                        @Html.HiddenFor(c => c.CurrentPageNum) ");
+                builder.AppendLine("                        @Html.HiddenFor(c => c.PageSize) ");
+                builder.AppendLine("                        @Html.HiddenFor(c => c.Entity.ID) ");
+                builder.AppendLine(" ");
                 foreach (var item in tm.Columns)
                 {
                     if (item.ColumnName != "ID")
                     {
                         if (item.ColumnName.Contains("_"))
                         {
-                            builder.AppendLine("        <tr> ");
-                            builder.AppendLine("            <td width=\"10%\" class=\"tableleft\">上一级</td> ");
-                            builder.AppendLine("            <td> ");
-                            builder.AppendLine("               @Html.DropDownList(\"ddl" + tablename + "\", ViewData[\"ddl" + tablename + "\"] as IEnumerable<SelectListItem>) ");
-                            builder.AppendLine("            </td> ");
-                            builder.AppendLine("        </tr>  ");
+                            builder.AppendLine("                        <div class=\"form-group\"> ");
+                            builder.AppendLine("                            <label class=\"col-sm-2 control-label\">上一级</label> ");
+                            builder.AppendLine("                            <div class=\"col-sm-10\"> ");
+                            builder.AppendLine("                                 @Html.DropDownList(\"ddl" + tablename + "\", ViewData[\"ddl" + tablename + "\"] as IEnumerable<SelectListItem>) ");
+                            builder.AppendLine("                            </div> ");
+                            builder.AppendLine("                        </div> ");
                         }
                         else
                         {
-                            if (!item.ColumnName.Contains("AddDate") || !item.ColumnName.Contains("UpdateDate"))
+                            if (!item.ColumnName.Equals("AddDate") && !item.ColumnName.Equals("UpdateDate"))
                             {
-                                builder.AppendLine("        <tr> ");
-                                builder.AppendLine("            <td width=\"10%\" class=\"tableleft\">" + item.ColumnRemark + "</td> ");
-                                builder.AppendLine("            <td> ");
-                                builder.AppendLine("                @Html.TextBoxFor(c => c.Entity." + item.ColumnName + ", new { @placeholder = \"请输入" + item.ColumnRemark + "\" }) ");
-                                builder.AppendLine("                @Html.ValidationMessageFor(c => c.Entity." + item.ColumnName + ") ");
-                                builder.AppendLine("            </td> ");
-                                builder.AppendLine("        </tr> ");
+                                builder.AppendLine("                        <div class=\"form-group\"> ");
+                                builder.AppendLine("                            <label class=\"col-sm-2 control-label\">@Html.LabelFor(c => c.Entity." + item.ColumnName + ")</label> ");
+                                builder.AppendLine("                            <div class=\"col-sm-10\"> ");
+                                builder.AppendLine("                                @Html.TextBoxFor(c => c.Entity." + item.ColumnName + ", new { @class = \"form-control\", @placeholder = \"请输入" + item.ColumnRemark + "\" }) ");
+                                builder.AppendLine("                                @Html.ValidationMessageFor(c => c.Entity." + item.ColumnName + ") ");
+                                builder.AppendLine("                            </div> ");
+                                builder.AppendLine("                        </div> ");
                             }
                         }
                     }
                 }
-                builder.AppendLine("        <tr> ");
-                builder.AppendLine("            <td class=\"tableleft\"></td> ");
-                builder.AppendLine("            <td> ");
-                builder.AppendLine("                <button type=\"submit\" class=\"btn btn-primary\">提交</button> ");
-                builder.AppendLine("                <button type=\"button\" class=\"btn btn-success\" id=\"backid\" onclick=\"javacript:history.go(-1);\">返回列表</button> ");
-                builder.AppendLine("            </td> ");
-                builder.AppendLine("        </tr> ");
-                builder.AppendLine("    </table> ");
-                builder.AppendLine("} ");
+                builder.AppendLine(" ");
+                builder.AppendLine("                        <div class=\"form-group\"> ");
+                builder.AppendLine("                            <label class=\"col-sm-2 control-label\"></label> ");
+                builder.AppendLine("                            <div class=\"col-sm-10\"> ");
+                builder.AppendLine("                                <button type=\"submit\" class=\"btn btn-primary\">保存</button>&nbsp;&nbsp; ");
+                builder.AppendLine("                                <button type=\"button\" class=\"btn btn-default\" onclick=\"javascript: window.history.back();\">返回</button> ");
+                builder.AppendLine("                            </div> ");
+                builder.AppendLine("                        </div> ");
+                builder.AppendLine("                         ");
+                builder.AppendLine("                         ");
+                builder.AppendLine("                    } ");
+                builder.AppendLine("                </div> ");
+                builder.AppendLine("            </div> ");
+                builder.AppendLine(" ");
+                builder.AppendLine("        </div> ");
+                builder.AppendLine("    </div> ");
                 builder.AppendLine("</div> ");
-                builder.AppendLine(" ");
-                builder.AppendLine(" ");
-
                 File.AppendAllText(fileAddOrEditPath, builder.ToString(), Encoding.UTF8);
                 #endregion
-
             }
-
         }
     }
 }

@@ -27,7 +27,7 @@ namespace EFDemo.Document
             this.ParseCommentsFromPartialContent();
             this._result = new List<PropertyDoc>();
             this.ParseDoc();
-            this.Comment = this.GetComment(TypeContext.Name);
+            this.Comment = this.GetComment("class");
 
             #region MyRegion
             this._result.Add(new PropertyDoc

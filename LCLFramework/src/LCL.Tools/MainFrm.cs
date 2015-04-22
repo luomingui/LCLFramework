@@ -333,7 +333,7 @@ namespace LCL.Tools
             string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             MVCUIBuild build = new MVCUIBuild();
             build.GenerateControllers(dir);
-            build.GenerateViews(dir);
+            build.GenerateBootstrapAdminViews(dir);
             MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
         }
 

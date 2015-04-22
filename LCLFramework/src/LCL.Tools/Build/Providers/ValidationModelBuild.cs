@@ -15,7 +15,10 @@ namespace LCL.Tools
                 TableModel tm = tableNames[i];
                 string tablename = tm.TableName;
                 string tableInfo = tm.TableNameRemark;
-
+                if (tablename == "__MigrationHistory" && tablename == "sysdiagrams")
+                {
+                    continue;
+                }
                 StringBuilder builder = new StringBuilder();
                 builder.AppendLine("using System; ");
                 builder.AppendLine("using System.ComponentModel.DataAnnotations; ");
