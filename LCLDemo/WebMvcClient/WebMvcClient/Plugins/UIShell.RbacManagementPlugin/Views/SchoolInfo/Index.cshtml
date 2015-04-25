@@ -28,7 +28,6 @@
                     <thead>
                         <tr>
                             <th>操作</th>
-                            <th>组织机构代码</th>
                             <th>名称</th>
                             <th>办公电话</th>
                             <th>校长名称</th>
@@ -43,7 +42,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <a class="btn btn-xs btn-primary" href="../Department/Index?schoolId=@view.ID">部门</a>
+                                        <a class="btn btn-xs btn-primary" href="../Department/Index?nuitId=@view.ID">部门</a>
                                         <a class="btn btn-xs btn-primary" href="../User_Teacher/Index?schoolId=@view.ID">教师</a>
                                         <a class="btn btn-xs btn-primary" href="../User_Student/Index?schoolId=@view.ID">学生</a>
                                         <button type="button" class="btn btn-xs btn-warning"
@@ -55,7 +54,6 @@
                                             <i class="icon-remove"></i>
                                         </button>
                                     </td>
-                                    <td>@view.HelperCode</td>
                                     <td>@view.Name</td>
                                     <td>@view.OfficePhone</td>
                                     <td>@view.HeadmasterName</td>

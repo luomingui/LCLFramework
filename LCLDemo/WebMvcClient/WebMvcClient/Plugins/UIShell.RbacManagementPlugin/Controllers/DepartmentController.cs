@@ -25,41 +25,92 @@ namespace UIShell.RbacManagementPlugin.Controllers
     {
         public DepartmentController()
         {
-            //ddlDepartment(Guid.Empty);
-
+           
         }
-        public void ddlDepartment(Guid dtId)
+        public override System.Web.Mvc.ActionResult Index(int? currentPageNum, int? pageSize, System.Web.Mvc.FormCollection collection)
         {
-            var repo = RF.FindRepo<UnitInfo>();
-            var list = repo.FindAll();
+            if (!currentPageNum.HasValue)
+                currentPageNum = 1;
+            if (!pageSize.HasValue)
+                pageSize = PagedListViewModel<CompanyInfoPageListViewModel>.DefaultPageSize;
 
-            List<SelectListItem> selitem = new List<SelectListItem>();
-            if (list.Count() > 0)
-            {
-                var roots = list.Where(e => e.ParentId == Guid.Empty);
-                foreach (var item in roots)
-                {
-                    selitem.Add(new SelectListItem { Text = item.Name, Value = item.ID.ToString() });
-                    var child = list.Where(p => p.ParentId == item.ID);
-                    foreach (var item1 in child)
-                    {
-                        if (dtId == item1.ID)
-                        {
-                            selitem.Add(new SelectListItem { Text = "----" + item1.Name, Value = item1.ID.ToString(), Selected = true });
-                            this.ViewData["selected"] = item1.ID.ToString();
-                        }
-                        else
-                        {
-                            selitem.Add(new SelectListItem { Text = "----" + item1.Name, Value = item1.ID.ToString() });
-                        }
-                    }
-                }
-            }
-            selitem.Insert(0, new SelectListItem { Text = "==≤ø√≈==", Value = "-1" });
-            ViewData["ddlDepartment"] = selitem;
+            string nuitId = LRequest.GetString("nuitId");
+
+            var list = RF.Concrete<IDepartmentRepository>().GetUnitDepartment(Guid.Parse(nuitId));
+            var contactLitViewModel = new PagedListViewModel<Department>(currentPageNum.Value, pageSize.Value, list);
+            return View(contactLitViewModel);
         }
+        public override ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
+        {
+            if (!currentPageNum.HasValue)
+            {
+                currentPageNum = 1;
+            }
+            if (!pageSize.HasValue)
+            {
+                pageSize = PagedListViewModel<Department>.DefaultPageSize;
+            }
+            if (!id.HasValue)
+            {
+                Guid pid = Guid.Parse(LRequest.GetString("PID"));
+                var village =RF.Concrete<IDepartmentRepository>().GetByKey(pid);
+                village.HelperCode = "";
+                village.Name = "";
+                return View(new AddOrEditViewModel<Department>
+                {
+                    Added = true,
+                    Entity = village,
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
+                });
+            }
+            else
+            {
+                var village = RF.Concrete<IDepartmentRepository>().GetByKey(id.Value);
+                return View(new AddOrEditViewModel<Department>
+                {
+                    Added = false,
+                    Entity = village,
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
+                });
+            }
+        }
+        public override ActionResult Add(AddOrEditViewModel<Department> model, FormCollection collection)
+        {
 
+            if (!ModelState.IsValid)
+            {
+                return View("AddOrEdit", model);
+            }
 
+            int OrderBy = Convert.ToInt32(DbFactory.DBA.QueryValue("SELECT ISNULL(MAX(OrderBy),0)+1 OrderBy FROM Department  WHERE ParentId='" + model.Entity.ParentId + "'"));
+            model.Entity.OrderBy = OrderBy;
+            if (model.Entity.ParentId != Guid.Empty)
+            {
+                model.Entity.NodePath = model.Entity.NodePath + "\\" + model.Entity.Name;
+                model.Entity.Level = model.Entity.Level + 1;
+                model.Entity.IsLast = false;
+            }
+            else
+            {
+                model.Entity.NodePath = model.Entity.Name;
+            }
+            model.Entity.ID = Guid.NewGuid();
+            model.Entity.AddDate = DateTime.Now;
+            model.Entity.UpdateDate = DateTime.Now;
+            RF.Concrete<IDepartmentRepository>().Create(model.Entity);
+            RF.Concrete<IDepartmentRepository>().Context.Commit();
+
+            return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
+        }
+        public override ActionResult Delete(Department village, int? currentPageNum, int? pageSize, FormCollection collection)
+        {
+            village = RF.Concrete<IDepartmentRepository>().GetByKey(village.ID);
+            DbFactory.DBA.ExecuteText("DELETE Department WHERE NodePath LIKE '" + village.NodePath + "%'");
+
+            return RedirectToAction("Index", new { currentPageNum = currentPageNum.Value, pageSize = pageSize.Value });
+        }
     }
 }
 

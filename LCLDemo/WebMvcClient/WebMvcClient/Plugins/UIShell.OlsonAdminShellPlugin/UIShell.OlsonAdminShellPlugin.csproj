@@ -92,7 +92,6 @@
     <Compile Include="AppConfig.cs" />
     <Compile Include="BundleActivator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="MvcModuleMetaExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

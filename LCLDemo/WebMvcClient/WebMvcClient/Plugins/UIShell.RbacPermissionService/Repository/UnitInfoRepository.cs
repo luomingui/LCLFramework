@@ -59,8 +59,6 @@ INNER JOIN SchoolInfo s ON u.ID = s.UnitInfo_ID";
             var list = arr.ToList();
             return list;
         }
-
-
         public List<CompanyInfoPageListViewModel> GetCompanyInfoList()
         {
             string sql = @"SELECT  u.ID ,

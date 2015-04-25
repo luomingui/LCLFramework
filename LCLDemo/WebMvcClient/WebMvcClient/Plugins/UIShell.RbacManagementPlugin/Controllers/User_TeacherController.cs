@@ -25,43 +25,20 @@ namespace UIShell.RbacManagementPlugin.Controllers
     {
         public User_TeacherController()
         {
-            //ddlUser_Teacher(Guid.Empty);
-            //ddlUser_User(Guid.Empty);
 
         }
-        public void ddlUser_Teacher(Guid dtId)
+        public override System.Web.Mvc.ActionResult Index(int? currentPageNum, int? pageSize, System.Web.Mvc.FormCollection collection)
         {
-            var repo = RF.FindRepo<SchoolInfo>();
-            var list = repo.FindAll();
+            if (!currentPageNum.HasValue)
+                currentPageNum = 1;
+            if (!pageSize.HasValue)
+                pageSize = PagedListViewModel<SchoolInfoPageListViewModel>.DefaultPageSize;
 
-            List<SelectListItem> selitem = new List<SelectListItem>();
-            if (list.Count() > 0)
-            {
-                var roots = list;
-                foreach (var item in roots)
-                {
-                    selitem.Add(new SelectListItem { Text = item.UnitInfo.Name, Value = item.UnitInfo.ID.ToString() });
-                }
-            }
-            selitem.Insert(0, new SelectListItem { Text = "==教师==", Value = "-1" });
-            ViewData["ddlUser_Teacher"] = selitem;
-        }
-        public void ddlUser_User(Guid dtId)
-        {
-            var repo = RF.FindRepo<User>();
-            var list = repo.FindAll();
+            string schoolId = LRequest.GetString("schoolId");
 
-            List<SelectListItem> selitem = new List<SelectListItem>();
-            if (list.Count() > 0)
-            {
-                var roots = list;
-                foreach (var item in roots)
-                {
-                    selitem.Add(new SelectListItem { Text = item.Name, Value = item.ID.ToString() });
-                }
-            }
-            selitem.Insert(0, new SelectListItem { Text = "==学生==", Value = "-1" });
-            ViewData["ddlUser_Teacher"] = selitem;
+            var list = RF.Concrete<ISchoolInfoRepository>().GetSchoolTeacherList(Guid.Parse(schoolId));
+            var contactLitViewModel = new PagedListViewModel<SchoolTeacherViewModel>(currentPageNum.Value, pageSize.Value, list);
+            return View(contactLitViewModel);
         }
 
 

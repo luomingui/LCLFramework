@@ -35,6 +35,7 @@ namespace UIShell.RbacPermissionService
         /// 隶属单位
         /// </summary>
         public UnitInfo UnitInfo { get; set; }
+        public ICollection<Department> Departments { get; set; }
 
         
     }

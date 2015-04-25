@@ -135,6 +135,7 @@
     <Compile Include="ValidationModel\Xzqy.cs" />
     <Compile Include="ViewEngines\Razor\WebViewPage.cs" />
     <Compile Include="ViewModels\CompanyInfoPageListViewModel.cs" />
+    <Compile Include="ViewModels\SchoolTeacherViewModel.cs" />
     <Compile Include="ViewModels\UnitInfoAddOrEditViewModel.cs" />
     <Compile Include="ViewModels\SchoolInfoPageListViewModel.cs" />
     <Compile Include="WorkContext\IWorkContext.cs" />

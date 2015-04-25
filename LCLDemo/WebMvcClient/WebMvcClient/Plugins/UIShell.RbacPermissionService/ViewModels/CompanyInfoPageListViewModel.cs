@@ -92,7 +92,7 @@ FROM    dbo.UnitInfo u
         /// <summary>
         /// 注册资金
         /// </summary>
-        public Nullable<DateTime> RegisterMoney { get; set; }
+        public double RegisterMoney { get; set; }
         /// <summary>
         /// 注册地址
         /// </summary>

@@ -13,7 +13,7 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 所属学校
         /// </summary>
-        public SchoolInfo SchoolInfo { get; set; }
+        public UnitInfo UnitInfo { get; set; }
         /// <summary>
         /// 所属用户
         /// </summary>

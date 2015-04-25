@@ -85,30 +85,41 @@ new { PID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.Pa
                                         </button>
                                     </td>
                                     <td>
-                                        @if (view.Level == 1)
-                                        {
-                                            <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/home.png" style="padding:2px; left:2px;" />
-                                        }
-                                        else if (view.Level == 2)
-                                        {
-                                            <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/facebook.png" style="padding:2px;height:16px;width:16px;left:2px;" />
-                                        }
-                                        else if (view.Level == 3)
-                                        {
-                                            <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/twitter.png" style="padding:2px;height:16px;width:16px;left:2px;" />
-                                        }
-                                        else if (view.Level == 4)
-                                        {
-                                            <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" />
-                                        }
-                                        else if (view.Level == 5)
-                                        {
-                                            <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" />
-                                        }
+                                       @if (view.Level == 0)
+                                       {
+                                        <span>&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/home.png" style="padding:2px; left:2px;" /></span>
+                                       }
+                                       else if (view.Level == 1)
+                                       {
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/home.png" style="padding:2px; left:2px;" /></span>
+                                       }
+                                       else if (view.Level == 2)
+                                       {
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/facebook.png" style="padding:2px;height:16px;width:16px;left:2px;" />
+                                       }
+                                       else if (view.Level == 3)
+                                       {
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/twitter.png" style="padding:2px;height:16px;width:16px;left:2px;" /> </span>
+                                       }
+                                       else if (view.Level == 4)
+                                       {
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" /></span>
+                                       }
+                                       else if (view.Level == 5)
+                                       {
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" /></span>
+                                       }
                                         @view.HelperCode
                                     </td>
                                     <td>@view.Name</td>
-                                    <td>@view.IsLast</td>
+                                    <td>@if (view.IsLast)
+                                    {
+                                        <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/true.gif" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/false.gif" />
+                                    }</td>
                                     <td>@view.Level</td>
                                     <td>@view.OrderBy</td>
                                     <td>@view.UpdateDate</td>

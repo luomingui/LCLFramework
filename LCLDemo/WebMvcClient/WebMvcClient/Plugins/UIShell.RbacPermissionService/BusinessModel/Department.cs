@@ -22,5 +22,7 @@ namespace UIShell.RbacPermissionService
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        public ICollection<User> Users { get; set; }
     }
 }

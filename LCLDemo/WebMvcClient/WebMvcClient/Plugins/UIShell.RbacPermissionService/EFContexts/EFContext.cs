@@ -41,7 +41,7 @@ namespace UIShell.RbacPermissionService
     /// <summary>
     /// 数据库初始化操作类
     /// </summary>
-    internal static class DatabaseInitializer
+    public static class DatabaseInitializer
     {
         /// <summary>
         /// 数据库初始化
