@@ -1,73 +1,72 @@
-﻿using LCL.MvcExtensions;  
-@{  
-    ViewBag.Title = "角色权限";  
-}  
-<!-- Page title --> 
-<div class="page-title"> 
-    <h2><i class="icon-desktop color"></i> 角色权限 <small>显示所有角色权限</small></h2> 
-    <hr /> 
-</div> 
-<!-- Page title --> 
-<div class="awidget"> 
-    <div class="awidget-head"> 
-        <div class="row"> 
-            <div class="col-md-10"> 
-                <span>总数：@Model.TotalCount</span> 
-            </div> 
-            <div class="col-md-2"> 
-                <button type="button" class="btn btn-warning pull-right" onclick="javascript: location.href='@Url.Action("AddOrEdit", 
-    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';"> 
-                    新 增 
-                </button>  
-            </div> 
-        </div> 
-    </div> 
-    <div class="awidget-body"> 
-        <div class="row"> 
-            <div class="col-md-12"> 
-                <table class="table table-hover table-bordered"> 
-                    <thead> 
-                        <tr> 
-                           <th>操作</th> 
-            <th>块</th> 
-            <th>模块</th> 
-            <th>功能</th> 
-            <th>类型</th> 
-            <th>更新时间</th> 
-            <th>所属角色</th> 
-                        </tr> 
-                    </thead> 
-                    <tbody> 
-                        @{ 
-                            foreach (var view in Model.PagedModels) 
-                            { 
-                                <tr> 
-                                    <td> 
-                                        <button type="button" class="btn btn-xs btn-warning" 
-                                                onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';"> 
-                                            <i class="icon-pencil"></i> 
-                                        </button> 
-                                        <button type="button" class="btn btn-xs btn-danger" 
-                                                onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };"> 
-                                            <i class="icon-remove"></i> 
-                                        </button> 
-                                    </td> 
-                    <td>@view.BlockKey</td> 
-                    <td>@view.ModuleKey</td> 
-                    <td>@view.OperationKey</td> 
-                    <td>@view.AuthorityType</td> 
-                    <td>@view.UpdateDate</td> 
-                    <td>@view.Role_ID</td> 
-                                </tr> 
-                            } 
-                        } 
-                    </tbody> 
-                </table> 
-            </div> 
-        </div> 
-        @Html.Partial("_PagedListBottom") 
-    </div> 
-</div>  
-  
- 
-  
+﻿@using LCL.MvcExtensions;
+@using LCL.MetaModel;
+@{
+    ViewBag.Title = "角色权限";
+}
+<!-- Page title -->
+<div class="page-title">
+    <h2><i class="icon-desktop color"></i> 角色权限 <small>显示所有 @ViewData["RoleName"]角色权限</small></h2>
+    <hr />
+</div>
+<!-- Page title -->
+@using (Html.BeginForm("Save", "RoleAuthority", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="awidget">
+        <div class="awidget-head">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="button" id="btn2" class="btn btn-danger pull-right" value="取消全选">
+                    <input type="submit" class="btn btn-warning pull-right" value="保存" />&nbsp;&nbsp;
+                    <input type="button" id="btn1" class="btn btn-primary pull-right" value="全选">&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="awidget-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" id="RoleId" name="RoleId" value="@ViewData["roleid"]" />
+                    <table class="table table-hover table-bordered">
+                        @foreach (var node in CommonModel.Modules.Roots)
+                        {
+                            <tr>
+                                <td><input type="checkbox" id="@node.KeyLabel" name="moduleName" value="@node.KeyLabel" />@node.Label</td>
+                                <td>
+                                    @if (node.HasSubMenu())
+                                    {
+                                        <table class="table table-hover table-bordered">
+                                            @foreach (var child in node.Children)
+                                            {
+                                                <tr>
+                                                    <td><input type="checkbox" id="@child.KeyLabel" name="moduleName" value="@node.KeyLabel/@child.KeyLabel" />@child.Label</td>
+                                                    <td>
+                                                        @foreach (var item in child.CustomOpertions)
+                                                        {
+                                                            <input type="checkbox" id="@item.Name" name="moduleName" 
+                                                                   value="@node.Label/@child.Label/@item.Name" /> @item.Label
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts{
+    <script language="JavaScript">
+        $("document").ready(function () {
+            $("#btn1").click(function () {
+                $("[name='moduleName']").attr("checked", 'true');//全选
+            })
+            $("#btn2").click(function () {
+                $("[name='moduleName']").removeAttr("checked");//取消全选
+            })
+        });
+    </script>
+}

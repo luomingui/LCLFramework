@@ -3,6 +3,7 @@ using LCL.Repositories.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -15,11 +16,12 @@ namespace UIShell.RbacPermissionService
         public EFContext()
             : base("LCL_Rbac")
         {
-
+           // Database.SetInitializer<EFContext>(null);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //表前缀
             modelBuilder.Types().Configure(entity => entity.ToTable(AppConstant.Tableprefix + entity.ClrType.Name));
@@ -33,7 +35,7 @@ namespace UIShell.RbacPermissionService
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.timeserval);
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Enable);
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Issystemevent);
-
+            
             base.OnModelCreating(modelBuilder);
 
         }

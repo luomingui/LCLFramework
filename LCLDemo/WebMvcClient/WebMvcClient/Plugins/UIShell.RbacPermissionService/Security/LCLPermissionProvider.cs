@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 
-namespace UIShell.RbacManagementPlugin
+namespace UIShell.RbacPermissionService
 {
     /// <summary>
     /// 为底层的 LCL 提供权限实现方案
@@ -36,7 +36,8 @@ namespace UIShell.RbacManagementPlugin
         }
         protected override bool HasCommand(string block, string module, string commandName)
         {
-            return HasModuleOperation(module, block, commandName);
+            string url = "/" + block + "/" + module + "/" + commandName;
+            return RF.Concrete<IRoleAuthorityRepository>().IsAuthority(url);
         }
         /// <summary>
         /// 检查是否拥有某个模块下某个实体某个操作的权限。

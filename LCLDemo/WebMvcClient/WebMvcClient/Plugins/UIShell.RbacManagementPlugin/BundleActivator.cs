@@ -27,10 +27,10 @@ namespace UIShell.RbacManagementPlugin
                 Bundle = this,
                 Children =
                     {
-                        new MvcModuleMeta{ Image=" icon-sitemap", Label = "学校管理",CustomUI="/UIShell.RbacManagementPlugin/SchoolInfo/Index"},
-                        new MvcModuleMeta{ Image="icon-user", Label = "教师管理",CustomUI="/UIShell.RbacManagementPlugin/User_Teacher/Index"},
-                        new MvcModuleMeta{ Image="icon-user-md", Label = "学生管理",CustomUI="/UIShell.RbacManagementPlugin/User_Student/Index"},
-                        new MvcModuleMeta{ Image="icon-user", Label = "教师审核",CustomUI="/UIShell.RbacManagementPlugin/User_TeacherCheck/Index"},
+                        new MvcModuleMeta{ Image=" icon-sitemap", Label = "学校信息",CustomUI="/UIShell.RbacManagementPlugin/SchoolInfo/Index",EntityType=typeof(SchoolInfoController)},
+                        new MvcModuleMeta{ Image="icon-user", Label = "教师管理",CustomUI="/UIShell.RbacManagementPlugin/User_Teacher/Index",EntityType=typeof(User_TeacherController)},
+                        new MvcModuleMeta{ Image="icon-user-md", Label = "学生管理",CustomUI="/UIShell.RbacManagementPlugin/User_Student/Index",EntityType=typeof(User_StudentController)},
+                        new MvcModuleMeta{ Image="icon-user", Label = "教师审核",CustomUI="/UIShell.RbacManagementPlugin/User_TeacherCheck/Index",EntityType=typeof(User_TeacherCheckController)},
                     }
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
@@ -40,8 +40,8 @@ namespace UIShell.RbacManagementPlugin
                 Bundle = this,
                 Children =
                     {
-                        new MvcModuleMeta{ Image="icon-sitemap", Label = "公司管理", CustomUI="/UIShell.RbacManagementPlugin/CompanyInfo/Index"},
-                        new MvcModuleMeta{ Image="icon-user-md", Label = "员工管理",CustomUI="/UIShell.RbacManagementPlugin/User_Employee/Index"},
+                        new MvcModuleMeta{ Image="icon-sitemap", Label = "公司信息", CustomUI="/UIShell.RbacManagementPlugin/CompanyInfo/Index",EntityType=typeof(CompanyInfoController)},
+                        new MvcModuleMeta{ Image="icon-user-md", Label = "员工管理",CustomUI="/UIShell.RbacManagementPlugin/User_Employee/Index",EntityType=typeof(User_EmployeeController)},
                     }
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
@@ -51,12 +51,12 @@ namespace UIShell.RbacManagementPlugin
                 Bundle = this,
                 Children =
                     {
-                        new MvcModuleMeta{ Image="icon-group", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index"},
-                        new MvcModuleMeta{ Image="icon-user-md", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index"},
-                        new MvcModuleMeta{ Image="icon-sitemap", Label = "行政区域", CustomUI="/UIShell.RbacManagementPlugin/Xzqy/Index"},
-                        new MvcModuleMeta{ Image="icon-qrcode", Label = "字典管理", CustomUI="/UIShell.RbacManagementPlugin/DictType/Index"},
-                        new MvcModuleMeta{ Image="icon-time", Label = "计划任务", CustomUI="/UIShell.RbacManagementPlugin/Schedule/Index"},
-                        new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index"},
+                        new MvcModuleMeta{ Image="icon-group", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
+                        new MvcModuleMeta{ Image="icon-user-md", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(UserController)},
+                        new MvcModuleMeta{ Image="icon-sitemap", Label = "行政区域", CustomUI="/UIShell.RbacManagementPlugin/Xzqy/Index",EntityType=typeof(XzqyController)},
+                        new MvcModuleMeta{ Image="icon-qrcode", Label = "字典管理", CustomUI="/UIShell.RbacManagementPlugin/DictType/Index",EntityType=typeof(DictTypeController)},
+                        new MvcModuleMeta{ Image="icon-time", Label = "计划任务", CustomUI="/UIShell.RbacManagementPlugin/Schedule/Index",EntityType=typeof(ScheduleController)},
+                        new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                     }
             });
         }

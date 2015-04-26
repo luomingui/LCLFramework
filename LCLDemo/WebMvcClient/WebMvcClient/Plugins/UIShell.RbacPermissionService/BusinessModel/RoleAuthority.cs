@@ -26,6 +26,7 @@ namespace UIShell.RbacPermissionService
         /// 功能
         /// </summary>
         public string OperationKey { set; get; }
+        public string Url { set; get; }
         /// <summary>
         /// 类型
         /// </summary>

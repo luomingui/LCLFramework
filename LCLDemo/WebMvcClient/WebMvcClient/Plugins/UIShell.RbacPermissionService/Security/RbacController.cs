@@ -12,7 +12,7 @@ using System.Web.Security;
 namespace UIShell.RbacPermissionService
 {
     //[LogActionFilter]
-    //[MyAuthorizeAttribute]
+    [MyAuthorizeAttribute]
     public class RbacController : BaseController
     {
         public GeneralConfigInfo Config
@@ -25,7 +25,7 @@ namespace UIShell.RbacPermissionService
         }
         public RbacController()
         {
-            PermissionMgr.IsOpenPermission = false;
+            
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -48,7 +48,7 @@ namespace UIShell.RbacPermissionService
 
     }
     //[LogActionFilter]
-    //[MyAuthorizeAttribute]
+    [MyAuthorizeAttribute]
     public class RbacController<TEntity> : BaseRepoController<TEntity> where TEntity : class, IAggregateRoot
     {
         public GeneralConfigInfo Config
@@ -61,7 +61,7 @@ namespace UIShell.RbacPermissionService
         }
         public RbacController()
         {
-            PermissionMgr.IsOpenPermission = false;
+            
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
