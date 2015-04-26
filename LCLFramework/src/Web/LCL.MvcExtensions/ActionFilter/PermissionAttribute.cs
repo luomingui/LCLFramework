@@ -36,10 +36,8 @@ namespace LCL.MvcExtensions
             if (string.IsNullOrWhiteSpace(Name)) Name = action;
 
             bool hasPermission = false;
-            if (PermissionMgr.IsOpenPermission)
-                hasPermission = PermissionMgr.HasCommand(pluginName, controller, Name);
-            else
-                hasPermission = true;
+
+            hasPermission = PermissionMgr.HasCommand(pluginName, controller, Name);
 
             if (hasPermission)
             {

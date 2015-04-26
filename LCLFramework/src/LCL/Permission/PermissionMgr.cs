@@ -6,11 +6,6 @@ namespace LCL
     /// </summary>
     public static class PermissionMgr
     {
-        static PermissionMgr()
-        {
-            IsOpenPermission = false;
-        }
-        public static bool IsOpenPermission { get; set; }
         private static PermissionProvider _Provider;
         /// <summary>
         /// 所有接口的提供程序。

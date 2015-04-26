@@ -104,6 +104,7 @@
     <Compile Include="Extensions\RouteExtension.cs" />
     <Compile Include="Helpers\KnownTypes.cs" />
     <Compile Include="MetaModel\MvcModuleMeta.cs" />
+    <Compile Include="MetaModel\MvcModuleMetaExtensions.cs" />
     <Compile Include="Model\LCLMetadataProvider.cs" />
     <Compile Include="Model\LCLModelBinder.cs" />
     <Compile Include="Model\BaseLCLModel.cs" />
@@ -165,6 +166,9 @@
       <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
       <Name>LCL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BootstrapModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

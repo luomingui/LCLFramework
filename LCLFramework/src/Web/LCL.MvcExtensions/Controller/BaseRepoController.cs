@@ -13,18 +13,12 @@ namespace LCL.MvcExtensions
     [Authorize]
     public class BaseRepoController<TAggregateRoot> : BaseController where TAggregateRoot : class, IAggregateRoot
     {
-        IRepository<TAggregateRoot> repo= RF.FindRepo<TAggregateRoot>();
-        public IPlugin Bundle { get; set; }
+        IRepository<TAggregateRoot> repo = RF.FindRepo<TAggregateRoot>();
         public bool Check(string permissionId)
         {
-            if (PermissionMgr.IsOpenPermission)
-            {
-                if (Bundle == null)
-                    throw new ArgumentException("Bundle");
-                return PermissionMgr.HasCommand(Bundle.Assembly.GetName().Name, this.GetType().Name, permissionId);
-            }
-            else
-                return true;
+            string areaName = this.ControllerContext.RouteData.GetAreaName();
+            string controllerName = this.GetType().Name.Replace("Controller", "");
+            return PermissionMgr.HasCommand(areaName, controllerName, permissionId);
         }
         public ActionResult NoPermissionView()
         {
@@ -33,10 +27,10 @@ namespace LCL.MvcExtensions
         [Permission("列表", "List")]
         public virtual ActionResult List(int? currentPageNum, int? pageSize, FormCollection collection)
         {
-            //if (!Check("List"))
-            //{
-            //    return NoPermissionView();
-            //}
+            if (!Check("List"))
+            {
+                return NoPermissionView();
+            }
             if (!currentPageNum.HasValue)
             {
                 currentPageNum = 1;
@@ -56,10 +50,10 @@ namespace LCL.MvcExtensions
         [Permission("首页", "Index")]
         public virtual ActionResult Index(int? currentPageNum, int? pageSize, FormCollection collection)
         {
-            //if (!Check("Index"))
-            //{
-            //    return NoPermissionView();
-            //}
+            if (!Check("Index"))
+            {
+                return NoPermissionView();
+            }
             return List(currentPageNum, pageSize, collection);
         }
         public virtual ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
@@ -74,10 +68,10 @@ namespace LCL.MvcExtensions
             }
             if (!id.HasValue)
             {
-                //if (!Check("Add"))
-                //{
-                //    return NoPermissionView();
-                //}
+                if (!Check("Add"))
+                {
+                    return NoPermissionView();
+                }
                 ViewBag.Action = "Add";
                 return View(new AddOrEditViewModel<TAggregateRoot>
                 {
@@ -88,10 +82,10 @@ namespace LCL.MvcExtensions
             }
             else
             {
-                //if (!Check("Edit"))
-                //{
-                //    return NoPermissionView();
-                //}
+                if (!Check("Edit"))
+                {
+                    return NoPermissionView();
+                }
                 ViewBag.Action = "Edit";
                 var repo = RF.FindRepo<TAggregateRoot>();
                 var village = repo.GetByKey(id.Value);
@@ -107,6 +101,10 @@ namespace LCL.MvcExtensions
         [Permission("删除", "Delete")]
         public virtual ActionResult Delete(TAggregateRoot village, int? currentPageNum, int? pageSize, FormCollection collection)
         {
+            if (!Check("Delete"))
+            {
+                return NoPermissionView();
+            }
             if (!currentPageNum.HasValue)
             {
                 currentPageNum = 1;
