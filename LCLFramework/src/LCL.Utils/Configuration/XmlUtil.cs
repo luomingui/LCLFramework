@@ -37,9 +37,10 @@ namespace LCL
                 XmlSerializer serializer = new XmlSerializer(type);
                 return serializer.Deserialize(fs);
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                Logger.LogError("Serializer:", ex);
+                return null ;
             }
             finally
             {
@@ -63,8 +64,9 @@ namespace LCL
                     return xmldes.Deserialize(sr);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.LogError("Serializer:", ex);
                 return null;
             }
         }
@@ -97,8 +99,9 @@ namespace LCL
                 //序列化对象
                 xml.Serialize(Stream, obj);
             }
-            catch 
+            catch (Exception ex)
             {
+                Logger.LogError("Serializer:", ex);
                 return "";
             }
             Stream.Position = 0;
@@ -121,13 +124,10 @@ namespace LCL
             // serialize it...
             try
             {
-                if (File.Exists(filename))
-                {
-                    fs = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
-                    XmlSerializer serializer = new XmlSerializer(obj.GetType());
-                    serializer.Serialize(fs, obj);
-                    success = true;
-                }
+                fs = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                XmlSerializer serializer = new XmlSerializer(obj.GetType());
+                serializer.Serialize(fs, obj);
+                success = true;
             }
             catch (Exception ex)
             {
