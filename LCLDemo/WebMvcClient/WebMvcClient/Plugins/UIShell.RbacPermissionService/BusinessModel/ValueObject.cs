@@ -5,6 +5,12 @@ using System.Text;
 
 namespace UIShell.RbacPermissionService
 {
+    public enum MessageEncryptionType
+    {
+        明文模式,
+        兼容模式,
+        安全模式,
+    }
     public enum UnitType
     {
         公司,

@@ -16,16 +16,14 @@ namespace UIShell.RbacPermissionService
         public EFContext()
             : base("LCL_Rbac")
         {
-           // Database.SetInitializer<EFContext>(null);
+            // Database.SetInitializer<EFContext>(null);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //表前缀
             modelBuilder.Types().Configure(entity => entity.ToTable(AppConstant.Tableprefix + entity.ClrType.Name));
-
             // 忽略列映射 Fluent API:NotMapped
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.ScheduleType);
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.ExetimeType);
@@ -35,7 +33,7 @@ namespace UIShell.RbacPermissionService
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.timeserval);
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Enable);
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Issystemevent);
-            
+
             base.OnModelCreating(modelBuilder);
 
         }
@@ -84,6 +82,14 @@ namespace UIShell.RbacPermissionService
                 }
                 );
 
+            context.Set<WxAccountsInfo>().Add(new WxAccountsInfo
+            {
+                AccountName = "minguiluo@163.com",
+                AppID = "wx1cec15324b0f1a26",
+                AppSecret = "5454111dfe9995ea2ac650b2e5a22cfa",
+                AppServerMessageEncryption = MessageEncryptionType.明文模式
+            });
+
             try
             {
                 context.SaveChanges();
@@ -106,5 +112,5 @@ namespace UIShell.RbacPermissionService
         }
     }
 
- 
+
 }
