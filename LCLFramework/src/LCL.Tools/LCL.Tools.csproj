@@ -103,6 +103,12 @@
     <Compile Include="Threading\ForeAsyncLoader.cs" />
     <Compile Include="Threading\ParallelActions.cs" />
     <Compile Include="Threading\ThreadHelper.cs" />
+    <Compile Include="WinFrm\FrmDbaDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinFrm\FrmDbaDoc.Designer.cs">
+      <DependentUpon>FrmDbaDoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinFrm\FrmDoc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="WinFrm\FrmDbaDoc.resx">
+      <DependentUpon>FrmDbaDoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinFrm\FrmDoc.resx">
       <DependentUpon>FrmDoc.cs</DependentUpon>
     </EmbeddedResource>

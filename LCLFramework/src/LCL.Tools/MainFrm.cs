@@ -37,11 +37,14 @@ namespace LCL.Tools
         }
         private void 生成数据库文档ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("生成数据库文档", "提示",
-             MessageBoxButtons.YesNo) == DialogResult.Yes)
+            try
             {
-                DataTable table = BLLFactory.Instance.idb.GetTablesColumnsList("", Utils.dbName);
-                MyXlsHelper.LeadOutToExcel(table);
+                FrmDbaDoc frm = new FrmDbaDoc();
+                frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
         private void 修改字段说明ToolStripMenuItem_Click(object sender, EventArgs e)
