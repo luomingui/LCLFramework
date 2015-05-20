@@ -35,8 +35,11 @@ namespace LCL.Tools
                 builder.AppendLine("        {  ");
                 foreach (var item in tm.Columns)
                 {
-                    builder.AppendLine("            [Display(Name = \"" + item.ColumnRemark + "\")]  ");
-                    builder.AppendLine("            public " + item.ColumnType + " " + item.ColumnName + " { get; set; }  ");
+                    if (item.ColumnName != "ID" && item.ColumnName != "AddDate" && item.ColumnName != "UpdateDate")
+                    {
+                        builder.AppendLine("            [Display(Name = \"" + item.ColumnRemark + "\")]  ");
+                        builder.AppendLine("            public " + item.ColumnType + " " + item.ColumnName + " { get; set; }  ");
+                    }
                 }
                 builder.AppendLine("        }  ");
                 builder.AppendLine("    }  ");

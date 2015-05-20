@@ -136,6 +136,8 @@ namespace UIShell.RbacManagementPlugin
                     new MvcModuleMeta{ Image="icon-user", Label = "教师管理",CustomUI="/UIShell.RbacManagementPlugin/User_Teacher/Index",EntityType=typeof(User_TeacherController)},
                     new MvcModuleMeta{ Image="icon-user-md", Label = "学生管理",CustomUI="/UIShell.RbacManagementPlugin/User_Student/Index",EntityType=typeof(User_StudentController)},
                     new MvcModuleMeta{ Image="icon-user", Label = "教师审核",CustomUI="/UIShell.RbacManagementPlugin/User_TeacherCheck/Index",EntityType=typeof(User_TeacherCheckController)},
+
+                    new MvcModuleMeta{ Image="icon-user", Label = "年级班级",CustomUI="/UIShell.RbacManagementPlugin/User_TeacherCheck/Index"},
                 }
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta

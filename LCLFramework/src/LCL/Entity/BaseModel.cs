@@ -13,6 +13,7 @@ namespace LCL
     {
         public BaseModel()
         {
+            ID = Guid.NewGuid();
             AddDate = DateTime.Now;
             UpdateDate = DateTime.Now;
         }
@@ -60,6 +61,6 @@ namespace LCL
         /// </summary>
         public Guid ParentId { get; set; }
 
-        //public int ChildNum { get; set; }
+        public int ChildNum { get; set; }
     }
 }

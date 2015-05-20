@@ -60,7 +60,7 @@
             this.comboBoxServer.Name = "comboBoxServer";
             this.comboBoxServer.Size = new System.Drawing.Size(288, 20);
             this.comboBoxServer.TabIndex = 94;
-            this.comboBoxServer.Text = "luomingui";
+            this.comboBoxServer.Text = ".";
             // 
             // txtUser
             // 

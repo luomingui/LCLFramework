@@ -80,7 +80,6 @@
     <Compile Include="BusinessModel\School\User_Teacher.cs" />
     <Compile Include="BusinessModel\UserInfo.cs" />
     <Compile Include="BusinessModel\ValueObject.cs" />
-    <Compile Include="BusinessModel\WeiXin\WxAccountsInfo.cs" />
     <Compile Include="BusinessModel\Xzqy.cs" />
     <Compile Include="Config\GeneralConfig.cs" />
     <Compile Include="Config\ScheduleConfig.cs" />

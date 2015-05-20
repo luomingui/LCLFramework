@@ -11,7 +11,7 @@ namespace UIShell.RbacPermissionService
     {
         public static IDbAccesser DBA {
             get {
-                return new DbAccesser(DbSetting.FindOrCreate("LCL_Rbac"));
+                return new DbAccesser(DbSetting.FindOrCreate("LCL"));
             }
         }
     }

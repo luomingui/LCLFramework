@@ -14,7 +14,7 @@ namespace UIShell.RbacPermissionService
     public partial class EFContext : RbacDbContext
     {
         public EFContext()
-            : base("LCL_Rbac")
+            : base("LCL")
         {
             // Database.SetInitializer<EFContext>(null);
         }
@@ -82,13 +82,13 @@ namespace UIShell.RbacPermissionService
                 }
                 );
 
-            context.Set<WxAccountsInfo>().Add(new WxAccountsInfo
-            {
-                AccountName = "minguiluo@163.com",
-                AppID = "wx1cec15324b0f1a26",
-                AppSecret = "5454111dfe9995ea2ac650b2e5a22cfa",
-                AppServerMessageEncryption = MessageEncryptionType.明文模式
-            });
+            //context.Set<WxAccountsInfo>().Add(new WxAccountsInfo
+            //{
+            //    AccountName = "minguiluo@163.com",
+            //    AppID = "wx1cec15324b0f1a26",
+            //    AppSecret = "5454111dfe9995ea2ac650b2e5a22cfa",
+            //    AppServerMessageEncryption = MessageEncryptionType.明文模式
+            //});
 
             try
             {
