@@ -35,7 +35,7 @@ namespace LCL.Tools
                 builder.AppendLine("        {  ");
                 foreach (var item in tm.Columns)
                 {
-                    if (item.ColumnName != "ID" && item.ColumnName != "AddDate" && item.ColumnName != "UpdateDate")
+                    if (item.ColumnName != "ID" && item.ColumnName != "AddDate" && item.ColumnName != "UpdateDate" && !item.ColumnName.Contains("_"))
                     {
                         builder.AppendLine("            [Display(Name = \"" + item.ColumnRemark + "\")]  ");
                         builder.AppendLine("            public " + item.ColumnType + " " + item.ColumnName + " { get; set; }  ");
@@ -55,6 +55,6 @@ namespace LCL.Tools
                 }
             }
         }
-        
+
     }
 }
