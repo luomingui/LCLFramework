@@ -60,6 +60,7 @@
     <Compile Include="Build\Providers\AdoNetBuild.cs" />
     <Compile Include="Build\Providers\EntityBuild.cs" />
     <Compile Include="Build\Providers\MVCUIBuild.cs" />
+    <Compile Include="Build\Providers\MVCViewModelBuild.cs" />
     <Compile Include="Build\Providers\RepositoryBuild.cs" />
     <Compile Include="Build\Providers\ServiceLocatorBuild.cs" />
     <Compile Include="Build\Providers\EntityFrameworkBuild.cs" />

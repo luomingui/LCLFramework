@@ -24,13 +24,8 @@ namespace LCL.MvcExtensions
         {
             return View(PermissionAttribute.NoPermissionView);
         }
-        [Permission("列表", "List")]
         public virtual ActionResult List(int? currentPageNum, int? pageSize, FormCollection collection)
         {
-            if (!Check("List"))
-            {
-                return NoPermissionView();
-            }
             if (!currentPageNum.HasValue)
             {
                 currentPageNum = 1;
@@ -124,6 +119,7 @@ namespace LCL.MvcExtensions
         {
             if (!ModelState.IsValid)
             {
+                ErrorMsg();
                 return View("AddOrEdit", model);
             }
 
@@ -138,13 +134,30 @@ namespace LCL.MvcExtensions
         {
             if (!ModelState.IsValid)
             {
+                ErrorMsg();
                 return View("AddOrEdit", model);
             }
-
             repo.Update(model.Entity);
             repo.Context.Commit();
 
             return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
+        }
+        public void ErrorMsg()
+        {
+            List<string> sb = new List<string>();
+            //获取所有错误的Key
+            List<string> Keys = ModelState.Keys.ToList();
+            //获取每一个key对应的ModelStateDictionary
+            foreach (var key in Keys)
+            {
+                var errors = ModelState[key].Errors.ToList();
+                //将错误描述添加到sb中
+                foreach (var error in errors)
+                {
+                    sb.Add(error.ErrorMessage);
+                }
+            }
+            Logger.LogDebug(sb.ToString());
         }
     }
 }

@@ -332,7 +332,7 @@ namespace LCL.Tools
 
         private void bootstrapAdminToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //控制器，视图
+            //控制器，视图验证，视图模型，视图
             string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             MVCUIBuild build = new MVCUIBuild();
             build.GenerateControllers(dir);
@@ -358,6 +358,14 @@ namespace LCL.Tools
             string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             AdoNetBuild build = new AdoNetBuild();
             build.GenerateDAL(dir);
+            MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+        }
+
+        private void mVC视图模型ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            MVCViewModelBuild build = new MVCViewModelBuild();
+            build.GenerateEntityViewsModeel(dir);
             MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
         }
     }
