@@ -9,7 +9,7 @@ namespace LCL.MvcExtensions
     /// 视图模型 添加/修改
     /// </summary>
     /// <typeparam name="TModel">The type of the model.</typeparam>
-    public class AddOrEditViewModel<TModel>
+    public class AddOrEditViewModel<TModel> 
     {
         public AddOrEditViewModel()
         {

@@ -36,10 +36,10 @@ namespace LCL.MvcExtensions
             }
             int pageNum = currentPageNum.Value;
 
-            var villagelist = repo.FindAll().ToList();
+            var modelList = repo.FindAll().ToList();
 
-            var contactLitViewModel = new PagedListViewModel<TAggregateRoot>(pageNum, pageSize.Value, villagelist.ToList());
-            return View(contactLitViewModel);
+            var pageList = new PagedListViewModel<TAggregateRoot>(pageNum, pageSize.Value, modelList.ToList());
+            return View(pageList);
 
         }
         [Permission("首页", "Index")]
@@ -68,9 +68,11 @@ namespace LCL.MvcExtensions
                     return NoPermissionView();
                 }
                 ViewBag.Action = "Add";
+
                 return View(new AddOrEditViewModel<TAggregateRoot>
                 {
                     Added = true,
+                    Entity=null,
                     CurrentPageNum = currentPageNum.Value,
                     PageSize = pageSize.Value
                 });
@@ -94,7 +96,7 @@ namespace LCL.MvcExtensions
             }
         }
         [Permission("删除", "Delete")]
-        public virtual ActionResult Delete(TAggregateRoot village, int? currentPageNum, int? pageSize, FormCollection collection)
+        public virtual ActionResult Delete(TAggregateRoot model, int? currentPageNum, int? pageSize, FormCollection collection)
         {
             if (!Check("Delete"))
             {
@@ -108,7 +110,7 @@ namespace LCL.MvcExtensions
             {
                 pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
             }
-            repo.Delete(village);
+            repo.Delete(model);
             repo.Context.Commit();
 
             return RedirectToAction("Index", new { currentPageNum = currentPageNum, pageSize = pageSize });
@@ -119,10 +121,9 @@ namespace LCL.MvcExtensions
         {
             if (!ModelState.IsValid)
             {
-                ErrorMsg();
+                ModelErrorMsg();
                 return View("AddOrEdit", model);
             }
-
             repo.Create(model.Entity);
             repo.Context.Commit();
 
@@ -134,7 +135,7 @@ namespace LCL.MvcExtensions
         {
             if (!ModelState.IsValid)
             {
-                ErrorMsg();
+                ModelErrorMsg();
                 return View("AddOrEdit", model);
             }
             repo.Update(model.Entity);
@@ -142,9 +143,11 @@ namespace LCL.MvcExtensions
 
             return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
         }
-        public void ErrorMsg()
+        public void ModelErrorMsg()
         {
-            List<string> sb = new List<string>();
+            StringBuilder sb = new StringBuilder();
+
+            string msg = "BaseRepoController ModelErrorMsg class:{0} property:{1} error:{2}";
             //获取所有错误的Key
             List<string> Keys = ModelState.Keys.ToList();
             //获取每一个key对应的ModelStateDictionary
@@ -154,7 +157,7 @@ namespace LCL.MvcExtensions
                 //将错误描述添加到sb中
                 foreach (var error in errors)
                 {
-                    sb.Add(error.ErrorMessage);
+                    sb.AppendLine(string.Format(msg, typeof(TAggregateRoot).Name, key, error.ErrorMessage));
                 }
             }
             Logger.LogDebug(sb.ToString());

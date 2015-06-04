@@ -50,6 +50,7 @@
             this.easyUIAdiniShellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bootstrapAdminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mVC验证模型ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mVC视图模型ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.classLibToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repositoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +72,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.mVC视图模型ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -93,9 +93,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 424);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 612);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(698, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(739, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -122,7 +122,7 @@
             this.批量生成代码ToolStripMenuItem,
             this.生成代码ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(209, 274);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(209, 252);
             // 
             // 刷新列表ToolStripMenuItem
             // 
@@ -219,7 +219,7 @@
             this.mVC视图模型ToolStripMenuItem});
             this.winFromUIToolStripMenuItem.Name = "winFromUIToolStripMenuItem";
             this.winFromUIToolStripMenuItem.ShowShortcutKeys = false;
-            this.winFromUIToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.winFromUIToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.winFromUIToolStripMenuItem.Text = "WebFromUI";
             this.winFromUIToolStripMenuItem.Click += new System.EventHandler(this.winFromUIToolStripMenuItem_Click);
             // 
@@ -249,6 +249,13 @@
             this.mVC验证模型ToolStripMenuItem.Text = "MVC验证模型";
             this.mVC验证模型ToolStripMenuItem.Click += new System.EventHandler(this.mVC验证模型ToolStripMenuItem_Click);
             // 
+            // mVC视图模型ToolStripMenuItem
+            // 
+            this.mVC视图模型ToolStripMenuItem.Name = "mVC视图模型ToolStripMenuItem";
+            this.mVC视图模型ToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.mVC视图模型ToolStripMenuItem.Text = "MVC视图模型";
+            this.mVC视图模型ToolStripMenuItem.Click += new System.EventHandler(this.mVC视图模型ToolStripMenuItem_Click);
+            // 
             // classLibToolStripMenuItem
             // 
             this.classLibToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -257,41 +264,41 @@
             this.eFContextToolStripMenuItem,
             this.iOCToolStripMenuItem});
             this.classLibToolStripMenuItem.Name = "classLibToolStripMenuItem";
-            this.classLibToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.classLibToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.classLibToolStripMenuItem.Text = "ClassLib";
             // 
             // entityToolStripMenuItem
             // 
             this.entityToolStripMenuItem.Name = "entityToolStripMenuItem";
-            this.entityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.entityToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.entityToolStripMenuItem.Text = "Entity";
             this.entityToolStripMenuItem.Click += new System.EventHandler(this.entityToolStripMenuItem_Click);
             // 
             // repositoryToolStripMenuItem
             // 
             this.repositoryToolStripMenuItem.Name = "repositoryToolStripMenuItem";
-            this.repositoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.repositoryToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.repositoryToolStripMenuItem.Text = "Repository";
             this.repositoryToolStripMenuItem.Click += new System.EventHandler(this.repositoryToolStripMenuItem_Click);
             // 
             // eFContextToolStripMenuItem
             // 
             this.eFContextToolStripMenuItem.Name = "eFContextToolStripMenuItem";
-            this.eFContextToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eFContextToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.eFContextToolStripMenuItem.Text = "EFContext";
             this.eFContextToolStripMenuItem.Click += new System.EventHandler(this.eFContextToolStripMenuItem_Click);
             // 
             // iOCToolStripMenuItem
             // 
             this.iOCToolStripMenuItem.Name = "iOCToolStripMenuItem";
-            this.iOCToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iOCToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.iOCToolStripMenuItem.Text = "IOC";
             this.iOCToolStripMenuItem.Click += new System.EventHandler(this.iOCToolStripMenuItem_Click);
             // 
             // adoNetToolStripMenuItem
             // 
             this.adoNetToolStripMenuItem.Name = "adoNetToolStripMenuItem";
-            this.adoNetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.adoNetToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.adoNetToolStripMenuItem.Text = "Ado.Net";
             this.adoNetToolStripMenuItem.Click += new System.EventHandler(this.adoNetToolStripMenuItem_Click);
             // 
@@ -306,7 +313,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(698, 72);
+            this.panel1.Size = new System.Drawing.Size(739, 72);
             this.panel1.TabIndex = 1;
             // 
             // label1
@@ -363,7 +370,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(698, 352);
+            this.splitContainer1.Size = new System.Drawing.Size(739, 540);
             this.splitContainer1.SplitterDistance = 189;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -373,7 +380,7 @@
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(0, 20);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(189, 332);
+            this.treeView1.Size = new System.Drawing.Size(189, 520);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -397,7 +404,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(505, 352);
+            this.tabControl1.Size = new System.Drawing.Size(546, 540);
             this.tabControl1.TabIndex = 0;
             // 
             // contextMenuStrip2
@@ -421,7 +428,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(497, 326);
+            this.tabPage1.Size = new System.Drawing.Size(538, 514);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "表说明";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -432,7 +439,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(491, 190);
+            this.groupBox1.Size = new System.Drawing.Size(532, 378);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
@@ -447,16 +454,16 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 17);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(485, 170);
+            this.dataGridView1.Size = new System.Drawing.Size(526, 358);
             this.dataGridView1.TabIndex = 1;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dataGridView2);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(3, 193);
+            this.groupBox2.Location = new System.Drawing.Point(3, 381);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(491, 130);
+            this.groupBox2.Size = new System.Drawing.Size(532, 130);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "表关系";
@@ -471,22 +478,15 @@
             this.dataGridView2.Location = new System.Drawing.Point(3, 17);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(485, 110);
+            this.dataGridView2.Size = new System.Drawing.Size(526, 110);
             this.dataGridView2.TabIndex = 1;
-            // 
-            // mVC视图模型ToolStripMenuItem
-            // 
-            this.mVC视图模型ToolStripMenuItem.Name = "mVC视图模型ToolStripMenuItem";
-            this.mVC视图模型ToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.mVC视图模型ToolStripMenuItem.Text = "MVC视图模型";
-            this.mVC视图模型ToolStripMenuItem.Click += new System.EventHandler(this.mVC视图模型ToolStripMenuItem_Click);
             // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(698, 446);
+            this.ClientSize = new System.Drawing.Size(739, 634);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
@@ -495,7 +495,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MinGuiLuo开发工具";
+            this.Text = "LCL开发工具";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainFrm_Load);
             this.statusStrip1.ResumeLayout(false);

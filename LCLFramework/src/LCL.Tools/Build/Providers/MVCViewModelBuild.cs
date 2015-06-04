@@ -16,20 +16,39 @@ namespace LCL.Tools
                 string tablename = tm.TableName;
                 string tableInfo = tm.TableNameRemark;
 
-                if (tablename == "__MigrationHistory" && tablename == "sysdiagrams")
+                if (tablename == "__MigrationHistory" || tablename == "sysdiagrams")
                 {
                     continue;
                 }
 
-                string fileListPath = path + @"\LCL\ViewModels\" + tablename + @"\Index.cshtml";
-                string fileAddOrEditPath = path + @"\LCL\ViewModels\" + tablename + @"\AddOrEdit.cshtml";
-                Utils.FolderCheck(path + @"\LCL\ViewModels\" + tablename);
-
                 StringBuilder builder = new StringBuilder();
+                builder.AppendLine("using System.Collections.Generic; ");
+                builder.AppendLine("using UIShell.RbacPermissionService; ");
+                builder.AppendLine(" ");
+                builder.AppendLine("namespace LCL.MvcExtensions ");
+                builder.AppendLine("{ ");
+                builder.AppendLine("   public class " + tablename + "AddOrEditViewModel : AddOrEditViewModel<" + tablename + "> ");
+                builder.AppendLine("    { ");
+                builder.AppendLine("        ");
+                builder.AppendLine("    } ");
 
-                
-
-                
+                builder.AppendLine("   public class " + tablename + "PagedListViewModel : PagedListViewModel<" + tablename + "> ");
+                builder.AppendLine("    { ");
+                builder.AppendLine("        public " + tablename + "PagedListViewModel(int currentPageNum, int pageSize, List<" + tablename + "> allModels) ");
+                builder.AppendLine("            : base(currentPageNum, pageSize, allModels) ");
+                builder.AppendLine("        { ");
+                builder.AppendLine(" ");
+                builder.AppendLine("        } ");
+                builder.AppendLine("    } ");
+                builder.AppendLine(" ");
+                builder.AppendLine("} ");
+                if (path.Length > 0)
+                {
+                    string folder = path + @"\LCL\ViewModels\";
+                    Utils.FolderCheck(folder);
+                    string filename = folder + @"\" + tablename + "ViewModel.cs";
+                    Utils.CreateFiles(filename, builder.ToString());
+                }
             }
         }
     }

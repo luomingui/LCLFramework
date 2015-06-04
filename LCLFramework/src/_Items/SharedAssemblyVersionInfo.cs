@@ -10,10 +10,10 @@ using System.Resources;
 //
 // 可以指定所有这些值，也可以使用“内部版本号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”:
-[assembly: AssemblyVersion("4.5.3.0")]
-[assembly: AssemblyFileVersion("4.5.3.0")]
-[assembly: AssemblyInformationalVersion("4.5.3-alpha1")]
-[assembly: SatelliteContractVersion("4.5.3.0")]
+[assembly: AssemblyVersion("5.0.0.0")]
+[assembly: AssemblyFileVersion("5.0.0.0")]
+[assembly: AssemblyInformationalVersion("5.0.0-alpha1")]
+[assembly: SatelliteContractVersion("5.0.0.0")]
 
 /*******************************************************
  * 
@@ -33,4 +33,8 @@ using System.Resources;
     BUG修改
         LCL.Repositories.EntityFramework.EntityFrameworkRepository.RemoveHoldingEntityInContext 
         EF Repository Update 实体状态问题 。
+ 5.0.0.0
+    内部修改
+        LCL.MvcExtensions.BaseRepoController.ErrorMsg
+        打印ModelState.Errors信息到日志中。
 */
