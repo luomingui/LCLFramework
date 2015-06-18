@@ -69,7 +69,6 @@
     <Compile Include="EntityFrameworkRepository.cs" />
     <Compile Include="EntityFrameworkRepositoryContext.cs" />
     <Compile Include="IEntityFrameworkRepositoryContext.cs" />
-    <Compile Include="Extensions\IQueryableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EntityFrameworkPlugin.cs" />
     <Compile Include="SortByExtension.cs" />

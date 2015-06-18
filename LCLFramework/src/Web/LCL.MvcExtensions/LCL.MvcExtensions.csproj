@@ -97,9 +97,7 @@
     <Compile Include="Controller\PluginControllerFactory.cs" />
     <Compile Include="Controller\BaseRepoController.cs" />
     <Compile Include="Extensions\ActionExtension.cs" />
-    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\HttpContextBaseExtensions.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\PluginExtensions.cs" />
     <Compile Include="Extensions\RouteExtension.cs" />
     <Compile Include="Helpers\KnownTypes.cs" />
@@ -108,6 +106,7 @@
     <Compile Include="Model\LCLMetadataProvider.cs" />
     <Compile Include="Model\LCLModelBinder.cs" />
     <Compile Include="Model\BaseLCLModel.cs" />
+    <Compile Include="Model\StringTrimModelBinder.cs" />
     <Compile Include="PageFlowService\IPageFlowService.cs" />
     <Compile Include="Permission\MyFormsAuthentication.cs" />
     <Compile Include="Permission\MyFormsPrincipal.cs" />

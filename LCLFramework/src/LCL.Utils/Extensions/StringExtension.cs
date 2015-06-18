@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LCL
 {
@@ -30,7 +33,6 @@ namespace LCL
                 return str;
             }
         }
-
         /// <summary>
         /// if this string's length is more than size,
         /// cut the excessive part and append another string.
@@ -42,7 +44,6 @@ namespace LCL
         {
             return Cut(str, size, string.Empty);
         }
-
         /// <summary>
         /// Cut a string by a english word size.
         /// CutChinese("abcdefg",3,"...") => "abc..."
@@ -105,7 +106,6 @@ namespace LCL
 
             return str.Remove(index) + appendMe;
         }
-
         /// <summary>
         /// Cut a string by a english word size.
         /// CutChinese("abcdefg",3) => "abc"
@@ -119,7 +119,6 @@ namespace LCL
         {
             return str.CutChinese(maxSize, string.Empty);
         }
-
         /// <summary>
         /// 比较两个字符串是否相等。忽略大小写
         /// </summary>
@@ -130,7 +129,6 @@ namespace LCL
         {
             return string.Compare(str, target, true) == 0;
         }
-
         /// <summary>
         /// judge this string is :
         /// null/String.Empty/all white spaces.
@@ -141,7 +139,6 @@ namespace LCL
         {
             return string.IsNullOrEmpty(str) || str.Trim() == string.Empty;
         }
-
         public static bool IsNullOrLengthBetween(this string str, int minLength, int maxLength)
         {
             if (str == null)
@@ -150,7 +147,6 @@ namespace LCL
             }
             return str.IsLengthBetween(minLength, maxLength);
         }
-
         public static bool IsLengthBetween(this string str, int minLength, int maxLength)
         {
             if (str == null)
@@ -160,7 +156,6 @@ namespace LCL
             int length = str.Length;
             return length <= maxLength && length >= minLength;
         }
-
         /// <summary>
         /// Removes all leading and trailing white-space characters from the current System.String object.
         /// if it is null, return the string.Empty.
@@ -170,6 +165,129 @@ namespace LCL
         public static string TrimNull(this string s)
         {
             return string.IsNullOrEmpty(s) ? string.Empty : s.Trim();
+        }
+        public static bool IsNullOrEmpty(this string s)
+        {
+            return string.IsNullOrEmpty(s);
+        }
+        public static bool IsMatch(this string s, string pattern)
+        {
+            if (s == null) return false;
+            else return Regex.IsMatch(s, pattern);
+        }
+        public static string Match(this string s, string pattern)
+        {
+            if (s == null) return "";
+            return Regex.Match(s, pattern).Value;
+        }
+        public static bool IsInt(this string s)
+        {
+            int i;
+            return int.TryParse(s, out i);
+        }
+        public static int ToInt(this string s)
+        {
+            return int.Parse(s);
+        }
+        public static void Open(this string s)
+        {
+            Process.Start(s);
+        }
+        public static string ExecuteDOS(this string cmd)
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.StandardInput.WriteLine(cmd);
+            process.StandardInput.WriteLine("exit");
+            return process.StandardOutput.ReadToEnd();
+        }
+        public static string ExecuteDOS(this string cmd, out string error)
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.StandardInput.WriteLine(cmd);
+            process.StandardInput.WriteLine("exit");
+            error = process.StandardError.ReadToEnd();
+            return process.StandardOutput.ReadToEnd();
+        }
+        public static void CreateDirectory(this string path)
+        {
+            Directory.CreateDirectory(path);
+        }
+        public static void WriteText(this string path, string contents)
+        {
+            File.WriteAllText(path, contents);
+        }
+        public static void DeleteFile(this string path)
+        {
+            if (File.Exists(path)) File.Delete(path);
+        }
+        /// <summary>
+        /// 转全角(SBC case)
+        /// </summary>
+        /// <param name="input">任意字符串</param>
+        /// <returns>全角字符串</returns>
+        public static string ToSBC(this string input)
+        {
+            char[] c = input.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 32)
+                {
+                    c[i] = (char)12288;
+                    continue;
+                }
+                if (c[i] < 127)
+                    c[i] = (char)(c[i] + 65248);
+            }
+            return new string(c);
+        }
+        /// <summary>
+        /// 转半角(DBC case)
+        /// </summary>
+        /// <param name="input">任意字符串</param>
+        /// <returns>半角字符串</returns>
+        public static string ToDBC(this string input)
+        {
+            char[] c = input.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 12288)
+                {
+                    c[i] = (char)32;
+                    continue;
+                }
+                if (c[i] > 65280 && c[i] < 65375)
+                    c[i] = (char)(c[i] - 65248);
+            }
+            return new string(c);
+        }
+
+        // 倒置字符串，输入"abcd123"，返回"321dcba"
+        public static string Reverse(this string value)
+        {
+            char[] input = value.ToCharArray();
+            char[] output = new char[value.Length];
+            for (int i = 0; i < input.Length; i++)
+                output[input.Length - 1 - i] = input[i];
+            return new string(output);
+        }
+
+        public static string If(this string s, Predicate<string> predicate, Func<string, string> func)
+        {
+            return predicate(s) ? func(s) : s;
         }
     }
 }

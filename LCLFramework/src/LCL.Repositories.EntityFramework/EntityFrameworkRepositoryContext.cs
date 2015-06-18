@@ -87,6 +87,7 @@ namespace LCL.Repositories.EntityFramework
         }
         /// <summary>
         /// Registers a modified object to the repository context.
+        /// //http://www.cnblogs.com/guomingfeng/p/mvc-ef-update.html
         /// </summary>
         /// <param name="obj">The object to be registered.</param>
         public override void RegisterModified<TAggregateRoot>(TAggregateRoot obj)

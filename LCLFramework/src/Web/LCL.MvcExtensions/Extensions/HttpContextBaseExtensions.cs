@@ -4,7 +4,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Web;
 
-namespace LCL.MvcExtensions
+namespace LCL
 {
 
     /// <summary>

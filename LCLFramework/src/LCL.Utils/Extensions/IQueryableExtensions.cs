@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Data.Entity;
 using System.Data.Objects;
 
-namespace LCL.Repositories.EntityFramework
+namespace LCL
 {
     /// <summary>
     /// Helper extensions for add IDbSet methods defined only
