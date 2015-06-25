@@ -76,6 +76,7 @@ namespace LCL.VSPackage.Commands.RefreshCodeSnippets
         private string GetSnippetsDir()
         {
             string path = Helper.GetVsShellDir(ServiceProvider);
+            MessageBox.Show(path);
             var res = Path.Combine(path, @"VC#\Snippets\2052\Visual C#");//中文版本
             if (!Directory.Exists(res))
             {

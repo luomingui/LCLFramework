@@ -13,4 +13,5 @@ namespace LCL.VSPackage
         public static readonly Guid guidVSPackageCmdSet = new Guid(guidVSPackageCmdSetString);
         public static readonly Guid guidVSPackageEditorFactory = new Guid(guidVSPackageEditorFactoryString);
     };
+
 }

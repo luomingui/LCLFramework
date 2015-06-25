@@ -39,6 +39,9 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LCL.Utils">
+      <HintPath>E:\华宇股份\工作\Lib\LCL.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
@@ -126,8 +129,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\CodeFileGenerator.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\MigerateDatabaseWizardWindow.xaml.cs">
+      <DependentUpon>MigerateDatabaseWizardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\MigrateOldDatabase\MigrateOldDatabaseCommand.cs" />
     <Compile Include="Commands\RefreshCodeSnippets\InstallCodeSnippetsCommand.cs" />
     <Compile Include="Commands\VSContext.cs" />
+    <Compile Include="Common\ProjectHelper.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Modeling\EditorFactory.cs" />
@@ -160,12 +169,12 @@
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="_CodeSnippets\LCL_AggregateRoot.snippet" />
-    <None Include="_CodeSnippets\LCL_DbContext.snippet" />
-    <None Include="_CodeSnippets\LCL_DomainService.snippet" />
-    <None Include="_CodeSnippets\LCL_ModulePlugin.snippet" />
-    <None Include="_CodeSnippets\LCL_MyRepository.snippet" />
-    <None Include="_CodeSnippets\LCL_ServiceLocator.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_AggregateRoot.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_DbContext.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_DomainService.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_ModulePlugin.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_MyRepository.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_ServiceLocator.snippet" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
@@ -183,11 +192,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Package.ico" />
+    <Content Include="Resources\Package.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ItemTemplates\" />
     <Folder Include="ProjectTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Commands\MigrateOldDatabase\MigerateDatabaseWizardWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>

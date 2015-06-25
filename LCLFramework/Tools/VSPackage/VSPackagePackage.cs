@@ -31,7 +31,7 @@ namespace LCL.VSPackage
     // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     // This attribute registers a tool window exposed by this package.
-    [ProvideEditorLogicalView(typeof(EditorFactory), VSConstants.LOGVIEWID.TextView_string)]
+    //[ProvideEditorLogicalView(typeof(EditorFactory), VSConstants.LOGVIEWID.TextView_string)]
     [Guid(GuidList.guidVSPackagePkgString)]
     public sealed class VSPackagePackage : Package
     {
@@ -61,7 +61,7 @@ namespace LCL.VSPackage
             base.Initialize();
 
             //Create Editor Factory. Note that the base Package class will call Dispose on it.
-            base.RegisterEditorFactory(new EditorFactory(this));
+           // base.RegisterEditorFactory(new EditorFactory(this));
 
             AddCommands();
         }
@@ -86,6 +86,25 @@ namespace LCL.VSPackage
             }
         }
         #endregion
+
+        private void MenuItemCallback(object sender, EventArgs e)
+        {
+            IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
+            Guid clsid = Guid.Empty;
+            int result;
+
+            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(
+                uiShell.ShowMessageBox(
+                    0, ref clsid,
+                    "FirstPackage",
+                    string.Format(CultureInfo.CurrentCulture,
+                        "Inside {0}.MenuItemCallback()", this.ToString()),
+                    string.Empty, 0,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
+                    OLEMSGICON.OLEMSGICON_INFO,
+                    0, out result));
+        }
 
     }
 }
