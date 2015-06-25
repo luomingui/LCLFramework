@@ -116,7 +116,7 @@
     <Compile Include="Extensions\DataTableConvertJson.cs" />
     <Compile Include="Extensions\DictionaryEx.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\EnumExt.cs" />
     <Compile Include="Extensions\ExtensionsEx.cs" />
     <Compile Include="Extensions\IQueryableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />

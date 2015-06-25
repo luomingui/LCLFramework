@@ -114,6 +114,7 @@
     <Compile Include="PluginMvcApplication.cs" />
     <Compile Include="MvcPathUtility.cs" />
     <Compile Include="UI\DropDownListExtension.cs" />
+    <Compile Include="UI\ExSelectListItem.cs" />
     <Compile Include="UI\HtmlHelperExtensions.cs" />
     <Compile Include="Utilities\LRequest.cs" />
     <Compile Include="ViewEngine\PluginRuntimeViewEngine.cs" />
