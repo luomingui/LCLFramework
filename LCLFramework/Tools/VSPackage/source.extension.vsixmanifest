@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="1d79024c-e9ad-4b69-adcb-ac6c0ea124c3" Version="1.0" Language="en-US" Publisher="老罗" />
+    <Identity Id="1d79024c-e9ad-4b69-adcb-ac6c0ea124c3" Version="1.0" Language="zh-Hans" Publisher="老罗" />
     <DisplayName>LCLFrameworkSDK</DisplayName>
     <Description xml:space="preserve">LCL Development Environment</Description>
     <MoreInfo>http://www.cnblogs.com/luomingui</MoreInfo>

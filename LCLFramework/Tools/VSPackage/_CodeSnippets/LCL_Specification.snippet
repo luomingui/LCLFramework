@@ -8,11 +8,11 @@
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
-      <Title>Add a ModulePlugin class</Title>
+      <Title>Add a Specification  class</Title>
       <Author>luomingui</Author>
       <Description>LCLFramework就是一套在.NET下支持面向领域驱动的软件系统开发框架</Description>
       <HelpUrl>http://www.cnblogs.com/luomingui</HelpUrl>
-      <Shortcut>LCLPlugin</Shortcut>
+      <Shortcut>LCL_Specification</Shortcut>
     </Header>
     <Snippet>
       <Declarations>
@@ -20,32 +20,40 @@
           <ID>ClassName</ID>
           <ToolTip>
           </ToolTip>
-          <Default>DomainRepository</Default>
+          <Default>ClassName</Default>
           <Function>
           </Function>
         </Literal>
       </Declarations>
       <Code Language="csharp" Kind="type decl" Delimiter="$">
         <![CDATA[
-    public class $ClassName$Plugin : LCLPlugin
+    /// <summary>
+    ///  根据关键字进行查询
+    ///  Linq模糊查询 http://www.cnblogs.com/cracker/archive/2011/02/07/1949669.html
+    /// </summary>
+    public class Key$ClassName$Specification : Specification<$ClassName$>
     {
-        public override void Initialize(IApp app)
+        string _keyword = "";
+        string _dateFlg = "";
+        public Key$ClassName$Specification(string keyword, string dateFlg)
         {
-            Debug.WriteLine(" Initialize....");
-            app.AllPluginsIntialized += app_AllPluginsIntialized;
-            app.ModuleOperations += app_ModuleOperations;
+            _keyword = keyword;
+            _dateFlg = dateFlg;
         }
-        void app_ModuleOperations(object sender, EventArgs e)
+        public override Expression<Func<$ClassName$, bool>> GetExpression()
         {
-         //
-        }
-        void app_AllPluginsIntialized(object sender, System.EventArgs e)
-        {
-          //
+            Expression<Func<$ClassName$, bool>> spec = null;
+            switch (_dateFlg)
+            {
+                case "Name":
+                    spec = c => c.Name.IndexOf(_keyword) != -1;
+                    break;
+            }
+            return spec;
         }
     }
-
-]]>
+    
+    ]]>
       </Code>
     </Snippet>
   </CodeSnippet>

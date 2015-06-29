@@ -166,15 +166,33 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ItemTemplates\DomainEntity.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <EmbeddedResource Include="ItemTemplates\DomainEntityRepository.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.AdminiseShellCoursePlugin.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.AdminiseShellPlugin.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.AdvancedMVC4Shell.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.EFDomainService.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.EmptyClassLibraryPlugin.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.MVC4EmptyPlugin.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.OlsonAdminShellCoursePlugin.zip" />
+    <EmbeddedResource Include="ProjectTemplates\UIShell.OlsonAdminShellPlugin.zip" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
     <EmbeddedResource Include="_CodeSnippets\LCL_AggregateRoot.snippet" />
     <EmbeddedResource Include="_CodeSnippets\LCL_DbContext.snippet" />
-    <EmbeddedResource Include="_CodeSnippets\LCL_DomainService.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_DomainService.snippet">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="_CodeSnippets\LCL_ModulePlugin.snippet" />
     <EmbeddedResource Include="_CodeSnippets\LCL_MyRepository.snippet" />
     <EmbeddedResource Include="_CodeSnippets\LCL_ServiceLocator.snippet" />
+    <EmbeddedResource Include="_CodeSnippets\LCL_Specification.snippet">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
@@ -197,10 +215,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ItemTemplates\" />
-    <Folder Include="ProjectTemplates\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Commands\MigrateOldDatabase\MigerateDatabaseWizardWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

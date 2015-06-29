@@ -21,7 +21,7 @@
         <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>更新实体自动代码</ButtonText>
+          <ButtonText>发布/卸载插件</ButtonText>
         </Strings>
       </Button>
 

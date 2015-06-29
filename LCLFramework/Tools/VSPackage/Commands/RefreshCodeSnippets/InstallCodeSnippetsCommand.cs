@@ -69,6 +69,7 @@ namespace LCL.VSPackage.Commands.RefreshCodeSnippets
                 "LCL_ModulePlugin",
                 "LCL_MyRepository",
                 "LCL_ServiceLocator",
+                "LCL_Specification",
             };
             return files;
         }

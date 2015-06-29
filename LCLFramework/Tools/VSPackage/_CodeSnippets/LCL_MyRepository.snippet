@@ -26,14 +26,20 @@
           </Function>
         </Literal>
       </Declarations>
-      <Code Language="csharp" Kind="type decl" Delimiter="$"><![CDATA[
+      <Code Language="csharp" Kind="type decl" Delimiter="$">
+        <![CDATA[
+       public interface I$ClassName$Repository : IRepository<$ClassName$>  
+       {  
+  
+       }  
        public class $ClassName$Repository : EntityFrameworkRepository<$ClassName$>
        {
           public $ClassName$Repository(IRepositoryContext context)
               : base(context)
           { }
        }
-]]></Code>
+]]>
+      </Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>
