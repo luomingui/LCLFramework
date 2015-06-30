@@ -43,14 +43,12 @@ namespace LCL.Tools
                     progressBar.Value = num;
                 builder.AppendLine("        public " + column.ColumnType + " " + column.ColumnName + " { get; set; } ");
             }
-            builder.AppendLine("        public static string ConnectionString = \"" + Utils.dbName + "\"; ");
-            builder.AppendLine("        protected override string ConnectionStringSettingName{ get { return ConnectionString; }} ");
-
+            
             builder.AppendLine("    } ");
             builder.AppendLine("} ");
             if (path != null && path.Length > 0)
             {
-                string folder = path + @"\Entities";
+                string folder = path + @"\LCL\Entities";
                 Utils.FolderCheck(folder);
                 string filename = folder + @"\" + tableModel.TableName + ".cs";
                 Utils.CreateFiles(filename, builder.ToString());

@@ -39,10 +39,6 @@
     <AssemblyOriginatorKeyFile>LCL.MvcExtensions.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="LCL.Utils, Version=4.5.0.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Lib\LCL.Utils.dll</HintPath>
@@ -153,6 +149,9 @@
     <Compile Include="Routing\RangeConstraint.cs" />
     <Compile Include="Routing\RegexConstraint.cs" />
     <Compile Include="Routing\RESTfulActionConstraint.cs" />
+    <Compile Include="WarmupStarter\Starter.cs" />
+    <Compile Include="WarmupStarter\WarmupHttpModule.cs" />
+    <Compile Include="WarmupStarter\WarmupUtility.cs" />
     <Compile Include="WebApp.cs" />
   </ItemGroup>
   <ItemGroup>

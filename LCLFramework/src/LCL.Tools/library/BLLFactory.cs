@@ -43,11 +43,6 @@ namespace LCL.Tools
         public void BinTableInfo(DataGridView dgv, string tableName)
         {
             DataTable dt = idb.GetTablesColumnsList(tableName, Utils.dbName);
-            dt.Columns.Remove("创建时间");
-            dt.Columns.Remove("更改时间");
-            dt.Columns.Remove("小数位数");
-            dt.Columns.Remove("精度");
-
             dgv.DataSource = dt;
         }
         public void BinTableRelation(DataGridView dgv, string tableName)

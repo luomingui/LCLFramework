@@ -102,9 +102,9 @@ namespace LCL.Tools
                 this.groupBox2.Text = node.Text + "表外键信息";
                 BLLFactory.Instance.BinTableRelation(this.dataGridView2, node.Text);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
         }
         private void 添加表主键ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -281,9 +281,9 @@ namespace LCL.Tools
                 TreeNode node = this.treeView1.SelectedNode;
                 ShowFormToTabControl(tabControl1, new FrmDbTableRelation(), "设置数据表关系");
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
         }
         private void 关闭其他全部ToolStripMenuItem_Click(object sender, EventArgs e)

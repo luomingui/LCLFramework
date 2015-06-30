@@ -9,47 +9,25 @@ namespace LCL.Tools
         public string Library(string path, TableModel tableModel, System.Windows.Forms.ProgressBar progressBar)
         {
             //Entity
-            StringBuilder builder = new StringBuilder();
-            builder.AppendLine("using System; ");
-            builder.AppendLine("using System.ComponentModel; ");
-            builder.AppendLine("using MinGuiLuo.ORM; ");
-            builder.AppendLine("using System.Runtime.Serialization;");
-            builder.AppendLine("namespace " + Utils.NameSpaceEntities);
-            builder.AppendLine("{ ");
-            builder.AppendLine("    /// <summary> ");
-            builder.AppendLine("    /// 实体类" + tableModel.TableNameRemark + " 。(属性说明自动提取数据库字段的描述信息) ");
-            builder.AppendLine("    /// </summary> ");
-            builder.AppendLine("    [Serializable]");
-            builder.AppendLine("    public class " + tableModel.TableName + ":Entity<" + tableModel.TableName + ">");
-            builder.AppendLine("    { ");
-            int num = 0;
-            if (progressBar != null)
-                progressBar.Maximum = tableModel.Columns.Count;
-            foreach (TableColumn column in tableModel.Columns)
-            {
-                num++;
-                if (progressBar != null)
-                    progressBar.Value = num;
-                builder.AppendLine("        public " + column.ColumnType + " " + column.ColumnName + " { get; set; } ");
-            }
-            builder.AppendLine("        public static string ConnectionString = \"" + Utils.dbName + "\"; ");
-            builder.AppendLine("        protected override string ConnectionStringSettingName{ get { return ConnectionString; }} ");
+            BuildEntity(path, tableModel, progressBar);
+            //Repository
+            new RepositoryBuild().BuildRepository(path);
+            //ValidationModel
+            new ValidationModelBuild().GenerateValidationModel(path);
+            //ViewModels
 
-            builder.AppendLine("    } ");
-            builder.AppendLine("} ");
-            if (path != null && path.Length > 0)
-            {
-                string folder = path + @"\Entities";
-                Utils.FolderCheck(folder);
-                string filename = folder + @"\" + tableModel.TableName + ".cs";
-                Utils.CreateFiles(filename, builder.ToString());
-            }
-            return builder.ToString();
+            //EFContexts
+            
+            //BundleActivator
+
+
+            return "";
+
         }
         public void BuildDbContext(string path, List<TableModel> tableNames)
         {
             StringBuilder builder = new StringBuilder();
-            
+
             builder.AppendLine("using System.Data.Entity; ");
             builder.AppendLine("using System.Data.Entity.ModelConfiguration.Conventions; ");
             builder.AppendLine("using System.Linq; ");
@@ -119,7 +97,7 @@ namespace LCL.Tools
             {
                 string folder = path + @"\LCL\EFContexts\";
                 Utils.FolderCheck(folder);
-                string filename = folder + @"\" + Utils.dbName + "Context.cs";
+                string filename = folder + @"\EFContext.cs";
                 Utils.CreateFiles(filename, builder.ToString());
             }
         }

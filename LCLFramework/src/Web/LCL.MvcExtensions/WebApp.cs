@@ -1,5 +1,4 @@
 ﻿
-using LCL.ObjectContainers.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,7 +35,7 @@ namespace LCL.MvcExtensions
             LEnvironment.Location.IsWPFUI = false;
             LEnvironment.Location.DataPortalMode = DataPortalMode.ConnectDirectly;
             base.InitEnvironment();
-            LEnvironment.AppObjectContainer = new UnityObjectContainer();
+            //LEnvironment.AppObjectContainer = new UnityObjectContainer();
         }
     }
 }

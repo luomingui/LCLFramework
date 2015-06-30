@@ -48,44 +48,81 @@ namespace LCL.Tools.WinFrm
             button1.Enabled = true;
         }
 
+
         public void HtmlTable(string fileListPath, string dbName)
         {
-            DataTable table = BLLFactory.Instance.idb.GetTablesColumnsList("", dbName);
-            StringBuilder builder = new StringBuilder();
-            builder.AppendLine("                <table class=\"table\"> ");
-            builder.AppendLine("                    <thead> ");
-            builder.AppendLine("                        <tr> ");
-
-            int columns = table.Columns.Count;
-            for (int i = 0; i < columns; i++)
+            List<TableModel> list = DALFactory.Factory().GetTableModelList(dbName);
+            StringBuilder sbuder = new StringBuilder();
+            foreach (var item in list)
             {
-                builder.AppendLine("            <th>" + table.Columns[i].ColumnName + "</th> ");
+                DataTable table = BLLFactory.Instance.idb.GetTablesColumnsList(item.TableName, dbName);
+                int columns = table.Columns.Count;
+                string context = ConvertDatatableToHtml(table);
+                sbuder.Append(context);
             }
-            builder.AppendLine("                        </tr> ");
-            builder.AppendLine("                    </thead> ");
-            builder.AppendLine("                    <tbody> ");
-            builder.AppendLine("                        <tr> ");
-
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                DataRow row = table.Rows[i];
-                for (int j = 0; j < columns; j++)
-                {
-                    builder.AppendLine("                    <td>" + row[j].ToString() + "</td> ");
-                }
-            }
-
-            builder.AppendLine("                        </tr> ");
-            builder.AppendLine("                    </tbody> ");
-            builder.AppendLine("                </table> ");
-
-            File.AppendAllText(fileListPath, builder.ToString(), Encoding.UTF8);
+            File.AppendAllText(fileListPath, sbuder.ToString(), Encoding.UTF8);
 
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        public string ConvertDatatableToHtml(DataTable filedt)
         {
-            this.Close();
+            string desc = "";
+            if (filedt != null && filedt.Rows.Count != 0)
+            {
+                for (int j = 0; j < filedt.Rows.Count; j++)
+                {
+                    if (j == 0)
+                    {
+                        desc += "<table border=1 cellspacing=0 cellpadding=0 style='width:100%;border-collapse:collapse;border:none;table-layout:fixed;empty-cells:show;margin:0 auto;'>";
+                        for (int k = 0; k < filedt.Columns.Count; k++)
+                        {
+                            if (k == 0)
+                            {
+                                desc += "<tr>";
+                            }
+                            desc += "    <td style='background-color:#ccddff;border:.5pt solid windowtext;border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; border-bottom: 1px solid;'>";
+                            desc += "        <p class=MsoNormal align=center style='text-align:left'>&nbsp;  " + filedt.Columns[k].ColumnName.ToString() + "</p></td>";
+                            if (k == filedt.Columns.Count - 1)
+                            {
+                                desc += "</tr>";
+                            }
+                        }
+                        for (int k = 0; k < filedt.Columns.Count; k++)
+                        {
+                            if (k == 0)
+                            {
+                                desc += "<tr>";
+                            }
+                            desc += "    <td style='border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; border-bottom: 1px solid;'>";
+                            desc += "        <p class=MsoNormal align=center style='text-align:left'>&nbsp;  " + filedt.Rows[j][k].ToString() + "</p></td>";
+                            if (k == filedt.Columns.Count - 1)
+                            {
+                                desc += "</tr>";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int k = 0; k < filedt.Columns.Count; k++)
+                        {
+                            if (k == 0)
+                            {
+                                desc += "<tr>";
+                            }
+                            desc += "    <td style='border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; border-bottom: 1px solid;'>";
+                            desc += "        <p class=MsoNormal align=center style='text-align:left'>&nbsp;  " + filedt.Rows[j][k].ToString() + "</p></td>";
+                            if (k == filedt.Columns.Count - 1)
+                            {
+                                desc += "</tr>";
+                            }
+                        }
+                    }
+                }
+                desc += "<tr><td width=580 colspan=" + filedt.Columns.Count.ToString() + " valign=top align='left' style='border:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt'>";
+                desc += "        <p class=MsoNormal align=left style='text-align:left'>Total Qty: " + filedt.Rows.Count + "</p></td></tr>";
+                desc += "</table>";
+            }
+            return desc;
         }
+
     }
 }

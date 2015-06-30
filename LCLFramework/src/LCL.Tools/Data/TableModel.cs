@@ -29,4 +29,16 @@ namespace LCL.Tools
             get { return ColumnRemark + "[" + ColumnName + "]"; }
         }
     }
+
+
+
+    public class DBAModel
+    {
+
+        public void Load()
+        {
+
+        }
+
+    }
 }
