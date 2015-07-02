@@ -46,6 +46,8 @@ namespace LCL
         /// <returns></returns>
         public static string Translate(this string embadedValue)
         {
+            if (embadedValue == null)
+                return "";
             return _provider.Translator.Translate(embadedValue);
         }
 
