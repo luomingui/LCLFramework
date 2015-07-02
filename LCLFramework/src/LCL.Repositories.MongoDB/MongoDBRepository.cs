@@ -13,7 +13,7 @@ namespace LCL.Repositories.MongoDB
     /// </summary>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class MongoDBRepository<TAggregateRoot> : Repository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+        where TAggregateRoot : class, IEntity
     {
         #region Private Fields
         private readonly IMongoDBRepositoryContext mongoDBRepositoryContext;

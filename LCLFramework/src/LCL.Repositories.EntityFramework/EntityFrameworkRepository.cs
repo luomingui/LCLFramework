@@ -10,9 +10,9 @@ namespace LCL.Repositories.EntityFramework
     /// <summary>
     /// Represents the Entity Framework repository.
     /// </summary>
-    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-    public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+    /// <typeparam name="TEntity">The type of the aggregate root.</typeparam>
+    public class EntityFrameworkRepository<TEntity> : Repository<TEntity>
+        where TEntity : class, IEntity
     {
         private readonly IEntityFrameworkRepositoryContext efContext;
         /// <summary>
@@ -43,7 +43,7 @@ namespace LCL.Repositories.EntityFramework
                 throw new ArgumentException("method");
             return memberExpr;
         }
-        private string GetEagerLoadingPath(Expression<Func<TAggregateRoot, dynamic>> eagerLoadingProperty)
+        private string GetEagerLoadingPath(Expression<Func<TEntity, dynamic>> eagerLoadingProperty)
         {
             MemberExpression memberExpression = this.GetMemberInfo(eagerLoadingProperty);
             var parameterName = eagerLoadingProperty.Parameters.First().Name;
@@ -67,7 +67,7 @@ namespace LCL.Repositories.EntityFramework
         /// Does the add.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        protected override void DoAdd(TAggregateRoot entity)
+        protected override void DoAdd(TEntity entity)
         {
             //判断是否是树形
 
@@ -77,20 +77,20 @@ namespace LCL.Repositories.EntityFramework
         /// Does the remove.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        protected override void DoRemove(TAggregateRoot entity)
+        protected override void DoRemove(TEntity entity)
         {
             efContext.RegisterDeleted(entity);
         }
         protected override void DoRemove(object keyValue)
         {
-            var entity = efContext.Context.Set<TAggregateRoot>().Where(p => p.ID == (Guid)keyValue).First();
+            var entity = efContext.Context.Set<TEntity>().Where(p => p.ID == (Guid)keyValue).First();
             efContext.RegisterDeleted(entity);
         }
         /// <summary>
         /// Does the remove.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
-        protected override void DoRemove(Expression<Func<TAggregateRoot, bool>> predicate)
+        protected override void DoRemove(Expression<Func<TEntity, bool>> predicate)
         {
             var list = DoGet(predicate);
             foreach (var entity in list)
@@ -102,7 +102,7 @@ namespace LCL.Repositories.EntityFramework
         /// Does the update.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        protected override void DoUpdate(TAggregateRoot entity)
+        protected override void DoUpdate(TEntity entity)
         {
             efContext.RegisterModified(entity);
         }
@@ -111,20 +111,20 @@ namespace LCL.Repositories.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
-        protected override IEnumerable<TAggregateRoot> DoGet(Expression<Func<TAggregateRoot, bool>> predicate)
+        protected override IEnumerable<TEntity> DoGet(Expression<Func<TEntity, bool>> predicate)
         {
-            return efContext.Context.Set<TAggregateRoot>().Where(predicate).ToList();
+            return efContext.Context.Set<TEntity>().Where(predicate).ToList();
         }
-        protected override TAggregateRoot DoGetByKey(object keyValue)
+        protected override TEntity DoGetByKey(object keyValue)
         {
-            return efContext.Context.Set<TAggregateRoot>().Where(p => p.ID == (Guid)keyValue).First();
+            return efContext.Context.Set<TEntity>().Where(p => p.ID == (Guid)keyValue).First();
         }
 
         #region DoXXXXXX
-        protected override IQueryable<TAggregateRoot> DoFindAll(Specifications.ISpecification<TAggregateRoot> specification,
-            Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder)
+        protected override IQueryable<TEntity> DoFindAll(Specifications.ISpecification<TEntity> specification,
+            Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder)
         {
-            var query = efContext.Context.Set<TAggregateRoot>().Where(specification.GetExpression());
+            var query = efContext.Context.Set<TEntity>().Where(specification.GetExpression());
             if (sortPredicate != null)
             {
                 switch (sortOrder)
@@ -139,11 +139,11 @@ namespace LCL.Repositories.EntityFramework
             }
             return query;
         }
-        protected override IQueryable<TAggregateRoot> DoFindAll(Specifications.ISpecification<TAggregateRoot> specification,
-            Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override IQueryable<TEntity> DoFindAll(Specifications.ISpecification<TEntity> specification,
+            Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
-            var dbset = efContext.Context.Set<TAggregateRoot>();
-            IQueryable<TAggregateRoot> queryable = null;
+            var dbset = efContext.Context.Set<TEntity>();
+            IQueryable<TEntity> queryable = null;
             if (eagerLoadingProperties != null &&
                 eagerLoadingProperties.Length > 0)
             {
@@ -175,8 +175,8 @@ namespace LCL.Repositories.EntityFramework
             }
             return queryable;
         }
-        protected override PagedResult<TAggregateRoot> DoFindAll(Specifications.ISpecification<TAggregateRoot> specification,
-            Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize)
+        protected override PagedResult<TEntity> DoFindAll(Specifications.ISpecification<TEntity> specification,
+            Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
@@ -185,7 +185,7 @@ namespace LCL.Repositories.EntityFramework
             if (sortPredicate == null)
                 throw new ArgumentNullException("sortPredicate");
 
-            var query = efContext.Context.Set<TAggregateRoot>().Where(specification.GetExpression());
+            var query = efContext.Context.Set<TEntity>().Where(specification.GetExpression());
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
 
@@ -195,29 +195,29 @@ namespace LCL.Repositories.EntityFramework
                     var pagedGroupAscending = query.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                     if (pagedGroupAscending == null)
                         return null;
-                    return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
+                    return new PagedResult<TEntity>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
                 case SortOrder.Descending:
                     var pagedGroupDescending = query.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                     if (pagedGroupDescending == null)
                         return null;
-                    return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
+                    return new PagedResult<TEntity>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
                 default:
                     break;
             }
 
             return null;
         }
-        protected override TAggregateRoot DoFind(Expression<Func<TAggregateRoot, bool>> predicate)
+        protected override TEntity DoFind(Expression<Func<TEntity, bool>> predicate)
         {
-            return efContext.Context.Set<TAggregateRoot>().Where(predicate).FirstOrDefault();
+            return efContext.Context.Set<TEntity>().Where(predicate).FirstOrDefault();
         }
-        protected override TAggregateRoot DoFind(Specifications.ISpecification<TAggregateRoot> specification)
+        protected override TEntity DoFind(Specifications.ISpecification<TEntity> specification)
         {
-            return efContext.Context.Set<TAggregateRoot>().Where(specification.IsSatisfiedBy).FirstOrDefault();
+            return efContext.Context.Set<TEntity>().Where(specification.IsSatisfiedBy).FirstOrDefault();
         }
-        protected override TAggregateRoot DoFind(Specifications.ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override TEntity DoFind(Specifications.ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
-            var dbset = efContext.Context.Set<TAggregateRoot>();
+            var dbset = efContext.Context.Set<TEntity>();
             if (eagerLoadingProperties != null &&
                 eagerLoadingProperties.Length > 0)
             {
@@ -235,9 +235,9 @@ namespace LCL.Repositories.EntityFramework
             else
                 return dbset.Where(specification.GetExpression()).FirstOrDefault();
         }
-        protected override bool DoExists(Specifications.ISpecification<TAggregateRoot> specification)
+        protected override bool DoExists(Specifications.ISpecification<TEntity> specification)
         {
-            var count = efContext.Context.Set<TAggregateRoot>().Count(specification.IsSatisfiedBy);
+            var count = efContext.Context.Set<TEntity>().Count(specification.IsSatisfiedBy);
             return count != 0;
         }
         #endregion

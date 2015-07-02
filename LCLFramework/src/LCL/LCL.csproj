@@ -70,20 +70,7 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Bus\IBus.cs" />
-    <Compile Include="Bus\ICommandBus.cs" />
-    <Compile Include="Bus\IEventBus.cs" />
-    <Compile Include="Bus\IMessageDispatcher.cs" />
-    <Compile Include="Bus\Internal\DirectBus.cs" />
-    <Compile Include="Bus\Internal\DirectCommandBus.cs" />
-    <Compile Include="Bus\Internal\DirectEventBus.cs" />
-    <Compile Include="Bus\MessageDispatcher.cs" />
-    <Compile Include="Bus\MessageDispatchEventArgs.cs" />
-    <Compile Include="Bus\RegisterDispatchAttribute.cs" />
-    <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\CommandHandler.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\ICommandHandler.cs" />
+    <Compile Include="Application\WebOrThreadStaticAppContextProvider.cs" />
     <Compile Include="ComponentModel\LCLPlugin.cs" />
     <Compile Include="ComponentModel\PluginAssembly.cs" />
     <Compile Include="ComponentModel\PluginEnvironment.cs" />
@@ -96,20 +83,6 @@
     <Compile Include="Convensions\TypeComparer.cs" />
     <Compile Include="Convensions\TypeMatrix.cs" />
     <Compile Include="Entity\BaseModel.cs" />
-    <Compile Include="Entity\ISourcedAggregateRoot.cs" />
-    <Compile Include="Entity\SourcedAggregateRoot.cs" />
-    <Compile Include="Events\IDomainEvent.cs" />
-    <Compile Include="Events\IDomainEventHandler.cs" />
-    <Compile Include="Events\IEvent.cs" />
-    <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="Events\InlineDomainEventHandler.cs" />
-    <Compile Include="Events\Internal\DomainEvent.cs" />
-    <Compile Include="Events\Internal\EventHandler.cs" />
-    <Compile Include="Events\ParallelExecutionAttribute.cs" />
-    <Compile Include="Exception\BusinessException.cs" />
-    <Compile Include="Exception\ComponentException.cs" />
-    <Compile Include="Exception\DataAccessException.cs" />
-    <Compile Include="Exception\DataHelper.cs" />
     <Compile Include="DataPortal\Server\DataPortalFactory.cs" />
     <Compile Include="DataPortal\Server\Hosts\WcfChannel\ActionRequest.cs" />
     <Compile Include="DataPortal\DistributionContext.cs" />
@@ -139,18 +112,12 @@
     <Compile Include="DataPortal\Utils\InnerSerializer.cs" />
     <Compile Include="DataPortal\Utils\ObjectCloner.cs" />
     <Compile Include="Application\LocationInformation.cs" />
-    <Compile Include="Entity\IAggregateRoot.cs" />
     <Compile Include="Entity\Tree\ITreeNode.cs" />
     <Compile Include="Entity\ValueObject.cs" />
-    <Compile Include="Exception\ExceptionMessage.cs" />
     <Compile Include="MetaModel\Meta\EntityMetaRepository.cs" />
     <Compile Include="MetaModel\Meta\Entity\EntityMeta.cs" />
     <Compile Include="Application\App.cs" />
     <Compile Include="PagedResult.cs" />
-    <Compile Include="Repositories\DomainRepository.cs" />
-    <Compile Include="Repositories\EventPublisherDomainRepository.cs" />
-    <Compile Include="Repositories\RegularDomainRepository.cs" />
-    <Compile Include="Repositories\RegularEventPublisherDomainRepository.cs" />
     <Compile Include="Repositories\SortOrder.cs" />
     <Compile Include="Specifications\AndNotSpecification.cs" />
     <Compile Include="Specifications\AndSpecification.cs" />
@@ -167,6 +134,8 @@
     <Compile Include="Specifications\ParameterRebinder.cs" />
     <Compile Include="Specifications\Specification.cs" />
     <Compile Include="Specifications\SpecificationException.cs" />
+    <Compile Include="Translation\EmptyTranslator.cs" />
+    <Compile Include="Translation\Translator.cs" />
     <Compile Include="Utils\DisposableObject.cs" />
     <Compile Include="Application\EnvironmentProvider.cs" />
     <Compile Include="Application\IApp.cs" />
@@ -178,7 +147,6 @@
     <Compile Include="Permission\AnonymousPrincipal.cs" />
     <Compile Include="Permission\LCLIdentity.cs" />
     <Compile Include="Permission\PermissionProvider.cs" />
-    <Compile Include="Repositories\IDomainRepository.cs" />
     <Compile Include="Repositories\Repository.DataPortal.cs">
       <DependentUpon>Repository.cs</DependentUpon>
     </Compile>
@@ -216,20 +184,18 @@
     <Compile Include="Permission\PermissionMgr.cs" />
     <Compile Include="Permission\SystemOperationKeys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entity\AggregateRoot.cs" />
+    <Compile Include="Entity\Entity.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IRepositoryContext.cs" />
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\RepositoryContext.cs" />
-    <Compile Include="Services\AppServices\DataTransferObject.cs" />
     <Compile Include="Services\DomainService\ContractAttribute.cs" />
     <Compile Include="Services\DomainService\ContractImplAttribute.cs" />
     <Compile Include="Services\DomainService\Internal\FlowService.cs" />
     <Compile Include="Services\DomainService\DomainService.cs" />
     <Compile Include="Services\DomainService\DomainServiceFactory.cs" />
     <Compile Include="Services\DomainService\DomainServiceLocator.cs" />
-    <Compile Include="Exception\PublicHelper.cs" />
     <Compile Include="Utils\Utility.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -237,8 +203,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bus\Bus.dgml" />
     <None Include="LCL.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Translation\翻译相关测试用例.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

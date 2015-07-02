@@ -33,7 +33,7 @@ namespace LCL.DataPortal.Server
         }
         public DataPortalResult Update(object obj, DataPortalContext context)
         {
-            var target = obj as AggregateRoot;
+            var target = obj as Entity;
             if (target != null)
             {
                 target.SaveRoot();

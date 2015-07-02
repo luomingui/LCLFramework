@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LCL.Repositories
 {
-    public abstract partial class Repository<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
+    public abstract partial class Repository<TAggregateRoot> where TAggregateRoot : class, IEntity
     {
         /// <summary>
         /// 是否声明本仓库为本地仓库（客户端只在客户端查询，服务端在服务端查询）

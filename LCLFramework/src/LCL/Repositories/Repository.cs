@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace LCL.Repositories
 {
     public abstract partial class Repository<TAggregateRoot> : IRepository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+        where TAggregateRoot : class, IEntity
     {
         private readonly IRepositoryContext context;
         private string className = "";
@@ -107,7 +107,7 @@ namespace LCL.Repositories
         protected abstract bool DoExists(ISpecification<TAggregateRoot> specification);
         protected virtual IQueryable<TAggregateRoot> DoFindAll()
         {
-            return this.DoFindAll(new AnySpecification<TAggregateRoot>(), null, LCL.SortOrder.Unspecified);
+            return this.DoFindAll(new AnySpecification<TAggregateRoot>(), null, LCL.SortOrder.Descending);
         }
         protected virtual IQueryable<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {

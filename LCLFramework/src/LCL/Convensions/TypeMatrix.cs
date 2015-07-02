@@ -44,7 +44,7 @@ namespace LCL
         /// </summary>
         public static bool IsDomainEntity(Type type)
         {
-            return type.IsBaseType(typeof(AggregateRoot));
+            return type.IsBaseType(typeof(Entity));
         }
         /// <summary>
         /// 判断给定类型是否是服务

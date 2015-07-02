@@ -97,8 +97,8 @@ namespace LCL.Repositories.EntityFramework
             {
                 RemoveHoldingEntityInContext<TAggregateRoot>(obj);
                 if (this.efContext.Entry(obj).State == EntityState.Detached)
-                { 
-                 var updated = this.efContext.Set<TAggregateRoot>().Attach(obj);
+                {
+                    var updated = this.efContext.Set<TAggregateRoot>().Attach(obj);
                 }
                 this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Modified;
                 //return updated;
@@ -173,8 +173,7 @@ namespace LCL.Repositories.EntityFramework
                         if (e.InnerException != null && e.InnerException.InnerException is SqlException)
                         {
                             SqlException sqlEx = e.InnerException.InnerException as SqlException;
-                            string msg = DataHelper.GetSqlExceptionMessage(sqlEx.Number);
-                            throw PublicHelper.ThrowDataAccessException("提交数据更新时发生异常：" + msg, sqlEx);
+                            throw sqlEx;
                         }
                         throw;
                     }

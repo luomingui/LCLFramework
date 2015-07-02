@@ -109,6 +109,7 @@
     <Compile Include="Permission\MyUserDataPrincipal.cs" />
     <Compile Include="PluginMvcApplication.cs" />
     <Compile Include="MvcPathUtility.cs" />
+    <Compile Include="UI\CheckBoxListExtension.cs" />
     <Compile Include="UI\DropDownListExtension.cs" />
     <Compile Include="UI\ExSelectListItem.cs" />
     <Compile Include="UI\HtmlHelperExtensions.cs" />
@@ -149,9 +150,6 @@
     <Compile Include="Routing\RangeConstraint.cs" />
     <Compile Include="Routing\RegexConstraint.cs" />
     <Compile Include="Routing\RESTfulActionConstraint.cs" />
-    <Compile Include="WarmupStarter\Starter.cs" />
-    <Compile Include="WarmupStarter\WarmupHttpModule.cs" />
-    <Compile Include="WarmupStarter\WarmupUtility.cs" />
     <Compile Include="WebApp.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +159,10 @@
     <None Include="LCL.MvcExtensions.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LCL.ObjectContainers.Unity\LCL.ObjectContainers.Unity.csproj">
+      <Project>{f68a247e-404e-4547-aba7-3b6f69a90160}</Project>
+      <Name>LCL.ObjectContainers.Unity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\LCL\LCL.csproj">
       <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
       <Name>LCL</Name>

@@ -9,14 +9,16 @@ namespace LCL
     /// 模型基类
     /// </summary>
     [Serializable]
-    public partial class BaseModel : AggregateRoot
+    public partial class BaseModel : Entity
     {
         public BaseModel()
         {
             ID = Guid.NewGuid();
             AddDate = DateTime.Now;
             UpdateDate = DateTime.Now;
+            IsDelete = false;
         }
+        public bool IsDelete { get; set; }
         /// <summary>
         /// 添加时间
         /// </summary>

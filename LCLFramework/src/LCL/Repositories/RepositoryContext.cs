@@ -27,9 +27,6 @@ namespace LCL.Repositories
         /// <remarks>Note that this can only be called after the repository context has successfully committed.</remarks>
         protected void ClearRegistrations()
         {
-            //this.newCollection.Clear();
-            //this.modifiedCollection.Clear();
-            //this.localDeletedCollection.Value.Clear();
             this.localNewCollection.Value.Clear();
             this.localModifiedCollection.Value.Clear();
             this.localDeletedCollection.Value.Clear();
@@ -82,9 +79,9 @@ namespace LCL.Repositories
         /// <summary>
         /// Registers a new object to the repository context.
         /// </summary>
-        /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+        /// <typeparam name="TEntity">The type of the aggregate root.</typeparam>
         /// <param name="obj">The object to be registered.</param>
-        public virtual void RegisterNew<TAggregateRoot>(TAggregateRoot obj) where TAggregateRoot : class, IAggregateRoot
+        public virtual void RegisterNew<TEntity>(TEntity obj) where TEntity : class, IEntity
         {
             if (obj.ID.Equals(Guid.Empty))
                 throw new ArgumentException("The ID of the object is empty.", "obj");
@@ -95,9 +92,9 @@ namespace LCL.Repositories
         /// <summary>
         /// Registers a modified object to the repository context.
         /// </summary>
-        /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+        /// <typeparam name="TEntity">The type of the aggregate root.</typeparam>
         /// <param name="obj">The object to be registered.</param>
-        public virtual void RegisterModified<TAggregateRoot>(TAggregateRoot obj) where TAggregateRoot : class, IAggregateRoot
+        public virtual void RegisterModified<TEntity>(TEntity obj) where TEntity : class, IEntity
         {
             if (obj.ID.Equals(Guid.Empty))
                 throw new ArgumentException("The ID of the object is empty.", "obj");
@@ -110,9 +107,9 @@ namespace LCL.Repositories
         /// <summary>
         /// Registers a deleted object to the repository context.
         /// </summary>
-        /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+        /// <typeparam name="TEntity">The type of the aggregate root.</typeparam>
         /// <param name="obj">The object to be registered.</param>
-        public virtual void RegisterDeleted<TAggregateRoot>(TAggregateRoot obj) where TAggregateRoot : class, IAggregateRoot
+        public virtual void RegisterDeleted<TEntity>(TEntity obj) where TEntity : class, IEntity
         {
             if (obj.ID.Equals(Guid.Empty))
                 throw new ArgumentException("The ID of the object is empty.", "obj");

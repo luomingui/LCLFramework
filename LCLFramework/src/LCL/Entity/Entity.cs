@@ -11,20 +11,22 @@ using System.Threading.Tasks;
 namespace LCL
 {
     [Serializable]
-    public partial class AggregateRoot : System.MarshalByRefObject, IAggregateRoot
+    public partial class Entity : System.MarshalByRefObject, IEntity
     {
+
         #region 构造函数及工厂方法
-        protected AggregateRoot()
+        protected Entity()
         {
             ID = Guid.NewGuid();
         }
         [DebuggerStepThrough]
         [TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
-        public static AggregateRoot New(Type entityType)
+        public static Entity New(Type entityType)
         {
-            return Activator.CreateInstance(entityType, true) as AggregateRoot;
+            return Activator.CreateInstance(entityType, true) as Entity;
         }
         #endregion
+
         public Guid ID { set; get; }
         internal void SaveRoot()
         {
@@ -34,17 +36,18 @@ namespace LCL
         {
             return this.ID == Guid.Empty;
         }
+
         #region Override Methods
         int? _requestedHashCode;
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is AggregateRoot))
+            if (obj == null || !(obj is Entity))
                 return false;
 
             if (Object.ReferenceEquals(this, obj))
                 return true;
 
-            AggregateRoot item = (AggregateRoot)obj;
+            Entity item = (Entity)obj;
 
             if (item.IsTransient() || this.IsTransient())
                 return false;
@@ -62,16 +65,15 @@ namespace LCL
             }
             else
                 return base.GetHashCode();
-
         }
-        public static bool operator ==(AggregateRoot left, AggregateRoot right)
+        public static bool operator ==(Entity left, Entity right)
         {
             if (Object.Equals(left, null))
                 return (Object.Equals(right, null)) ? true : false;
             else
                 return left.Equals(right);
         }
-        public static bool operator !=(AggregateRoot left, AggregateRoot right)
+        public static bool operator !=(Entity left, Entity right)
         {
             return !(left == right);
         }

@@ -16,7 +16,6 @@ namespace LCL.ObjectContainers.Unity
         {
             _unityContainer = unityContainer;
         }
-
         public IUnityContainer UnityContainer
         {
             get { return _unityContainer; }
@@ -26,8 +25,7 @@ namespace LCL.ObjectContainers.Unity
             if (typeof(T).Equals(typeof(UnityContainer)))
                 return (T)this._unityContainer;
 
-            throw new Exception(string.Format("The wrapped container type provided by the current object container should be '{0}'."
-                , typeof(UnityObjectContainer)));
+            throw new Exception(string.Format("The wrapped container type provided by the current object container should be '{0}'.", typeof(UnityObjectContainer)));
         }
         public void RegisterType(Type type)
         {
@@ -63,7 +61,6 @@ namespace LCL.ObjectContainers.Unity
         public void RegisterType(Type type, string key)
         {
             var life = ParseLife(type);
-
             if (!IsRegistered(type, key))
             {
                 if (life == LifeStyle.Singleton)
@@ -75,7 +72,6 @@ namespace LCL.ObjectContainers.Unity
                     _unityContainer.RegisterType(type);
                 }
             }
-
             foreach (var interfaceType in type.GetInterfaces())
             {
                 if (!IsRegistered(interfaceType, key))
@@ -101,7 +97,9 @@ namespace LCL.ObjectContainers.Unity
                 }
             }
         }
-        public void Register<TService, TImpl>(LifeStyle life = LifeStyle.Singleton) where TService : class where TImpl : class, TService
+        public void Register<TService, TImpl>(LifeStyle life = LifeStyle.Singleton)
+            where TService : class
+            where TImpl : class, TService
         {
             if (life == LifeStyle.Singleton)
             {
@@ -195,6 +193,6 @@ namespace LCL.ObjectContainers.Unity
         }
 
 
-       
+
     }
 }

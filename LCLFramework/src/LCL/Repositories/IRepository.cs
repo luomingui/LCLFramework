@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace LCL.Repositories
 {
-    public interface IRepository<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
+    public interface IRepository<TAggregateRoot> where TAggregateRoot : class, IEntity
     {
         IRepositoryContext Context { get; }
         void Create(TAggregateRoot entity);

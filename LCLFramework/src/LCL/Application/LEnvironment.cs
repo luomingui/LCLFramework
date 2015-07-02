@@ -13,6 +13,7 @@ namespace LCL
     /// </summary>
     public static partial class LEnvironment
     {
+
         #region Provider
 
         private static EnvironmentProvider _provider;
@@ -30,6 +31,34 @@ namespace LCL
             {
                 _provider = value;
             }
+        }
+
+        #endregion
+
+        #region Language
+
+        /// <summary>
+        /// 把程序中编写的字符串翻译为当前语言。
+        /// 
+        /// 直接扩展在字符串上的翻译方法，方便使用
+        /// </summary>
+        /// <param name="embadedValue"></param>
+        /// <returns></returns>
+        public static string Translate(this string embadedValue)
+        {
+            return _provider.Translator.Translate(embadedValue);
+        }
+
+        /// <summary>
+        /// 把当前语言翻译为程序中编写的字符串。
+        /// 
+        /// 直接扩展在字符串上的翻译方法，方便使用
+        /// </summary>
+        /// <param name="translatedValue"></param>
+        /// <returns></returns>
+        public static string TranslateReverse(this string translatedValue)
+        {
+            return _provider.Translator.TranslateReverse(translatedValue);
         }
 
         #endregion
@@ -240,6 +269,14 @@ namespace LCL
         }
         #endregion
 
+
+        public static string CurrentCulture
+        {
+            get
+            {
+                return ConfigurationHelper.GetAppSettingOrDefault("currentCulture", "zh-CN");
+            }
+        }
     }
 
     /// <summary>

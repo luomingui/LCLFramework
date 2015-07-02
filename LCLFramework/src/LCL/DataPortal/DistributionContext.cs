@@ -202,10 +202,14 @@ namespace LCL.DataPortal
             SetClientContext(clientContext);
             SetGlobalContext(globalContext);
         }
-        public static void Clear( )
+        /// <summary>
+        /// Clears all context collections.
+        /// </summary>
+        internal static void Clear()
         {
-            SetContext(null, null);
-            ServerContext.Clear();
+            SetClientContext(null);
+            SetGlobalContext(null);
+            AppContext.Clear();
         }
 
         #endregion

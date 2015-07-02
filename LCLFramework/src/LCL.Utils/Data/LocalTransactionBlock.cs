@@ -25,7 +25,7 @@ namespace LCL.Data
     /// 表示一个使用单数据库连接的事务代码块（版本 2.0）
     /// Local 的意思是本地事务（即非分布式事务）
     /// </summary>
-    public abstract class LocalTransactionBlock : ServerContextScope
+    public abstract class LocalTransactionBlock : ContextScope
     {
         #region 字段 - 所有范围对象
 
@@ -48,6 +48,15 @@ namespace LCL.Data
 
         #endregion
 
+
+        /// <summary>
+        /// 所使用的存储位置
+        /// </summary>
+        internal static IDictionary<string, object> Context
+        {
+            get { return ThreadStaticAppContextProvider.Items; }
+        }
+
         /// <summary>
         /// 构造一个本地事务代码块
         /// </summary>
@@ -56,6 +65,7 @@ namespace LCL.Data
         /// 此级别只在最外层的代码块中有效。
         /// </param>
         public LocalTransactionBlock(DbSetting dbSetting, IsolationLevel level)
+            : base(Context)
         {
             this._dbSetting = dbSetting;
             this._level = level;
@@ -153,13 +163,18 @@ namespace LCL.Data
 
         #region 静态接口
 
-        [TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
         internal static IDbTransaction GetCurrentTransaction(string database)
         {
-            var name = LocalContextName(database);
-            var ws = GetWholeScope(name) as LocalTransactionBlock;
-            if (ws != null) return ws._transaction;
+            var block = GetWholeScope(database);
+            if (block != null) return block._transaction;
             return null;
+        }
+
+        internal static LocalTransactionBlock GetWholeScope(string database)
+        {
+            var name = LocalContextName(database);
+            var ws = GetWholeScope(name, Context) as LocalTransactionBlock;
+            return ws;
         }
 
         [TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]

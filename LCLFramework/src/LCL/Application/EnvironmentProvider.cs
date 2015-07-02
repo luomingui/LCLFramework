@@ -53,6 +53,27 @@ namespace LCL
         /// </summary>
         public bool IsDebuggingEnabled { get; set; }
 
+        private Translator _translator;
+
+        /// <summary>
+        /// 当前使用的翻译器
+        /// </summary>
+        public Translator Translator
+        {
+            get
+            {
+                if (this._translator == null)
+                {
+                    this._translator = new EmptyTranslator();
+                }
+                return _translator;
+            }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
+                _translator = value;
+            }
+        }
         /// <summary>
         /// 相对路径转换为绝对路径。
         /// </summary>

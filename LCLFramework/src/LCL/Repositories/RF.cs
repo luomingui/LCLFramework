@@ -10,13 +10,9 @@ namespace LCL.Repositories
 {
     public static class RF
     {
-        public static IDomainRepository GetDomainRepository()
+        public static IRepository<TEntity> FindRepo<TEntity>() where TEntity : class, IEntity
         {
-            return ServiceLocator.Instance.Resolve<IDomainRepository>();
-        }
-        public static IRepository<TAggregateRoot> FindRepo<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot
-        {
-            return ServiceLocator.Instance.Resolve<IRepository<TAggregateRoot>>();
+            return ServiceLocator.Instance.Resolve<IRepository<TEntity>>();
         }
         public static TRepository Concrete<TRepository>() where TRepository : class
         {
@@ -26,7 +22,7 @@ namespace LCL.Repositories
         {
             return ServiceLocator.Instance.Resolve(type);
         }
-        public static void Save<TAggregateRoot>(IRepository<TAggregateRoot> rep) where TAggregateRoot : class, IAggregateRoot
+        public static void Save<TEntity>(IRepository<TEntity> rep) where TEntity : class, IEntity
         {
             rep.Context.Commit();
         }

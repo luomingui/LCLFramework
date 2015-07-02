@@ -7,9 +7,9 @@ using System.Reflection;
 using LCL.OpenLicense;
 using System.Web;
 using LCL.Repositories;
-using LCL.Bus;
-using LCL.Bus.DirectBus;
 using LCL.ComponentModel;
+using System.Threading;
+using System.Globalization;
 
 namespace LCL
 {
@@ -19,13 +19,14 @@ namespace LCL
     [LicenseProvider(typeof(FileLicenseProvider))]
     public abstract class App : DisposableObject, IApp
     {
+        #region License
         private License license = null;
         public App()
         {
             try
             {
                 license = LicenseManager.Validate(typeof(App), this);
-                if (license != null && license.LicenseKey != null&&license.LicenseKey.Length>5)
+                if (license != null && license.LicenseKey != null && license.LicenseKey.Length > 5)
                     throw new Exception("LCL组件授权失败," + license.LicenseKey + ",请联系程序开发商,邮箱是：minguiluo@163.com .");
             }
             catch
@@ -44,6 +45,7 @@ namespace LCL
                 }
             }
         }
+        #endregion    
         protected void OnAppStartup()
         {
             Logger.LogInfo("LCL App OnAppStartup ....");
@@ -59,33 +61,43 @@ namespace LCL
             this.RaiseComposeOperations();
             this.InitServiceLocator();
             this.OnComposed();
+            //设置多国语言
+            this.SetupLanguage();
         }
         protected virtual void InitEnvironment()
         {
             Logger.LogInfo("LCL LEnvironment InitEnvironment ....");
-            ServerContext.SetCurrent(new ServerContextProvider());
+
+            //如果配置了文化，则修改 UI 文化。否则使用系统默认的文化。
+            var cultureName = LEnvironment.CurrentCulture;
+            if (!string.IsNullOrWhiteSpace(cultureName))
+            {
+                try
+                {
+                    var culture = CultureInfo.GetCultureInfo(cultureName);
+                    Thread.CurrentThread.CurrentUICulture = culture;
+                }
+                catch (CultureNotFoundException) { }
+            }
+
+            //如果是客户端，则所有线程使用一个身份；如果是服务端，则每个线程使用一个单独的身份。
+            if (LEnvironment.Location.IsWPFUI)
+            {
+                AppContext.SetProvider(new StaticAppContextProvider());
+            }
+            else
+            {
+                AppContext.SetProvider(new WebOrThreadStaticAppContextProvider());
+            }
+
+
             LEnvironment.AppObjectContainer = new TinyIoCObjectContainer();
             LEnvironment.InitApp(this);
-
-            //if (AssemblyExtensions.IsDebugBuild(Assembly.GetExecutingAssembly()))
-            //{
-            //    Logger.SetImplementation(new TraceLogger());
-            //}
         }
         protected virtual void InitServiceLocator()
         {
-            ServiceLocator.Instance.Register<IMessageDispatcher, MessageDispatcher>();
-            ServiceLocator.Instance.Register<ICommandBus, DirectCommandBus>();
-            ServiceLocator.Instance.Register<IEventBus, DirectEventBus>();
-
-            ServiceLocator.Instance.Register<IAggregateRoot, AggregateRoot>();
-            ServiceLocator.Instance.Register<ISourcedAggregateRoot, SourcedAggregateRoot>();
-
-            ServiceLocator.Instance.Register<IPlugin, LCLPlugin>();
+            ServiceLocator.Instance.Register<IEntity, Entity>();
         }
-        /// <summary>
-        /// 初始化所有Plugins
-        /// </summary>
         protected virtual void InitAllPlugins()
         {
             LEnvironment.StartupPlugins();
@@ -93,6 +105,23 @@ namespace LCL
         private void InitServiceMetas()
         {
             DomainServiceLocator.TryAddPluginsService();
+        }
+        /// <summary>
+        /// 设置当前语言
+        /// 
+        /// 需要在所有 Translator 依赖注入完成后调用。
+        /// </summary>
+        private void SetupLanguage()
+        {
+            //当前线程的文化名，就是 Rafy 多国语言的标识。
+            var culture = Thread.CurrentThread.CurrentUICulture.Name;
+            if (!Translator.IsDevCulture(culture))
+            {
+                var translator = LEnvironment.Provider.Translator;
+                //目前，在服务端进行翻译时，只支持一种语言。所以尽量在客户端进行翻译。
+                translator.CurrentCulture = culture;
+                translator.Enabled = true;
+            }
         }
 
         #region IApp
@@ -134,6 +163,8 @@ namespace LCL
             if (handler != null) handler(this, EventArgs.Empty);
         }
         #endregion
+
+
     }
     public class AppLCL : App
     {

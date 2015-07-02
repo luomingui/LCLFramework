@@ -5,7 +5,7 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace LCL.Utilities
+namespace LCL
 {
     public static class ByteUtil
     {
