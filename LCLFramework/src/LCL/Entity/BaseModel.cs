@@ -62,7 +62,6 @@ namespace LCL
         /// 上一级
         /// </summary>
         public Guid ParentId { get; set; }
-
         public int ChildNum { get; set; }
     }
 }

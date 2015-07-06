@@ -35,12 +35,9 @@ namespace LCL.MvcExtensions
                 pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
-
             var modelList = repo.FindAll().ToList();
-
             var pageList = new PagedListViewModel<TAggregateRoot>(pageNum, pageSize.Value, modelList.ToList());
             return View(pageList);
-
         }
         [Permission("首页", "Index")]
         public virtual ActionResult Index(int? currentPageNum, int? pageSize, FormCollection collection)

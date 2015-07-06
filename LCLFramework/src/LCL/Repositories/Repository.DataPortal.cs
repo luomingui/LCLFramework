@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LCL.Repositories
 {
-    public abstract partial class Repository<TAggregateRoot> where TAggregateRoot : class, IEntity
+    public abstract partial class Repository<TEntity> where TEntity : class, IEntity
     {
         /// <summary>
         /// 是否声明本仓库为本地仓库（客户端只在客户端查询，服务端在服务端查询）
@@ -16,24 +16,24 @@ namespace LCL.Repositories
 
         #region 获取对象接口方法
         protected TEntityList FetchListCast<TEntityList>(object criteria, string methodName)
-            where TEntityList : class, IEnumerable<TAggregateRoot>
+            where TEntityList : class, IEnumerable<TEntity>
         {
             return this.FetchList(criteria, methodName) as TEntityList;
         }
-        protected TAggregateRoot FetchFirstAs(object criteria, string methodName)
+        protected TEntity FetchFirstAs(object criteria, string methodName)
         {
-            return this.FetchFirst(criteria, methodName) as TAggregateRoot;
+            return this.FetchFirst(criteria, methodName) as TEntity;
         }
-        protected IEnumerable<TAggregateRoot> FetchList(object criteria, string methodName)
+        protected IEnumerable<TEntity> FetchList(object criteria, string methodName)
         {
-            var list = DataPortalApi.Action(this.GetType(), methodName, criteria, this.DataPortalLocation) as IEnumerable<TAggregateRoot>;
+            var list = DataPortalApi.Action(this.GetType(), methodName, criteria, this.DataPortalLocation) as IEnumerable<TEntity>;
             return list;
         }
-        protected TAggregateRoot FetchFirst(object criteria, string methodName)
+        protected TEntity FetchFirst(object criteria, string methodName)
         {
             var list = this.FetchList(criteria, methodName);
 
-            var last = list.DefaultIfEmpty<TAggregateRoot>() as TAggregateRoot;
+            var last = list.DefaultIfEmpty<TEntity>() as TEntity;
 
             return list.Count() > 0 ? last : null;
         }

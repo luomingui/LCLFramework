@@ -145,7 +145,6 @@
     <Compile Include="IdentityGenerator.cs" />
     <Compile Include="OpenLicense\FileLicenseProvider.cs" />
     <Compile Include="Permission\AnonymousPrincipal.cs" />
-    <Compile Include="Permission\LCLIdentity.cs" />
     <Compile Include="Permission\PermissionProvider.cs" />
     <Compile Include="Repositories\Repository.DataPortal.cs">
       <DependentUpon>Repository.cs</DependentUpon>

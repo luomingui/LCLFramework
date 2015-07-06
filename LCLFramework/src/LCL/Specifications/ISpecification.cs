@@ -12,7 +12,7 @@ namespace LCL.Specifications
     /// is applied.</typeparam>
     public interface ISpecification<T>
     {
-        Guid ID { get; set; }
+        Guid ID { get;  }
         /// <summary>
         /// Returns a <see cref="System.Boolean"/> value which indicates whether the specification
         /// is satisfied by the given object.

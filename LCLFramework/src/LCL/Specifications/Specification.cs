@@ -89,6 +89,6 @@ namespace LCL.Specifications
         public abstract Expression<Func<T, bool>> GetExpression();
         #endregion
 
-        public Guid ID { get; set; }
+        public Guid ID { get; private set; }
     }
 }

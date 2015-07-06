@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace LCL.Repositories
 {
-    public abstract partial class Repository<TAggregateRoot> : IRepository<TAggregateRoot>
-        where TAggregateRoot : class, IEntity
+    public abstract partial class Repository<TEntity> : IRepository<TEntity>
+        where TEntity : class, IEntity
     {
         private readonly IRepositoryContext context;
         private string className = "";
@@ -23,7 +23,7 @@ namespace LCL.Repositories
 
             this.DataPortalLocation = DataPortalLocation.Local;
 
-            this.className = typeof(TAggregateRoot).Name;
+            this.className = typeof(TEntity).Name;
             this.cacheKey = "LCL_Cache_" + className;
         }
         public IRepositoryContext Context
@@ -34,18 +34,18 @@ namespace LCL.Repositories
         #region IRepositoryContext
 
         #region CUD
-        protected abstract void DoAdd(TAggregateRoot entity);
-        protected abstract void DoRemove(TAggregateRoot entity);
+        protected abstract void DoAdd(TEntity entity);
+        protected abstract void DoRemove(TEntity entity);
         protected abstract void DoRemove(object keyValue);
-        protected abstract void DoRemove(Expression<Func<TAggregateRoot, bool>> predicate);
-        protected abstract void DoUpdate(TAggregateRoot entity);
-        protected abstract TAggregateRoot DoGetByKey(object key);
-        public void Create(TAggregateRoot entity)
+        protected abstract void DoRemove(Expression<Func<TEntity, bool>> predicate);
+        protected abstract void DoUpdate(TEntity entity);
+        protected abstract TEntity DoGetByKey(object key);
+        public void Create(TEntity entity)
         {
             this.DoAdd(entity);
             MemoryCacheHelper.RemoveEntityCache(className);
         }
-        public void Delete(TAggregateRoot entity)
+        public void Delete(TEntity entity)
         {
             this.DoRemove(entity);
             MemoryCacheHelper.RemoveEntityCache(className);
@@ -55,26 +55,26 @@ namespace LCL.Repositories
             this.DoRemove(keyValue);
             MemoryCacheHelper.RemoveEntityCache(className);
         }
-        public void Delete(Expression<Func<TAggregateRoot, bool>> predicate)
+        public void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             this.DoRemove(predicate);
             MemoryCacheHelper.RemoveEntityCache(className);
         }
-        public void Update(TAggregateRoot entity)
+        public void Update(TEntity entity)
         {
             this.DoUpdate(entity);
             MemoryCacheHelper.RemoveEntityCache(className);
         }
-        public TAggregateRoot GetByKey(object keyValue)
+        public TEntity GetByKey(object keyValue)
         {
             return this.DoGetByKey(keyValue);
         }
         #endregion
 
         #region Query
-        protected abstract IEnumerable<TAggregateRoot> DoGet(Expression<Func<TAggregateRoot, bool>> predicate);
+        protected abstract IEnumerable<TEntity> DoGet(Expression<Func<TEntity, bool>> predicate);
         [Obfuscation]
-        public IEnumerable<TAggregateRoot> Get(Expression<Func<TAggregateRoot, bool>> predicate)
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
         {
             cacheKey = cacheKey + "_Get";
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -91,41 +91,41 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (IEnumerable<TAggregateRoot>)result;
+            return (IEnumerable<TEntity>)result;
         }
         #endregion
 
         #endregion
 
         #region FindAll
-        protected abstract IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder);
-        protected abstract IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
-        protected abstract PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize);
-        protected abstract TAggregateRoot DoFind(Expression<Func<TAggregateRoot, bool>> predicate);
-        protected abstract TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification);
-        protected abstract TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
-        protected abstract bool DoExists(ISpecification<TAggregateRoot> specification);
-        protected virtual IQueryable<TAggregateRoot> DoFindAll()
+        protected abstract IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder);
+        protected abstract IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
+        protected abstract PagedResult<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize);
+        protected abstract TEntity DoFind(Expression<Func<TEntity, bool>> predicate);
+        protected abstract TEntity DoFind(ISpecification<TEntity> specification);
+        protected abstract TEntity DoFind(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
+        protected abstract bool DoExists(ISpecification<TEntity> specification);
+        protected virtual IQueryable<TEntity> DoFindAll()
         {
-            return this.DoFindAll(new AnySpecification<TAggregateRoot>(), null, LCL.SortOrder.Descending);
+            return this.DoFindAll(new AnySpecification<TEntity>(), p => p.ID, LCL.SortOrder.Descending);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        protected virtual IQueryable<TEntity> DoFindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
         {
-            return this.DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder);
+            return this.DoFindAll(new AnySpecification<TEntity>(), sortPredicate, sortOrder);
         }
-        protected virtual PagedResult<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        protected virtual PagedResult<TEntity> DoFindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
-            return this.DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, pageNumber, pageSize);
+            return this.DoFindAll(new AnySpecification<TEntity>(), sortPredicate, sortOrder, pageNumber, pageSize);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification)
+        protected virtual IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification)
         {
             return this.DoFindAll(specification, null, LCL.SortOrder.Unspecified);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected virtual IQueryable<TEntity> DoFindAll(params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
-            return this.DoFindAll(new AnySpecification<TAggregateRoot>(), null, LCL.SortOrder.Unspecified, eagerLoadingProperties);
+            return this.DoFindAll(new AnySpecification<TEntity>(), null, LCL.SortOrder.Unspecified, eagerLoadingProperties);
         }
-        public IQueryable<TAggregateRoot> FindAll()
+        public IQueryable<TEntity> FindAll()
         {
             cacheKey = cacheKey + "_FindAll";
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -135,9 +135,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (IQueryable<TAggregateRoot>)result;
+            return (IQueryable<TEntity>)result;
         }
-        public IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification)
+        public IQueryable<TEntity> FindAll(ISpecification<TEntity> specification)
         {
             cacheKey = cacheKey + "_FindAll_" + specification.ID;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -147,9 +147,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (IQueryable<TAggregateRoot>)result;
+            return (IQueryable<TEntity>)result;
         }
-        public IQueryable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder)
+        public IQueryable<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder)
         {
             cacheKey = cacheKey + "_FindAll_" + sortPredicate.Name;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -159,9 +159,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (IQueryable<TAggregateRoot>)result;
+            return (IQueryable<TEntity>)result;
         }
-        public IQueryable<TAggregateRoot> FindAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public IQueryable<TEntity> FindAll(params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             cacheKey = cacheKey + "_FindAll_" + eagerLoadingProperties.ToString();
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -171,9 +171,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (IQueryable<TAggregateRoot>)result;
+            return (IQueryable<TEntity>)result;
         }
-        public PagedResult<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize)
+        public PagedResult<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             cacheKey = cacheKey + "_FindAll_" + sortPredicate.Name;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -183,9 +183,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (PagedResult<TAggregateRoot>)result;
+            return (PagedResult<TEntity>)result;
         }
-        public IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder)
+        public IQueryable<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder)
         {
             cacheKey = cacheKey + "_FindAll_" + specification.ID;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -195,9 +195,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (IQueryable<TAggregateRoot>)result;
+            return (IQueryable<TEntity>)result;
         }
-        public PagedResult<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize)
+        public PagedResult<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             cacheKey = cacheKey + "_FindAll_" + specification.ID;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -207,9 +207,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (PagedResult<TAggregateRoot>)result;
+            return (PagedResult<TEntity>)result;
         }
-        public TAggregateRoot Find(Expression<Func<TAggregateRoot, bool>> predicate)
+        public TEntity Find(Expression<Func<TEntity, bool>> predicate)
         {
             cacheKey = cacheKey + "_Find_" + predicate.Name;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -219,9 +219,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (TAggregateRoot)result;
+            return (TEntity)result;
         }
-        public TAggregateRoot Find(ISpecification<TAggregateRoot> specification)
+        public TEntity Find(ISpecification<TEntity> specification)
         {
             cacheKey = cacheKey + "_Find_" + specification.ID;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -231,9 +231,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (TAggregateRoot)result;
+            return (TEntity)result;
         }
-        public TAggregateRoot Find(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public TEntity Find(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             cacheKey = cacheKey + "_Find_" + specification.ID;
             var result = MemoryCacheHelper.GetCache(cacheKey);
@@ -243,9 +243,9 @@ namespace LCL.Repositories
                 if (result != null)
                     MemoryCacheHelper.SetCache(cacheKey, result);
             }
-            return (TAggregateRoot)result;
+            return (TEntity)result;
         }
-        public bool Exists(ISpecification<TAggregateRoot> specification)
+        public bool Exists(ISpecification<TEntity> specification)
         {
             cacheKey = cacheKey + "_Exists_" + specification.ID;
             var result = MemoryCacheHelper.GetCache(cacheKey);
