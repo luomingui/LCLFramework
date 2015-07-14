@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace LCL
 {
     [DebuggerDisplay("ObjectContainer = {_container}")]
-    public class ServiceLocator
+    public class ServiceLocator //: ObjectContainer
     {
         private readonly IObjectContainer _container = LEnvironment.AppObjectContainer;
         public static readonly ServiceLocator Instance = new ServiceLocator();
