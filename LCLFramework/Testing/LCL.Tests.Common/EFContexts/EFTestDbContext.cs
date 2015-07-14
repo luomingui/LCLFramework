@@ -90,7 +90,7 @@ namespace LCL.Tests.Common
                 OrgPositionOperationDeny = ppodList
             });
 
-            var user2 = context.Set<User>().Add(new User { ID = Guid.NewGuid(), Code = "admin", Name = "管理员", Password = "123456", Position = positon2 });
+            var user2 = context.Set<User>().Add(new User { ID = Guid.NewGuid(), Name = "admin", Password = "123456", Position = positon2 });
 
             context.SaveChanges();
         }

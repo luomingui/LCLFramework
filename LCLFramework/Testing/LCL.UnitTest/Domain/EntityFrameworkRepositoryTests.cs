@@ -14,7 +14,7 @@ namespace LCL.UnitTest.Domain
         [ClassInitialize]
         public static void SimpleTest_ClassInitialize(TestContext context)
         {
-            ServerTestHelper.ClassInitialize(context);
+            Helper.ClassInitialize(context);
         }
 
         #region EntityFrameworkRepositoryTests
@@ -27,8 +27,7 @@ namespace LCL.UnitTest.Domain
             {
                 ID = Guid.NewGuid(),
                 Password = "123456",
-                Code = "admin",
-                Name = "管理员",
+                Name = "admin",
             };
             var repository = RF.Concrete<IUserRepository>();
             repository.Create(customer);
@@ -43,8 +42,7 @@ namespace LCL.UnitTest.Domain
             {
                 ID = Guid.NewGuid(),
                 Password = "123456",
-                Code = "admin",
-                Name = "管理员",
+                Name = "admin1",
             };
             var repository = RF.Concrete<IUserRepository>();
             repository.Create(customer);
@@ -54,13 +52,13 @@ namespace LCL.UnitTest.Domain
             var customer2 = repository.GetByKey(key);
 
             repository.Context.Dispose();
-            Assert.AreEqual(customer.Code, customer2.Code);
+            Assert.AreEqual(customer.Name, customer2.Name);
             Assert.AreEqual(customer.Password, customer2.Password);
         }
         [TestMethod]
         public void EntityFrameworkRepositoryTests_RetrieveByAndSpecificationTest()
         {
-            ISpecification<User> spec = Specification<User>.Eval(p => p.Code.StartsWith("d")).And(Specification<User>.Eval(p => p.Password != "12"));
+            ISpecification<User> spec = Specification<User>.Eval(p => p.Name.StartsWith("a")).And(Specification<User>.Eval(p => p.Password != "12"));
             var repository = RF.Concrete<IUserRepository>();
             var c = repository.FindAll(spec).Count();
             repository.Context.Dispose();
@@ -77,7 +75,6 @@ namespace LCL.UnitTest.Domain
                 {
                     ID = Guid.NewGuid(),
                     Password = i.ToString(),
-                    Code= "code" + i,
                     Name = "name" + i,
                 });
             var repository = RF.Concrete<IUserRepository>();
@@ -85,12 +82,10 @@ namespace LCL.UnitTest.Domain
                 repository.Create(cust);
             repository.Context.Commit();
 
-            ISpecification<User> spec = Specification<User>.Eval(c => c.Code.StartsWith("code"));
+            ISpecification<User> spec = Specification<User>.Eval(c => c.Name.StartsWith("name"));
 
             var result = repository.FindAll(spec, p => p.Name, SortOrder.Ascending, pageNumber, pageSize);
             Assert.AreEqual<int>(pageSize, result.PageSize);
-            //Assert.AreEqual<string>(string.Format("code{0}", (pageNumber - 1) * pageSize + 1), result);
-            //Assert.AreEqual<string>(string.Format("code{0}", pageSize * pageNumber), result.Last().Code);
             repository.Context.Dispose();
         }
 

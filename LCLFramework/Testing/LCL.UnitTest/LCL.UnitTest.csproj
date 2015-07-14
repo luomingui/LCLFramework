@@ -48,6 +48,7 @@
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.ServiceModel.Discovery" />
@@ -65,14 +66,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Bus\BusUnitTest.cs" />
-    <Compile Include="Bus\CommandHandlers\UserCommandHandler.cs" />
-    <Compile Include="Bus\Commands\UserCommand.cs" />
     <Compile Include="Command\ReflectionTest.cs" />
     <Compile Include="Domain\EntityFrameworkRepositoryTests.cs" />
     <Compile Include="Domain\DomainServiceTest.cs" />
     <Compile Include="Domain\SpecificationTests.cs" />
-    <Compile Include="ServerTestHelper.cs" />
+    <Compile Include="Domain\EventsUnitTest.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="SimpleTest.cs" />
     <Compile Include="TestServerApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="LCL.lic" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
@@ -126,6 +126,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

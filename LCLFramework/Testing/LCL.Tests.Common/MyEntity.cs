@@ -9,7 +9,7 @@ namespace LCL.Tests.Common
     /// 模型基类
     /// </summary>
     [Serializable]
-    public class MyEntity : AggregateRoot
+    public class MyEntity : Entity
     {
         public MyEntity()
         {

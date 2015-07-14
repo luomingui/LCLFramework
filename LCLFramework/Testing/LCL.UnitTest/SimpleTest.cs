@@ -13,7 +13,7 @@ namespace LCL.UnitTest
         [ClassInitialize]
         public static void SimpleTest_ClassInitialize(TestContext context)
         {
-            ServerTestHelper.ClassInitialize(context);
+            Helper.ClassInitialize(context);
         }
     }
 }
