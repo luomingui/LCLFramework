@@ -10,6 +10,8 @@ using LCL.Repositories;
 using LCL.ComponentModel;
 using System.Threading;
 using System.Globalization;
+using LCL.Events.Bus;
+using LCL.Events;
 
 namespace LCL
 {
@@ -97,6 +99,9 @@ namespace LCL
         protected virtual void InitServiceLocator()
         {
             ServiceLocator.Instance.Register<IEntity, Entity>();
+
+            ServiceLocator.Instance.Register<IEventBus, EventBus>();
+            ServiceLocator.Instance.Register<IEventAggregator, EventAggregator>();
         }
         protected virtual void InitAllPlugins()
         {
