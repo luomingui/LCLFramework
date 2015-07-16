@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace LCL.MvcExtensions
 {
     [Authorize]
-    public class BaseRepoController<TAggregateRoot> : BaseController where TAggregateRoot : class, IEntity
+    public class BaseRepoController<TAggregateRoot> : BaseController where TAggregateRoot : class, IEntity, new()
     {
         IRepository<TAggregateRoot> repo = RF.FindRepo<TAggregateRoot>();
         public bool Check(string permissionId)
