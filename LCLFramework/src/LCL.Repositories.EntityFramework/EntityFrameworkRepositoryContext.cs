@@ -150,7 +150,7 @@ namespace LCL.Repositories.EntityFramework
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public override bool DistributedTransactionSupported
+        public override bool DTCompatible
         {
             get { return true; }
         }
