@@ -10,7 +10,6 @@ namespace LCL.Repositories.MongoDB
     {
         public override void Initialize(IApp app)
         {
-            Logger.LogInfo("LCL.Repositories.MongoDB Initialize....");
             ServiceLocator.Instance.Register<IMongoDBRepositoryContext, MongoDBRepositoryContext>();
         }
     }
