@@ -29,6 +29,7 @@ namespace LCL
                     if (library != null)
                     {
                         library.Initialize(_appCore);
+                        Logger.LogInfo(library.Assembly.FullName + " Initialize....");
                     }
                 }
             }

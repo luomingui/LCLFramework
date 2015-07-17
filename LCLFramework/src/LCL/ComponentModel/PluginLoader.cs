@@ -64,10 +64,10 @@ namespace LCL.ComponentModel
             CopyToTempPluginFolderDirectory();
 
             //加载 bin 目录下的所有程序集。
-            Logger.LogInfo("加载 bin 目录下的所有程序集");
+            //Logger.LogInfo("加载 bin 目录下的所有程序集");
             List<Assembly> assemblies = FrameworkPrivateBin.GetFiles("*.dll").Select(x => Assembly.LoadFile(x.FullName)).ToList();
 
-            Logger.LogInfo("加载临时目录下的所有程序集");
+            //Logger.LogInfo("加载临时目录下的所有程序集");
             List<PluginAssembly> plugins;
 
             var list = TempPluginFolder.GetFiles("*.dll")
@@ -81,7 +81,7 @@ namespace LCL.ComponentModel
         }
         private static List<PluginAssembly> GetAssemblies(IEnumerable<Assembly> assemblies)
         {
-            Logger.LogInfo("LCL GetAssemblies PluginAssembly ....");
+            //Logger.LogInfo("LCL GetAssemblies PluginAssembly ....");
             List<PluginAssembly> plugins = new List<PluginAssembly>();
             foreach (var assembly in assemblies)
             {
@@ -95,7 +95,7 @@ namespace LCL.ComponentModel
                         if (plugin != null)
                         {
                             plugins.Add(plugin);
-                            Logger.LogInfo("LCL GetAssemblies PluginAssembly " + plugin.Assembly.GetName().Name);
+                            //Logger.LogInfo("LCL GetAssemblies PluginAssembly " + plugin.Assembly.GetName().Name);
                         }
                     }
                 }
@@ -121,14 +121,14 @@ namespace LCL.ComponentModel
         private static void CopyToTempPluginFolderDirectory()
         {
             #region 清空临时目录
-            Logger.LogInfo("清空临时目录:" + TempPluginFolder.FullName);
+           // Logger.LogInfo("清空临时目录:" + TempPluginFolder.FullName);
             if (TempPluginFolder.FullName.Contains("Bin") || TempPluginFolder.FullName.Contains("root"))
             {
                 var binFiles = TempPluginFolder.GetFiles("*.dll", SearchOption.AllDirectories)
                     .Where(p => FrameworkPrivateBinFiles.Contains(p.Name) == false);
                 foreach (var f in binFiles)
                 {
-                    Logger.LogInfo("Deleting " + f.Name);
+                    //Logger.LogInfo("Deleting " + f.Name);
                     try
                     {
                         File.Delete(f.FullName);
@@ -141,7 +141,7 @@ namespace LCL.ComponentModel
             }
             #endregion
             #region 复制插件到临时目录
-            Logger.LogInfo("复制插件到临时目录:");
+           // Logger.LogInfo("复制插件到临时目录:");
             var files = PluginFolder.GetFiles("*.dll", SearchOption.AllDirectories).Distinct().ToList();
             foreach (var plug in files)
             {
@@ -161,7 +161,7 @@ namespace LCL.ComponentModel
                     //    }
                     //}
 #endif
-                    Logger.LogInfo(plug.FullName + " to " + shadowCopiedPlug.FullName);
+                    //Logger.LogInfo(plug.FullName + " to " + shadowCopiedPlug.FullName);
                 }
             }
             #endregion
