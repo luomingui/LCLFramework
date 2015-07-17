@@ -104,7 +104,7 @@ namespace LCL
         {
             ServiceLocator.Instance.Register<IEntity, Entity>();
 
-            ServiceLocator.Instance.Register<IEventBus, EventBus>();
+            ServiceLocator.Instance.Register<IEventBus, MSMQEventBus>();
             ServiceLocator.Instance.Register<IEventAggregator, EventAggregator>();
         }
         protected virtual void InitAllPlugins()
@@ -133,7 +133,8 @@ namespace LCL
             }
         }
 
-        #region IApp
+
+        #region IAppEvent
         public event EventHandler AllPluginsIntialized;
         protected virtual void OnAllPluginsIntialized()
         {
