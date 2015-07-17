@@ -72,7 +72,7 @@ namespace LCL.OpenLicense
         public override License GetLicense(LicenseContext context, Type type, object instance, bool allowExceptions)
         {
             FileLicense license = null;
-            StringBuilder listMsg =new StringBuilder();
+            StringBuilder listMsg = new StringBuilder();
             if (context != null)
             {
                 if (context.UsageMode == LicenseUsageMode.Designtime)
@@ -105,7 +105,7 @@ namespace LCL.OpenLicense
                         if (listMsg.Length > 5)
                         {
                             listMsg.Insert(0, " 许可证编号:" + entity.ID);
-                            listMsg.Insert(1, " 许可证名称:"+entity.Name);
+                            listMsg.Insert(1, " 许可证名称:" + entity.Name);
                             listMsg.Insert(2, " 程序集版本号:" + entity.AssemblyName);
                             license = new FileLicense(this, listMsg.ToString());
                         }
@@ -114,12 +114,12 @@ namespace LCL.OpenLicense
                     }
                     catch (IOException e)
                     {
-                        Logger.LogError("检查许可证失败", e);
+                        license = new FileLicense(this, "检查许可证失败" + e.Message);
                     }
                 }
                 else
                 {
-                    Logger.LogWarn("lic文件不存在，路径是：" + licenseFile);
+                    license = new FileLicense(this, "lic文件不存在,请联系供应商");
                 }
             }
             return license;

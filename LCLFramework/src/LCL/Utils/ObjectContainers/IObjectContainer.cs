@@ -61,6 +61,7 @@ namespace LCL
         /// <param name="instance"></param>
         /// <param name="life"></param>
         void Register<T>(T instance, LifeStyle life) where T : class;
+        void Register(Type registerType, Type registerImplementation);
         /// <summary>
         /// 注册给定类型的实例
         /// </summary>

@@ -28,7 +28,11 @@ namespace LCL
             try
             {
                 license = LicenseManager.Validate(typeof(App), this);
-                if (license != null && license.LicenseKey != null && license.LicenseKey.Length > 5)
+                if (license == null)
+                {
+                    throw new Exception("LCL组件授权失败,请检查应用程序是否有LCL.lic文件或者联系程序开发商,邮箱是：minguiluo@163.com .");
+                }
+                if (license != null && license.LicenseKey.Length > 5)
                     throw new Exception("LCL组件授权失败," + license.LicenseKey + ",请联系程序开发商,邮箱是：minguiluo@163.com .");
             }
             catch
@@ -47,7 +51,7 @@ namespace LCL
                 }
             }
         }
-        #endregion    
+        #endregion
         protected void OnAppStartup()
         {
             Logger.LogInfo("LCL App OnAppStartup ....");

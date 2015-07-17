@@ -124,8 +124,10 @@ namespace LCL.ObjectContainers.TinyIoC
             return componentAttributes.Count() <= 0 ? LifeStyle.Transient : (componentAttributes[0] as ComponentAttribute).LifeStyle;
         }
 
-
-       
+        public void Register(Type registerType, Type registerImplementation)
+        {
+            _container.Register(registerType, registerImplementation);
+        }
     }
 
     public static class TinyIoCContainerExtensions
