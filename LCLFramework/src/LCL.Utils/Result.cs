@@ -12,7 +12,7 @@ namespace LCL
     /// </summary>
     [DataContract, Serializable]
     [DebuggerDisplay("Success:{Success}, StatusCode:{StatusCode}, Message:{Message}")]
-    public struct Result
+    public class Result
     {
         public static string SuccessMessage = "操作成功！";
 
