@@ -20,8 +20,7 @@ namespace LCL.Repositories.EntityFramework
         }
         public override void Initialize(IApp app)
         {
-            Logger.LogInfo("LCL.Repositories.EntityFramework Plugin Initialize......");
-            ServiceLocator.Instance.Register<IRepositoryContext,EntityFrameworkRepositoryContext>();
+            ServiceLocator.Instance.Register<IEntityFrameworkRepositoryContext, EntityFrameworkRepositoryContext>();
         }
     }
 }
