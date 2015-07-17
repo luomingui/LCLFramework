@@ -15,7 +15,6 @@ namespace LCL.ObjectContainers.Unity
         }
         public override void Initialize(IApp app)
         {
-            Logger.LogInfo("LCL.ObjectContainers.Unity Plugin Initialize......");
             LEnvironment.AppObjectContainer = new UnityObjectContainer();
         }
     }

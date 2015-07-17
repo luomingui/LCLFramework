@@ -193,6 +193,9 @@ namespace LCL.ObjectContainers.Unity
         }
 
 
-
+        public void Register(Type registerType, Type registerImplementation)
+        {
+            throw new Exception(string.Format("The wrapped container type provided by the current object container should be '{0}'.", typeof(UnityObjectContainer)));
+        }
     }
 }
