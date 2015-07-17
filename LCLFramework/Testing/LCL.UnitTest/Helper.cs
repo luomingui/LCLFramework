@@ -8,6 +8,7 @@ using System.Messaging;
 
 namespace LCL.UnitTest
 {
+    //md "Plugins";
     public static class Helper
     {
         public static void ClassInitialize(TestContext context)

@@ -22,12 +22,10 @@ namespace LCL.UnitTest.Events
         public void TestMethod1()
         {
 
-
             var context = RF.Concrete<IEntityFrameworkRepositoryContext>();// new EntityFrameworkRepositoryContext(new EFTestDbContext());
-            var bus = RF.Concrete<MSMQEventBus>();// new MSMQEventBus(Helper.EventBus_MessageQueue);
+            var bus =  new MSMQEventBus(Helper.EventBus_MessageQueue);
             var repo = RF.Concrete<IUserRepository>();
    
-
             var entity = new User { ID = Guid.NewGuid(), Name = "EventsUnitTest", Email = "123@qq.com", Password = "123456" };
             repo.Create(entity);
             repo.Context.Commit();
