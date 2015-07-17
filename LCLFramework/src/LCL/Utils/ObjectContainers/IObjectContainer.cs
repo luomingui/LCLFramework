@@ -20,6 +20,7 @@ namespace LCL
         /// <param name="type"></param>
         /// <param name="key"></param>
         void RegisterType(Type type, string key);
+        void RegisterType(Type from, Type to);
         /// <summary>
         /// 注册给定程序集中符合条件的所有类型
         /// </summary>
@@ -61,7 +62,7 @@ namespace LCL
         /// <param name="instance"></param>
         /// <param name="life"></param>
         void Register<T>(T instance, LifeStyle life) where T : class;
-        void Register(Type registerType, Type registerImplementation);
+
         /// <summary>
         /// 注册给定类型的实例
         /// </summary>

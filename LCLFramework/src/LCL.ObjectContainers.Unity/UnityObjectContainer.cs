@@ -168,7 +168,16 @@ namespace LCL.ObjectContainers.Unity
         }
         public T Resolve<T>() where T : class
         {
-            return _unityContainer.Resolve<T>();
+            T resolved;
+            try
+            {
+                resolved = _unityContainer.Resolve<T>();
+            }
+            catch (Exception)
+            {
+                resolved = default(T);
+            }
+            return resolved;
         }
         public T Resolve<T>(string key) where T : class
         {
@@ -192,10 +201,13 @@ namespace LCL.ObjectContainers.Unity
             return componentAttributes.Count() <= 0 ? LifeStyle.Transient : (componentAttributes[0] as ComponentAttribute).LifeStyle;
         }
 
-
-        public void Register(Type registerType, Type registerImplementation)
+        public void RegisterType(Type from, Type to)
         {
-            throw new Exception(string.Format("The wrapped container type provided by the current object container should be '{0}'.", typeof(UnityObjectContainer)));
+            //RegisterType(typeof(IRepository<>), typeof(Repository<>));
+            _unityContainer.RegisterType(from, to);
         }
+
+
+     
     }
 }

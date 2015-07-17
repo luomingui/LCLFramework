@@ -87,11 +87,11 @@
     <Compile Include="Domain\DomainEvents\DomainEvent.cs" />
     <Compile Include="Domain\DomainEvents\IDomainEvent.cs" />
     <Compile Include="Domain\DomainEvents\IDomainEventHandler.cs" />
-    <Compile Include="Domain\Entity\BaseModel.cs" />
-    <Compile Include="Domain\Entity\Entity.cs" />
-    <Compile Include="Domain\Entity\IEntity.cs" />
-    <Compile Include="Domain\Entity\Tree\ITreeNode.cs" />
-    <Compile Include="Domain\Entity\ValueObject.cs" />
+    <Compile Include="Domain\DomainModel\BaseModel.cs" />
+    <Compile Include="Domain\DomainModel\Entity.cs" />
+    <Compile Include="Domain\DomainModel\IEntity.cs" />
+    <Compile Include="Domain\DomainModel\Tree\ITreeNode.cs" />
+    <Compile Include="Domain\DomainModel\ValueObject.cs" />
     <Compile Include="Domain\Repositories\RepositoryLocator.cs" />
     <Compile Include="Domain\Repositories\IRepository.cs" />
     <Compile Include="Domain\Repositories\IRepositoryContext.cs" />
@@ -194,7 +194,6 @@
     <Compile Include="Utils\ObjectContainers\Internal\TinyIoC.cs" />
     <Compile Include="Utils\ObjectContainers\Internal\TinyIoCObjectContainer.cs" />
     <Compile Include="Utils\ObjectContainers\IObjectContainer.cs" />
-    <Compile Include="Utils\ObjectContainers\ObjectContainerFactory.cs" />
     <Compile Include="Utils\ObjectContainers\ServiceLocator.cs" />
     <Compile Include="Freezable.cs" />
     <Compile Include="MetaModel\Attributes\Entity\CriteriaAttribute.cs" />

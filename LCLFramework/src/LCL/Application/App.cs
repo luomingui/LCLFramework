@@ -103,7 +103,6 @@ namespace LCL
         protected virtual void InitServiceLocator()
         {
             ServiceLocator.Instance.Register<IEntity, Entity>();
-
             ServiceLocator.Instance.Register<IEventBus, MSMQEventBus>();
             ServiceLocator.Instance.Register<IEventAggregator, EventAggregator>();
         }
@@ -114,6 +113,8 @@ namespace LCL
         private void InitServiceMetas()
         {
             DomainServiceLocator.TryAddPluginsService();
+
+            ServiceLocator.Instance.RegisterType(typeof(IRepository<>), typeof(Repository<>));
         }
         /// <summary>
         /// 设置当前语言

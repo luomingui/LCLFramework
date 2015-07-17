@@ -26,6 +26,10 @@ namespace LCL
         {
             _container.RegisterType(type);
         }
+        public void RegisterType(Type from, Type to)
+        {
+            _container.RegisterType(from, to);
+        }
         /// <summary>
         /// 注册一个给定的类型及其所有实现的接口
         /// </summary>
