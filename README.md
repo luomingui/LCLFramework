@@ -1,4 +1,4 @@
-# LCLFramework 博客 http://luomingui.cnblogs.com
+# LCLFramework 
 LCLFramework就是一套在.NET下支持面向领域驱动的软件系统管理类软件的快速开发框架<br/>
 
 使用开发框架的好处：<br/>
@@ -36,7 +36,10 @@ LCLFramework就是一套在.NET下支持面向领域驱动的软件系统管理�
 5：完善代码生成和项目模板 <br/>
 6：升级MVC5 <br/>
 
-LCLFramework框架之Service模式
-LCLFramework框架之IOC
-LCLFramework框架之Plugin模式
-LCLFramework框架之Repository模式
+帮助手册：由于时间及人员的关系，现在还没有发布可用的使用说明。我之后会陆续添加一些 LCL 的使用说明文档。大家可以关注我的博客。<br/>
+博客 http://luomingui.cnblogs.com  <br/>
+QQ交流群：由于暂时没有完整的帮助手册，所以新开通了一个 QQ 群，方便试用的朋友在里面进行交流。群号：34178394。<br/>
+
+要使用LCLF进行应用程序开发，您需要安装Visual Studio 2012以上的版本（以下简称Visual Studio 2012+），从LCL 1.0开始，需要Micrsoft.NET Framework 4.5的支持，因此强烈建议使用Visual Studio 2012+进行开发。<br/>
+
+使用NuGet来管理LCL的程序集引用的另一个好处是，使得今后LCL类库包的发布变得非常简单。<br/>
