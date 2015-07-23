@@ -50,8 +50,8 @@ namespace LCL.MvcExtensions
         }
         public static string BundleContent(this UrlHelper helper, string url)
         {
-            string str = System.Environment.CurrentDirectory;
-            string path =str+url;
+            string _bundlerootUrl = System.Web.HttpContext.Current.Request.Url.Authority.ToString() + @"/" ;
+            string path = "http://" + _bundlerootUrl + @"/" + url;
             return path;
         }
     }
