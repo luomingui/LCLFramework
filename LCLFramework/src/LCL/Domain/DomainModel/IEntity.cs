@@ -6,9 +6,9 @@ namespace LCL
     /// </summary>
     public interface IEntity
     {
-        /// <summary>
-        /// Gets or sets the identifier of the entity.
-        /// </summary>
         Guid ID { get; set; }
+        bool IsDelete { get; set; }
+        DateTime AddDate { get; set; }
+        DateTime UpdateDate { get; set; }
     }
 }

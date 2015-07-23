@@ -32,7 +32,7 @@ namespace LCL
     /// 树形模型基类
     /// </summary>
     [Serializable]
-    public partial class BaseTreeModel : BaseModel, ITreeNode
+    public partial class BaseTreeModel : BaseModel, IEntityTree
     {
         public BaseTreeModel()
         {
