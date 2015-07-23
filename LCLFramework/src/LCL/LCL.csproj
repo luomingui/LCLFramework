@@ -71,6 +71,7 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Application\AppInitEventArgs.cs" />
     <Compile Include="Application\AppLocator.cs" />
     <Compile Include="Application\WebOrThreadStaticAppContextProvider.cs" />
     <Compile Include="ComponentModel\LCLPlugin.cs" />
@@ -90,7 +91,7 @@
     <Compile Include="Domain\DomainModel\BaseModel.cs" />
     <Compile Include="Domain\DomainModel\Entity.cs" />
     <Compile Include="Domain\DomainModel\IEntity.cs" />
-    <Compile Include="Domain\DomainModel\Tree\ITreeNode.cs" />
+    <Compile Include="Domain\DomainModel\IEntityTree.cs" />
     <Compile Include="Domain\DomainModel\ValueObject.cs" />
     <Compile Include="Domain\Repositories\RepositoryLocator.cs" />
     <Compile Include="Domain\Repositories\IRepository.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="MetaModel\Meta\EntityMetaRepository.cs" />
     <Compile Include="MetaModel\Meta\Entity\EntityMeta.cs" />
     <Compile Include="Application\App.cs" />
+    <Compile Include="OpenLicense\AppLicense.cs" />
     <Compile Include="PagedResult.cs" />
     <Compile Include="Transactions\DistributedTransactionCoordinator.cs" />
     <Compile Include="Transactions\ITransactionCoordinator.cs" />

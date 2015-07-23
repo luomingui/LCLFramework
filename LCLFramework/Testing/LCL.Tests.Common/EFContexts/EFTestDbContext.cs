@@ -9,7 +9,7 @@ namespace LCL.Tests.Common
     public class EFTestDbContext : BaseDbContext
     {
         public EFTestDbContext()
-            : base("RBAC")
+            : base("LCLTest")
         {
 
         }

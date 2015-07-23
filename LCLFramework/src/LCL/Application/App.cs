@@ -18,40 +18,9 @@ namespace LCL
     /// <summary>
     /// Represents the implementation of the application.
     /// </summary>
-    [LicenseProvider(typeof(FileLicenseProvider))]
-    public abstract class App : DisposableObject, IApp
+
+    public abstract class App : AppLicense, IApp
     {
-        #region License
-        private License license = null;
-        public App()
-        {
-            try
-            {
-                license = LicenseManager.Validate(typeof(App), this);
-                if (license == null)
-                {
-                    throw new Exception("LCL组件授权失败,请检查应用程序是否有LCL.lic文件或者联系程序开发商,邮箱是：minguiluo@163.com .");
-                }
-                if (license != null && license.LicenseKey.Length > 5)
-                    throw new Exception("LCL组件授权失败," + license.LicenseKey + ",请联系程序开发商,邮箱是：minguiluo@163.com .");
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (license != null)
-                {
-                    license.Dispose();
-                    license = null;
-                }
-            }
-        }
-        #endregion
         protected void OnAppStartup()
         {
             Logger.LogInfo("LCL App OnAppStartup ....");
@@ -63,17 +32,14 @@ namespace LCL
             this.OnModuleOpertions();
             //服务。
             this.InitServiceMetas();
-            //组合所有模块的 IOC、事件、
-            this.RaiseComposeOperations();
+            //IOC
             this.InitServiceLocator();
-            this.OnComposed();
             //设置多国语言
             this.SetupLanguage();
         }
         protected virtual void InitEnvironment()
         {
             Logger.LogInfo("LCL LEnvironment InitEnvironment ....");
-
             //如果配置了文化，则修改 UI 文化。否则使用系统默认的文化。
             var cultureName = LEnvironment.CurrentCulture;
             if (!string.IsNullOrWhiteSpace(cultureName))
@@ -85,7 +51,6 @@ namespace LCL
                 }
                 catch (CultureNotFoundException) { }
             }
-
             //如果是客户端，则所有线程使用一个身份；如果是服务端，则每个线程使用一个单独的身份。
             if (LEnvironment.Location.IsWPFUI)
             {
@@ -95,16 +60,8 @@ namespace LCL
             {
                 AppContext.SetProvider(new WebOrThreadStaticAppContextProvider());
             }
-
-
             LEnvironment.AppObjectContainer = new TinyIoCObjectContainer();
             LEnvironment.InitApp(this);
-        }
-        protected virtual void InitServiceLocator()
-        {
-            ServiceLocator.Instance.Register<IEntity, Entity>();
-            ServiceLocator.Instance.Register<IEventBus, MSMQEventBus>();
-            ServiceLocator.Instance.Register<IEventAggregator, EventAggregator>();
         }
         protected virtual void InitAllPlugins()
         {
@@ -113,14 +70,14 @@ namespace LCL
         private void InitServiceMetas()
         {
             DomainServiceLocator.TryAddPluginsService();
-
+        }
+        protected virtual void InitServiceLocator()
+        {
+            ServiceLocator.Instance.Register<IEntity, Entity>();
+            ServiceLocator.Instance.Register<IEventBus, MSMQEventBus>();
+            ServiceLocator.Instance.Register<IEventAggregator, EventAggregator>();
             ServiceLocator.Instance.RegisterType(typeof(IRepository<>), typeof(Repository<>));
         }
-        /// <summary>
-        /// 设置当前语言
-        /// 
-        /// 需要在所有 Translator 依赖注入完成后调用。
-        /// </summary>
         private void SetupLanguage()
         {
             //当前线程的文化名，就是 Rafy 多国语言的标识。
@@ -134,48 +91,25 @@ namespace LCL
             }
         }
 
-
         #region IAppEvent
-        public event EventHandler AllPluginsIntialized;
+        public event EventHandler<AppInitEventArgs> AllPluginsIntialized;
         protected virtual void OnAllPluginsIntialized()
         {
             var handler = this.AllPluginsIntialized;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) handler(this, new AppInitEventArgs(this.ObjectContainer));
         }
-        public event EventHandler ModuleOperations;
+        public event EventHandler<AppInitEventArgs> ModuleOperations;
         protected virtual void OnModuleOpertions()
         {
             var handler = this.ModuleOperations;
-            if (handler != null) handler(this, EventArgs.Empty);
-        }
-        /// <summary>
-        /// 组件的组合操作。
-        /// 组合可以在此事件中添加自己的组合逻辑，例如 A 订阅 B 的某个事件。
-        /// </summary>
-        public event EventHandler ComposeOperations;
-        /// <summary>
-        /// 触发 ComposeOperations 事件。
-        /// </summary>
-        protected virtual void RaiseComposeOperations()
-        {
-            var handler = this.ComposeOperations;
-            if (handler != null) handler(this, EventArgs.Empty);
-        }
-        /// <summary>
-        /// 所有组件组合完毕。
-        /// </summary>
-        public event EventHandler Composed;
-        /// <summary>
-        /// 触发 Composed 事件。
-        /// </summary>
-        protected virtual void OnComposed()
-        {
-            var handler = this.Composed;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) handler(this, new AppInitEventArgs(this.ObjectContainer));
         }
         #endregion
 
-
+        public IObjectContainer ObjectContainer
+        {
+            get { return LEnvironment.AppObjectContainer; }
+        }
     }
     public class AppLCL : App
     {

@@ -6,34 +6,34 @@ using System.Linq.Expressions;
 
 namespace LCL.Repositories
 {
-    public interface IRepository<TAggregateRoot> where TAggregateRoot : class, IEntity
+    public interface IRepository<TEntity> where TEntity : class, IEntity
     {
         IRepositoryContext Context { get; }
-        void Create(TAggregateRoot entity);
-        void Update(TAggregateRoot entity);
-        void Delete(TAggregateRoot entity); 
+        void Create(TEntity entity);
+        void Update(TEntity entity);
+        void Delete(TEntity entity); 
         void DeleteByKey(object keyValue);
-        void Delete(Expression<Func<TAggregateRoot, bool>> predicate);
-        TAggregateRoot GetByKey(object keyValue);
-        #region Obsolete
-        [Obsolete("The method is obsolete, use FindXXX instead.")]
-        IEnumerable<TAggregateRoot> Get(Expression<Func<TAggregateRoot, bool>> predicate);
-        #endregion
+        void Delete(Expression<Func<TEntity, bool>> predicate);
+        TEntity GetByKey(object keyValue);
+
 
         #region Specification
-        IQueryable<TAggregateRoot> FindAll(); 
-        IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification);
-        IQueryable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder);
-        PagedResult<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize);
-        IQueryable<TAggregateRoot> FindAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
-        IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder);
-        PagedResult<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize);
+        IQueryable<TEntity> FindAll(); 
+        IQueryable<TEntity> FindAll(ISpecification<TEntity> specification);
+        IQueryable<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder);
+        PagedResult<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize);
+        IQueryable<TEntity> FindAll(params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
+        IQueryable<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder);
+        PagedResult<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize);
 
-        TAggregateRoot Find(Expression<Func<TAggregateRoot, bool>> predicate);
-        TAggregateRoot Find(ISpecification<TAggregateRoot> specification);
-        TAggregateRoot Find(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
-        bool Exists(ISpecification<TAggregateRoot> specification);
+        TEntity Find(Expression<Func<TEntity, bool>> predicate);
+        TEntity Find(ISpecification<TEntity> specification);
+        TEntity Find(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
+        bool Exists(ISpecification<TEntity> specification);
 
         #endregion
+
+
+        List<TEntity> FindByPid(Guid? pid);
     }
 }

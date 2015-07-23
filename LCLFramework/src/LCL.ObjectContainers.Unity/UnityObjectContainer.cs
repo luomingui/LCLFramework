@@ -204,10 +204,7 @@ namespace LCL.ObjectContainers.Unity
         public void RegisterType(Type from, Type to)
         {
             //RegisterType(typeof(IRepository<>), typeof(Repository<>));
-            _unityContainer.RegisterType(from, to);
+            _unityContainer.RegisterType(from, to, new ContainerControlledLifetimeManager());
         }
-
-
-     
     }
 }

@@ -122,15 +122,13 @@ namespace LCL.Repositories.EntityFramework
             Committed = false;
             try
             {
+                obj.IsDelete = true;
                 RemoveHoldingEntityInContext<TAggregateRoot>(obj);
-
                 if (this.efContext.Entry(obj).State == EntityState.Detached)
                 {
-                    this.efContext.Set<TAggregateRoot>().Attach(obj);
+                    var updated = this.efContext.Set<TAggregateRoot>().Attach(obj);
                 }
-                this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
-
-                this.efContext.Set<TAggregateRoot>().Remove(obj);
+                this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Modified;
             }
             catch (DbEntityValidationException dbex)
             {
@@ -165,6 +163,12 @@ namespace LCL.Repositories.EntityFramework
                 {
                     try
                     {
+
+                        if (efContext.Database.Connection.State == System.Data.ConnectionState.Closed)
+                        {
+                            efContext.Database.Connection.Open();
+                        }
+
                         efContext.SaveChanges();
                         Committed = true;
                     }

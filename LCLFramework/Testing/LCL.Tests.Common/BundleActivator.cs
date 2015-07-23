@@ -1,5 +1,4 @@
-﻿
-using LCL;
+﻿using LCL;
 using LCL.ComponentModel;
 using LCL.Events;
 using LCL.Events.Bus;
@@ -16,15 +15,16 @@ namespace LCL.Tests.Common
     {
         public override void Initialize(IApp app)
         {
-            Logger.LogInfo("LCL.Tests.Common Initialize....");
-
             DatabaseInitializer.Initialize();
             // Repository Context & Repositories Entity Framework
+
             ServiceLocator.Instance.Register<DbContext, EFTestDbContext>();
-            ServiceLocator.Instance.Register<IRepository<Org>, EntityFrameworkRepository<Org>>();
-            ServiceLocator.Instance.Register<IRepository<OrgPositionOperationDeny>, EntityFrameworkRepository<OrgPositionOperationDeny>>();
-            ServiceLocator.Instance.Register<IRepository<Position>, EntityFrameworkRepository<Position>>();
-            ServiceLocator.Instance.Register<IRepository<User>, EntityFrameworkRepository<User>>();
+
+            //ServiceLocator.Instance.Register<IRepository<Org>, EntityFrameworkRepository<Org>>();
+            //ServiceLocator.Instance.Register<IRepository<OrgPositionOperationDeny>, EntityFrameworkRepository<OrgPositionOperationDeny>>();
+            //ServiceLocator.Instance.Register<IRepository<Position>, EntityFrameworkRepository<Position>>();
+            //ServiceLocator.Instance.Register<IRepository<User>, EntityFrameworkRepository<User>>();
+
             ServiceLocator.Instance.Register<IUserRepository, UserRepository>();
 
             // Domain Event Handlers

@@ -30,7 +30,9 @@ namespace LCL.ComponentModel
                 PluginFolder = new DirectoryInfo(LEnvironment.Provider.PluginsDirectory);
 
                 if (AppDomain.CurrentDomain.DynamicDirectory != null)
+                {
                     TempPluginFolder = new DirectoryInfo(AppDomain.CurrentDomain.DynamicDirectory);
+                }
                 else
                 {
                     TempPluginFolder = new DirectoryInfo(LEnvironment.Provider.PluginsShadowCopyDirectory);
@@ -60,28 +62,28 @@ namespace LCL.ComponentModel
         }
         public static List<PluginAssembly> Initialize()
         {
-            //程序集复制到临时目录。
-            CopyToTempPluginFolderDirectory();
-
             //加载 bin 目录下的所有程序集。
-            //Logger.LogInfo("加载 bin 目录下的所有程序集");
             List<Assembly> assemblies = FrameworkPrivateBin.GetFiles("*.dll").Select(x => Assembly.LoadFile(x.FullName)).ToList();
 
-            //Logger.LogInfo("加载临时目录下的所有程序集");
-            List<PluginAssembly> plugins;
-
-            var list = TempPluginFolder.GetFiles("*.dll")
-              .Select(x => Assembly.LoadFile(x.FullName)).ToList().FindAll(p => assemblies.Contains(p) == false);
-
-            list.AddRange(assemblies);
-
-            plugins = GetAssemblies(list);
-
-            return plugins;
+            if (LEnvironment.Location.IsWPFUI && LEnvironment.Provider.IsLibrary)
+            {
+                var list = PluginFolder.GetFiles("*.dll").Select(x => Assembly.LoadFile(x.FullName)).ToList().FindAll(p => assemblies.Contains(p) == false);
+                list.AddRange(assemblies);
+                var plugins = GetAssemblies(list);
+                return plugins;
+            }
+            else
+            {
+                //程序集复制到临时目录。
+                CopyToTempPluginFolderDirectory();
+                var list = TempPluginFolder.GetFiles("*.dll").Select(x => Assembly.LoadFile(x.FullName)).ToList().FindAll(p => assemblies.Contains(p) == false);
+                list.AddRange(assemblies);
+                var plugins = GetAssemblies(list);
+                return plugins;
+            }
         }
         private static List<PluginAssembly> GetAssemblies(IEnumerable<Assembly> assemblies)
         {
-            //Logger.LogInfo("LCL GetAssemblies PluginAssembly ....");
             List<PluginAssembly> plugins = new List<PluginAssembly>();
             foreach (var assembly in assemblies)
             {
@@ -95,7 +97,6 @@ namespace LCL.ComponentModel
                         if (plugin != null)
                         {
                             plugins.Add(plugin);
-                            //Logger.LogInfo("LCL GetAssemblies PluginAssembly " + plugin.Assembly.GetName().Name);
                         }
                     }
                 }
@@ -121,7 +122,7 @@ namespace LCL.ComponentModel
         private static void CopyToTempPluginFolderDirectory()
         {
             #region 清空临时目录
-           // Logger.LogInfo("清空临时目录:" + TempPluginFolder.FullName);
+            // Logger.LogInfo("清空临时目录:" + TempPluginFolder.FullName);
             if (TempPluginFolder.FullName.Contains("Bin") || TempPluginFolder.FullName.Contains("root"))
             {
                 var binFiles = TempPluginFolder.GetFiles("*.dll", SearchOption.AllDirectories)
@@ -141,7 +142,7 @@ namespace LCL.ComponentModel
             }
             #endregion
             #region 复制插件到临时目录
-           // Logger.LogInfo("复制插件到临时目录:");
+            // Logger.LogInfo("复制插件到临时目录:");
             var files = PluginFolder.GetFiles("*.dll", SearchOption.AllDirectories).Distinct().ToList();
             foreach (var plug in files)
             {

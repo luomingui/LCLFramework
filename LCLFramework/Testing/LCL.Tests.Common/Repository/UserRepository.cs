@@ -26,25 +26,13 @@ namespace LCL.Tests.Repositories.EntityFrameworkRepository
         }
         public User GetBy(string username, string password)
         {
-            var users = base.Get(e => e.Name == username && e.Password == password);
-            if (users.Count() > 0)
-            {
-                return users.ToList()[0];
-            }
-            return null;
+            var user = base.Find(e => e.Name == username && e.Password == password);
+            return user;
         }
         public User GetBy(string username)
         {
-            var li = EFContext.Context.Set<User>().Include("Position")
-                .Where(e => e.Name == username);
-
+            var li = EFContext.Context.Set<User>().Include("Position").Where(e => e.Name == username);
             var lis = EFContext.Context.Set<User>().Where(e => e.Name == username);
-
-            var users = base.Get(e => e.Name == username);
-            if (users.Count() > 0)
-            {
-                return users.ToList()[0];
-            }
             return null;
         }
         public IEnumerable<User> GetFeaturedUsers(int count = 0)

@@ -24,6 +24,7 @@ namespace LCL
                 if (_provider == null)
                 {
                     _provider = new EnvironmentProvider();
+  
                 }
                 return _provider;
             }

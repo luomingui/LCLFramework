@@ -69,17 +69,36 @@ namespace LCL.Repositories.MongoDB
             var entity = DoGetByKey(keyValue);
             DoRemove(entity);
         }
-        protected override IEnumerable<TAggregateRoot> DoGet(Expression<Func<TAggregateRoot, bool>> predicate)
-        {
-            var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
-            return collection.AsQueryable<TAggregateRoot>().Where(predicate);
-        } 
         protected override void DoRemove(Expression<Func<TAggregateRoot, bool>> predicate)
         {
-            var list = DoGet(predicate);
+            MongoCollection collection = mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
+
+            var list = collection.AsQueryable<TAggregateRoot>().Where(predicate);
+
             foreach (var entity in list)
             {
                 mongoDBRepositoryContext.RegisterDeleted(entity);
+            }
+        }
+        protected override List<TAggregateRoot> DoFindByPid(Guid? pid)
+        {
+            try
+            {
+                if (pid == null) pid = Guid.Empty;
+
+                var et = typeof(TAggregateRoot) as IEntityTree;
+
+                MongoCollection collection = mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
+                var list = collection.AsQueryable<TAggregateRoot>().OfType<IEntityTree>().Where(p => p.ParentId == Guid.Empty);
+                if (pid != Guid.Empty)
+                {
+                    list = collection.AsQueryable<TAggregateRoot>().OfType<IEntityTree>().Where(p => p.ParentId == pid);
+                }
+                return list.ToList() as List<TAggregateRoot>;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
         #endregion

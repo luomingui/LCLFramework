@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Hosting;
 
 namespace LCL
@@ -18,7 +19,7 @@ namespace LCL
         {
             this.PluginsDirectoryName = "Plugins";
             this.RootDirectory = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            var httpContext = System.Web.HttpContext.Current;
+            var httpContext = HttpContext.Current;
             if (httpContext != null)
             {
                 this.DllRootDirectory = httpContext.Server.MapPath("Bin");

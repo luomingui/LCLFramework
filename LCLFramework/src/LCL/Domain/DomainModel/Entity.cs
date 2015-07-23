@@ -18,6 +18,9 @@ namespace LCL
         protected Entity()
         {
             ID = Guid.NewGuid();
+            AddDate = DateTime.Now;
+            UpdateDate = DateTime.Now;
+            IsDelete = false;
         }
         [DebuggerStepThrough]
         [TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
@@ -27,7 +30,19 @@ namespace LCL
         }
         #endregion
 
+        #region IEntity
         public Guid ID { set; get; }
+        public bool IsDelete { get; set; }
+        public DateTime AddDate { get; set; }
+        public DateTime UpdateDate { get; set; }
+        #endregion
+        public IRepository<IEntity> Repo
+        {
+            get
+            {
+                return RF.Find(this.GetType()) as IRepository<IEntity>;
+            }
+        }
         internal void SaveRoot()
         {
             throw new NotImplementedException();

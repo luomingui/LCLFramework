@@ -1,4 +1,5 @@
 ﻿using LCL.Caching;
+using LCL.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -70,7 +71,6 @@ namespace LCL.Repositories.EntityFramework
         protected override void DoAdd(TEntity entity)
         {
             //判断是否是树形
-
             efContext.RegisterNew(entity);
         }
         /// <summary>
@@ -92,7 +92,7 @@ namespace LCL.Repositories.EntityFramework
         /// <param name="predicate">The predicate.</param>
         protected override void DoRemove(Expression<Func<TEntity, bool>> predicate)
         {
-            var list = DoGet(predicate);
+            var list = efContext.Context.Set<TEntity>().Where(predicate);
             foreach (var entity in list)
             {
                 efContext.RegisterDeleted(entity);
@@ -106,22 +106,13 @@ namespace LCL.Repositories.EntityFramework
         {
             efContext.RegisterModified(entity);
         }
-        /// <summary>
-        /// Does the get.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns></returns>
-        protected override IEnumerable<TEntity> DoGet(Expression<Func<TEntity, bool>> predicate)
-        {
-            return efContext.Context.Set<TEntity>().Where(predicate).ToList();
-        }
         protected override TEntity DoGetByKey(object keyValue)
         {
             return efContext.Context.Set<TEntity>().Where(p => p.ID == (Guid)keyValue).First();
         }
 
         #region DoXXXXXX
-        protected override IQueryable<TEntity> DoFindAll(Specifications.ISpecification<TEntity> specification,
+        protected override IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification,
             Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder)
         {
             var query = efContext.Context.Set<TEntity>().Where(specification.GetExpression());
@@ -139,8 +130,8 @@ namespace LCL.Repositories.EntityFramework
             }
             return query;
         }
-        protected override IQueryable<TEntity> DoFindAll(Specifications.ISpecification<TEntity> specification,
-            Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
+        protected override IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification,
+            Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             var dbset = efContext.Context.Set<TEntity>();
             IQueryable<TEntity> queryable = null;
@@ -175,8 +166,8 @@ namespace LCL.Repositories.EntityFramework
             }
             return queryable;
         }
-        protected override PagedResult<TEntity> DoFindAll(Specifications.ISpecification<TEntity> specification,
-            Expression<Func<TEntity, dynamic>> sortPredicate, LCL.SortOrder sortOrder, int pageNumber, int pageSize)
+        protected override PagedResult<TEntity> DoFindAll(ISpecification<TEntity> specification,
+            Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
@@ -211,11 +202,11 @@ namespace LCL.Repositories.EntityFramework
         {
             return efContext.Context.Set<TEntity>().Where(predicate).FirstOrDefault();
         }
-        protected override TEntity DoFind(Specifications.ISpecification<TEntity> specification)
+        protected override TEntity DoFind(ISpecification<TEntity> specification)
         {
             return efContext.Context.Set<TEntity>().Where(specification.IsSatisfiedBy).FirstOrDefault();
         }
-        protected override TEntity DoFind(Specifications.ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
+        protected override TEntity DoFind(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             var dbset = efContext.Context.Set<TEntity>();
             if (eagerLoadingProperties != null &&
@@ -235,13 +226,32 @@ namespace LCL.Repositories.EntityFramework
             else
                 return dbset.Where(specification.GetExpression()).FirstOrDefault();
         }
-        protected override bool DoExists(Specifications.ISpecification<TEntity> specification)
+        protected override bool DoExists(ISpecification<TEntity> specification)
         {
             var count = efContext.Context.Set<TEntity>().Count(specification.IsSatisfiedBy);
             return count != 0;
         }
         #endregion
 
+        protected override List<TEntity> DoFindByPid(Guid? pid)
+        {
+            try
+            {
+                if (pid == null) pid = Guid.Empty;
+                var et = typeof(TEntity) as IEntityTree;
+                var list = efContext.Context.Set<TEntity>().OfType<IEntityTree>().Where(p => p.ParentId == Guid.Empty);
+                if (pid != Guid.Empty)
+                {
+                    list = efContext.Context.Set<TEntity>().OfType<IEntityTree>().Where(p => p.ParentId == pid);
+                }
+                return list.ToList() as List<TEntity>;
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+            
+        }
     }
 }

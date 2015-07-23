@@ -48,6 +48,24 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\Lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\..\Lib\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.ServiceModel" />
@@ -72,12 +90,17 @@
     <Compile Include="Domain\DomainServiceTest.cs" />
     <Compile Include="Domain\SpecificationTests.cs" />
     <Compile Include="Domain\EventsUnitTest.cs" />
+    <Compile Include="Domain\RFUnitTest.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="SimpleTest.cs" />
     <Compile Include="TestServerApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\LCL.ObjectContainers.Unity\LCL.ObjectContainers.Unity.csproj">
+      <Project>{f68a247e-404e-4547-aba7-3b6f69a90160}</Project>
+      <Name>LCL.ObjectContainers.Unity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\LCL.Repositories.EntityFramework\LCL.Repositories.EntityFramework.csproj">
       <Project>{d318d90d-17c3-464f-b8e2-5665b7de98a8}</Project>
       <Name>LCL.Repositories.EntityFramework</Name>
@@ -93,12 +116,12 @@
     <ProjectReference Include="..\LCL.Tests.Common\LCL.Tests.Common.csproj">
       <Project>{91565e9d-ba78-4a1e-8596-dfc091f4425f}</Project>
       <Name>LCL.Tests.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="LCL.lic" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
