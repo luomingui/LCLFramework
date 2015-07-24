@@ -10,10 +10,10 @@ using System.Resources;
 //
 // 可以指定所有这些值，也可以使用“内部版本号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”:
-[assembly: AssemblyVersion("6.0.0.0")]
-[assembly: AssemblyFileVersion("6.0.0.0")]
-[assembly: AssemblyInformationalVersion("6.0.0-alpha1")]
-[assembly: SatelliteContractVersion("6.0.0.0")]
+[assembly: AssemblyVersion("6.1.0.0")]
+[assembly: AssemblyFileVersion("6.1.0.0")]
+[assembly: AssemblyInformationalVersion("6.1.0-alpha1")]
+[assembly: SatelliteContractVersion("6.1.0.0")]
 
 /*******************************************************
  * 
@@ -26,15 +26,21 @@ using System.Resources;
 
 /*
 4.5.3.0
- * ★删除接口 （LCL.DomainEntitys 换成 LCL ）
- * 添加接口 （IAggregateRoot，权限加入开关）
- * 重构（仓库加入 FindXXXX 方法并加入了缓存，取消了“数据门户”）
+  ★删除接口 （LCL.DomainEntitys 换成 LCL ）
+  添加接口 （IAggregateRoot，权限加入开关）
+  重构（仓库加入 FindXXXX 方法并加入了缓存，取消了“数据门户”）
 4.5.1.0
-    BUG修改
+     BUG修改
         LCL.Repositories.EntityFramework.EntityFrameworkRepository.RemoveHoldingEntityInContext 
         EF Repository Update 实体状态问题 。
  5.0.0.0
-    内部修改
-        LCL.MvcExtensions.BaseRepoController.ErrorMsg
-        打印ModelState.Errors信息到日志中。
+     内部修改
+     * LCL.MvcExtensions.BaseRepoController.ErrorMsg
+     * 打印ModelState.Errors信息到日志中。
+ 
+ 6.1.0.0
+     内部修改
+     * 删除标记，添加时间，更新时间，没有物理删除。
+     * 加入默认仓库自动加载
+       
 */

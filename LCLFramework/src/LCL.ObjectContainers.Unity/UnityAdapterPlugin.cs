@@ -16,9 +16,6 @@ namespace LCL.ObjectContainers.Unity
         public override void Initialize(IApp app)
         {
             LEnvironment.AppObjectContainer = new UnityObjectContainer();
-
-
-
         }
     }
 }

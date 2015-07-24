@@ -190,6 +190,7 @@
     <Compile Include="Threading\ParallelActions.cs" />
     <Compile Include="Threading\SimpleRWLock.cs" />
     <Compile Include="Utilities\ByteUtil.cs" />
+    <Compile Include="Utilities\IdCardHelper.cs" />
     <Compile Include="Utilities\InstanceEventArgs.cs" />
     <Compile Include="Utilities\NamedTypeFactory.cs" />
     <Compile Include="Utilities\PinYinConverter.cs" />

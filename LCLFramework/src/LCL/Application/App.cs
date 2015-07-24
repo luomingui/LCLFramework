@@ -76,7 +76,6 @@ namespace LCL
             ServiceLocator.Instance.Register<IEntity, Entity>();
             ServiceLocator.Instance.Register<IEventBus, MSMQEventBus>();
             ServiceLocator.Instance.Register<IEventAggregator, EventAggregator>();
-            ServiceLocator.Instance.RegisterType(typeof(IRepository<>), typeof(Repository<>));
         }
         private void SetupLanguage()
         {
