@@ -165,7 +165,6 @@ namespace LCL.MvcExtensions
                 HttpContext.Current.Request.Files[0].SaveAs(path);
             }
         }
-
         #region 获得Url参数 GetQueryString/GetFormString
         /// <summary>
         /// 获得指定Url参数的值
@@ -320,6 +319,5 @@ namespace LCL.MvcExtensions
                 return GetQueryFloat(strName, defValue);
         }
         #endregion
-
     }
 }

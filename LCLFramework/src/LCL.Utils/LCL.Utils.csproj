@@ -44,7 +44,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
@@ -64,17 +63,7 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Caching\Cache.cs" />
-    <Compile Include="Caching\CacheInstance.cs" />
-    <Compile Include="Caching\CacheProvider\CacheProvider.cs" />
-    <Compile Include="Caching\CacheProvider\HybirdCacheProvider.cs" />
-    <Compile Include="Caching\CacheProvider\MemoryCacheProvider.cs" />
-    <Compile Include="Caching\CacheProvider\SQLCompactCacheProvider.cs" />
-    <Compile Include="Caching\CacheProvider\SystemCaching\NormalProvider.cs" />
-    <Compile Include="Caching\CacheProvider\SystemCaching\RegionCache.cs" />
-    <Compile Include="Caching\ChangeChecker.cs" />
     <Compile Include="Caching\MemoryHelper.cs" />
-    <Compile Include="Caching\Policy.cs" />
     <Compile Include="Configuration\ConfigurationExtension.cs" />
     <Compile Include="Configuration\ConfigurationHelper.cs" />
     <Compile Include="Configuration\XmlHelper.cs" />
