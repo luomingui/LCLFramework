@@ -16,7 +16,6 @@ namespace LCL.UnitTest.Domain
         {
             Helper.ClassInitialize(context);
         }
-
         #region EntityFrameworkRepositoryTests
         private const int pageSize = 20;
         private const int pagingTotalRecords = 97;
@@ -88,7 +87,6 @@ namespace LCL.UnitTest.Domain
             Assert.AreEqual<int>(pageSize, result.PageSize);
             repository.Context.Dispose();
         }
-
         #endregion
     }
 }

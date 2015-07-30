@@ -15,9 +15,7 @@ namespace LCL.UnitTest
         {
             new TestServerApp().Start();
         }
-
         public const string EventBus_MessageQueue = @"EventBusMQ";
-
         public static void ClearMessageQueue(string queue)
         {
             string mqName = CreateMessageQueueName(queue);
