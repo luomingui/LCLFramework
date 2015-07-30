@@ -140,6 +140,7 @@
     <Compile Include="Commands\MigrateOldDatabase\MigrateOldDatabaseCommand.cs" />
     <Compile Include="Commands\RefreshCodeSnippets\InstallCodeSnippetsCommand.cs" />
     <Compile Include="Commands\VSContext.cs" />
+    <Compile Include="Commands\VSTemplates\InstallVSTemplatesCommand.cs" />
     <Compile Include="Common\ProjectHelper.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="Helper.cs" />
@@ -170,10 +171,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ItemTemplates\DomainEntity.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
+    <EmbeddedResource Include="ItemTemplates\DomainEntity.zip" />
     <Resource Include="_ReadMe.txt" />
     <EmbeddedResource Include="ItemTemplates\DomainEntityRepository.zip" />
     <EmbeddedResource Include="ProjectTemplates\UIShell.AdminiseShellCoursePlugin.zip" />
@@ -208,17 +206,15 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Images.png" />
+    <EmbeddedResource Include="Resources\Images.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\IOC.jpg">
+    <EmbeddedResource Include="Resources\IOC.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Package.ico">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Package.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

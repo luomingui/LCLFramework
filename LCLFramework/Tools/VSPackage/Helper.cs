@@ -26,8 +26,6 @@ namespace LCL.VSPackage
                 return sr.ReadToEnd();
             }
         }
-
-        
         //private static bool InheritesEntityNotCriteria(CodeClass codeClass)
         //{
         //    var baseClass = Helper.GetBaseClass(codeClass);
@@ -114,7 +112,6 @@ namespace LCL.VSPackage
                 return path;
             }
         }
-
         private static string SanitizePath(string path)
         {
             string text = path;

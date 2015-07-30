@@ -13,5 +13,6 @@ namespace LCL.VSPackage
         public const int cmdidDropDependencyCommand = 0x105;
         public const int cmdidFileHeaderCommandsCommand = 0x106;
         public const int cmdidDeleteNullCommandCommand = 0x107;
+        public const int cmdidInstallVSTemplatesCommandCommand = 0x108;
     };
 }
