@@ -40,7 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LCL.Utils">
-      <HintPath>E:\华宇股份\工作\Lib\LCL.Utils.dll</HintPath>
+      <HintPath>..\..\Lib\LCL.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
@@ -65,11 +65,12 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
-    <Reference Include="System.Xaml" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="EnvDTE">
@@ -129,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Dependency\DependencyCommands.cs" />
+    <Compile Include="Commands\FileDeleteNull\DeleteNullCommand.cs" />
+    <Compile Include="Commands\FileHeader\FileHeaderCommands.cs" />
     <Compile Include="Commands\MigrateOldDatabase\CodeFileGenerator.cs" />
     <Compile Include="Commands\MigrateOldDatabase\MigerateDatabaseWizardWindow.xaml.cs">
       <DependentUpon>MigerateDatabaseWizardWindow.xaml</DependentUpon>
@@ -170,6 +174,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="_ReadMe.txt" />
     <EmbeddedResource Include="ItemTemplates\DomainEntityRepository.zip" />
     <EmbeddedResource Include="ProjectTemplates\UIShell.AdminiseShellCoursePlugin.zip" />
     <EmbeddedResource Include="ProjectTemplates\UIShell.AdminiseShellPlugin.zip" />

@@ -32,6 +32,41 @@
           <ButtonText>安装/卸载代码段</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="cmdidCreateDependencyCommand" priority="0x0104" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>创建父子依赖</ButtonText>
+          <ToolTipText>为两个文件创建父子依赖</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="cmdidDropDependencyCommand" priority="0x0105" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>移除父子依赖</ButtonText>
+          <ToolTipText>为文件移除父子依赖</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="cmdidFileHeaderCommandsCommand" priority="0x0106" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>添加文件头</ButtonText>
+        </Strings>
+      </Button>
+      
+      <Button guid="guidVSPackageCmdSet" id="cmdidDeleteNullCommandCommand" priority="0x0107" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>删除空行</ButtonText>
+        </Strings>
+      </Button>
+    
     </Buttons>
     <Bitmaps>
       <Bitmap guid="guidImages" href="Resources\Images.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
@@ -44,6 +79,10 @@
       <IDSymbol name="cmdidMigrateOldDatabaseCommand" value="0x0101" />
       <IDSymbol name="cmdidAddGenericInterfaceFileCommand" value="0x0102" />
       <IDSymbol name="cmdidRefreshCodeSnippetsCommand" value="0x0103" />
+      <IDSymbol name="cmdidCreateDependencyCommand" value="0x0104" />
+      <IDSymbol name="cmdidDropDependencyCommand" value="0x0105" />
+      <IDSymbol name="cmdidFileHeaderCommandsCommand" value="0x0106" />
+      <IDSymbol name="cmdidDeleteNullCommandCommand" value="0x0107" />
     </GuidSymbol>
     <GuidSymbol name="guidImages" value="{e95f69a0-4d26-4465-bd37-47b852e4c605}" >
       <IDSymbol name="bmpPic1" value="1" />
