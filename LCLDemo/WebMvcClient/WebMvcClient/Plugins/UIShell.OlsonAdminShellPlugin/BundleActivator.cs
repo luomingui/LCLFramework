@@ -1,4 +1,15 @@
-﻿
+﻿/*******************************************************
+ * 
+ * Copyright(c)2012-2018 Luomg.All rights reserved.
+ * CLR版本：.NET 4.0.0
+ * 组织：Luomg@中国
+ * 网站：http://luomingui.cnblogs.com
+ * 说明：
+ *
+ * 历史记录：
+ * 创建文件 Luomg 20150731
+ * 
+*******************************************************/
 using LCL;
 using LCL.ComponentModel;
 using LCL.MetaModel;
@@ -11,7 +22,10 @@ namespace UIShell.OlsonAdminShellPlugin
     {
         public override void Initialize(IApp app)
         {
-            Debug.WriteLine("UIShell.OlsonAdminShellPlugin Initialize....");
+            app.ModuleOperations += app_ModuleOperations;
+        }
+        void app_ModuleOperations(object sender, AppInitEventArgs e)
+        {
             Bundle = this;
             PageFlowService.PageNodes.AddPageNode(new PageNode
             {

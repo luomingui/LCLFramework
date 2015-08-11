@@ -6,7 +6,6 @@ namespace LCL.Tools
     public enum BuildType
     {
         WebBuild,
-        WinFromBuild,
         WPFBuild,
         WCFBuild,
         WebService,
@@ -27,9 +26,6 @@ namespace LCL.Tools
             switch (buildtype)
             {
                 case BuildType.WebBuild:
-                    break;
-                case BuildType.WinFromBuild:
-                    ibuild = new WinFromComplexBuild();
                     break;
                 case BuildType.WPFBuild:
                     break;

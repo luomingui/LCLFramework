@@ -51,12 +51,10 @@ namespace LCL
             var stackTrace = e.StackTrace;//需要记录完整的堆栈信息。
             e = e.GetBaseException();
 
-            string msg = string.Format(@"{0}|{1}|Error|{2}" + Environment.NewLine, DateTime.Now, Thread.CurrentThread.ManagedThreadId, e.ToString());
+            string msg = string.Format(@"{0}|{1}|Error|{2}" + Environment.NewLine, DateTime.Now , Thread.CurrentThread.ManagedThreadId, title+e.ToString());
             AppendAllText(FileName, msg);
         }
-
         private string _sqlTraceFile;
-
         /// <summary>
         /// 记录 Sql 执行过程。
         /// 

@@ -20,14 +20,11 @@ namespace LCL.Tools.WinFrm
         {
             if (this.comboBox1.SelectedItem == null) return;
             but_BuildUI.Enabled = false;
-            BuildType build = BuildType.WinFromBuild;
+            BuildType build = BuildType.EntityFrameworkBuild;
             switch (this.comboBox1.SelectedItem.ToString())
             {
                 case "WebBuild":
                     build = BuildType.WebBuild;
-                    break;
-                case "WinFromBuild":
-                    build = BuildType.WinFromBuild;
                     break;
                 case "WPFBuild":
                     build = BuildType.WPFBuild;
@@ -107,9 +104,7 @@ namespace LCL.Tools.WinFrm
                     case BuildType.WPFBuild:
                         BuildHelper.FactoryBuild(BuildType.WPFBuild).Library(this.txtOutPut.Text, tm, this.progressBar2);
                         break;
-                    case BuildType.WinFromBuild:
-                        BuildHelper.FactoryBuild(BuildType.WinFromBuild).Library(this.txtOutPut.Text, tm, this.progressBar2);
-                        break;
+                  
                     case BuildType.EntityFrameworkBuild:
                         BuildHelper.FactoryBuild(BuildType.EntityFrameworkBuild).Library(this.txtOutPut.Text, tm, this.progressBar2);
                         break;
@@ -126,13 +121,10 @@ namespace LCL.Tools.WinFrm
                         break;
                     case BuildType.WPFBuild:
                         break;
-                    case BuildType.WinFromBuild:
-                        WinFromComplexBuild winfrom = new WinFromComplexBuild();
-                        winfrom.BuildMyMenusClass(this.txtOutPut.Text, tablenames);
-                        winfrom.BuildConfig(this.txtOutPut.Text);
-                        break;
                     case BuildType.EntityFrameworkBuild:
                         EntityFrameworkBuild entityframework = new EntityFrameworkBuild();
+                        entityframework.BuildMyMenusClass(this.txtOutPut.Text, tablenames);
+                        entityframework.BuildConfig(this.txtOutPut.Text);
                         entityframework.BuildDbContext(this.txtOutPut.Text, tablenames);
                         break;
                 }

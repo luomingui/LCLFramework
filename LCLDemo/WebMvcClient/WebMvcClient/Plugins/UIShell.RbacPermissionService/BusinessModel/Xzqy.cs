@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace UIShell.RbacPermissionService
 {
@@ -22,5 +19,20 @@ namespace UIShell.RbacPermissionService
         /// 区划介绍
         /// </summary>
         public string Intro { get; set; }
+    }
+    public class XzqyTreeModel
+    {
+        public XzqyTreeModel()
+        {
+            ProvinceId = Guid.Empty;
+            CityId = Guid.Empty;
+            CountyId = Guid.Empty;
+        }
+        public Guid ProvinceId { get; set; }
+        public string Province { get; set; }
+        public Guid CityId { get; set; }
+        public string City { get; set; }
+        public Guid CountyId { get; set; }
+        public string County { get; set; }
     }
 }

@@ -32,7 +32,7 @@
                     { 
                         @Html.HiddenFor(c => c.CurrentPageNum) 
                         @Html.HiddenFor(c => c.PageSize) 
-                        @Html.HiddenFor(c => c.Entity.ID) 
+                        @Html.HiddenFor(c => c.Entity.ID, new { @value = Guid.NewGuid() }) 
  
                         <div class="form-group"> 
                             <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Name)</label> 

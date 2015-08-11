@@ -16,7 +16,19 @@ namespace LCL.Repositories
         }
         public static TRepository Concrete<TRepository>() where TRepository : class
         {
-            return ServiceLocator.Instance.Resolve<TRepository>();
+            try
+            {
+                return ServiceLocator.Instance.Resolve<TRepository>();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null && e.InnerException.InnerException != null)
+                {
+                    Exception sqlEx = e.InnerException.InnerException as Exception;
+                    throw sqlEx;
+                }
+                throw new Exception("IOC不存在此类型！请将此类型加入到IOC中！");
+            }
         }
         public static object Find(Type type)
         {

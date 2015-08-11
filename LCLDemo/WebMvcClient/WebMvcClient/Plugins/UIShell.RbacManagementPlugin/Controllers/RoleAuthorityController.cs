@@ -1,3 +1,4 @@
+using LCL.MetaModel;
 /******************************************************* 
 *  
 * 作者：罗敏贵 
@@ -11,15 +12,11 @@
 *******************************************************/
 using LCL.MvcExtensions;
 using LCL.Repositories;
-using LCL.MetaModel;
-using LCL;
 using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using UIShell.RbacPermissionService;
-using System.Data;
 
 namespace UIShell.RbacManagementPlugin.Controllers
 {
@@ -30,6 +27,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
         {
 
         }
+        [Permission("首页", "Index")]
         public override System.Web.Mvc.ActionResult Index(int? currentPageNum, int? pageSize, System.Web.Mvc.FormCollection collection)
         {
             if (!currentPageNum.HasValue)
@@ -63,6 +61,8 @@ namespace UIShell.RbacManagementPlugin.Controllers
             return View(contactLitViewModel);
         }
         [AcceptVerbs(HttpVerbs.Post)]
+        [Permission("保存", "Save")]
+        [BizActivityLog("修改权限", "RoleId")]
         public ActionResult Save(FormCollection collection)
         {
             Guid _roleId = Guid.Empty;
@@ -100,12 +100,17 @@ namespace UIShell.RbacManagementPlugin.Controllers
                             authority.ModuleKey = p[1];
                             authority.OperationKey = "";
                             authority.Url = "";
+                            authority.Level = 2;
+                            authority.NodePath = text;
                         }
                         if (p.Length == 3)
                         {
                             authority.BlockKey = p[0];
                             authority.ModuleKey = p[1];
                             authority.OperationKey = p[2];
+                            authority.Level = 3;
+                            authority.NodePath = text;
+
                             var model = CommonModel.Modules.FindModule(authority.BlockKey);
                             if (model != null)
                             {
@@ -116,10 +121,13 @@ namespace UIShell.RbacManagementPlugin.Controllers
                                     authority.Url = _url + "/" + authority.OperationKey;
                                 }
                             }
+
                         }
                     }
                     else
                     {
+                        authority.Level = 1;
+                        authority.NodePath = text;
                         authority.BlockKey = text;
                         authority.ModuleKey = "";
                         authority.OperationKey = "";

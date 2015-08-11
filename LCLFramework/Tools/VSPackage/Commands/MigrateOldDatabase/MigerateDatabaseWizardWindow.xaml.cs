@@ -13,6 +13,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,11 +33,14 @@ namespace LCL.VSPackage.Commands.MigrateOldDatabase
         public MigerateDatabaseWizardWindow()
         {
             InitializeComponent();
-        }
 
+    
+        }
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }
+
+        
     }
 }

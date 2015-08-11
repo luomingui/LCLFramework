@@ -1,3 +1,5 @@
+using LCL.Repositories;
+using System.Web.Mvc;
 /******************************************************* 
 *  
 * 作者：罗敏贵 
@@ -8,27 +10,24 @@
 * 历史记录： 
 *    创建文件 罗敏贵 20154月18日 星期六
 *  
-*******************************************************/ 
-using LCL.MvcExtensions; 
-using LCL.Repositories;
-using LCL;
-using System; 
-using System.Collections.Generic; 
-using System.Linq; 
-using System.Web; 
-using System.Web.Mvc; 
-using UIShell.RbacPermissionService; 
- 
-namespace UIShell.RbacManagementPlugin.Controllers 
-{ 
-    public class RoleController : RbacController<Role> 
-    { 
-        public RoleController() 
-        { 
+*******************************************************/
+using UIShell.RbacPermissionService;
 
-        } 
+namespace UIShell.RbacManagementPlugin.Controllers
+{
+    public class RoleController : RbacController<Role>
+    {
+        IRoleRepository repo = RF.Concrete<IRoleRepository>();
+        public RoleController()
+        {
 
- 
-    } 
-} 
+        }
+
+        public JsonResult CheckRoleName(string RoleName)
+        {
+            bool isValidate = repo.CheckRoleName(RoleName);
+            return Json(isValidate, JsonRequestBehavior.AllowGet);
+        }
+    }
+}
 

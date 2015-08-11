@@ -69,7 +69,7 @@ namespace LCL.MvcExtensions
                 return View(new AddOrEditViewModel<TAggregateRoot>
                 {
                     Added = true,
-                    Entity=null,
+                    Entity = null,
                     CurrentPageNum = currentPageNum.Value,
                     PageSize = pageSize.Value
                 });
@@ -107,7 +107,8 @@ namespace LCL.MvcExtensions
             {
                 pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
             }
-            repo.Delete(model);
+            var entity = repo.GetByKey(model.ID);
+            repo.Delete(entity);
             repo.Context.Commit();
 
             return RedirectToAction("Index", new { currentPageNum = currentPageNum, pageSize = pageSize });

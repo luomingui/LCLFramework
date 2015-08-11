@@ -21,9 +21,9 @@ namespace LCL.Tools
         public virtual string BuildEntity(string path, TableModel tableModel, System.Windows.Forms.ProgressBar progressBar)
         {
             StringBuilder builder = new StringBuilder();
+            builder.AppendLine("using LCL;");
             builder.AppendLine("using System; ");
             builder.AppendLine("using System.ComponentModel; ");
-            builder.AppendLine("using MinGuiLuo.ORM; ");
             builder.AppendLine("using System.Runtime.Serialization;");
             builder.AppendLine("namespace " + Utils.NameSpace);
             builder.AppendLine("{ ");
@@ -31,7 +31,7 @@ namespace LCL.Tools
             builder.AppendLine("    /// 实体类" + tableModel.TableNameRemark + " 。(属性说明自动提取数据库字段的描述信息) ");
             builder.AppendLine("    /// </summary> ");
             builder.AppendLine("    [Serializable]");
-            builder.AppendLine("    public partial class " + tableModel.TableName + ":AggregateRoot");
+            builder.AppendLine("    public partial class " + tableModel.TableName + ":Entity");
             builder.AppendLine("    { ");
             int num = 0;
             if (progressBar != null)
@@ -78,23 +78,31 @@ namespace LCL.Tools
                 Utils.CreateFiles(filename, builder.ToString());
             }
         }
-        //Plugin MyMenus
+        //Plugin MVC MyMenus
         public virtual void BuildMyMenusClass(string path, List<TableModel> tableNames)
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine("using MinGuiLuo; ");
-            builder.AppendLine("using MinGuiLuo.MetaModel; ");
-            builder.AppendLine("using MinGuiLuo.PluginSystem; ");
-            builder.AppendLine("using MinGuiLuo.ORM; ");
-            builder.AppendLine("namespace " + Utils.NameSpace);
+            builder.AppendLine("using LCL; ");
+            builder.AppendLine("using LCL.ComponentModel; ");
+            builder.AppendLine("using LCL.Repositories; ");
+            builder.AppendLine("using LCL.Repositories.EntityFramework; ");
+            builder.AppendLine("using System.Data.Entity; ");
+            builder.AppendLine("using System.Diagnostics; ");
+            builder.AppendLine(" ");
+            builder.AppendLine("namespace " + Utils.NameSpace + " ");
             builder.AppendLine("{ ");
-            builder.AppendLine("    public class MyMenus : ModulePlugin ");
+            builder.AppendLine("    public class PluginActivator : LCLPlugin ");
             builder.AppendLine("    { ");
-            builder.AppendLine("        public override void Initialize(IClientApp app) ");
+            builder.AppendLine("        public override void Initialize(IApp app) ");
             builder.AppendLine("        { ");
-            builder.AppendLine("            app.ModuleOperations += (o, e) => ");
-            builder.AppendLine("            { ");
-            builder.AppendLine("                var moduleBookImport = CommonModel.Modules.AddRoot(new ModuleMeta ");
+            builder.AppendLine("            app.ModuleOperations += app_ModuleOperations; ");
+            builder.AppendLine("            app.AllPluginsIntialized += app_AllPluginsIntialized; ");
+            builder.AppendLine("        } ");
+            builder.AppendLine("        void app_ModuleOperations(object sender, AppInitEventArgs e) ");
+            builder.AppendLine("        { ");
+            builder.AppendLine("            ");
+
+            builder.AppendLine("               CommonModel.Modules.AddRoot(new ModuleMeta ");
             builder.AppendLine("                { ");
             builder.AppendLine("                    Label = \"" + Utils.dbName + "\", ");
             builder.AppendLine("                    Children = ");
@@ -105,14 +113,41 @@ namespace LCL.Tools
                 string tablename = tm.TableName;
                 string tableInfo = tm.TableNameRemark;
 
-                builder.AppendLine("                        new ModuleMeta{ Label = \"" + tableInfo + "\",UIFromType=typeof(" + tablename + "Frm)}, ");
+                builder.AppendLine("                        new ModuleMeta{ Label = \"" + tableInfo + "\",UIFromType=typeof(" + tablename + "Controller)}, ");
             }
             builder.AppendLine("                    } ");
             builder.AppendLine("                }); ");
-            builder.AppendLine("            }; ");
+
+            builder.AppendLine("        } ");
+            builder.AppendLine("        void app_AllPluginsIntialized(object sender, System.EventArgs e) ");
+            builder.AppendLine("        { ");
+            builder.AppendLine(" ");
+            StringBuilder ben = new StringBuilder();
+            StringBuilder end = new StringBuilder();
+            for (int i = 0; i < tableNames.Count; i++)
+            {
+                TableModel tm = tableNames[i];
+                string tablename = tm.TableName;
+                string tableInfo = tm.TableNameRemark;
+                if (tablename != "__MigrationHistory" && tablename != "sysdiagrams")
+                {
+                    ben.AppendLine("ServiceLocator.Instance.Register<IRepository<" + tablename + ">, EntityFrameworkRepository<" + tablename + ">>();");
+
+                    end.AppendLine("ServiceLocator.Instance.Register<I" + tablename + "Repository, " + tablename + "Repository>();");
+                }
+            }
+
+            builder.AppendLine(" #region 默认仓库 ");
+            //builder.AppendLine(ben.ToString());
+            builder.AppendLine(" #endregion");
+            builder.AppendLine(" #region 扩展仓库 ");
+            builder.AppendLine(end.ToString());
+            builder.AppendLine(" #endregion");
+
             builder.AppendLine("        } ");
             builder.AppendLine("    } ");
             builder.AppendLine("} ");
+
             if (path.Length > 0)
             {
                 string folder = path;

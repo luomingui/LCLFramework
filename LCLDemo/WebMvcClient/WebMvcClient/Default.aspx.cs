@@ -22,7 +22,6 @@ namespace WebMvcClient
             {
                 throw new Exception("没有定义第一个页面节点。");
             }
-            // Redirect to first node.
             Response.Redirect(pageFlowService.Value, false);
         }
     }

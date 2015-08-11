@@ -15,7 +15,7 @@
                 <span>总数：@Model.TotalCount</span>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-warning pull-right" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
+                <button type="button" class="btn btn-primary pull-right" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
     new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
                     新 增
                 </button>
@@ -38,22 +38,31 @@
                         @{
                             foreach (var view in Model.PagedModels)
                             {
-                                <tr>
-                                    <td>
-                                        <button type="button" class="btn btn-xs btn-warning"
-                                                onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                                            <i class="icon-pencil"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-danger"
-                                                onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">
-                                            <i class="icon-remove"></i>
-                                        </button>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-warning"
+                                        onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
+                                    <i class="icon-pencil"></i>
+                                </button>
+                                <button type="button" class="btn btn-xs btn-danger"
+                                        onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">
+                                    <i class="icon-remove"></i>
+                                </button>
 
-                                    </td>
-                                    <td>@view.Name</td>
-                                    <td>@view.IsLockedOut</td>
-                                    <td>@view.UpdateDate</td>
-                                </tr>
+                            </td>
+                            <td>@view.Name</td>
+                            <td>
+                                @if (view.IsLockedOut)
+                                {
+                                    <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/true.gif" />
+                                }
+                                else
+                                {
+                                    <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/false.gif" />
+                                }
+                            </td>
+                            <td>@view.UpdateDate</td>
+                        </tr>
                             }
                         }
                     </tbody>

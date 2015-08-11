@@ -12,14 +12,14 @@
     <div class="awidget-head">
         <div class="row">
             <div class="col-md-10">
-                <span>总数：@Model.TotalCount</span>
+                <span>&nbsp;&nbsp;&nbsp;总数：@Model.TotalCount</span>
             </div>
             <div class="col-md-2">
                 @if (Model.PagedModels.Count == 0)
                 {
                     <form class="form-inline definewidth m20">
-                        <button type="button" class="btn btn-warning pull-right" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
+                        <button type="button" class="btn btn-primary" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
+                        new { PID=0,currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'">
                             新 增
                         </button>
                     </form>
@@ -33,7 +33,7 @@
                 <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>操作</th>
+                            <th>&nbsp;&nbsp;操作</th>
                             <th>区划代码</th>
                             <th>区划名称</th>
                             <th>是否下级</th>
@@ -47,8 +47,8 @@
                             foreach (var view in Model.PagedModels)
                             {
                                 <tr>
-                                    <td>
-                                        <button type="button" class="btn btn-xs btn-primary" onclick="javascript: location.href='@Url.Action("AddOrEdit",
+                                    <td>&nbsp;&nbsp;
+                                        <a href="##"  onclick="javascript: location.href='@Url.Action("AddOrEdit",
 new { PID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
                                             @{
                                 string addName = "添加";
@@ -74,55 +74,52 @@ new { PID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.Pa
                                 }
                                             }
                                             @addName
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-warning"
-                                                onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                                            <i class="icon-pencil"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-danger"
-                                                onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">
-                                            <i class="icon-remove"></i>
-                                        </button>
+                                        </a>
+
+                                        <a href="##" onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">编辑</a>
+                                        <a href="##" onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };"> 删除</a>
                                     </td>
                                     <td>
-                                       @if (view.Level == 0)
-                                       {
-                                        <span>&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/home.png" style="padding:2px; left:2px;" /></span>
-                                       }
-                                       else if (view.Level == 1)
-                                       {
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/home.png" style="padding:2px; left:2px;" /></span>
-                                       }
-                                       else if (view.Level == 2)
-                                       {
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/facebook.png" style="padding:2px;height:16px;width:16px;left:2px;" />
-                                       }
-                                       else if (view.Level == 3)
-                                       {
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/twitter.png" style="padding:2px;height:16px;width:16px;left:2px;" /> </span>
-                                       }
-                                       else if (view.Level == 4)
-                                       {
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" /></span>
-                                       }
-                                       else if (view.Level == 5)
-                                       {
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" /></span>
-                                       }
+                                        @if (view.Level == 0)
+                                        {
+                                            <span>&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/home.png" style="padding:2px; left:2px;" /></span>
+                                        }
+                                        else if (view.Level == 1)
+                                        {
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/home.png" style="padding:2px; left:2px;" /></span>
+                                        }
+                                        else if (view.Level == 2)
+                                        {
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/facebook.png" style="padding:2px;height:16px;width:16px;left:2px;" />
+                                        }
+                                        else if (view.Level == 3)
+                                        {
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/twitter.png" style="padding:2px;height:16px;width:16px;left:2px;" /> </span>
+                                        }
+                                        else if (view.Level == 4)
+                                        {
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/docs.png" style="padding:2px;" /></span>
+                                        }
+                                        else if (view.Level == 5)
+                                        {
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/docs.png" style="padding:2px;" /></span>
+                                        }
                                         @view.HelperCode
                                     </td>
-                                    <td>@view.Name</td>
-                                    <td>@if (view.IsLast)
-                                    {
-                                        <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/true.gif" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/false.gif" />
-                                    }</td>
-                                    <td>@view.Level</td>
-                                    <td>@view.OrderBy</td>
-                                    <td>@view.UpdateDate</td>
+                                    <td>&nbsp;@view.Name</td>
+                                    <td>&nbsp;
+                                        @if (view.IsLast)
+                                        {
+                                            <img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/true.gif" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/false.gif" />
+                                        }
+                                    </td>
+                                    <td>&nbsp;@view.Level</td>
+                                    <td>&nbsp;@view.OrderBy</td>
+                                    <td>&nbsp;@view.UpdateDate</td>
                                 </tr>
                             }
                         }

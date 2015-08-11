@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UIShell.RbacPermissionService
 {
@@ -12,16 +8,44 @@ namespace UIShell.RbacPermissionService
     public partial class TLog : BaseModel
     {
         /// <summary>
-        /// 单位
+        /// 标题
         /// </summary>
-        public Guid Org_Id { get; set; }
-        /// <summary>
-        /// 用户
-        /// </summary>
-        public Guid UserId { get; set; }
+        public string Title { get; set; }
         /// <summary>
         /// 内容
         /// </summary>
         public string Content { get; set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName { get; set; }
+        /// <summary>
+        /// 机器名
+        /// </summary>
+        public string MachineName { get; set; }
+        /// <summary>
+        /// 模块名
+        /// </summary>
+        public string ModuleName { get; set; }
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public EnumLogType LogType { get; set; }
+        /// <summary>
+        /// IP
+        /// </summary>
+        public string IP { get; set; }
+        /// <summary>
+        /// 网址
+        /// </summary>
+        public string url { get; set; }
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        public string Browser { get; set; }
+        /// <summary>
+        /// 支持ActiveX
+        /// </summary>
+        public bool IsActiveX { get; set; }
     }
 }

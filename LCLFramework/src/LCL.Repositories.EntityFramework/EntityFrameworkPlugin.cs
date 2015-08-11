@@ -19,7 +19,6 @@ namespace LCL.Repositories.EntityFramework
         }
         public override void Initialize(IApp app)
         {
-
             ServiceLocator.Instance.Register<IRepositoryContext, EntityFrameworkRepositoryContext>();
             ServiceLocator.Instance.RegisterType(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
         }

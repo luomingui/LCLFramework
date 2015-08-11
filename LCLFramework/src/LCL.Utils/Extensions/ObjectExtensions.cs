@@ -55,6 +55,27 @@ namespace LCL
             PropertyInfo info = type.GetProperty(propertyName);
             return info.GetValue(obj, null);
         }
+        public static T GetObjTranNull<T>(this object obj)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    return (T)System.Convert.ChangeType("", typeof(T));
+                }
+                else
+                {
+                    if (obj.GetType() == typeof(T))
+                        return (T)obj;
+                }
+                return (T)System.Convert.ChangeType(obj, typeof(T));
+            }
+            catch
+            {
+
+            }
+            return default(T);
+        }
         /// <summary>
         ///     把对象类型转化为指定类型，转化失败时返回指定的默认值
         /// </summary>
@@ -140,7 +161,6 @@ namespace LCL
         }
         #endregion
 
-    
 
         public static IEnumerable<T> GetDescendants<TRoot, T>(this TRoot root,
         Func<TRoot, IEnumerable<T>> rootChildSelector,

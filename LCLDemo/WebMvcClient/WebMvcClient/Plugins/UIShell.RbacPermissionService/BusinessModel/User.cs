@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace UIShell.RbacPermissionService
 {
@@ -32,12 +30,8 @@ namespace UIShell.RbacPermissionService
         /// </summary>
         public ICollection<Role> Role { get; set; }
         /// <summary>
-        /// 隶属单位
+        /// 部门/网点
         /// </summary>
-        public UnitInfo UnitInfo { get; set; }
-        public ICollection<Department> Departments { get; set; }
-
-        
+        public Department Department { get; set; }
     }
-
 }

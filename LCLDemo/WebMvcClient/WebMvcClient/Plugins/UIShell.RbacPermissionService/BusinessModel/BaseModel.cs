@@ -8,30 +8,19 @@ namespace UIShell.RbacPermissionService
     /// 模型基类
     /// </summary>
     [Serializable]
-    public partial class BaseModel : AggregateRoot
+    public partial class BaseModel : Entity
     {
-        public BaseModel()
-        {
-            AddDate = DateTime.Now;
-            UpdateDate = DateTime.Now;
-        }
-        /// <summary>
-        /// 添加时间
-        /// </summary>
-        public Nullable<DateTime> AddDate { get; set; }
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        public Nullable<DateTime> UpdateDate { get; set; }
+
     }
     /// <summary>
     /// 树形模型基类
     /// </summary>
     [Serializable]
-    public partial class BaseTreeModel : BaseModel, ITreeNode
+    public partial class BaseTreeModel : BaseModel,IEntityTree
     {
         public BaseTreeModel()
         {
+            
             IsLast = false;
             Level = 0;
             NodePath = "";
@@ -61,7 +50,5 @@ namespace UIShell.RbacPermissionService
         /// 上一级
         /// </summary>
         public Guid ParentId { get; set; }
-
-        //public int ChildNum { get; set; }
     }
 }

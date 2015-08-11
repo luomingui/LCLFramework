@@ -43,7 +43,7 @@ namespace LCL.Tools
                 builder.AppendLine("using System.Web.Mvc; ");
                 builder.AppendLine("using UIShell.RbacPermissionService; ");
                 builder.AppendLine(" ");
-                builder.AppendLine("namespace UIShell.RbacManagementPlugin.Controllers ");
+                builder.AppendLine("namespace " + Utils.NameSpaceUI + ".Controllers ");
                 builder.AppendLine("{ ");
                 builder.AppendLine("    public class " + tablename + "Controller : RbacController<" + tablename + "> ");
                 builder.AppendLine("    { ");

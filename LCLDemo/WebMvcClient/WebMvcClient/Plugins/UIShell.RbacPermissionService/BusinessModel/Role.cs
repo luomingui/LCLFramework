@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UIShell.RbacPermissionService
 {
@@ -13,6 +10,7 @@ namespace UIShell.RbacPermissionService
     {
         public Role()
         {
+            ID = Guid.NewGuid();
             this.RoleUsers = new HashSet<User>();
             this.RoleAuthoritys = new HashSet<RoleAuthority>();
         }
@@ -24,6 +22,10 @@ namespace UIShell.RbacPermissionService
         /// 描述
         /// </summary>
         public string Remark { get; set; }
+        /// <summary>
+        ///  角色类型
+        /// </summary>
+        public int RoleType { get; set; }
         /// <summary>
         /// 角色用户
         /// </summary>

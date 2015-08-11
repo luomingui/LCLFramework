@@ -1,5 +1,4 @@
-﻿
-using LCL.ComponentModel;
+﻿using LCL.ComponentModel;
 
 namespace LCL.ObjectContainers.Unity
 {

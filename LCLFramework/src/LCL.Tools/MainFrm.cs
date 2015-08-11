@@ -240,19 +240,6 @@ namespace LCL.Tools
             //访问Blogs
             System.Diagnostics.Process.Start("http://www.cnblogs.com/luomingui");
         }
-        private void winFromUIToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.treeView1.SelectedNode == null) return;
-                TreeNode node = this.treeView1.SelectedNode;
-                ShowFormToTabControl(tabControl1, new FrmDbBuildWinFromUI(node.Text), "WinFrom界面代码生成");
-            }
-            catch
-            {
-
-            }
-        }
         private void ShowFormToTabControl(TabControl tc, Form f, string tpText)
         {// ShowFormToTabControl(tabControl1, new FrmUpdateHouseHold(), "衡水更新数据");
             foreach (TabPage t in tc.TabPages)

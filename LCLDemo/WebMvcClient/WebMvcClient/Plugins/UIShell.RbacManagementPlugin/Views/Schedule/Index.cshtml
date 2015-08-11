@@ -3,20 +3,14 @@
     ViewBag.Title = "计划任务列表";
 }
 <!-- Page title -->
-<div class="page-title">
-    <h2><i class="icon-desktop color"></i> 计划任务 <small>显示所有计划任务</small></h2>
-    <hr />
-</div>
-
-<!-- Page title -->
 <div class="awidget">
     <div class="awidget-head">
         <div class="row">
             <div class="col-md-10">
-                <span>总数：@Model.TotalCount</span>
+
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-warning pull-right" onclick="javascript: location.href='@Url.Action("AddOrEdit",
+                <button type="button" class="btn btn-primary" onclick="javascript: location.href='@Url.Action("AddOrEdit",
     new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
                     新 增
                 </button>

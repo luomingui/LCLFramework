@@ -35,9 +35,5 @@ id AND f.smallid = 0 AND
       f.name = 'MS_Description'
  where d.name<>'dtproperties' ";
         }
-        public override void ExtendedProperty(bool addbyupdate, string describe, string tableName, string columnName)
-        {
-
-        }
     }
 }

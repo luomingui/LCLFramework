@@ -1,72 +1,98 @@
-﻿@{ 
-    ViewBag.Title = "编辑用户"; 
-} 
- 
-@using LCL.MvcExtensions 
-@using UIShell.RbacPermissionService 
-@model AddOrEditViewModel<User> 
- 
-<!-- Page title --> 
-<div class="page-title"> 
-    <h2><i class="icon-desktop color"></i> 用户 <small>  
-          @{ 
-            string actionTag=""; 
-            if (Model.Added) { actionTag = "新增一个用户"; } else { actionTag = "编辑一个用户"; } 
-            }@actionTag 
-   </small></h2> <hr /> 
-</div> 
-<!-- Page title --> 
-<div class="row"> 
-    <!--col-md-6 start--> 
-    <div class="col-md-12"> 
-        <!--box-info start--> 
-        <div class="col-md-12"> 
-            <!--box-info start--> 
-            <div class="awidget"> 
-                <div class="awidget-head"> 
-                    <h3>用户</h3> 
-                </div> 
-                <div class="awidget-body"> 
-                    <!--form-horizontal row-border start--> 
-                    @using (Html.BeginForm(Model.Added ? "Add" : "Edit", "User", FormMethod.Post, new { @class = "form-horizontal", @role = "form" })) 
-                    { 
-                        @Html.HiddenFor(c => c.CurrentPageNum) 
-                        @Html.HiddenFor(c => c.PageSize) 
-                        @Html.HiddenFor(c => c.Entity.ID) 
- 
-                        <div class="form-group"> 
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Name)</label> 
-                            <div class="col-sm-10"> 
-                                @Html.TextBoxFor(c => c.Entity.Name, new { @class = "form-control", @placeholder = "请输入登录名称" }) 
-                                @Html.ValidationMessageFor(c => c.Entity.Name) 
-                            </div> 
-                        </div> 
-                        <div class="form-group"> 
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Password)</label> 
-                            <div class="col-sm-10"> 
-                                @Html.TextBoxFor(c => c.Entity.Password, new { @class = "form-control", @placeholder = "请输入登录密码" }) 
-                                @Html.ValidationMessageFor(c => c.Entity.Password) 
-                            </div> 
-                        </div> 
-                        <div class="form-group"> 
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.IsLockedOut)</label> 
-                            <div class="col-sm-10"> 
-                                @Html.TextBoxFor(c => c.Entity.IsLockedOut, new { @class = "form-control", @placeholder = "请输入是否锁定" }) 
-                                @Html.ValidationMessageFor(c => c.Entity.IsLockedOut) 
-                            </div> 
-                        </div> 
-                       
-                        <div class="form-group"> 
-                            <label class="col-sm-2 control-label"></label> 
-                            <div class="col-sm-10"> 
-                                <button type="submit" class="btn btn-primary">保存</button>&nbsp;&nbsp; 
-                                <button type="button" class="btn btn-default" onclick="javascript: window.history.back();">返回</button> 
-                            </div> 
-                        </div> 
-                    } 
-                </div> 
-            </div> 
- 
-        </div> 
-    </div> 
-</div> 
+﻿@{
+    ViewBag.Title = "编辑用户";
+}
+
+@using LCL.MvcExtensions
+@using UIShell.RbacPermissionService
+@model AddOrEditViewModel<User>
+
+<!-- Page title -->
+<div class="page-title">
+    <h2>
+        <i class="icon-desktop color"></i> 用户 <small>
+            @{
+                string actionTag = "";
+                if (Model.Added) { actionTag = "新增一个用户"; } else { actionTag = "编辑一个用户"; }
+            }@actionTag
+        </small>
+    </h2> <hr />
+</div>
+<!-- Page title -->
+<div class="row">
+    <!--col-md-6 start-->
+    <div class="col-md-12">
+        <!--box-info start-->
+        <div class="col-md-12">
+            <!--box-info start-->
+            <div class="awidget">
+                <div class="awidget-head">
+                    <h3>用户</h3>
+                </div>
+                <div class="awidget-body">
+                    <!--form-horizontal row-border start-->
+                    @using (Html.BeginForm(Model.Added ? "Add" : "Edit", "User", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                    {
+                        @Html.HiddenFor(c => c.CurrentPageNum)
+                        @Html.HiddenFor(c => c.PageSize)
+                        @Html.HiddenFor(c => c.Entity.ID)
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">所属组织</label>
+                            <div class="col-sm-10">
+                                <select>
+                                    <option value="部门">==部门==</option>
+                                    <option value="网点">==网点==</option>
+                                </select>
+                                <select>
+                                    <option value="省">==省==</option>
+                                    <option value="省">省</option>
+                                    <option value="省">省</option>
+                                    <option value="省">省</option>
+                                    <option value="省">省</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Name)</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(c => c.Entity.Name, new { @class = "form-control", @placeholder = "请输入登录名称" })
+                                @Html.ValidationMessageFor(c => c.Entity.Name)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Password)</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(c => c.Entity.Password, new { @class = "form-control", @placeholder = "请输入登录密码" })
+                                @Html.ValidationMessageFor(c => c.Entity.Password)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.IsLockedOut)</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(c => c.Entity.IsLockedOut, new { @class = "form-control", @placeholder = "请输入是否锁定" })
+                                @Html.ValidationMessageFor(c => c.Entity.IsLockedOut)
+                            </div>
+                        </div>
+                              <div class="form-group">
+                            <label class="col-sm-2 control-label">所属角色</label>
+                            <div class="col-sm-10">
+                               <input type="checkbox" />管理员
+                                <input type="checkbox" />网点操作员
+                                <input type="checkbox" />库存管理员
+                                <input type="checkbox" />统计人员
+                                <input type="checkbox" />纠察人员
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">保存</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-default" onclick="javascript: window.history.back();">返回</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

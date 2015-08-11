@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
+using LCL.MetaModel.Attributes;
 namespace UIShell.RbacPermissionService
 {
-    public enum MessageEncryptionType
-    {
-        明文模式,
-        兼容模式,
-        安全模式,
-    }
     public enum UnitType
     {
         公司,
@@ -51,5 +42,13 @@ namespace UIShell.RbacPermissionService
     public enum AuthorityType
     {
         菜单, 数据
+    }
+
+    public enum EnumLogType
+    {
+        未指定类型 = 0,
+        执行命令 = 1,
+        打开模块 = 2,
+        登录 = 3,
     }
 }

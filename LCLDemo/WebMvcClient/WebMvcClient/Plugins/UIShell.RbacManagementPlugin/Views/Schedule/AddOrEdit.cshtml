@@ -4,18 +4,6 @@
 @using LCL.MvcExtensions;
 @using UIShell.RbacPermissionService;
 @model AddOrEditViewModel<ScheduledEvents>
-
-<!-- Page title -->
-<div class="page-title">
-    <h2>
-        <i class="icon-desktop color"></i> 计划任务 <small>
-            @{
-                string actionTag = "";
-                if (Model.Added) { actionTag = "新增一个计划任务"; } else { actionTag = "编辑一个计划任务"; }
-            }@actionTag
-        </small>
-    </h2> <hr />
-</div>
 <!-- Page title -->
 <div class="row">
     <!--col-md-6 start-->
@@ -24,9 +12,6 @@
         <div class="col-md-12">
             <!--box-info start-->
             <div class="awidget">
-                <div class="awidget-head">
-                    <h3>计划任务</h3>
-                </div>
                 <div class="awidget-body">
                     <!--form-horizontal row-border start-->
                     @using (Html.BeginForm(Model.Added ? "Add" : "Edit", "Schedule", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
@@ -46,14 +31,14 @@
                             <tr>
                                 <td width="10%" class="tableleft">名称<s style="color:red;">*</s></td>
                                 <td>
-                                    @Html.TextBoxFor(c => c.Entity.Key, new { @placeholder = "请输入名称" })
+                                    @Html.TextBoxFor(c => c.Entity.Key, new { @class = "form-control", @placeholder = "请输入名称" })
                                     @Html.ValidationMessageFor(c => c.Entity.Key)
                                 </td>
                             </tr>
                             <tr>
                                 <td width="10%" class="tableleft">计划任务类型<s style="color:red;">*</s></td>
                                 <td>
-                                    @Html.TextBoxFor(c => c.Entity.ScheduleType, new { @placeholder = "请输入计划任务类型", @style = "width: 581px;", })
+                                    @Html.TextBoxFor(c => c.Entity.ScheduleType, new { @class = "form-control", @placeholder = "请输入计划任务类型" })
                                     @Html.ValidationMessageFor(c => c.Entity.ScheduleType)<br />
                                     如：UIShell.EducationDeviceMaintenanceEvent.ClearCatchEvent, UIShell.EducationDeviceMaintenanceEvent
                                 </td>
@@ -61,7 +46,7 @@
                             <tr>
                                 <td width="10%" class="tableleft">定时执行 @Html.RadioButtonFor(c => c.Entity.ExetimeType, 1, new { @id = "ExetimeType", @name = "ExetimeType" })</td>
                                 <td>
-                                    <select id="hour" name="hour">
+                                    <select id="hour" name="hour" class="form-control">
                                         <option value="1">1</option>
                                         <option value="3">3</option>
                                         <option value="5">5</option>
@@ -79,7 +64,7 @@
                             <tr>
                                 <td width="10%" class="tableleft">周期执行 @Html.RadioButtonFor(c => c.Entity.ExetimeType, 0, new { @id = "ExetimeType", @name = "ExetimeType" })</td>
                                 <td>
-                                    @Html.TextBoxFor(c => c.Entity.timeserval, new { @placeholder = "请输入分钟" })（分钟）
+                                    @Html.TextBoxFor(c => c.Entity.timeserval, new { @class = "form-control", @placeholder = "请输入分钟" })（分钟）
                                     @Html.ValidationMessageFor(c => c.Entity.timeserval)
                                     需要循环执行？
                                 </td>
@@ -87,8 +72,8 @@
                             <tr>
                                 <td class="tableleft"></td>
                                 <td>
-                                    <button type="submit" class="btn btn-primary">提交</button>
-                                    <button type="button" class="btn btn-default" id="backid" onclick="javacript:history.go(-1);">返回列表</button>
+                                    <button type="submit" class="button button-primary" onclick="return CheckFromData()">提交</button>
+                                    <button type="button" class="button button-default" id="backid" onclick="javacript:history.go(-1);">返回列表</button>
                                 </td>
                             </tr>
                         </table>
@@ -100,3 +85,33 @@
     </div>
 </div>
 
+@section scripts{
+    <script type="text/javascript">
+        function CheckFromData() {
+
+            var key = $("#Entity_Key").val();
+            var ScheduleType = $("#Entity_ScheduleType").val();
+            var et = $("#Entity_ExetimeType").val();
+            var timeserval = $("#Entity_timeserval").val();
+
+            if (key.length <= 2) {
+                $("#Entity_Key_validationMessage").html("任务名称不能为空");
+                $("#Entity_Key").focus();
+                return false;
+            }
+            if (ScheduleType.length <= 2) {
+                $("#Entity_ScheduleType_validationMessage").html("计划类型不能为空");
+                $("#Entity_ScheduleType").focus();
+                return false;
+            }
+            if (et == 0) {
+                if (timeserval.length <= 10) {
+                    $("#Entity_timeserval_validationMessage").html("不能小于10分钟");
+                    $("#Entity_timeserval").focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+}

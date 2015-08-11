@@ -195,7 +195,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="js\treeTable\vsStyle\allbgs.psd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\UIShell.RbacPermissionService\UIShell.RbacPermissionService.csproj">
+      <Project>{b91f2399-6395-439b-9645-c83e747c356f}</Project>
+      <Name>UIShell.RbacPermissionService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="font\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
     <Content Include="font\fontawesome-webfont.eot" />
@@ -206,7 +211,6 @@
     <Content Include="font\MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff" />
     <Content Include="font\PRmiXeptR36kaC0GEAetxn5HxGBcBvicCpTp6spHfNo.woff" />
     <Content Include="font\xjAJXh38I15wypJXxuGMBobN6UDyHWBl620a-IRfuBk.woff" />
-    <Content Include="js\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

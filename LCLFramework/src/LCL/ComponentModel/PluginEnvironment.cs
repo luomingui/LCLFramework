@@ -28,14 +28,18 @@ namespace LCL
                     var library = pluginAssembly.Instance as LCLPlugin;
                     if (library != null)
                     {
-                        library.Initialize(_appCore);
-                        Logger.LogInfo(library.Assembly.FullName + " Initialize....");
+                        //try
+                        //{
+                            library.Initialize(_appCore);
+                            Logger.LogInfo(library.Assembly.FullName + " Initialize....");
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    Logger.LogError("【" + library.Assembly.FullName + "】组件初始化失败！", ex);
+                        //}
                     }
                 }
             }
-            //#if !DEBUG
-            //            PluginWatcher.Start();
-            //#endif
         }
         private static List<PluginAssembly> _libraries;
         public static List<string> GetPluginsName()

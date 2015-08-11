@@ -1,11 +1,9 @@
 ﻿using LCL;
 using LCL.MvcExtensions;
-using LCL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using UIShell.RbacPermissionService;
 
@@ -13,6 +11,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
 {
     public class ScheduleController : RbacController
     {
+        [Permission("首页", "Index")]
         public ActionResult Index(int? currentPageNum, int? pageSize)
         {
             if (!currentPageNum.HasValue)
@@ -30,6 +29,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             return View(contactLitViewModel);
 
         }
+        [Permission("执行", "ExecCommand")]
         public ActionResult ExecCommand(string Key)
         {
             if (!string.IsNullOrWhiteSpace(Key))
@@ -82,6 +82,12 @@ namespace UIShell.RbacManagementPlugin.Controllers
         }
         public ActionResult Add(AddOrEditViewModel<ScheduledEvents> model, FormCollection collection)
         {
+            int Entity_ExetimeType = 0;
+            if (collection.GetValues("Entity.ExetimeType") != null)
+            {
+                Entity_ExetimeType = int.Parse(collection.GetValue("Entity.ExetimeType").AttemptedValue);
+            }
+
             #region MyRegion
             ScheduleConfigInfo sci = ScheduleConfigs.GetConfig();
             foreach (EventInfo ev1 in sci.Events)
@@ -92,11 +98,13 @@ namespace UIShell.RbacManagementPlugin.Controllers
                     return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
                 }
             }
+
             EventInfo ev = new EventInfo();
             ev.Key = model.Entity.Key;
             ev.Enabled = true;
             ev.IsSystemEvent = false;
             ev.ScheduleType = model.Entity.ScheduleType.ToString();
+            model.Entity.ExetimeType = Entity_ExetimeType == 0 ? false : true;
 
             if (model.Entity.ExetimeType)
             {

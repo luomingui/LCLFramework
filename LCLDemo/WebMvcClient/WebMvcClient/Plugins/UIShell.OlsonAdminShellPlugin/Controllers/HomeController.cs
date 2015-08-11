@@ -17,9 +17,11 @@ namespace UIShell.OlsonAdminShellPlugin.Controllers
         public ActionResult ShowOrHideNav()
         {
             AppConfig.NavHidden = !AppConfig.NavHidden;
-            return new JsonResult { Data = new { Hidden = AppConfig.NavHidden }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult
+            {
+                Data = new { Hidden = AppConfig.NavHidden },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
-
-
-	}
+    }
 }

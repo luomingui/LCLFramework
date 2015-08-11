@@ -31,18 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\..\..\LCLFramework\Lib\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="LCL">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.dll</HintPath>
     </Reference>
     <Reference Include="LCL.MvcExtensions">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.MvcExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="LCL.ObjectContainers.Unity">
-      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
     </Reference>
     <Reference Include="LCL.Repositories.EntityFramework">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.Repositories.EntityFramework.dll</HintPath>
@@ -55,7 +54,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,22 +65,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appliction\AppConfig.cs" />
+    <Compile Include="Appliction\IdCardHelper.cs" />
+    <Compile Include="Appliction\LAppliction.cs" />
     <Compile Include="Appliction\AppConstant.cs" />
-    <Compile Include="BusinessModel\Company\CompanyInfo.cs" />
-    <Compile Include="BusinessModel\Company\User_Employee.cs" />
-    <Compile Include="BusinessModel\Department.cs" />
     <Compile Include="BusinessModel\Dictionary.cs" />
     <Compile Include="BusinessModel\DictType.cs" />
     <Compile Include="BusinessModel\Role.cs" />
     <Compile Include="BusinessModel\RoleAuthority.cs" />
     <Compile Include="BusinessModel\ScheduledEvents.cs" />
-    <Compile Include="BusinessModel\School\SchoolInfo.cs" />
-    <Compile Include="BusinessModel\School\User_TeacherCheck.cs" />
     <Compile Include="BusinessModel\TLog.cs" />
-    <Compile Include="BusinessModel\School\User_Student.cs" />
-    <Compile Include="BusinessModel\School\User_Teacher.cs" />
-    <Compile Include="BusinessModel\UserInfo.cs" />
     <Compile Include="BusinessModel\ValueObject.cs" />
     <Compile Include="BusinessModel\Xzqy.cs" />
     <Compile Include="Config\GeneralConfig.cs" />
@@ -89,55 +84,49 @@
     <Compile Include="Config\ScheduledEvents\IEvent.cs" />
     <Compile Include="Config\ScriptEventConfigs.cs" />
     <Compile Include="EFContexts\DbFactory.cs" />
-    <Compile Include="EFContexts\EFContext.cs" />
-    <Compile Include="Mvc\Tree.cs" />
     <Compile Include="PluginActivator.cs" />
     <Compile Include="BusinessModel\BaseModel.cs" />
     <Compile Include="EFContexts\RbacDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BusinessModel\UnitInfo.cs" />
+    <Compile Include="BusinessModel\Department.cs" />
     <Compile Include="BusinessModel\User.cs" />
-    <Compile Include="Repository\CompanyInfoRepository.cs" />
     <Compile Include="Repository\DepartmentRepository.cs" />
     <Compile Include="Repository\DictionaryRepository.cs" />
     <Compile Include="Repository\DictTypeRepository.cs" />
     <Compile Include="Repository\RoleAuthorityRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\ScheduledEventsRepository.cs" />
-    <Compile Include="Repository\SchoolInfoRepository.cs" />
     <Compile Include="Repository\TLogRepository.cs" />
-    <Compile Include="Repository\UnitInfoRepository.cs" />
-    <Compile Include="Repository\UserInfoRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="Repository\User_EmployeeRepository.cs" />
-    <Compile Include="Repository\User_StudentRepository.cs" />
-    <Compile Include="Repository\User_TeacherCheckRepository.cs" />
-    <Compile Include="Repository\User_TeacherRepository.cs" />
     <Compile Include="Repository\XzqyRepository.cs" />
+    <Compile Include="Security\BizActivityLogAttribute.cs" />
+    <Compile Include="Security\LCLIdentity.cs" />
     <Compile Include="Security\LCLPermissionProvider.cs" />
+    <Compile Include="Security\LCLPrincipal.cs" />
+    <Compile Include="Security\LoginUserInfo.cs" />
+    <Compile Include="Security\MyAuthorizeAttribute.cs" />
     <Compile Include="Security\RbacController.cs" />
-    <Compile Include="ValidationModel\CompanyInfo.cs" />
+    <Compile Include="Security\StringHelper.cs" />
+    <Compile Include="Specifications\DepartmentSpecifications.cs" />
     <Compile Include="ValidationModel\Department.cs" />
     <Compile Include="ValidationModel\Dictionary.cs" />
     <Compile Include="ValidationModel\DictType.cs" />
     <Compile Include="ValidationModel\Role.cs" />
     <Compile Include="ValidationModel\RoleAuthority.cs" />
     <Compile Include="ValidationModel\ScheduledEvents.cs" />
-    <Compile Include="ValidationModel\SchoolInfo.cs" />
     <Compile Include="ValidationModel\TLog.cs" />
-    <Compile Include="ValidationModel\UnitInfo.cs" />
     <Compile Include="ValidationModel\User.cs" />
-    <Compile Include="ValidationModel\UserInfo.cs" />
-    <Compile Include="ValidationModel\User_Employee.cs" />
-    <Compile Include="ValidationModel\User_Student.cs" />
-    <Compile Include="ValidationModel\User_Teacher.cs" />
-    <Compile Include="ValidationModel\User_TeacherCheck.cs" />
     <Compile Include="ValidationModel\Xzqy.cs" />
     <Compile Include="ViewEngines\Razor\WebViewPage.cs" />
-    <Compile Include="ViewModels\CompanyInfoPageListViewModel.cs" />
-    <Compile Include="ViewModels\SchoolTeacherViewModel.cs" />
-    <Compile Include="ViewModels\UnitInfoAddOrEditViewModel.cs" />
-    <Compile Include="ViewModels\SchoolInfoPageListViewModel.cs" />
+    <Compile Include="ViewModels\Account.cs" />
+    <Compile Include="ViewModels\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\DictionaryViewModel.cs" />
+    <Compile Include="ViewModels\DictTypeViewModel.cs" />
+    <Compile Include="ViewModels\RoleAuthorityViewModel.cs" />
+    <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\TLogViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\XzqyViewModel.cs" />
     <Compile Include="WorkContext\IWorkContext.cs" />
     <Compile Include="WorkContext\WebWorkContext.cs" />
   </ItemGroup>

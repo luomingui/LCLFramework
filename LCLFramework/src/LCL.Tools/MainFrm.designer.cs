@@ -221,7 +221,6 @@
             this.winFromUIToolStripMenuItem.ShowShortcutKeys = false;
             this.winFromUIToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.winFromUIToolStripMenuItem.Text = "WebFromUI";
-            this.winFromUIToolStripMenuItem.Click += new System.EventHandler(this.winFromUIToolStripMenuItem_Click);
             // 
             // bUIAdiniseShellToolStripMenuItem
             // 

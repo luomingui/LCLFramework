@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace UIShell.RbacPermissionService
 {
     /// <summary>
@@ -26,7 +22,18 @@ namespace UIShell.RbacPermissionService
         /// 功能
         /// </summary>
         public string OperationKey { set; get; }
+        /// <summary>
+        /// 对应的路径
+        /// </summary>
         public string Url { set; get; }
+        /// <summary>
+        /// 树形深度
+        /// </summary>
+        public int Level { get; set; }
+        /// <summary>
+        /// 中文路径
+        /// </summary>
+        public string NodePath { get; set; }
         /// <summary>
         /// 类型
         /// </summary>

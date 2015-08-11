@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Web;
 
 namespace UIShell.RbacManagementPlugin
 {
@@ -75,7 +72,6 @@ namespace UIShell.RbacManagementPlugin
             }
             return validateNumberStr;
         }
-
         /// <summary>
         /// 创建验证码的图片
         /// </summary>
@@ -143,5 +139,4 @@ namespace UIShell.RbacManagementPlugin
             return 22.5;
         }
     }
-
 }

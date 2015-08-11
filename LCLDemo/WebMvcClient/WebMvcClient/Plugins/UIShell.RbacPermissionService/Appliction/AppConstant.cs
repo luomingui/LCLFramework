@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace UIShell.RbacPermissionService
 {
     public class AppConstant
@@ -16,7 +11,10 @@ namespace UIShell.RbacPermissionService
         /// Edms_
         /// </summary>
         public static readonly string Tableprefix = "";
-
+        /// <summary>
+        /// 卡片销售价格
+        /// </summary>
+        public static readonly double Price = 80.000;
     }
 
 

@@ -1,29 +1,25 @@
 ﻿@using LCL.MvcExtensions;
+@using UIShell.RbacPermissionService;
 @{
-    ViewBag.Title = "部门管理";
+    ViewBag.Title = "单位管理";
 }
-<!-- Page title -->
 <div class="page-title">
-    <h2><i class="icon-desktop color"></i> 部门管理 <small>显示所有部门</small></h2>
-    <hr />
+    <h2>
+        <i class="icon-desktop color"></i> 单位管理 <small></small>
+    </h2> <hr />
 </div>
 <!-- Page title -->
 <div class="awidget">
     <div class="awidget-head">
         <div class="row">
             <div class="col-md-10">
-                <span>总数：@Model.TotalCount</span>
+                <span>&nbsp;&nbsp;&nbsp;总数：@Model.TotalCount</span>
             </div>
             <div class="col-md-2">
-                @if (Model.PagedModels.Count == 0)
-                {
-                    <form class="form-inline definewidth m20">
-                        <button type="button" class="btn btn-warning pull-right" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                            新 增
-                        </button>
-                    </form>
-                }
+                <button type="button" class="btn btn-primary" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
+                        new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'">
+                    新 增
+                </button>
             </div>
         </div>
     </div>
@@ -33,11 +29,12 @@
                 <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>操作</th>
-                            <th>区划代码</th>
-                            <th>区划名称</th>
-                            <th>树形路径</th>                            
+                            <th>名称</th>
+                            <th>办公电话</th>
+                            <th>地址</th>
+                            <th>描述</th>
                             <th>更新时间</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,74 +42,16 @@
                             foreach (var view in Model.PagedModels)
                             {
                                 <tr>
+                                    <td>&nbsp;@view.Name</td>
+                                    <td>&nbsp;@view.OfficePhone</td>
+                                    <td>&nbsp;@view.Address</td>
+                                    <td>&nbsp;@view.Remark</td>
+                                    <td>&nbsp;@view.UpdateDate</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-primary" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-new { PID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                                            @{
-                                string addName = "添加";
-                                if (view.Level == 1)
-                                {
-                                    addName = "添加部门";
-                                }
-                                else if (view.Level == 2)
-                                {
-                                    addName = "添加子部门";
-                                }
-                                else if (view.Level == 3)
-                                {
-                                    addName = "添加子部门";
-                                }
-                                else if (view.Level == 4)
-                                {
-                                    addName = "添加子部门";
-                                }
-                                else if (view.Level == 5)
-                                {
-                                    addName = "添加子部门";
-                                }
-                                            }
-                                            @addName
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-warning"
-                                                onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                                            <i class="icon-pencil"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-danger"
-                                                onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">
-                                            <i class="icon-remove"></i>
-                                        </button>
+                                        <a class="btn btn-xs btn-primary" href="DepartmentUser?depId=@view.ID">员工</a>
+                                        <a class="btn btn-xs btn-warning" href="##" onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">编辑</a>
+                                        <a class="btn btn-xs btn-danger" href="##" onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">删除</a>
                                     </td>
-                                    <td>
-                                        @if (view.Level == 0)
-                                        {
-                                            <span>&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/home.png" style="padding:2px; left:2px;" /></span>
-                                        }
-                                        else if (view.Level == 1)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/home.png" style="padding:2px; left:2px;" /></span>
-                                        }
-                                        else if (view.Level == 2)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/facebook.png" style="padding:2px;height:16px;width:16px;left:2px;" />
-                                        }
-                                        else if (view.Level == 3)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/twitter.png" style="padding:2px;height:16px;width:16px;left:2px;" /> </span>
-                                        }
-                                        else if (view.Level == 4)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" /></span>
-                                        }
-                                        else if (view.Level == 5)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/docs.png" style="padding:2px;" /></span>
-                                        }
-                                        
-                                        @view.HelperCode
-                                    </td>
-                                    <td>@view.Name</td>
-                                    <td>@view.NodePath</td>
-                                    <td>@view.UpdateDate</td>
                                 </tr>
                             }
                         }
@@ -123,3 +62,4 @@ new { PID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.Pa
         @Html.Partial("_PagedListBottom")
     </div>
 </div>
+

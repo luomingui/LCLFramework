@@ -11,11 +11,9 @@
 *******************************************************/
 using LCL.MvcExtensions;
 using LCL.Repositories;
-using LCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using UIShell.RbacPermissionService;
 
@@ -33,7 +31,6 @@ namespace UIShell.RbacManagementPlugin.Controllers
         {
             var repo = RF.FindRepo<DictType>();
             var list = repo.FindAll();
-
             List<SelectListItem> selitem = new List<SelectListItem>();
             if (list.Count() > 0)
             {
@@ -62,9 +59,55 @@ namespace UIShell.RbacManagementPlugin.Controllers
 
             var list = repo.GetDictTypeList(guid);
 
-            var contactLitViewModel = new PagedListViewModel<Dictionary>(pageNum, pageSize.Value, list.ToList());
+            var contactLitViewModel = new DictionaryPagedListViewModel(pageNum, pageSize.Value, list.ToList());
+            contactLitViewModel.DicTypeId = guid;
 
             return View(contactLitViewModel);
+        }
+        public override ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
+        {
+            if (!currentPageNum.HasValue)
+            {
+                currentPageNum = 1;
+            }
+            if (!pageSize.HasValue)
+            {
+                pageSize = PagedListViewModel<Dictionary>.DefaultPageSize;
+            }
+            Guid guid = Guid.Parse(LRequest.GetString("dicTypeId"));
+            if (!id.HasValue)
+            {
+                return View(new DictionaryAddOrEditViewModel
+                {
+                    Added = true,
+                    Entity = null,
+                    DicTypeId=guid,
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
+                });
+            }
+            else
+            {
+                var repo = RF.FindRepo<Dictionary>();
+                var village = repo.GetByKey(id.Value);
+                return View(new DictionaryAddOrEditViewModel
+                {
+                    Added = false,
+                    Entity = village,
+                    DicTypeId = guid,
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
+                });
+            }
+        }
+        public ActionResult Add(DictionaryAddOrEditViewModel model, FormCollection collection)
+        {
+            return base.Add(model, collection);
+        }
+        public override ActionResult Delete(Dictionary model, int? currentPageNum, int? pageSize, FormCollection collection)
+        {
+            var entity = RF.Concrete<IDictionaryRepository>().GetByKey(model.ID);
+            return base.Delete(entity, currentPageNum, pageSize, collection);
         }
     }
 }

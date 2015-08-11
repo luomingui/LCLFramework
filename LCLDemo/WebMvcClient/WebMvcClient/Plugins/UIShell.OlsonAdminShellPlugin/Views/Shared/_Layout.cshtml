@@ -1,5 +1,6 @@
 ﻿@using LCL.MvcExtensions;
 @using UIShell.OlsonAdminShellPlugin;
+@using UIShell.RbacPermissionService;
 @using LCL.MetaModel;
 @{
     ViewBag.SideyClass = AppConfig.NavHidden ? "sidey hidden" : "sidey";
@@ -9,12 +10,11 @@
 <html>
 <head>
     <!-- Title here -->
-    <title>@ViewBag.Title - @AppConfig.CompanyName </title>
+    <title>@ViewBag.Title - @LAppliction.Config.AppName</title>
     <!-- Description, Keywords and Author -->
     <meta name="description" content="Your description">
     <meta name="keywords" content="Your,Keywords">
     <meta name="author" content="ResponsiveWebInc">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='@(Url.BundleContent(BundleActivator.Bundle, "css/font-css.css"))' rel='stylesheet' type='text/css'>
@@ -57,7 +57,7 @@
                 <div class="col-md-8">
                     <!-- Logo -->
                     <div class="logo">
-                        <h1><a href="#">@AppConfig.AppName</a></h1>
+                        <h1><a href="#">@LAppliction.Config.AppName</a></h1>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -89,7 +89,6 @@
 
     <!-- Logo & Navigation ends -->
     <!-- Page content -->
-
     <div class="page-content blocky">
         <div class="container">
 
@@ -213,7 +212,6 @@
                 </div>
             }
             <div class="clearfix"></div>
-
         </div>
     </div>
 
@@ -222,7 +220,7 @@
         <div class="container">
 
             <div class="copy text-center">
-                Copyright 2015 &copy; - <a href="http://www.cnblogs.com/luomingui">永新程序员</a>
+                Copyright 2015 &copy; - <a href="http://www.cnblogs.com/luomingui">@LAppliction.Config.CompanyName</a>
             </div>
 
         </div>
@@ -274,7 +272,7 @@
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/custom.js"))"></script>
 
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.validate.min.js"))"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.validate-vsdoc.js"))"></script>
+    @*<script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.validate-vsdoc.js"))"></script>*@
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "js/jquery.validate.unobtrusive.min.js"))"></script>
 
     <script type="text/javascript">

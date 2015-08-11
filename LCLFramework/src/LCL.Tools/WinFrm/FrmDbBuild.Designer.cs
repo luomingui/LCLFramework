@@ -44,8 +44,10 @@
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labelNum = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -56,25 +58,25 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(494, 63);
+            this.groupBox1.Size = new System.Drawing.Size(490, 58);
             this.groupBox1.TabIndex = 78;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "3：设置项目输出路径";
+            this.groupBox1.Text = "1：设置项目输出路径";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 28);
+            this.label1.Location = new System.Drawing.Point(14, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "输出路径：";
             // 
             // btn_OutPath
             // 
-            this.btn_OutPath.Location = new System.Drawing.Point(435, 22);
+            this.btn_OutPath.Location = new System.Drawing.Point(435, 20);
             this.btn_OutPath.Name = "btn_OutPath";
-            this.btn_OutPath.Size = new System.Drawing.Size(45, 25);
+            this.btn_OutPath.Size = new System.Drawing.Size(45, 23);
             this.btn_OutPath.TabIndex = 2;
             this.btn_OutPath.Text = "...";
             this.btn_OutPath.UseVisualStyleBackColor = true;
@@ -82,9 +84,9 @@
             // 
             // txtOutPut
             // 
-            this.txtOutPut.Location = new System.Drawing.Point(83, 25);
+            this.txtOutPut.Location = new System.Drawing.Point(83, 23);
             this.txtOutPut.Name = "txtOutPut";
-            this.txtOutPut.Size = new System.Drawing.Size(346, 20);
+            this.txtOutPut.Size = new System.Drawing.Size(346, 21);
             this.txtOutPut.TabIndex = 1;
             this.txtOutPut.TextChanged += new System.EventHandler(this.txtOutPut_TextChanged);
             // 
@@ -95,56 +97,56 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 63);
+            this.groupBox2.Location = new System.Drawing.Point(0, 58);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(494, 69);
+            this.groupBox2.Size = new System.Drawing.Size(490, 58);
             this.groupBox2.TabIndex = 80;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "选择数据库";
+            this.groupBox2.Text = "2：选择数据库";
             // 
             // cmbDBlist
             // 
             this.cmbDBlist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDBlist.Location = new System.Drawing.Point(296, 26);
+            this.cmbDBlist.Location = new System.Drawing.Point(296, 24);
             this.cmbDBlist.Name = "cmbDBlist";
-            this.cmbDBlist.Size = new System.Drawing.Size(184, 21);
+            this.cmbDBlist.Size = new System.Drawing.Size(184, 20);
             this.cmbDBlist.TabIndex = 2;
             this.cmbDBlist.SelectedIndexChanged += new System.EventHandler(this.cmbDBlist_SelectedIndexChanged);
             // 
             // lblServer
             // 
             this.lblServer.AutoSize = true;
-            this.lblServer.Location = new System.Drawing.Point(104, 28);
+            this.lblServer.Location = new System.Drawing.Point(104, 26);
             this.lblServer.Name = "lblServer";
-            this.lblServer.Size = new System.Drawing.Size(35, 13);
+            this.lblServer.Size = new System.Drawing.Size(41, 12);
             this.lblServer.TabIndex = 1;
             this.lblServer.Text = "label2";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 28);
+            this.label2.Location = new System.Drawing.Point(16, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 13);
+            this.label2.Size = new System.Drawing.Size(77, 12);
             this.label2.TabIndex = 0;
             this.label2.Text = "当前服务器：";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(216, 28);
+            this.label3.Location = new System.Drawing.Point(216, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 13);
+            this.label3.Size = new System.Drawing.Size(77, 12);
             this.label3.TabIndex = 0;
             this.label3.Text = "选择数据库：";
             // 
             // but_BuildUI
             // 
-            this.but_BuildUI.Location = new System.Drawing.Point(186, 222);
+            this.but_BuildUI.Location = new System.Drawing.Point(328, 237);
             this.but_BuildUI.Name = "but_BuildUI";
-            this.but_BuildUI.Size = new System.Drawing.Size(140, 61);
+            this.but_BuildUI.Size = new System.Drawing.Size(113, 53);
             this.but_BuildUI.TabIndex = 82;
-            this.but_BuildUI.Text = "生成";
+            this.but_BuildUI.Text = "生   成";
             this.but_BuildUI.UseVisualStyleBackColor = true;
             this.but_BuildUI.Click += new System.EventHandler(this.but_BuildUI_Click);
             // 
@@ -157,32 +159,32 @@
             "WPFBuild",
             "WCFBuild",
             "EntityFrameworkBuild"});
-            this.comboBox1.Location = new System.Drawing.Point(159, 138);
+            this.comboBox1.Location = new System.Drawing.Point(151, 22);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(177, 21);
+            this.comboBox1.Size = new System.Drawing.Size(257, 20);
             this.comboBox1.TabIndex = 85;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(74, 144);
+            this.label4.Location = new System.Drawing.Point(69, 27);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 86;
             this.label4.Text = "选择模板：";
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(10, 169);
+            this.progressBar2.Location = new System.Drawing.Point(8, 189);
             this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(419, 11);
+            this.progressBar2.Size = new System.Drawing.Size(419, 10);
             this.progressBar2.TabIndex = 88;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 184);
+            this.progressBar1.Location = new System.Drawing.Point(8, 203);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(419, 22);
+            this.progressBar1.Size = new System.Drawing.Size(419, 20);
             this.progressBar1.TabIndex = 87;
             // 
             // labelNum
@@ -190,24 +192,35 @@
             this.labelNum.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelNum.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.labelNum.ForeColor = System.Drawing.Color.DeepPink;
-            this.labelNum.Location = new System.Drawing.Point(435, 169);
+            this.labelNum.Location = new System.Drawing.Point(433, 189);
             this.labelNum.Name = "labelNum";
-            this.labelNum.Size = new System.Drawing.Size(47, 37);
+            this.labelNum.Size = new System.Drawing.Size(47, 34);
             this.labelNum.TabIndex = 89;
             this.labelNum.Text = "就绪";
             this.labelNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(0, 116);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(490, 58);
+            this.groupBox3.TabIndex = 90;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "3：选择模板";
+            // 
             // FrmDbBuild
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(494, 295);
+            this.ClientSize = new System.Drawing.Size(490, 308);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.labelNum);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.but_BuildUI);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -222,8 +235,9 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -244,5 +258,6 @@
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label labelNum;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

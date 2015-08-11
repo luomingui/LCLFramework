@@ -1,10 +1,6 @@
 ﻿using LCL;
 using System;
-using System.Data;
-using System.Data.Common;
 using System.IO;
-using System.Text.RegularExpressions;
-using System.Xml;
 
 namespace UIShell.RbacPermissionService
 {
@@ -34,7 +30,7 @@ namespace UIShell.RbacPermissionService
         public static GeneralConfigInfo GetConfig()
         {
             //if (m_configinfo == null)
-                ResetConfig();
+            ResetConfig();
             return m_configinfo;
         }
 
@@ -182,10 +178,40 @@ namespace UIShell.RbacPermissionService
     {
         public GeneralConfigInfo()
         {
-            AppName = "ASP.NET MVC 快速开发框架 V 1.0";
-            CompanyName = "精英科技";
+            AppName = "南昌都市圈国民旅游休闲年票";
+            CompanyName = "百景通";
+            Copyright = " Copyright 2015 &copy; - <a href=\"http://www.jxgis.com/\">华宇股份</a>";
+            ComPort = 0;
+            ComBaud = 115200;
         }
         public string AppName { get; set; }
+        public string AppLogo { get; set; }
         public string CompanyName { get; set; }
+        public string Appurl { get; set; }
+        /// <summary>
+        /// 统计代码
+        /// </summary>
+        public string Statcode { get; set; }
+        /// <summary>
+        /// 是否允许新用户注册
+        /// </summary>
+        public int Regstatus { get; set; }
+        /// <summary>
+        /// 版权信息
+        /// </summary>
+        public string Copyright { get; set; }
+
+        #region 串口配置
+        /// <summary>
+        /// 串口端口
+        /// COM1 COM2 COM3 COM4
+        /// 0    1    2    3
+        /// </summary>
+        public int ComPort { get; set; }
+        /// <summary>
+        /// 波特率
+        /// </summary>
+        public int ComBaud { get; set; }
+        #endregion
     }
 }

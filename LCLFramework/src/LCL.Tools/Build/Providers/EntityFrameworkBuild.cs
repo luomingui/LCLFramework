@@ -15,14 +15,16 @@ namespace LCL.Tools
             //ValidationModel
             new ValidationModelBuild().GenerateValidationModel(path);
             //ViewModels
-
+            new MVCViewModelBuild().GenerateEntityViewsModeel(path);
             //EFContexts
-            
+            List<TableModel> tablenames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
+            this.BuildDbContext(path, tablenames);
             //BundleActivator
-
+            new ServiceLocatorBuild().BuildServiceLocator(path);
+            //MVC UI
+            new MVCUIBuild().GenerateBootstrapAdminViews(path);
 
             return "";
-
         }
         public void BuildDbContext(string path, List<TableModel> tableNames)
         {
@@ -32,7 +34,7 @@ namespace LCL.Tools
             builder.AppendLine("using System.Data.Entity.ModelConfiguration.Conventions; ");
             builder.AppendLine("using System.Linq; ");
 
-            builder.AppendLine("namespace " + Utils.NameSpaceEntities);
+            builder.AppendLine("namespace " + Utils.NameSpace);
             builder.AppendLine("{ ");
             builder.AppendLine("    /// <summary> ");
             builder.AppendLine("    /// 数据上下文 Db" + Utils.dbName + "Context ");
@@ -82,9 +84,9 @@ namespace LCL.Tools
             builder.AppendLine("    /// <summary> ");
             builder.AppendLine("    /// 数据库初始化策略 ");
             builder.AppendLine("    /// </summary> ");
-            builder.AppendLine("    public class SampleData : CreateDatabaseIfNotExists<AreaManageDbContext> ");
+            builder.AppendLine("    public class SampleData : CreateDatabaseIfNotExists<Db" + Utils.dbName + "> ");
             builder.AppendLine("    { ");
-            builder.AppendLine("        protected override void Seed(AreaManageDbContext context) ");
+            builder.AppendLine("        protected override void Seed(Db" + Utils.dbName + " context) ");
             builder.AppendLine("        { ");
             builder.AppendLine(" ");
             builder.AppendLine("            //MonitoringArea org = context.Set<MonitoringArea>().Add(new MonitoringArea { PID = 0, Name = \"江西\", X = 0, Y = 0, ImagePath = \"\" }); ");

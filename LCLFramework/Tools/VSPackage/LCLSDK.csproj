@@ -134,6 +134,13 @@
     <Compile Include="Commands\FileDeleteNull\DeleteNullCommand.cs" />
     <Compile Include="Commands\FileHeader\FileHeaderCommands.cs" />
     <Compile Include="Commands\MigrateOldDatabase\CodeFileGenerator.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\Data\Generate2000Sql.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\Data\Generate2005Sql.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\Data\Generate2008Sql.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\Data\GenerateSql.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\Data\IDbo.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\Data\INIFile.cs" />
+    <Compile Include="Commands\MigrateOldDatabase\Data\TableModel.cs" />
     <Compile Include="Commands\MigrateOldDatabase\MigerateDatabaseWizardWindow.xaml.cs">
       <DependentUpon>MigerateDatabaseWizardWindow.xaml</DependentUpon>
     </Compile>

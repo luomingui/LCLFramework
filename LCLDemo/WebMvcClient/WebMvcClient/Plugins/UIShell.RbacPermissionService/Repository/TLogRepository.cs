@@ -10,13 +10,8 @@
 *   
 *******************************************************/  
 using LCL.Repositories;  
-using LCL.Repositories.EntityFramework;  
-using System;  
-using System.Collections.Generic;  
-using System.Linq;  
-using System.Text;  
-using System.Threading.Tasks;  
-  
+using LCL.Repositories.EntityFramework;
+
 namespace UIShell.RbacPermissionService  
 {  
     public interface ITLogRepository : IRepository<TLog>  

@@ -2,10 +2,6 @@
 using LCL.MetaModel;
 using LCL.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
 
 namespace UIShell.RbacPermissionService
 {
@@ -36,8 +32,15 @@ namespace UIShell.RbacPermissionService
         }
         protected override bool HasCommand(string block, string module, string commandName)
         {
-            string url = "/" + block + "/" + module + "/" + commandName;
-            return RF.Concrete<IRoleAuthorityRepository>().IsAuthority(url);
+            try
+            {
+                string url = "/" + block + "/" + module + "/" + commandName;
+                return RF.Concrete<IRoleAuthorityRepository>().IsAuthority(url);
+            }
+            catch (Exception)
+            {
+                return true;
+            }
         }
         /// <summary>
         /// 检查是否拥有某个模块下某个实体某个操作的权限。

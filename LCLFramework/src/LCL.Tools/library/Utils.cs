@@ -22,7 +22,7 @@ namespace LCL.Tools
         /// <summary>
         /// 命名空间
         /// </summary>
-        public static string NameSpace = "SF.Demo";
+        public static string NameSpace = "UIShell";
         public static string NameSpaceEntities = NameSpace + ".Entities";
         public static string NameSpaceUI = NameSpace + ".WinUI";
         

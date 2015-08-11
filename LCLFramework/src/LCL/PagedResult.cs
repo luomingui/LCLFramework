@@ -83,29 +83,23 @@ namespace LCL
         private void ResetPageSizeList(int totalCount)
         {
             PageSizeList.Clear();
-
             AddPageSize(DefaultPageSize);
-
             if (totalCount > 10)
             {
                 AddPageSize(10);
             }
-
             if (totalCount > 20)
             {
                 AddPageSize(20);
             }
-
             if (totalCount > 50)
             {
                 AddPageSize(50);
             }
-
             if (totalCount > 100)
             {
                 AddPageSize(100);
             }
-
             AddPageSize(totalCount);
         }
         private void AddPageSize(int pageSize)
@@ -121,13 +115,10 @@ namespace LCL
             {
                 PageSizeList.Insert(0, pageSize);
             }
-
             TotalCount = totalCount;
             PageSize = pageSize;
             CurrentPageNum = currentPageNum;
-
             PageCount = TotalCount % PageSize == 0 ? TotalCount / PageSize : TotalCount / PageSize + 1;
-
             PagedModels = pagedModels;
         }
         public void UpdatePageByAllModels(int pageSize, int currentPageNum, List<TModel> allModels)
@@ -136,13 +127,10 @@ namespace LCL
             {
                 PageSizeList.Insert(0, pageSize);
             }
-
             TotalCount = allModels.Count;
             PageSize = pageSize;
             CurrentPageNum = currentPageNum;
-
             PageCount = TotalCount % PageSize == 0 ? TotalCount / PageSize : TotalCount / PageSize + 1;
-
             if (CurrentPageNum <= 1)
             {
                 CurrentPageNum = 1;
@@ -151,7 +139,6 @@ namespace LCL
             {
                 CurrentPageNum = PageCount;
             }
-
             PagedModels = allModels.Skip((CurrentPageNum - 1) * PageSize).Take(PageSize).ToList();
         }
     }

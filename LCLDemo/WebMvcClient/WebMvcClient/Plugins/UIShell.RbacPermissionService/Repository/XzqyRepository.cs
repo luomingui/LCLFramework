@@ -16,25 +16,22 @@ using LCL.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;  
-  
-namespace UIShell.RbacPermissionService  
-{  
-    public interface IXzqyRepository : IRepository<Xzqy>  
+
+namespace UIShell.RbacPermissionService
+{
+    public interface IXzqyRepository : IRepository<Xzqy>
     {
         List<Xzqy> GetXzqyRootsList();
         List<Xzqy> GetXzqyChildList(Guid? pid);
-
         List<Xzqy> GetFull();
-    }  
-    public class XzqyRepository : EntityFrameworkRepository<Xzqy>, IXzqyRepository  
-    {  
-        public XzqyRepository(IRepositoryContext context)  
-            : base(context)  
-        {   
-          
+        XzqyTreeModel GetXzqyTreeModel(Guid CountyId);
+    }
+    public class XzqyRepository : EntityFrameworkRepository<Xzqy>, IXzqyRepository
+    {
+        public XzqyRepository(IRepositoryContext context)
+            : base(context)
+        {
+
         }
 
         public List<Xzqy> GetXzqyChildList(Guid? pid)
@@ -59,10 +56,30 @@ namespace UIShell.RbacPermissionService
         }
         public List<Xzqy> GetFull()
         {
-            var list = this.FindAll(e => e.NodePath, SortOrder.Ascending);
-
+            var dt = DbFactory.DBA.QueryDataTable("SELECT * FROM Xzqy ORDER BY NodePath ASC");
+            var list = dt.ToArray<Xzqy>();
             return list.ToList();
         }
-    }  
-}  
+        public XzqyTreeModel GetXzqyTreeModel(Guid CountyId)
+        {
+            var dataTable = DbFactory.DBA.QueryDataTable(@"SELECT  
+        a.ID AS ProvinceId,
+        a.Name AS Province ,
+        b.ID AS CityId,
+        b.Name AS City ,
+        c.ID AS CountyId,
+        c.Name AS County
+FROM    dbo.Xzqy a
+        INNER JOIN dbo.Xzqy b ON b.ParentId = a.ID
+        INNER JOIN dbo.Xzqy c ON c.ParentId = b.ID WHERE   c.ID = '" + CountyId + "'");
+
+            var list = dataTable.ToArray<XzqyTreeModel>();
+
+            if (list.Count() > 0)
+                return list[0];
+            else
+                return null;
+        }
+    }
+}
 

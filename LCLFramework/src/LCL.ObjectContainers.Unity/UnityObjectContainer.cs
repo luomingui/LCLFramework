@@ -12,10 +12,6 @@ namespace LCL.ObjectContainers.Unity
         {
             _unityContainer = new Microsoft.Practices.Unity.UnityContainer();
         }
-        public UnityObjectContainer(IUnityContainer unityContainer)
-        {
-            _unityContainer = unityContainer;
-        }
         public IUnityContainer UnityContainer
         {
             get { return _unityContainer; }

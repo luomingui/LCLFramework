@@ -42,25 +42,29 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LCL">
-      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.dll</HintPath>
-    </Reference>
-    <Reference Include="LCL.MvcExtensions, Version=4.5.3.0, Culture=neutral, PublicKeyToken=f50a43e59c86799d, processorArchitecture=MSIL">
+    <Reference Include="LCL, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7e4a2438e8435554, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.MvcExtensions.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Lib\LCL.dll</HintPath>
     </Reference>
-    <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
+    <Reference Include="LCL.MvcExtensions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=f50a43e59c86799d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Lib\LCL.MvcExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="LCL.ObjectContainers.Unity, Version=6.1.0.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="LCL.Utils">
-      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.Utils.dll</HintPath>
+    <Reference Include="LCL.Utils, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Lib\LCL.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
@@ -94,25 +98,27 @@
     <Compile Include="BundleActivator.cs" />
     <Compile Include="Code\ValidateCode.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CompanyInfoController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DictionaryController.cs" />
     <Compile Include="Controllers\DictTypeController.cs" />
+    <Compile Include="Controllers\GeneralConfigInfoController.cs" />
     <Compile Include="Controllers\RoleAuthorityController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
-    <Compile Include="Controllers\SchoolInfoController.cs" />
     <Compile Include="Controllers\TLogController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\User_EmployeeController.cs" />
-    <Compile Include="Controllers\User_StudentController.cs" />
-    <Compile Include="Controllers\User_TeacherCheckController.cs" />
-    <Compile Include="Controllers\User_TeacherController.cs" />
     <Compile Include="Controllers\XzqyController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Account.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Login\css\loginstyleblue2.css" />
+    <Content Include="Content\Login\images\cloud.png" />
+    <Content Include="Content\Login\images\loginbg1.png" />
+    <Content Include="Content\Login\images\loginbg2.png" />
+    <Content Include="Content\Login\images\logininfo.png" />
+    <Content Include="Content\Login\images\loginlogo.png" />
+    <Content Include="Content\Login\images\loginsj.png" />
+    <Content Include="Content\Login\images\loginuser.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -126,26 +132,15 @@
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UIShell.RbacPermissionService\UIShell.RbacPermissionService.csproj">
-      <Project>{b91f2399-6395-439b-9645-c83e747c356f}</Project>
-      <Name>UIShell.RbacPermissionService</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\NoPermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_SinglePageLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_PagedListBottom.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\CompanyInfo\AddOrEdit.cshtml" />
-    <Content Include="Views\CompanyInfo\Index.cshtml" />
     <Content Include="Views\Dictionary\AddOrEdit.cshtml" />
     <Content Include="Views\Dictionary\Index.cshtml" />
     <Content Include="Views\DictType\AddOrEdit.cshtml" />
@@ -154,8 +149,6 @@
     <Content Include="Views\RoleAuthority\Index.cshtml" />
     <Content Include="Views\Role\AddOrEdit.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\SchoolInfo\AddOrEdit.cshtml" />
-    <Content Include="Views\SchoolInfo\Index.cshtml" />
     <Content Include="Views\TLog\Index.cshtml" />
     <Content Include="Views\User\AddOrEdit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
@@ -167,18 +160,28 @@
     <Content Include="Views\Schedule\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\GeneralConfigInfo\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UIShell.RbacPermissionService\UIShell.RbacPermissionService.csproj">
+      <Project>{b91f2399-6395-439b-9645-c83e747c356f}</Project>
+      <Name>UIShell.RbacPermissionService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Department\AddOrEdit.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\User_Employee\AddOrEdit.cshtml" />
-    <Content Include="Views\User_Employee\Index.cshtml" />
-    <Content Include="Views\User_Student\AddOrEdit.cshtml" />
-    <Content Include="Views\User_Student\Index.cshtml" />
-    <Content Include="Views\User_TeacherCheck\AddOrEdit.cshtml" />
-    <Content Include="Views\User_TeacherCheck\Index.cshtml" />
-    <Content Include="Views\User_Teacher\AddOrEdit.cshtml" />
-    <Content Include="Views\User_Teacher\Index.cshtml" />
+    <Content Include="Views\Department\DepartmentUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Department\DepartmentUserAddOrEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\UIShell.RbacManagementPlugin.pubxml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

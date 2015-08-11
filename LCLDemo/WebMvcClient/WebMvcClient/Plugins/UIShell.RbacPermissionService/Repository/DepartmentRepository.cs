@@ -1,29 +1,16 @@
-using LCL;
-/*******************************************************  
-*   
-* 作者：罗敏贵  
-* 说明： 部门 
-* 运行环境：.NET 4.5.0  
-* 版本号：1.0.0  
-*   
-* 历史记录：  
-*    创建文件 罗敏贵 20154月22日 星期三 
-*   
-*******************************************************/
-using LCL.Repositories;
+锘縰sing LCL.Repositories;
 using LCL.Repositories.EntityFramework;
 using LCL.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UIShell.RbacPermissionService
 {
     public interface IDepartmentRepository : IRepository<Department>
     {
-        List<Department> GetUnitDepartment(Guid unitId);
+        List<Department> GetXzqyDepartment(Guid xzqyId);
+
     }
     public class DepartmentRepository : EntityFrameworkRepository<Department>, IDepartmentRepository
     {
@@ -32,13 +19,22 @@ namespace UIShell.RbacPermissionService
         {
 
         }
-        public List<Department> GetUnitDepartment(Guid unitId)
-        {
-            ISpecification<Department> spec = Specification<Department>.Eval(p => p.UnitInfo.ID == unitId);
-            var list = this.FindAll(spec, e => e.NodePath, SortOrder.Ascending);
 
-            return list.ToList();
+        public List<Department> GetXzqyDepartment(Guid xzqyId)
+        {
+            List<Department> list = new List<Department>();
+            if (xzqyId != null && xzqyId != Guid.Empty)
+            {
+                ISpecification<Department> spec = Specification<Department>.Eval(p => p.Xzqy.ID == xzqyId && p.DepartmentType == DepartmentType.缃戠偣 && p.IsDelete == false);
+                list = this.FindAll(spec).ToList();
+            }
+            return list;
+        }
+
+        protected override void DoRemove(Department entity)
+        {
+            DbFactory.DBA.ExecuteText("UPDATE [User] SET IsDelete=1 WHERE Department_ID='" + entity.ID + "'");
+            base.DoRemove(entity);
         }
     }
 }
-

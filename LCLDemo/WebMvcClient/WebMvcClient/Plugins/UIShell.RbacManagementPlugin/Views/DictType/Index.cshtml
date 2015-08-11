@@ -15,7 +15,7 @@
                 <span>总数：@Model.TotalCount</span>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-warning pull-right" onclick="javascript: location.href='@Url.Action("AddOrEdit",
+                <button type="button" class="btn btn-primary pull-right" onclick="javascript: location.href='@Url.Action("AddOrEdit",
     new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
                     新 增
                 </button>
@@ -28,10 +28,10 @@
                 <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>操作</th>
                             <th>名称</th>
                             <th>描述</th>
                             <th>更新时间</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,8 +39,11 @@
                             foreach (var view in Model.PagedModels)
                             {
                                 <tr>
+                                    <td>@view.Name</td>
+                                    <td>@view.DicDes</td>
+                                    <td>@view.UpdateDate</td>
                                     <td>
-                                        <a class="btn btn-xs btn-primary" href="../Dictionary/Index?dicTypeId=@view.ID">查看</a>
+                                        <a class="btn btn-xs btn-primary" href="~/UIShell.RbacManagementPlugin/Dictionary/Index?dicTypeId=@view.ID">查看</a>
                                         <button type="button" class="btn btn-xs btn-warning"
                                                 onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
                                             <i class="icon-pencil"></i>
@@ -50,9 +53,6 @@
                                             <i class="icon-remove"></i>
                                         </button>
                                     </td>
-                                    <td>@view.Name</td>
-                                    <td>@view.DicDes</td>
-                                    <td>@view.UpdateDate</td>
                                 </tr>
                             }
                         }
