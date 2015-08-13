@@ -14,13 +14,13 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Label Content="连接字符串" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" />
-        <TextBox x:Name="txtConnectionString" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="23"
-                Margin="4" />
+        <TextBox x:Name="txtConnectionString" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Margin="4" />
         <Label Content="领域名称" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" Grid.Row="1" />
-        <TextBox x:Name="txtDomainName" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Grid.Row="1"
-                Margin="4" />
-        <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="本功能用于为历史数据库生成实体类。
-为拥有自增长、以 Id 结尾命名的列的表来生成对应的实体，这个列会被映射到实体类的 Id 上。目前只支持 SqlServer 数据库。" Margin="4,4,200,4" HorizontalAlignment="Left"
+        <TextBox x:Name="txtDomainName" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Grid.Row="1" Margin="4" />
+        <Label Content="是否MVC" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" Grid.Row="2" />
+        <CheckBox x:Name="txtIsMVC" Grid.Column="1"  VerticalAlignment="Top" Height="23" Grid.Row="2"  Margin="4" />
+        <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="本功能用于为历史数据库生成实体,仓库，视图模型，验证模型类。
+为拥有自增长、以 ID 结尾命名的列的表来生成对应的实体，这个列会被映射到实体类的 ID 上。目前只支持 SqlServer 数据库。" Margin="4,4,200,4" HorizontalAlignment="Left"
                 VerticalAlignment="Center" Grid.ColumnSpan="2" />
         <Button x:Name="btnContinue" Content="确定" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="3"
                 VerticalAlignment="Center" Margin="0,0,5,0" Width="80" Click="btnContinue_Click" IsDefault="True" />
