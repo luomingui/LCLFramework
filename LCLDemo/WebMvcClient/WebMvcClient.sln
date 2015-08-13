@@ -19,7 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIShell.RbacPermissionServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIShell.RbacManagementPlugin", "WebMvcClient\Plugins\UIShell.RbacManagementPlugin\UIShell.RbacManagementPlugin.csproj", "{12C627F9-D221-4D56-8B6A-9FF6A239269F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIShell.OfficeAutomationPlugin", "WebMvcClient\Plugins\UIShell.OfficeAutomationPlugin\UIShell.OfficeAutomationPlugin.csproj", "{2110884B-5878-4E28-BDE4-C901BCF3994D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIShell.EducationDeviceMaintenanceService", "WebMvcClient\Plugins\UIShell.EducationDeviceMaintenanceService\UIShell.EducationDeviceMaintenanceService.csproj", "{8F3A1196-6CF0-4B18-806A-136BCA42FB18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIShell.EducationDeviceMaintenancePlugin", "WebMvcClient\Plugins\UIShell.EducationDeviceMaintenancePlugin\UIShell.EducationDeviceMaintenancePlugin.csproj", "{2110884B-5878-4E28-BDE4-C901BCF3994D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{12C627F9-D221-4D56-8B6A-9FF6A239269F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12C627F9-D221-4D56-8B6A-9FF6A239269F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12C627F9-D221-4D56-8B6A-9FF6A239269F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F3A1196-6CF0-4B18-806A-136BCA42FB18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F3A1196-6CF0-4B18-806A-136BCA42FB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F3A1196-6CF0-4B18-806A-136BCA42FB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F3A1196-6CF0-4B18-806A-136BCA42FB18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2110884B-5878-4E28-BDE4-C901BCF3994D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2110884B-5878-4E28-BDE4-C901BCF3994D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2110884B-5878-4E28-BDE4-C901BCF3994D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +59,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{066AD8B4-1793-4D1A-BB67-2325520B60F0} = {ED76EE45-3DC1-4346-8DF3-BC54842A5186}
+		{8F3A1196-6CF0-4B18-806A-136BCA42FB18} = {37C80405-81AC-4F1B-BD4C-75E88845AADC}
 		{2110884B-5878-4E28-BDE4-C901BCF3994D} = {37C80405-81AC-4F1B-BD4C-75E88845AADC}
 		{146912A7-34DA-4040-9C9D-076030E5F7C0} = {B89A17B5-63C4-4D4B-B07F-ED1E46181DA0}
 		{B91F2399-6395-439B-9645-C83E747C356F} = {B89A17B5-63C4-4D4B-B07F-ED1E46181DA0}
