@@ -13,7 +13,7 @@ using Microsoft.Win32;
 namespace LCL.VSPackage.Commands.VSTemplates
 {
     /// <summary>
-    /// 注册
+    /// 注册项目模板
     /// </summary>
     class InstallVSTemplatesCommand : Command
     {
@@ -23,7 +23,7 @@ namespace LCL.VSPackage.Commands.VSTemplates
         }
         protected override void ExecuteCore()
         {
-            var res = MessageBox.Show("点击‘是’安装代码段，点击‘否’删除代码段。", "安装/卸载", MessageBoxButton.YesNoCancel);
+            var res = MessageBox.Show("点击‘是’安装项目模板，点击‘否’删除项目模板。", "安装/卸载", MessageBoxButton.YesNoCancel);
 
             if (res != MessageBoxResult.Cancel)
             {
