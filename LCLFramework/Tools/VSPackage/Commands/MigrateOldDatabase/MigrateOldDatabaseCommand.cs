@@ -52,9 +52,11 @@ namespace LCL.VSPackage.Commands.MigrateOldDatabase
                 var items = projects[0].ProjectItems;
                 generator.Directory = items.FindByName("Entities") ?? items.AddFolder("Entities");
                 generator.RepoDirectory = items.FindByName("Repository") ?? items.AddFolder("Repository");
+                generator.EFContexts = items.FindByName("EFContexts") ?? items.AddFolder("EFContexts");
+
                 generator.ValidationModel = items.FindByName("ValidationModel") ?? items.AddFolder("ValidationModel");
                 generator.ViewModels = items.FindByName("ViewModels") ?? items.AddFolder("ViewModels");
-                generator.EFContexts = items.FindByName("EFContexts") ?? items.AddFolder("EFContexts");
+                generator.Controllers = items.FindByName("Controllers") ?? items.AddFolder("Controllers");
 
                 //开始生成代码。
                 try
