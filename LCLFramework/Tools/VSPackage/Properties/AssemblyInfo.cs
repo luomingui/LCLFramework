@@ -7,17 +7,17 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LCLFrameworkSDK")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("LCL")]
+[assembly: AssemblyDescription("LCLFrameworkSDK")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("老罗")]
 [assembly: AssemblyProduct("LCLFrameworkSDK")]
-[assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("LCL")]
+[assembly: AssemblyTrademark("老罗")]
 [assembly: AssemblyCulture("")]   
 [assembly: ComVisible(false)]     
 [assembly: CLSCompliant(false)]
-[assembly: NeutralResourcesLanguage("en-US")]
+[assembly: NeutralResourcesLanguage("zh-CN")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,3 +34,4 @@ using System.Runtime.InteropServices;
 
 
 
+[assembly: GuidAttribute("AC731B27-C4EB-47E0-AF63-290AB866352A")]

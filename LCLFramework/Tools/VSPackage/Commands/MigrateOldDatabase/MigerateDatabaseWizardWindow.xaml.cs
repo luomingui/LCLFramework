@@ -34,13 +34,13 @@ namespace LCL.VSPackage.Commands.MigrateOldDatabase
         {
             InitializeComponent();
 
-    
+            this.txtIsMVC.IsChecked = false;
         }
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }
 
-        
+
     }
 }

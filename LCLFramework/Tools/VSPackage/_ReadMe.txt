@@ -1,10 +1,10 @@
-ÈçºÎÀ©Õ¹£º
-1£º´´½¨Ò»¸öÃüÁî
+ï»¿å¦‚ä½•æ‰©å±•ï¼š
+1ï¼šåˆ›å»ºä¸€ä¸ªå‘½ä»¤
 class XXXXXCommand: Command
 {
   public XXXXXCommand()
   {
      this.CommandID = new CommandID(GuidList.guidVSPackageCmdSet, PkgCmdIDList.cmdidDeleteNullCommandCommand);
   }
-£ı
-2£ºÅäÖÃIDE VSPackage.vsct
+ï½
+2ï¼šé…ç½®IDE VSPackage.vsct

@@ -58,6 +58,8 @@ namespace LCL.VSPackage.Commands.MigrateOldDatabase
                 generator.ViewModels = items.FindByName("ViewModels") ?? items.AddFolder("ViewModels");
                 generator.Controllers = items.FindByName("Controllers") ?? items.AddFolder("Controllers");
 
+                generator.IsMVC = win.txtIsMVC.IsChecked.Value;
+
                 //开始生成代码。
                 try
                 {

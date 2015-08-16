@@ -314,9 +314,9 @@ namespace LCL.VSPackage.Commands.MigrateOldDatabase
             builder.AppendLine("    /// <summary> ");
             builder.AppendLine("    /// 数据库初始化策略 ");
             builder.AppendLine("    /// </summary> ");
-            builder.AppendLine("    public class SampleData : CreateDatabaseIfNotExists<Db" + DbName + "> ");
+            builder.AppendLine("    public class SampleData : CreateDatabaseIfNotExists<Db" + DbName + "Context> ");
             builder.AppendLine("    { ");
-            builder.AppendLine("        protected override void Seed(Db" + DbName + " context) ");
+            builder.AppendLine("        protected override void Seed(Db" + DbName + "Context context) ");
             builder.AppendLine("        { ");
             builder.AppendLine(" ");
             builder.AppendLine("            //MonitoringArea org = context.Set<MonitoringArea>().Add(new MonitoringArea { PID = 0, Name = \"江西\", X = 0, Y = 0, ImagePath = \"\" }); ");
@@ -327,7 +327,7 @@ namespace LCL.VSPackage.Commands.MigrateOldDatabase
             builder.AppendLine("} ");
 
             //写到文件，并加入到项目中。
-            var file = Path.Combine(Path.GetDirectoryName(EFContexts.get_FileNames(1)), DbName) + ".cs";
+            var file = Path.Combine(Path.GetDirectoryName(EFContexts.get_FileNames(1)), "Db" + DbName) + "Context.cs";
             if (!File.Exists(file))
             {
                 File.WriteAllText(file, builder.ToString());
