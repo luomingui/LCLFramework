@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="153673c9-7c40-4679-b139-a3e7e3cec4ef" revisionNumber="1">
+    <developerConceptualDocument
+      xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+
+          <section address="DDD">
+            <title>插件应用架构概述</title>
+            <content>
+                <para>基于LCLFramework插件框架的应用由以下三个部分构成：</para>    
+				<list class="bullet">
+				  <listItem><para>主程序：针对特定应用环境（Web、WinForm等应用环境），加载启动插件，获取插件入口，运行入口程序。</para></listItem>
+				  <listItem><para>插件：提供应用功能，实现对其它插件功能扩展并暴露功能扩展点。</para></listItem>
+				  <listItem><para>插件框架：与特定应用环境无关，实现插件功能组合与扩展。</para></listItem>
+				</list>
+                 <mediaLink>
+                    <caption>插件构成</caption>
+                    <image xlink:href="Plugin1"/>
+                </mediaLink>
+            </content>
+        </section>
+ 
+      <section address="DDD">
+            <title>主程序与插件的通讯</title>
+            <content>
+                <para>主程序可以通过插件框架LEnvironment来注册和获取服务。服务在这里表述为：服务 = 接口/基类 + 实现类。：</para>    
+                 <mediaLink>
+                    <caption>插件构成</caption>
+                    <image xlink:href="Plugin2"/>
+                </mediaLink>
+            </content>
+        </section>
+        
+        <section address="DDD">
+            <title>Plugin模式在示例中的实际目的小结一下</title>
+            <content>
+                <list class="bullet">
+				  <listItem><para>Plugin模式是架构模式，在设计架构时，才有参考价值；</para></listItem>
+				  <listItem><para>Plugin模式主要是实现单一职责的封装，和扩展应用程序；</para></listItem>
+				  <listItem><para>目前的插件框架主要是Kernel+Core Plugins组成的结构体系;</para></listItem>
+				</list>
+            </content>
+        </section>
+               
+        <section address="DDD">
+            <title>Plugin与扩展的区别</title>
+            <content>
+                <list class="bullet">
+				  <listItem><para>插件稍不同于扩展（extension），插件通常依赖于主应用程序的接口，有一个它们可以运行的确定的界限。扩展则通常有更少的限制，也可以提供它们自己的接口。相同的是，它们通常都用来减少主应用程序的大小、提供一些可选的功能。</para></listItem>
+				  <listItem><para>  这里不得不提到Mozilla Firefox 和相关软件。它们使用一个叫做Add-on的名词，Add-on又被细分为插件、主题（theme）、搜索引擎（search engine）和扩展。在以后的文章中将会提到Mozilla插件和古老的NPAPI的渊源，以及firefox中插件和扩展的区别。</para></listItem>
+				</list>
+            </content>
+        </section>
+                      
+        <section address="DDD">
+            <title>LCLFramework框架之Plugin设计</title>
+            <content>
+                <list class="ordered">
+				  <listItem><para>定义插件程序集搜索目录 搜索/Plugins 和 /Plugins/Bin文件夹。</para></listItem>
+				  <listItem><para>把Plugins文件夹下的文件复制到临时目录再加载程序集到内存。 </para></listItem>
+				  <listItem><para>执行插件自定义的Initialize函数来初始化插件本身。 </para></listItem>
+				  <listItem><para>在插件程序集中加入 BuildManager.AddReferencedAssembly。 </para></listItem>
+				  <listItem><para>定义PluginView视图。 </para></listItem>
+				  <listItem><para>插件控制器工厂PluginControllerFactory查找插件控制器。。 </para></listItem>
+				  <listItem><para>定义插件开发常用功能，如:URL查找 </para></listItem>
+				</list>
+            </content>
+        </section>
+         <section address="DDD">
+            <title>注意</title>
+            <content>
+                <list class="bullet">
+				  <listItem><para>插件中的 web.config 文件是为了让 .cshtml 有智能感知提示</para></listItem>
+				  <listItem><para>每个插件都需要有一个类（只能有一个）继承LCLPlugin来表示这是一个LCLPlugin。 </para></listItem>
+				</list>
+            </content>
+        </section>
+           <section address="ddd">
+            <title>附 </title>
+            <content>
+            主要参考《 <externalLink>
+                        <linkText>nopcommerce</linkText>
+                        <linkUri>http://www.nopcommerce.com/downloads.aspx</linkUri>
+                    </externalLink>》《
+                    <externalLink>
+                        <linkText>orchard</linkText>
+                        <linkUri>http://orchard.codeplex.com/</linkUri>
+                    </externalLink>》《
+ 					<externalLink>
+                        <linkText>Rafy</linkText>
+                        <linkUri>http://www.cnblogs.com/zgynhqf/p/3356692.html</linkUri>
+                    </externalLink>》
+    
+            </content>
+        </section>
+        <relatedTopics>
+        </relatedTopics>
+    </developerConceptualDocument>
+</topic>

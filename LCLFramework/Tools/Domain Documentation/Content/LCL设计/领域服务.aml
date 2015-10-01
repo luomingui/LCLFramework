@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="353673c9-7c40-4679-b139-a3e7e4cec8ef" revisionNumber="1">
+    <developerConceptualDocument
+      xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+          <section address="DDD">
+            <title>领域服务（Domain Service）</title>
+            <content>
+                <para>
+               领域中的一些概念不太适合建模为对象，即归类到实体对象或值对象，因为它们本质上就是一些操作，一些动作，而不是事物。
+               这些操作或动作往往会涉及到多个领域对象，并且需要协调这些领域对象共同完成这个操作或动作。
+               DDD认为服务是一个很自然的范式用来对应这种跨多个对象的操作，所以就有了领域服务这个模式。
+                </para>
+                <para> 个人认为，领域服务的引入，增加了模型的抗需求变更的能力。我们可以通过需求分析，找出业务逻辑中易变的部分，
+               以领域服务的方式“注入”到领域模型中，今后若有需求变更，则可以无需更改任何现有组件，完成业务处理逻辑的改变。</para>
+               <para> 模型关注领域的个体行为，场景关注领域的群体行为，模型关注领域的静态结构，软件中一般有三种服务：应用层服务、领域服务、基础服务。</para>
+				<list class="bullet">
+				<listItem><para>它存在的意义就是协调领域对象共完成某个操作</para></listItem>
+				<listItem><para>领域服务是以动词开头来命名的</para></listItem>
+				  <listItem><para>领域服务没有状态只有行为</para></listItem>
+				  <listItem><para>领域服务是无状态的</para></listItem>
+				  <listItem><para>避免领域逻辑泄露到应用层</para></listItem>
+				  <listItem><para>领域服务具有Façade的功能</para></listItem>
+				   <listItem><para><legacyBold>较高的可扩展性</legacyBold></para></listItem>
+				   <listItem><para><legacyBold>采用命令模式设计</legacyBold></para></listItem>
+				</list>
+                 <mediaLink>
+                    <caption>领域服务UML</caption>
+                    <image xlink:href="DomainService" />
+                </mediaLink>
+            </content>
+        </section>
+
+<section address="optionalAddress">
+  <content>
+    <para>1. 我们将对服务的公共操作部分，提取为IDomainService接口，如下代码：</para>
+		<code language="cs">
+		 <![CDATA[
+    public interface IDomainService
+    {
+        void Invoke();
+    }
+    public abstract class DomainService : IDomainService
+    {
+        protected abstract void Execute();
+        public void Invoke()
+        {
+            this.Execute(context);
+        }
+    }
+    /// <summary>
+    /// 服务命名规范：
+    ///    1：服务名称Service
+    ///    2：服务名称Service_V1000
+    /// </summary>
+    [DebuggerDisplay("Count = {Count}")]
+    public class DomainServiceLocator
+    {
+       void TryAssemblyAddServices(){}
+    }
+		]]>
+		</code>
+		<para>1.加载服务 。如下代码：</para>
+		<code language="cs">
+		 <![CDATA[
+    public class Global : System.Web.HttpApplication 
+    { 
+        protected void Application_Start(object sender, EventArgs e) 
+        { 
+            ServiceLocator.Instance.TryAssemblyAddServices(); 
+        } 
+    }
+		]]>
+		</code>
+		<para>2.创建服务 。如下代码：</para>
+		<code language="cs">
+		 <![CDATA[
+[Serializable]
+public class AddService : Service
+{
+    //两个服务的输入参数
+    public int A { get; set; }
+    public int B { get; set; }
+
+    //服务的输出参数
+    [ServiceOutput]
+    public int Result { get; set; }
+
+    protected override void Execute()
+    {
+        Result = A + B;
+    }
+}
+		]]>
+		</code>
+		<para>3.调用服务 。如下代码：</para>
+		<code language="cs">
+		 <![CDATA[
+     public class HttpHandlerDemo: IHttpHandler
+     {
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            try
+            {
+                string sMothod = LRequest.GetString("method");
+                string version = LRequest.GetString("version");
+                    context.Response.Clear();
+                    var service = ServiceLocator.Instance.FindImpl(sMothod, version);
+                    service.Invoke(context);
+            }
+            catch (Exception ex)
+            {
+                LogManage.AddErrorLog(ex);
+            }
+        }
+    }
+		]]>
+		</code>
+  </content>
+</section>
+   
+        <section address="args">
+            <title>服务的输入与输出</title>
+            <content>
+                <para>以类的形式封装服务后，同样，每个服务需要声明它的输出和输出，形同方法的参数与返回值。领域服务的输入和输出都以服务类的属性的形式编写。例如上面 AddService 中的 A、B 两个属性是输出属性，而 Result 属性则是输出属性。</para>
+                <list class="bullet">
+                    <listItem>
+                        <para>输出属性</para>
+                        <para>
+                            标记了 <codeInline>ServiceOutputAttribute</codeInline> 特性的属性都是服务的输出。
+                        </para>
+                        <para>注意，一个服务可以有多个输出。</para>
+                    </listItem>
+                    <listItem>
+                        <para>输入属性</para>
+                        <para>
+                            没有任何标记、或者标记了 <codeInline>ServiceInputAttribute</codeInline> 特性的属性都是服务的输入。
+                        </para>
+                        <para>一个属性可以即是输入也是输出，这时需要同时标记以上两个特性。</para>
+                    </listItem>
+                </list>
+            </content>
+        </section>
+                <section address="ext">
+            <title>服务的扩展</title>
+            <content>
+                <para>在低启动级别的插件中，可以使用 ServiceFactory.Override 方法来替换高启动级别插件中的指定服务。这样，使用工厂创建出的服务，都是替换后的服务。</para>
+            </content>
+        </section>
+        <section address="ddd">
+            <title>附 </title>
+            <content>
+                <para>
+                    关于 Service Layer 的详细概念，见 P of EAA Catalog  的：《<externalLink>
+                        <linkText>Service Layer</linkText>
+                        <linkUri>http://martinfowler.com/eaaCatalog/serviceLayer.html</linkUri>
+                    </externalLink> 》。
+                </para>
+                       <para>
+                    主要借鉴Rafy框架，见 胡庆访  的：《<externalLink>
+                        <linkText>博客</linkText>
+                        <linkUri> http://www.cnblogs.com/zgynhqf/</linkUri>
+                    </externalLink> 》。
+                </para>
+                
+               
+            </content>
+        </section>
+        <relatedTopics>
+        </relatedTopics>
+    </developerConceptualDocument>
+</topic>
