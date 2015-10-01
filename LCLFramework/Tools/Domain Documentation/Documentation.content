@@ -1,24 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
   <Topic id="fcbf2471-6f51-4f20-9fda-fbcd06e14f92" visible="True" isExpanded="true">
-    <Topic id="3ebafad8-73e3-431f-9e49-9a0d9b23c786" visible="True" isExpanded="true" isSelected="true">
+    <Topic id="43c84dfc-b1c4-476f-ab06-349c693e5729" visible="True">
+      <Topic id="e4f8b90c-9b85-4906-bce9-d2c35d5ba465" visible="True" />
+      <Topic id="abcca6ad-07c4-46ce-ad48-45d3f90a7060" visible="True" />
+      <Topic id="61ca337b-3c84-478a-bd75-57092ce4fc4e" visible="True" />
+      <Topic id="c828a7e4-e087-4dc9-a22a-1697c4269809" visible="True" noFile="true" title="快速试用">
+        <Topic id="fdbb7d56-393e-4e0b-b69f-995a50f513eb" visible="True" />
+        <Topic id="e62ba2ed-ba69-46d8-8f23-6111c25215f0" visible="True" />
+      </Topic>
+      <Topic id="ca6e33b5-9fd3-44d6-ae54-8f762a1fea19" visible="True" />
+      <Topic id="253673c9-7c40-4679-b139-a3e7e3cec8ef" visible="True" />
+      <Topic id="b21ec496-3470-41d8-b959-5dd8ff43db56" visible="True" />
+      <Topic id="353673c9-7c40-4679-b139-a3e7e4cec8ef" visible="True" />
+      <Topic id="153673c9-7c40-4679-b139-a3e7e3cec4ef" visible="True" title="插件模式" />
+      <Topic id="e81528bd-9816-4236-8d19-9ac9815e0e0e" visible="True" />
+    </Topic>
+    <Topic id="3ebafad8-73e3-431f-9e49-9a0d9b23c786" visible="True" isSelected="true">
       <Topic id="946c540b-acb0-4531-b99c-85756cb69d4e" visible="True" />
       <Topic id="15c790a6-8f5e-44aa-b8c3-74a955004a1e" visible="True" />
       <Topic id="853673c9-7c40-4679-b139-a3e7e3cec8ef" visible="True" />
       <Topic id="813981b5-3631-4d47-84ee-314aed1346ff" visible="True" />
-    </Topic>
-    <Topic id="fcbf2471-6f51-4f20-9fda-fbcd06e14f81" visible="True" isExpanded="true">
-      <Topic id="353673c9-7c40-4679-b139-a3e7e4cec8ef" visible="True" />
-      <Topic id="253673c9-7c40-4679-b139-a3e7e3cec8ef" visible="True" />
-      <Topic id="153673c9-7c40-4679-b139-a3e7e3cec4ef" visible="True" title="插件模式" />
-      <Topic id="b21ec496-3470-41d8-b959-5dd8ff43db56" visible="True" />
-      <Topic id="e81528bd-9816-4236-8d19-9ac9815e0e0e" visible="True" />
-      <Topic id="ca6e33b5-9fd3-44d6-ae54-8f762a1fea19" visible="True" />
-    </Topic>
-    <Topic id="43c84dfc-b1c4-476f-ab06-349c693e5729" visible="True" isExpanded="true">
-      <Topic id="ea0c0dcc-5712-4d7c-80fa-0d2bf99c6e51" visible="True" />
-      <Topic id="abcca6ad-07c4-46ce-ad48-45d3f90a7060" visible="True" />
-      <Topic id="61ca337b-3c84-478a-bd75-57092ce4fc4e" visible="True" />
     </Topic>
     <Topic id="50a5c6a3-1336-4ec3-8c6d-fedb0b93cc37" visible="True" />
   </Topic>
