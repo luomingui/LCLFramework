@@ -3,7 +3,10 @@
     <developerConceptualDocument
       xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
       xmlns:xlink="http://www.w3.org/1999/xlink">
-          <section address="DDD">
+          <introduction>
+            <autoOutline />
+        </introduction>
+          <section address="intro">
             <title>领域服务（Domain Service）</title>
             <content>
                 <para>
@@ -14,15 +17,26 @@
                 <para> 个人认为，领域服务的引入，增加了模型的抗需求变更的能力。我们可以通过需求分析，找出业务逻辑中易变的部分，
                以领域服务的方式“注入”到领域模型中，今后若有需求变更，则可以无需更改任何现有组件，完成业务处理逻辑的改变。</para>
                <para> 模型关注领域的个体行为，场景关注领域的群体行为，模型关注领域的静态结构，软件中一般有三种服务：应用层服务、领域服务、基础服务。</para>
+               <para>LCL 领域服务的特点：</para>
 				<list class="bullet">
 				<listItem><para>它存在的意义就是协调领域对象共完成某个操作</para></listItem>
 				<listItem><para>领域服务是以动词开头来命名的</para></listItem>
 				  <listItem><para>领域服务没有状态只有行为</para></listItem>
-				  <listItem><para>领域服务是无状态的</para></listItem>
+				  <listItem><para>领域服务是无状态的</para>
+				  <para>领域服务是无状态的。虽然服务类都有属性，但每一次服务的调用都需要构造新的服务对象，
+				  而服务对象的属性只是为了传递服务的输入和输出，是临时的状态，当调用完成后，服务对象即被丢弃、回收。</para>
+				  </listItem>
 				  <listItem><para>避免领域逻辑泄露到应用层</para></listItem>
 				  <listItem><para>领域服务具有Façade的功能</para></listItem>
-				   <listItem><para><legacyBold>较高的可扩展性</legacyBold></para></listItem>
-				   <listItem><para><legacyBold>采用命令模式设计</legacyBold></para></listItem>
+				   <listItem><para>较高的可扩展性</para>
+				   <para>服务的可替换性：通过服务的工厂来创建服务的实例，使得我们对服务的创建过程进行扩展。
+				   例如可以使用新的服务来替换旧的服务，而不需要修改旧的服务调用代码。</para><codeInline></codeInline>
+				   </listItem>
+				   <listItem><para>采用命令模式设计</para>
+				   <para>与其它的服务框架不同，LCL 使用了命令模式来设计领域服务，以单独类来封装每个单独的服务。
+				   而 WebService/WCF 等服务框架，则是用方法来表达每一个单独的服务。把服务抽象为单独的类的模式，
+				   不但可以保证服务与服务间的相互独立，还能更好地使用面向对象的特性来提供服务的可扩展性。</para>
+				   </listItem>
 				</list>
                  <mediaLink>
                     <caption>领域服务UML</caption>
@@ -31,7 +45,7 @@
             </content>
         </section>
 
-<section address="optionalAddress">
+<section address="demo">
   <content>
     <para>1. 我们将对服务的公共操作部分，提取为IDomainService接口，如下代码：</para>
 		<code language="cs">
