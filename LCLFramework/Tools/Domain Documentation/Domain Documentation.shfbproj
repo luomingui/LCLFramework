@@ -20,6 +20,7 @@
     <HtmlHelpName>LCL User Guide</HtmlHelpName>
     <Language>zh-CN</Language>
     <DocumentationSources>
+      <DocumentationSource sourceFile="EmptyAssembly.dll" />
     </DocumentationSources>
     <SyntaxFilters>C#</SyntaxFilters>
     <SdkLinkTarget>Blank</SdkLinkTarget>
@@ -28,7 +29,7 @@
     <Preliminary>False</Preliminary>
     <NamingMethod>HashedMemberName</NamingMethod>
     <HelpTitle>LCL User Guide</HelpTitle>
-    <ContentPlacement>BelowNamespaces</ContentPlacement>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
     <FeedbackEMailLinkText>发送反馈</FeedbackEMailLinkText>
     <FeedbackEMailAddress>minguiluo%40163.com</FeedbackEMailAddress>
     <FooterText>罗敏贵%40版权所有，有问题请联系minguiluo%40163.com</FooterText>
@@ -205,7 +206,14 @@
     <None Include="Content\LCL使用\领域仓库\领域仓库.aml" />
     <None Include="Content\LCL使用\领域仓库\Linq 查询.aml" />
     <None Include="Content\LCL使用\领域仓库\Sql 查询.aml" />
+    <None Include="Content\Reference.aml" />
     <None Include="_To Do List.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Domain Documentation.shfbproj">
+      <Name>Documentation</Name>
+      <Project>b3673a48-ef4c-47bc-9450-20d278f16558</Project>
+    </ProjectReference>
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />

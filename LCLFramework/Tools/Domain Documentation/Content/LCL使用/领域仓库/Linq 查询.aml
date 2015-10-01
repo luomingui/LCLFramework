@@ -52,7 +52,7 @@
                     </listItem>
                     <listItem>
                         <para>
-                            支持单目操作符：<codeInline><![CDATA[!]]></codeInline>。
+                            支持单目操作符：<codeInline><![CDATA[!]]></codeInline>
                         </para>
                     </listItem>
                     <listItem>
@@ -177,6 +177,7 @@ q = q.Where(e => values.Contains(e.Id));]]>
                             </row>
                         </table>
                     </listItem>
+                    </list>
          </section>
            
            
