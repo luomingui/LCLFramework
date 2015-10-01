@@ -3,7 +3,12 @@
     <developerConceptualDocument
       xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
       xmlns:xlink="http://www.w3.org/1999/xlink">
-       <section address="DDD">
+       <introduction>
+            <para>LCLFramework 帮助文档</para>
+            <para>文档版本号：V1.1</para>
+        </introduction>
+
+       <section address="intro">
             <title>LCLFramework 框架简要说明：</title>
             <content>
 				<para>LCLFramework就是一套在.NET下支持面向领域驱动的软件系统管理类软件的快速开发框架 ，其目标主要专注于：</para>
@@ -14,7 +19,7 @@
 				</list>
             </content>
         </section>
-          <section address="DDD">
+          <section address="includes">
             <title>使用开发框架的好处：</title>
             <content>
 				<list class="bullet">
@@ -27,7 +32,7 @@
             </content>
         </section>
         
-         <section address="DDD">
+         <section address="important">
             <title>LCL框架提供的功能：</title>
             <content>
 				<list class="bullet">

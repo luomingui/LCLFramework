@@ -74,7 +74,7 @@
     }
 		]]>
 		</code>
-		<para>1.加载服务 。如下代码：</para>
+		<para>1.加载服务，LCL框架会自动加载。如下代码：</para>
 		<code language="cs">
 		 <![CDATA[
     public class Global : System.Web.HttpApplication 

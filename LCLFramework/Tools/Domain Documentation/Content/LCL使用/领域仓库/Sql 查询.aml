@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="69eaf337-9c5f-4754-a0a9-80bbd4bdc3bc" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+            <para>在对实体的编写查询时，除了使用 Linq 查询和托管属性查询，还可以直接传入 Sql 语句来实现一些非常复杂的查询。例如：</para>
+            <autoOutline />
+        </introduction>
+ <section address="demo">
+            <title>代码示例</title>
+            <content>
+                <code language="cs">
+<![CDATA[
+  public class DbFactory
+    {
+        public static IDbAccesser DBA {
+            get {
+                return new DbAccesser(DbSetting.FindOrCreate("LCL"));
+            }
+        }
+    }
+      public List<Book> GetBy()
+        {
+            var dt = DbFactory.DBA.QueryDataTable("SELECT * FROM Book ");
+            var list = dt.ToArray<Book>();
+            return list.ToList();
+        }
+]]>
+                </code>
+               <alert class="note">
+                <para>在使用 Sql 查询时，必须保证：实体所有映射数据库的属性，在 Sql 中查询出的表格中都有对应的列。（这包括 Entity 基类的属性 Id。）</para>
+            </alert>
+            </content>
+        </section>
+    <relatedTopics>
+    
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

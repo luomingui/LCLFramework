@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="9c54253a-f821-4dbc-9c60-566e4a0f9e8c" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+       <introduction>
+            <para>Linq 查询是数据层查询中最简单易用的查询，一般情况下，都推荐使用这种查询。</para>
+            <autoOutline />
+        </introduction>
+ <section address="demo">
+            <title>代码示例</title>
+            <content>
+                <code language="cs">
+<![CDATA[
+    public User GetBy(string username, string password)
+        {
+            var user = base.Find(e => e.Name == username && e.Password == password);
+            return user;
+        }
+        public User GetBy(string username)
+        {
+            var li = EFContext.Context.Set<User>().Include("Position").Where(e => e.Name == username);
+            var lis = EFContext.Context.Set<User>().Where(e => e.Name == username);
+            return null;
+        }
+        public IEnumerable<User> GetFeaturedUsers(int count = 0)
+        {
+            var ctx = this.EFContext.Context as EFTestDbContext;
+            if (ctx != null)
+            {
+                var query = from p in ctx.User
+                            where p.IsLockedOut
+                            select p;
+                if (count == 0)
+                    return query.ToList();
+                else
+                    return query.Take(count).ToList();
+            }
+            return null;
+        }
+]]>
+                </code>
+                <para>上面的代码使用 Linq 查询实现了一个较复杂的查询示例。Linq 查询中可使用属性对比，排序，分页等。</para>
+            </content>
+        </section>
+         <section address="op">
+            <title>常见操作</title>
+             <para><codeInline>Where</codeInline> 方法对实体的属性进行条件对比时：</para>
+                <list class="bullet">
+                    <listItem>
+                        <para>
+                            支持以下双目操作符：<codeInline><![CDATA[=、!=、>、>=、<、<=]]></codeInline>。
+                        </para>
+                    </listItem>
+                    <listItem>
+                        <para>
+                            支持单目操作符：<codeInline><![CDATA[!]]></codeInline>。
+                        </para>
+                    </listItem>
+                    <listItem>
+                        <para>
+                            支持两个属性条件间的连接条件：<codeInline><![CDATA[&&、||]]></codeInline>。例如：
+                        </para>
+                        <code language="cs">
+                            <![CDATA[q = q.Where(e => e.Code == warehouseCode && e.Name.Contains(nameKeywords) || e.Id > 100);]]>
+                        </code>
+                    </listItem>
+                    <listItem>
+                        <para>
+                            支持引用查询。即间接使用引用实体的属性来进行查询。例如：
+                        </para>
+                        <code language="cs">
+                            <![CDATA[q = q.Where(warehouse => warehouse.Administrator.Name == "admin");]]>
+                        </code>
+                        <para>以上代码将会过滤出所有管理员名称是 "admin" 的仓库。</para>
+                        <para>在生成 Sql 语句时，将会生成 INNER JOIN 语句，连接上这些被使用的引用实体对应的表。</para>
+                    </listItem>
+                    <listItem>
+                        <para>支持在属性对比条件中，使用以下方法对属性进行比较：</para>
+                        <table>
+                            <tableHeader>
+                                <row>
+                                    <entry>
+                                        <para>方法名</para>
+                                    </entry>
+                                    <entry>
+                                        <para>所属类型</para>
+                                    </entry>
+                                    <entry>
+                                        <para>备注</para>
+                                    </entry>
+                                </row>
+                            </tableHeader>
+                            <row>
+                                <entry>
+                                    <para>Contains</para>
+                                </entry>
+                                <entry>
+                                    <para>System.String</para>
+                                </entry>
+                                <entry>
+                                    <para>判断指定属性是否包含指定字符串。例如：</para>
+                                    <code language="cs">
+                                        <![CDATA[q = q.Where(e => e.Name.Contains(nameKeywords));]]>
+                                    </code>
+                                </entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <para>StartsWith</para>
+                                </entry>
+                                <entry>
+                                    <para>System.String</para>
+                                </entry>
+                                <entry>
+                                    <para>判断指定属性是否以指定字符串开头。例如：</para>
+                                    <code language="cs">
+                                        <![CDATA[q = q.Where(e => e.Name.StartsWith(nameKeywords));]]>
+                                    </code>
+                                </entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <para>EndsWith</para>
+                                </entry>
+                                <entry>
+                                    <para>System.String</para>
+                                </entry>
+                                <entry>
+                                    <para>判断指定属性是否以指定字符串结尾。例如：</para>
+                                    <code language="cs">
+                                        <![CDATA[q = q.Where(e => e.Name.EndsWith(nameKeywords));]]>
+                                    </code>
+                                </entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <para>IsNullOrEmpty</para>
+                                </entry>
+                                <entry>
+                                    <para>System.String</para>
+                                </entry>
+                                <entry>
+                                    <para>判断指定属性是否为空字符串。例如：</para>
+                                    <code language="cs">
+                                        <![CDATA[q = q.Where(e => !string.IsNullOrEmpty(e.Name));]]>
+                                    </code>
+                                </entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <para>Contains</para>
+                                </entry>
+                                <entry>
+                                    <para>System.Linq.Enumerable</para>
+                                </entry>
+                                <entry>
+                                    <para>判断指定属性的值是否在指定的列表中。例如：</para>
+                                    <code language="cs">
+                                        <![CDATA[int[] values = new int[] { 1, 2 };
+q = q.Where(e => values.Contains(e.Id));]]>
+                                    </code>
+                                </entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <para>Contains</para>
+                                </entry>
+                                <entry>
+                                    <para><![CDATA[System.Collections.Generic.List<T>]]></para>
+                                </entry>
+                                <entry>
+                                    <para>判断指定属性的值是否在指定的列表中。例如：</para>
+                                    <code language="cs">
+                                        <![CDATA[List<int> values = new List<int> { 1, 2 };
+q = q.Where(e => values.Contains(e.Id));]]>
+                                    </code>
+                                </entry>
+                            </row>
+                        </table>
+                    </listItem>
+         </section>
+           
+           
+           
+    <relatedTopics>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>
