@@ -68,6 +68,8 @@
     <Compile Include="Extensions\DatabaseExtensions.cs" />
     <Compile Include="EntityFrameworkRepository.cs" />
     <Compile Include="EntityFrameworkRepositoryContext.cs" />
+    <Compile Include="Extensions\DbContextExtensions.cs" />
+    <Compile Include="Extensions\RepositoryIQueryableExtensions.cs" />
     <Compile Include="IEntityFrameworkRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EntityFrameworkPlugin.cs" />
