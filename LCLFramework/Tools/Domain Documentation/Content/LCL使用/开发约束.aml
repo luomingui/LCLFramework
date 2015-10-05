@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="de48699a-70a9-4624-8915-84dd7bf59102" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>在LCL开发中的一些简单的代码约束。例如：</para>
+      <autoOutline />
+    </introduction>
+    <section address="demo">
+      <title>领域模型（DomainModel）：代码示例</title>
+      <content>
+        <code language="cs">
+          <![CDATA[
+public partial class Sale : Entity
+{
+    public int Price { get; set; }
+}
+]]>
+        </code>
+        <alert class="note">
+          <para>在编写Entity时，每个实体类都必须继承LCL.Entity（这包括 Entity 基类的属性 Id。）</para>
+        </alert>
+      </content>
+    </section>
+    <section address="demo">
+      <title>扩展仓库（Repositories EX）：代码示例</title>
+      <content>
+        <code language="cs">
+          <![CDATA[
+ public interface ISaleRepository : IRepository<Sale>  
+ {  
+ 
+ }  
+ public class SaleRepository : EntityFrameworkRepository<Sale>, ISaleRepository  
+ {  
+      public SaleRepository(IRepositoryContext context)  
+          : base(context)  
+      {   
+        
+      }  
+ }
+ public class SaleRepository : MongoDBRepository<Sale>, ISaleRepository  
+ {  
+      public SaleRepository(IRepositoryContext context)  
+          : base(context)  
+      {   
+        
+      }  
+ }
+]]>
+        </code>
+        <alert class="note">
+          <para>LCL满足基本要求，个性化需求还需要用户自行完善。</para>
+        </alert>
+      </content>
+    </section>
+    <section address="demo">
+      <title>领域服务（DomainService）：代码示例</title>
+      <content>
+        <code language="cs">
+          <![CDATA[
+  [Serializable]
+  [Contract, ContractImpl]
+  public class ScenicService : DomainService
+  {
+      [ServiceOutput]
+      public ScenicRankingViewModel[] Result { get; set; }
+      protected override void Execute()
+      {
+          string sql = @"SELECT ScenicName,COUNT(*) AS Totalcount FROM RealTimeCard GROUP BY ScenicName";
+          var dt = DbFactory.DBA.QueryDataTable(sql);
+          this.Result = dt.ToArray<ScenicRankingViewModel>();
+      }
+  }
+]]>
+        </code>
+        <alert class="note">
+          <para>LCL服务主要是解决复杂的无序的业务逻辑。</para>
+        </alert>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

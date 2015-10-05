@@ -1,56 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <topic id="253673c9-7c40-4679-b139-a3e7e3cec8ef" revisionNumber="1">
-    <developerConceptualDocument
-      xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
-      xmlns:xlink="http://www.w3.org/1999/xlink">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
 
-        <introduction>
-            <para>为了覆盖所有面向关系型数据库的对象持久化，LCL提供基本仓库接口，
-            并实现了Entity Framework和MongoDB仓库，使用者也可以根据自己的需要进行扩展和替换仓库。</para>
-            <autoOutline />
-        </introduction>
-          <section address="DDD">
-            <title>领域仓库是什么？</title>
-            <content>
-                <para>Repository是一个独立的层，介于领域层与数据映射层（数据访问层）之间。
-                它的存在让领域层感觉不到数据访问层的存在，它提供一个类似集合的接口提供给领域层进行领域对象的访问。
-                Repository是仓库管理员，领域层需要什么东西只需告诉仓库管理员，由仓库管理员把东西拿给它，并不需要知道东西实际放在哪。</para>
-                 <mediaLink>
-                    <caption>仓库UML</caption>
-                    <image xlink:href="Repository"/>
-                </mediaLink>
-            </content>
-        </section>
- <section address="ddd">
-            <title>Respository模式小结</title>
-            <content>
-                <para>Respository模式在示例中的实际目的小结一下</para>           
-<list class="bullet">
-  <listItem><para>Repository模式是架构模式，在设计架构时，才有参考价值；</para></listItem>
-  <listItem><para>Repository模式主要是封装数据查询和存储逻辑；</para></listItem>
-  <listItem><para>Repository模式实际用途：更换、升级ORM 引擎，不影响业务逻辑；</para></listItem>
-  <listItem><para>Repository模式能提高测试效率，单元测试时，用Mock对象代替实际的数据库存取，可以成倍地提高测试用例运行速度.</para></listItem>
-</list>
-            </content>
-        </section>
- <section address="ddd">
-            <title>Repository与Dal的区别</title>
-            <content>         
-<list class="bullet">
-  <listItem><para>Repository是DDD中的概念，强调Repository是受Domain驱动的，Repository中定义的功能要体现Domain的意图和约束，而Dal更纯粹的就是提  供数据访问的功能,并不严格受限于Business层。</para></listItem>
-  <listItem><para>使用Repository，隐含着一种意图倾向，就是 Domain需要什么我才提供什么，不该提供的功能就不要提供，一切都是以Domain的需求为核心；而使用Dal，其意图倾向在于我Dal层能使用的数 据库访问操作提供给Business层，你Business要用哪个自己选。换一个Business也可以用我这个Dal，一切是以我Dal能提供什么操 作为核心。</para></listItem>
-</list>
-            </content>
-        </section>
-      
-<section address="optionalAddress">
-  <title>如何设计领域仓库？</title>
-  <para>  LCLFramework框架之Repository模式设计主要是参考http://apworks.codeplex.com/ 框架而来的，目前我只是扩展了LCL.Repositories.EntityFramework仓库，对于个人来使用已经足够了。</para>
-  
-  <content>
-    <para>1. 我们将对实体的公共操作部分，提取为IRepository接口，比如常见的增加，删除等方法。如下代码：</para>
-		<code language="cs">
-		 <![CDATA[
+    <introduction>
+      <para>
+        为了覆盖所有面向关系型数据库的对象持久化，LCL提供基本仓库接口，
+        并实现了Entity Framework和MongoDB仓库，使用者也可以根据自己的需要进行扩展和替换仓库。
+      </para>
+      <autoOutline />
+    </introduction>
+    <section address="DDD">
+      <title>领域仓库是什么？</title>
+      <content>
+        <para>
+          Repository是一个独立的层，介于领域层与数据映射层（数据访问层）之间。
+          它的存在让领域层感觉不到数据访问层的存在，它提供一个类似集合的接口提供给领域层进行领域对象的访问。
+          Repository是仓库管理员，领域层需要什么东西只需告诉仓库管理员，由仓库管理员把东西拿给它，并不需要知道东西实际放在哪。
+        </para>
+        <mediaLink>
+          <caption>仓库UML</caption>
+          <image xlink:href="Repository"/>
+        </mediaLink>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>Respository模式小结</title>
+      <content>
+        <para>Respository模式在示例中的实际目的小结一下</para>
+        <list class="bullet">
+          <listItem>
+            <para>Repository模式是架构模式，在设计架构时，才有参考价值；</para>
+          </listItem>
+          <listItem>
+            <para>Repository模式主要是封装数据查询和存储逻辑；</para>
+          </listItem>
+          <listItem>
+            <para>Repository模式实际用途：更换、升级ORM 引擎，不影响业务逻辑；</para>
+          </listItem>
+          <listItem>
+            <para>Repository模式能提高测试效率，单元测试时，用Mock对象代替实际的数据库存取，可以成倍地提高测试用例运行速度.</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>Repository与Dal的区别</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>Repository是DDD中的概念，强调Repository是受Domain驱动的，Repository中定义的功能要体现Domain的意图和约束，而Dal更纯粹的就是提  供数据访问的功能,并不严格受限于Business层。</para>
+          </listItem>
+          <listItem>
+            <para>使用Repository，隐含着一种意图倾向，就是 Domain需要什么我才提供什么，不该提供的功能就不要提供，一切都是以Domain的需求为核心；而使用Dal，其意图倾向在于我Dal层能使用的数 据库访问操作提供给Business层，你Business要用哪个自己选。换一个Business也可以用我这个Dal，一切是以我Dal能提供什么操 作为核心。</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="optionalAddress">
+      <title>如何设计领域仓库？</title>
+      <para>  LCLFramework框架之Repository模式设计主要是参考http://apworks.codeplex.com/ 框架而来的，目前我只是扩展了LCL.Repositories.EntityFramework仓库，对于个人来使用已经足够了。</para>
+
+      <content>
+        <para>1. 我们将对实体的公共操作部分，提取为IRepository接口，比如常见的增加，删除等方法。如下代码：</para>
+        <code language="cs">
+          <![CDATA[
 public interface IRepository<TEntity> where TEntity : class, IEntity
 {
       IRepositoryContext Context { get; }
@@ -88,10 +103,10 @@ public interface IUnitOfWork
     void Rollback();
 }
 		]]>
-		</code>
-		<para>2．下面我们实现一个泛型的类来具体实现上面的接口的方法。</para>
-		<code language="cs">
-		 <![CDATA[
+        </code>
+        <para>2．下面我们实现一个泛型的类来具体实现上面的接口的方法。</para>
+        <code language="cs">
+          <![CDATA[
    public abstract partial class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
    {
    }
@@ -99,10 +114,10 @@ public interface IUnitOfWork
    { 
    }
 		]]>
-		</code>
-		<para>3．扩展仓库需要实现以下接口。</para>
-		<code language="cs">
-		 <![CDATA[
+        </code>
+        <para>3．扩展仓库需要实现以下接口。</para>
+        <code language="cs">
+          <![CDATA[
     //EntityFramework Repository
     public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot
@@ -144,19 +159,19 @@ public interface IUnitOfWork
         MongoCollection GetCollectionForType(Type type);
     }
 		]]>
-		</code>
-			<para>4.上面我们实现是每个实体公共的操作，但是实际中每个实体都有符合自己业务的逻辑。我们单独定义另外一个接口，例如：</para>
-				<code language="cs">
-		 <![CDATA[
+        </code>
+        <para>4.上面我们实现是每个实体公共的操作，但是实际中每个实体都有符合自己业务的逻辑。我们单独定义另外一个接口，例如：</para>
+        <code language="cs">
+          <![CDATA[
 interface IBookRepository : IRepository<Book>
 {
     IList<Book> GetAllByBookId(int id);
 }
 		]]>
-		</code>
-				<para>5.最后该实体的Repository类实现如下：</para>
-				<code language="cs">
-		 <![CDATA[
+        </code>
+        <para>5.最后该实体的Repository类实现如下：</para>
+        <code language="cs">
+          <![CDATA[
 public class BookRepository : EntityFrameworkRepository<Book>, IBookRepository
 {
       public BookRepository(IRepositoryContext context)
@@ -173,11 +188,11 @@ public class BookRepository : EntityFrameworkRepository<Book>, IBookRepository
     }
 } 
 		]]>
-		</code>
-			<para>6.使用Repository</para>
-			<para>使用Repository之前需要把Repo加入到IOC就可以向下面这样使用了</para>
-				<code language="cs">
-		 <![CDATA[ 
+        </code>
+        <para>6.使用Repository</para>
+        <para>使用Repository之前需要把Repo加入到IOC就可以向下面这样使用了</para>
+        <code language="cs">
+          <![CDATA[ 
 		   //注入
 		   ServiceLocator.Instance.Register<IRepository<Book>, EntityFrameworkRepository<Book>>();
 		   //使用
@@ -190,35 +205,33 @@ public class BookRepository : EntityFrameworkRepository<Book>, IBookRepository
             repository.Create(customer);
             repository.Context.Commit();
 		]]>
-		</code>
-  </content>
-</section>
-
-        <section address="ddd">
-            <title>附 - 仓库/单元设计</title>
-            <content>
-                <para>
-                    关于 Repository 的详细概念，见 P of EAA Catalog  的：《<externalLink>
-                        <linkText>Repository</linkText>
-                        <linkUri>http://martinfowler.com/eaaCatalog/repository.html</linkUri>
-                    </externalLink> 》。
-                </para>
-                 <para>
-                    关于 Unit of Work 的详细概念，见 P of EAA Catalog  的：《<externalLink>
-                        <linkText>Unit of Work</linkText>
-                        <linkUri>http://martinfowler.com/eaaCatalog/unitOfWork.html</linkUri>
-                    </externalLink> 》。
-                </para>
-                <para>
-                    LCL仓库使用的是陈晴阳的代码：《<externalLink>
-                        <linkText>EntityFramework之领域驱动设计实践 - 仓储</linkText>
-                        <linkUri>http://www.cnblogs.com/daxnet/archive/2010/07/07/1772638.html</linkUri>
-                    </externalLink> 》。
-                </para>
-            </content>
-        </section>
-
-        <relatedTopics>
-        </relatedTopics>
-    </developerConceptualDocument>
+        </code>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>附 - 仓库/单元设计</title>
+      <content>
+        <para>
+          关于 Repository 的详细概念，见 P of EAA Catalog  的：《<externalLink>
+            <linkText>Repository</linkText>
+            <linkUri>http://martinfowler.com/eaaCatalog/repository.html</linkUri>
+          </externalLink> 》。
+        </para>
+        <para>
+          关于 Unit of Work 的详细概念，见 P of EAA Catalog  的：《<externalLink>
+            <linkText>Unit of Work</linkText>
+            <linkUri>http://martinfowler.com/eaaCatalog/unitOfWork.html</linkUri>
+          </externalLink> 》。
+        </para>
+        <para>
+          LCL仓库使用的是陈晴阳的代码：《<externalLink>
+            <linkText>EntityFramework之领域驱动设计实践 - 仓储</linkText>
+            <linkUri>http://www.cnblogs.com/daxnet/archive/2010/07/07/1772638.html</linkUri>
+          </externalLink> 》。
+        </para>
+      </content>
+    </section>
+    <relatedTopics>
+    </relatedTopics>
+  </developerConceptualDocument>
 </topic>

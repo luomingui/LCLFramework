@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="fcbf2471-6f51-4f20-9fda-fbcd06e14f92" visible="True" isExpanded="true" isSelected="true">
-    <Topic id="43c84dfc-b1c4-476f-ab06-349c693e5729" visible="True">
+  <Topic id="fcbf2471-6f51-4f20-9fda-fbcd06e14f92" visible="True" isExpanded="true">
+    <Topic id="43c84dfc-b1c4-476f-ab06-349c693e5729" visible="True" isExpanded="true">
       <Topic id="e4f8b90c-9b85-4906-bce9-d2c35d5ba465" visible="True" />
       <Topic id="abcca6ad-07c4-46ce-ad48-45d3f90a7060" visible="True" />
       <Topic id="61ca337b-3c84-478a-bd75-57092ce4fc4e" visible="True" />
+      <Topic id="de48699a-70a9-4624-8915-84dd7bf59102" visible="True" />
       <Topic id="c828a7e4-e087-4dc9-a22a-1697c4269809" visible="True" noFile="true" isExpanded="true" title="快速试用">
         <Topic id="fdbb7d56-393e-4e0b-b69f-995a50f513eb" visible="True" />
       </Topic>
@@ -13,12 +14,18 @@
         <Topic id="9c54253a-f821-4dbc-9c60-566e4a0f9e8c" visible="True" title="Linq 查询" />
         <Topic id="b21ec496-3470-41d8-b959-5dd8ff43db56" visible="True" />
         <Topic id="69eaf337-9c5f-4754-a0a9-80bbd4bdc3bc" visible="True" />
+        <Topic id="87f45856-f24e-4317-8d51-aa0dc3ebf30a" visible="True" isExpanded="true" isSelected="true">
+          <Topic id="ef53c777-dd02-4a01-98c9-7dcc49489cec" visible="True" />
+          <Topic id="f7e2200f-f5c9-4def-b0db-f4052c3f9271" visible="True" />
+          <Topic id="83e99a55-e017-4f36-9fd0-aa730dabd1ea" visible="True" />
+        </Topic>
       </Topic>
       <Topic id="353673c9-7c40-4679-b139-a3e7e4cec8ef" visible="True" />
       <Topic id="153673c9-7c40-4679-b139-a3e7e3cec4ef" visible="True" title="插件模式" />
       <Topic id="e81528bd-9816-4236-8d19-9ac9815e0e0e" visible="True" />
     </Topic>
-    <Topic id="3ebafad8-73e3-431f-9e49-9a0d9b23c786" visible="True">
+    <Topic id="3ebafad8-73e3-431f-9e49-9a0d9b23c786" visible="True" isExpanded="true">
+      <Topic id="3b6b7eb0-0940-437d-ace3-423102191f36" visible="True" />
       <Topic id="946c540b-acb0-4531-b99c-85756cb69d4e" visible="True" />
       <Topic id="15c790a6-8f5e-44aa-b8c3-74a955004a1e" visible="True" />
       <Topic id="853673c9-7c40-4679-b139-a3e7e3cec8ef" visible="True" />

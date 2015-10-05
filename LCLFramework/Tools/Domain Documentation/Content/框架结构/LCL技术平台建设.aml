@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="3b6b7eb0-0940-437d-ace3-423102191f36" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        LCL技术平台建设
+      </para>
+      <autoOutline />
+    </introduction>
+    <section address="DDD">
+      <title>技术平台建设</title>
+      <content>
+        <para>
+          希望能建设统一的一个软件平台（技术平台+业务平台）：各专业部门基于该平台开发相应的专业级插件，
+          并发布到统一的插件平台中，并最终都可集成到一个统一的客户端软件平台中，以达到业务组件能在全公司范围内进行重用。
+          另外，数据方面，会在平台建设的第二、三阶段，为他们建立独立的私有云数据服务。
+          以下是整个方案中，技术平台部分的一些重要内容的摘要。
+        </para>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>架构分层</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>产品外围开发环境支持：VS-SDK、开发论坛、开发支持等。</para>
+          </listItem>
+          <listItem>
+            <para>应用插件层：各专业的应用级别插件。</para>
+          </listItem>
+          <listItem>
+            <para>基础应用模块层：平台提供的基础应用模块，包含了一些必备的业务。</para>
+          </listItem>
+          <listItem>
+            <para>基础服务层：基础服务的封装层。</para>
+          </listItem>
+          <listItem>
+            <para>基础框架层：基础的技术核心框架。包含：插件框架、服务容器、事件总线、命令系统、日志、异常。</para>
+          </listItem>
+          <listItem>
+            <para>数据框架层：领域框架。</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>界面集成框架</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>基于Bootstrap CSS组件开发几个常用的模板。</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>离线场景与并发支持</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>
+              本地数据库+项目数据整体上传与下载。
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              同时支持悲观并发、乐观并发两种方式。
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>数据管理</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>
+              一期：实现领域实体与本地数据库/文件系统的映射。
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              二期：实现多项目文件的集中管理。
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              三期：实现私有云数据服务。
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>几种技术方案选型：</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>
+              技术平台建设方案一： Bootstrap+MVC+Apworks+OSGI.NET
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              技术平台建设方案二：WPF+OEA
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              技术平台建设方案三：Bootstrap+MVC+LCLFramework
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>开发约束</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>开发工具选择</para>
+            <para> 系统的所有Web开发应使用ASP.NET MVC开发，使用C#语言，基于.NET Framework 4.0框架开发。系统各个部分开发应使用Visual Studio 2010开发工具或更高版本。</para>
+          </listItem>
+          <listItem>
+            <para>开发语言选择</para>
+            <para> 开发语言使用C#，基于.NET Framework 4.0。</para>
+          </listItem>
+          <listItem>
+            <para>开发方法</para>
+            <para> 前端Web和后端服务器软件均采用模块化开发方法，基于OSGi.NET模块化技术构建。</para>
+          </listItem>
+          <listItem>
+            <para>Web前端界面设计与开发</para>
+            <para>前端界面设计采用一流的扁平化设计方法，前端框架基于ASP.NET MVC + Bootstrap。</para>
+          </listItem>
+          <listItem>
+            <para>软件开发应遵循《计算机软件开发规范 GB 8566-88》</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section address="ddd">
+      <title>平台底层平台数据库技术</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>数据库选择</para>
+            <para>
+              平台应同时支持Oracle 10g以及10以上的数据库版本。
+              应同时兼容SQL Server 2008 以及2008以上的数据库版本。
+              优先选择Oracle 数据库。
+              移动设备与平台交互数据库选择SQLite.
+            </para>
+          </listItem>
+          <listItem>
+            <para>数据库兼容</para>
+            <para>
+              自身平台之间出现Oracle与SQL Server数据库时两系统之间交互不借助第三方插件(自主开发插件除外)实现数据同步与交互。
+              对非我开发系统不可使用2种以上的第三方插件实现数据通讯。但银行业务除外。
+            </para>
+          </listItem>
+          <listItem>
+            <para>读写分离技术</para>
+            <para> 系统数据库采用OLTP + OLAP的读写分离模式，OLTP数据库用于事务处理，基于3NF设计，保证数据一致性，而OLAP则用于数据分析统计，使用冗余设计，并实现实时统计分析，从而实现在大数据条件下，保证数据查询、分析、统计的高效性。</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>
