@@ -2,13 +2,13 @@
 namespace UIShell.RbacPermissionService
 {
     /// <summary>
-    /// 网点/部门
+    ///  部门
     /// </summary>
-    public partial class Department : BaseModel
+    public partial class Department : BaseTreeModel
     {
         public Department()
         {
-
+            DepartmentType = DepartmentType.公司;
         }
         /// <summary>
         /// 行政区域
@@ -39,11 +39,10 @@ namespace UIShell.RbacPermissionService
         /// </summary>
         public string Remark { get; set; }
     }
-
     public enum DepartmentType
     {
-        部门=1,
-        网点=2,
-        
+        公司 = 1,
+        部门 = 2,
+        职位 = 2,
     }
 }

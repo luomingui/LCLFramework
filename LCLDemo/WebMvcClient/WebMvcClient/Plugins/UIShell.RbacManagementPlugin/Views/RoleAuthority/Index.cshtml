@@ -5,45 +5,48 @@
 }
 <!-- Page title -->
 <div class="page-title">
-    <h2><i class="icon-desktop color"></i> 角色权限 <small>显示所有 @ViewData["RoleName"] 角色权限</small></h2>
+    
+    <h2>角色-><i class="icon-desktop color"></i> 角色权限: <small>显示所有 @ViewData["RoleName"] 角色权限</small></h2>
     <hr />
 </div>
 <!-- Page title -->
-@using (Html.BeginForm("Save", "RoleAuthority", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Save", "RoleAuthority", FormMethod.Post, new { @class = "form-horizontal", @name = "form1", @id = "form1" }))
 {
-
-    <input type="button" id="btn1" class="btn btn-primary" value="全选" onclick="SelectAll();">
-    <input type="button" id="btn2" class="btn btn-danger" value="取消全选" onclick="UnselectAll();">
-    <input type="submit" class="btn btn-warning" value="保存" />
-    <input type="hidden" id="RoleId" name="RoleId" value="@ViewData["roleid"]" /><br />
-    <table class="table table-hover table-bordered"> 
+    <table class="tb_searchbar">
+        <tr>
+            <td class="td_head" colspan="2">
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="SelectAll();" />全选
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="UnselectAll();" />取消全选
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="$('form1').submit();" />保存
+                <input type="hidden" id="RoleId" name="RoleId" value="@ViewData["roleid"]" /><br />
+            </td>
+        </tr>
         @foreach (var node in CommonModel.Modules.Roots)
-            {
+        {
             <tr>
-                <td width="10%"><input type="checkbox" id="@node.KeyLabel" name="moduleName" value="@node.KeyLabel" />&nbsp;@node.Label</td>
+                <td width="10%" class="td_title"><input type="checkbox" id="@node.KeyLabel" name="moduleName" value="@node.KeyLabel" />&nbsp;@node.Label</td>
                 <td width="90%">
                     @if (node.HasSubMenu())
-                        {
-                        <table class="table table-hover table-bordered">
+                    {
+                        <table class="tb_searchbar">
                             @foreach (var child in node.Children)
-                                {
+                            {
                                 <tr>
-                                    <td width="10%"><input type="checkbox" id="@child.KeyLabel" name="moduleName" value="@node.KeyLabel/@child.KeyLabel" />&nbsp;@child.Label</td>
+                                    <td width="10%" class="td_title"><input type="checkbox" id="@child.KeyLabel" name="moduleName" value="@node.KeyLabel/@child.KeyLabel" />&nbsp;@child.Label</td>
                                     <td width="80%">
                                         @foreach (var item in child.CustomOpertions)
-                                            {
+                                        {
                                             <input type="checkbox" id="@item.Name" name="moduleName"
                                                    value="@node.Label/@child.Label/@item.Name" /> @item.Label
-                                            }
+                                        }
                                     </td>
-
                                 </tr>
-                                }
+                            }
                         </table>
-                        }
+                    }
                 </td>
             </tr>
-            }
+        }
     </table>
 }
 

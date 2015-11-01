@@ -2,60 +2,85 @@
 @{
     ViewBag.Title = "系统操作日志";
 }
-<form class="form-inline" action="Index" role="form">
-    <select name="Logtype" id="Logtype" class="form-control" style="width:120px;">
-        <option value="0">==日志类型==</option>
-        <option value="0">未指定类型</option>
-        <option value="1">执行命令</option>
-        <option value="2">打开模块</option>
-        <option value="3">登录</option>
-    </select>&nbsp;&nbsp;
-    <select name="Scope" id="Scope" class="form-control" style="width:150px;">
-        <option value="">==请选择==</option>
-        <option value="UserName">用户名</option>
-        <option value="UserName">标题</option>
-        <option value="UserName">内容</option>
-        <option value="UserName">浏览器</option>
-        <option value="IP">IP地址</option>
-    </select>&nbsp;&nbsp;
-    <label class="sr-only" for="inputfile">搜:</label>
-    <input type="text" name="Keyword" id="Keyword" class="input-large" placeholder="请输入" />
-    <button type="submit" class="button button-info">
-        <i class="icon-search"></i> 查询
-    </button>
-</form>
-<table class="table table-hover table-bordered">
-    <thead>
-        <tr>
-            <th>标题</th>
-            <th>内容</th>
-            <th>用户名</th>
-            <th>日志类型</th>
-            <th>操作日期</th>
-            <th>IP地址</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (var view in Model.PagedModels)
-            {
-                <tr>
-                    <td>@view.Title</td>
-                    <td>@view.Content</td>
-                    <td>@view.UserName</td>
-                    <td>@view.LogType</td>
-                    <td>@view.UpdateDate</td>
-                    <td>@view.IP</td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-@Html.Partial("_PagedListBottom")
+<div id="tb" style="padding:5px;height:auto">
+    <!-------------------------------搜索框----------------------------------->
+    <fieldset>
+        <legend>信息查询</legend>
+        <form id="ffSearch" method="post">
+            <div id="toolbar">
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <select name="Logtype" id="Logtype" class="form-control" style="width:120px;">
+                                <option value="0">==日志类型==</option>
+                                <option value="0">未指定类型</option>
+                                <option value="1">执行命令</option>
+                                <option value="2">打开模块</option>
+                                <option value="3">登录</option>
+                            </select>&nbsp;&nbsp;
+                            <select name="Scope" id="Scope" class="form-control" style="width:150px;">
+                                <option value="">==请选择==</option>
+                                <option value="UserName">用户名</option>
+                                <option value="UserName">标题</option>
+                                <option value="UserName">内容</option>
+                                <option value="UserName">浏览器</option>
+                                <option value="IP">IP地址</option>
+                            </select>&nbsp;&nbsp;
+                            <label class="sr-only" for="inputfile">搜:</label>
+                            <input type="text" name="Keyword" id="Keyword" class="input-large" placeholder="请输入" />
+                        </td>
+                        <td colspan="2">
+                            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="btnSearch">查询</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnImport" iconcls="icon-excel" onclick="ShowImport()">导入</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnExport" iconcls="icon-excel" onclick="ShowExport()">导出</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </fieldset>
+    <!-------------------------------详细信息展示表格----------------------------------->
+    <table id="grid" style="width: 940px" title="系统操作日志" class="easyui-datagrid" data-options="iconCls:'icon-view'"></table>
+</div>
+
 @section scripts{
-   
+   <script type="text/javascript" >
+    $(document).ready(function () {
+        $('#grid').datagrid({
+            url: 'AjaxGetByPage',
+            loadMsg: '数据加载中....',
+            title: '系统操作日志信息一览表',
+            iconCls: 'icon-edit',
+            pagination: true,
+            rownumbers: true,
+            fitCloumns: true,
+            hideColumn: [[
+              { title: '编号', field: 'ID' }
+            ]],
+            columns: [[
+                { field: 'Title', title: '标题', width: 100 },
+                { field: 'Content', title: '内容', width: 200 },
+                { field: 'UserName', title: '用户名', width: 200 },
+                { field: 'LogType', title: '日志类型', width: 200 },
+                { field: 'UpdateDate', title: '操作日期', width: 200 },
+                { field: 'IP', title: 'IP地址', width: 150 }
+            ]]
+        });
+
+        var heightMargin = $("#toolbar").height() + 60;
+        var widthMargin = $(document.body).width() - $("#tb").width();
+        // 第一次加载时和当窗口大小发生变化时，自动变化大小
+        $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+        $(window).resize(function () {
+            $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+        });
+    });
+    function refresh() {
+        $('#grid').datagrid('load');
+    }
+    function trim(str) {
+        v = str.replace(/(^\s*)|(\s*$)/g, "");
+        return v;
+    }
+</script>
 }
-
-
-
-

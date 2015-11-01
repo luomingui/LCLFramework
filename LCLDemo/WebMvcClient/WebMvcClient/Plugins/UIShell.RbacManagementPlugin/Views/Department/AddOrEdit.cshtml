@@ -5,6 +5,80 @@
 @using UIShell.RbacPermissionService
 @model AddOrEditViewModel<Department>
 
+<div class="page-title">
+    <div id="tbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true">新增下级</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="Save(@Model.Added)">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>
+        <a href="javascript:void(0)" />
+    </div>
+</div>
+<hr />
+<!-- Page form -->
+<table class="tb_searchbar">
+    <tbody>
+        <tr>
+            <td class="td_title">
+                上级单位
+            </td>
+            <td>
+                <input id="parentid" class="change" type="hidden" readonly />
+                <input id="parentname" class="change" disabled type="text" readonly style=" width:310px" />
+
+                <input type="hidden" id="Entity_DepartmentType" name="Entity.DepartmentType" value="@Model.Entity.DepartmentType" />
+                <input type="hidden" id="Entity_ParentId" name="Entity.ParentId" value="@Model.Entity.ParentId" />
+                <input type="hidden" id="Entity_NodePath" name="Entity.NodePath" value="@Model.Entity.NodePath" />
+                <input type="hidden" id="Entity_OrderBy" name="Entity.OrderBy" value="@Model.Entity.OrderBy" />
+                <input type="hidden" id="Entity_Level" name="Entity.Level" value="@Model.Entity.Level" />
+                <input type="hidden" id="Entity_IsLast" name="Entity.IsLast" value="@Model.Entity.IsLast" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">
+                办公名称
+            </td>
+            <td>
+                <input type="text" id="Entity_Name" name="Entity.Name" style=" width:210px" value="@Model.Entity.Name" data-options="required:true" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">
+                办公电话
+            </td>
+            <td>
+                <input type="text" id="Entity_OfficePhone" name="Entity.OfficePhone" style=" width:210px" value="@Model.Entity.OfficePhone" class="easyui-validatebox" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">
+                是否组织
+            </td>
+            <td>
+                <input type="radio" name="Entity.DepartmentType" checked="checked" value="@Model.Entity.DepartmentType" />
+                <input type="radio" name="Entity.DepartmentType" value="@Model.Entity.DepartmentType" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">
+                办公地址
+            </td>
+            <td>
+                地区：
+                <select id="selector1" class="easyui-combotree" style="width:180px;"></select>
+
+                <input type="text" id="Entity_Address" name="Entity.Address" style=" width:310px" value="@Model.Entity.Address" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">
+                描述
+            </td>
+            <td>
+                <textarea id="Entity_Remark" name="Entity.Remark" cols="80" rows="10">@Model.Entity.Remark</textarea>
+            </td>
+        </tr>
+    </tbody>
+</table>
 <!-- Page title -->
 <div class="page-title">
     <h2>
@@ -14,58 +88,94 @@
                 if (Model.Added) { actionTag = "新增一个部门"; } else { actionTag = "编辑一个部门"; }
             }@actionTag
         </small>
-    </h2> <hr />
+    </h2> 
 </div>
-<!-- Page title -->
-<div class="row">
-    <!--form-horizontal row-border start-->
-    @using (Html.BeginForm(Model.Added ? "Add" : "Edit", "Department", FormMethod.Post, new { @class = "form-horizontal well", @role = "form" }))
-    {
-        @Html.HiddenFor(c => c.CurrentPageNum)
-        @Html.HiddenFor(c => c.PageSize)
-        @Html.HiddenFor(c => c.Entity.ID)
-        <input id="Entity_DepartmentType" name="Entity.DepartmentType" type="hidden" value="1" />
-        <div class="control-group">
-            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Name)</label>
-            <div class="controls">
-                @Html.TextBoxFor(c => c.Entity.Name, new { @class = "form-control", @placeholder = "请输入名称" })
-                @Html.ValidationMessageFor(c => c.Entity.Name)
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.OfficePhone)</label>
-            <div class="controls">
-                @Html.TextBoxFor(c => c.Entity.OfficePhone, new { @class = "form-control", @placeholder = "请输入办公电话" })
-                @Html.ValidationMessageFor(c => c.Entity.OfficePhone)
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Address)</label>
-            <div class="controls">
-                @Html.TextBoxFor(c => c.Entity.Address, new { @class = "form-control", @placeholder = "请输入地址" })
-                @Html.ValidationMessageFor(c => c.Entity.Address)
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Remark)</label>
-            <div class="controls">
-                @Html.TextBoxFor(c => c.Entity.Remark, new { @class = "form-control", @placeholder = "请输入描述" })
-                @Html.ValidationMessageFor(c => c.Entity.Remark)
-            </div>
-        </div>
+@section scripts{
+    <script type="text/javascript">
+        var oldpId = "@Model.Entity.ParentId";
+        $(function () {
 
-        @*<div class="control-group">
-                <label class="col-sm-2 control-label">上一级</label>
-                <div class="controls">
-                    @Html.DropDownList("ddlDepartment", ViewData["ddlDepartment"] as IEnumerable<SelectListItem>)
-                </div>
-            </div>*@
+            $('#selector1').combotree({
+                //获取数据URL
+                url: 'AjaxEasyUITree_Org',
+                //选择树节点触发事件
+                onSelect: function (node) {
+                    //返回树对象
+                    var tree = $(this).tree;
+                    //选中的节点是否为叶子节点,如果不是叶子节点,清除选中
+                    var isLeaf = tree('isLeaf', node.target);
+                    if (isLeaf) {
+                        //清除选中
+                        $('#selector1').combotree('clear');
+                    }
+                }
+            });
 
-    <div class="row actions-bar">
-        <div class="form-actions offset3">
-            <button type="submit" class="button button-primary">保存</button>
-            <button type="button" class="button button-default" onclick="javascript: window.history.back();">返回</button>
-        </div>
-    </div>
-    }
-</div>
+        });
+        setparentname();
+        function setparentname()
+        {
+            $('#parentid').val(oldpId);
+            $.post("GetByName", { id: oldpId }, function (data) {
+                if (data != "") {
+                    $('#parentname').val(data);
+                } else {
+                    $('#parentname').val("顶级");
+                }
+            }, "json");
+        }
+        function VerifyFrom() {
+            var Name = $("#Entity_Name").val();
+            if (Name == "")
+            {
+                $.messager.alert('系统消息', '名称不能重复');
+                return false;
+            }
+            return true;
+        }
+        function Save(added) {
+
+            var t = $('#selector').combotree('tree');	// 获取树对象
+            var n = t.tree('getSelected');		// 获取选择的节点
+            alert(n.ID);
+
+            var flg = VerifyFrom();
+
+            if (flg == true) {
+
+                var ID = $("#Entity_ID").val();
+                var Name = $("#Entity_Name").val();
+                var OfficePhone = $("#Entity_OfficePhone").val();
+                var Address = $("#Entity_Address").val();
+                var Remark = $("#Entity_Remark").val();
+
+                if (added) {
+                    $.post("AjaxAdd", { ID: ID, Name: Name, ParentId:  $('#parentid').val(), OfficePhone: OfficePhone, Address: Address, Remark: Remark }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                    }, "json");
+                } else {
+                    $.post("AjaxEdit", { ID: ID, Name: Name, ParentId: newpId, OfficePhone: OfficePhone, Address: Address, Remark: Remark }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                    }, "json");
+                }
+            }
+        }
+        function  del() {
+            $.messager.confirm('确认', '确认要删除吗?', function (y) {
+                if (y) {
+                    //提交
+                    $.post('AjaxDelete/', "@Model.Entity.ID",
+                    function (msg) {
+                        if (msg.Success) {
+                            $.messager.alert('提示', msg.Message, 'info', function () {
+                                window.parent.LCLTree.showTree();
+                            });
+                        } else {
+                            $.messager.alert('提示', msg.Message, 'info')
+                        }
+                    }, "json");
+                }
+            });
+        }
+    </script>
+}

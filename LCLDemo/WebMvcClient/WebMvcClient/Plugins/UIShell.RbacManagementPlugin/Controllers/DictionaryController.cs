@@ -1,3 +1,4 @@
+using LCL;
 /******************************************************* 
 *  
 * 作者：罗敏贵 
@@ -11,6 +12,7 @@
 *******************************************************/
 using LCL.MvcExtensions;
 using LCL.Repositories;
+using LCL.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
 
         public DictionaryController()
         {
-            ddlDictionary(Guid.Empty);
+
         }
         public void ddlDictionary(Guid dtId)
         {
@@ -37,7 +39,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
                 var roots = list;
                 foreach (var item in roots)
                 {
-                    selitem.Add(new SelectListItem { Text =item.DicDes+"("+ item.Name+")", Value = item.ID.ToString() });
+                    selitem.Add(new SelectListItem { Text = item.Code + "(" + item.Name + ")", Value = item.ID.ToString() });
                 }
             }
             selitem.Insert(0, new SelectListItem { Text = "==字典类型==", Value = "-1" });
@@ -51,7 +53,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<Dictionary>.DefaultPageSize;
+                pageSize = PagedResult<Dictionary>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
 
@@ -72,7 +74,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<Dictionary>.DefaultPageSize;
+                pageSize = PagedResult<Dictionary>.DefaultPageSize;
             }
             Guid guid = Guid.Parse(LRequest.GetString("dicTypeId"));
             if (!id.HasValue)
@@ -81,7 +83,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
                 {
                     Added = true,
                     Entity = null,
-                    DicTypeId=guid,
+                    DicTypeId = guid,
                     CurrentPageNum = currentPageNum.Value,
                     PageSize = pageSize.Value
                 });
@@ -108,6 +110,15 @@ namespace UIShell.RbacManagementPlugin.Controllers
         {
             var entity = RF.Concrete<IDictionaryRepository>().GetByKey(model.ID);
             return base.Delete(entity, currentPageNum, pageSize, collection);
+        }
+
+
+        [HttpPost]
+        public JsonResult GetDicChildList(Guid dictId)
+        {
+            var spec = Specification<Dictionary>.Eval(p => p.DictType.ID == dictId);
+            IEnumerable<Dictionary> list = repo.FindAll(spec);
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

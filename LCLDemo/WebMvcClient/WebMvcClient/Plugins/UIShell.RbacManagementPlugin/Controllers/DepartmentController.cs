@@ -9,9 +9,11 @@
 *    创建文件 罗敏贵 2015年5月18日
 *  
 *******************************************************/
+using LCL;
 using LCL.MvcExtensions;
 using LCL.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
@@ -21,7 +23,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
 {
     public class DepartmentController : RbacController<Department>
     {
-        IRepository<Department> repo = RF.Concrete<IDepartmentRepository>();
+        IDepartmentRepository repo = RF.Concrete<IDepartmentRepository>();
         public DepartmentController()
         {
 
@@ -38,7 +40,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<Department>.DefaultPageSize;
+                pageSize = PagedResult<Department>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
 
@@ -85,7 +87,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<User>.DefaultPageSize;
+                pageSize = PagedResult<User>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
             Guid depId = Guid.Empty;
@@ -108,7 +110,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<User>.DefaultPageSize;
+                pageSize = PagedResult<User>.DefaultPageSize;
             }
             Guid depId = Guid.Empty;
             string depIdstr = LRequest.GetString("depId");
@@ -220,7 +222,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<User>.DefaultPageSize;
+                pageSize = PagedResult<User>.DefaultPageSize;
             }
 
             RF.Concrete<IUserRepository>().Delete(model);
@@ -238,6 +240,24 @@ namespace UIShell.RbacManagementPlugin.Controllers
             ViewData.Add("rolesList", list.ToList());
         }
         #endregion
+
+        [HttpPost]
+        public CustomJsonResult GetByName(Guid id)
+        {
+            string name = "";
+            try
+            {
+                 name = repo.GetByName(id);
+            }
+            catch (Exception)
+            {
+
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = name;
+            return json;
+        }
     }
 }
 

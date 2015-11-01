@@ -31,6 +31,7 @@ namespace UIShell.RbacManagementPlugin
                 {
                     new MvcModuleMeta{ Image="icon-sitemap", Label = "单位管理", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
                     new MvcModuleMeta{ Image="icon-group", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
+                    new MvcModuleMeta{ Image="icon-group", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
                     new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }
             });

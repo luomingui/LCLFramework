@@ -1,89 +1,66 @@
 ﻿@{
     ViewBag.Title = "编辑行政区域";
 }
-
 @using LCL.MvcExtensions
 @using UIShell.RbacPermissionService
 @model AddOrEditViewModel<Xzqy>
 <!-- Page title -->
-<div class="page-title">
-    <h2>
-        <i class="icon-desktop color"></i> 行政区域 <small>
-            @{
-                string actionTag = "";
-                if (Model.Added)
-                {
-                    actionTag = "新增一个行政区域";
-                }
-                else
-                {
-                    actionTag = "编辑一个行政区域";
-                }
-            }@actionTag
-        </small>
-    </h2>
-    <hr />
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="col-md-12">
-            <div class="awidget">
-                <div class="awidget-head">
-                    <h3>行政区域</h3>
-                </div>
-                <div class="awidget-body">
-                    <!--form-horizontal row-border start-->
-                    @using (Html.BeginForm(Model.Added ? "Add" : "Edit", "Xzqy", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
-                    {
-                        @Html.HiddenFor(c => c.CurrentPageNum)
-                        @Html.HiddenFor(c => c.PageSize)
-                        @Html.HiddenFor(c => c.Entity.ID)
+<!--form-horizontal row-border start-->
+@using (Html.BeginForm(Model.Added ? "Add" : "Edit", "Xzqy", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+{
+    <table class="tb_searchbar">
+        <tbody>
+            <tr>
+                <td class="td_title">
+                    @Html.LabelFor(c => c.Entity.HelperCode)
+                </td>
+                <td>
+                    @Html.TextBoxFor(c => c.Entity.HelperCode, new { @class = "easyui-validatebox input",@placeholder = "请输入区划代码" })
+                </td>
+            </tr>
+            <tr>
+                <td class="td_title">
+                    @Html.LabelFor(c => c.Entity.Name)
+                </td>
+                <td>
+                    @Html.TextBoxFor(c => c.Entity.Name, new { @class = "easyui-validatebox", @placeholder = "请输入区划名称" })
+                </td>
+            </tr>
+            <tr>
+                <td class="td_title">
+                    @Html.LabelFor(c => c.Entity.Intro)
+                </td>
+                <td>
+                    @Html.TextAreaFor(c => c.Entity.Intro, 8, 60, new { @class = "easyui-validatebox", @placeholder = "请输入区划介绍" })
+                </td>
+            </tr>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.HelperCode)</label>
-                            <div class="col-sm-10">
-                                @Html.TextBoxFor(c => c.Entity.HelperCode, new { @class = "form-control", @placeholder = "请输入区划代码" })
-                                @Html.ValidationMessageFor(c => c.Entity.HelperCode)
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Name)</label>
-                            <div class="col-sm-10">
-                                @Html.TextBoxFor(c => c.Entity.Name, new { @class = "form-control", @placeholder = "请输入区划名称" })
-                                @Html.ValidationMessageFor(c => c.Entity.Name)
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Intro)</label>
-                            <div class="col-sm-10">
-                                @Html.TextAreaFor(c => c.Entity.Intro, 5, 10, new { @class = "form-control", @placeholder = "请输入区划介绍" })
-                                @Html.ValidationMessageFor(c => c.Entity.Intro)
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary" onclick="return ValidationMessage()">保存</button>
-                                <button type="button" class="btn" onclick="javascript: window.history.back();">返回</button>
-                            </div>
-                        </div>
-                        @Html.HiddenFor(c => c.Entity.ParentId) <br />
-                        @Html.HiddenFor(c => c.Entity.AddDate) <br />
-                        @Html.HiddenFor(c => c.Entity.Level) <br />
-                        @Html.HiddenFor(c => c.Entity.NodePath) <br />
-                        @Html.HiddenFor(c => c.Entity.OrderBy) <br />
-                        @Html.HiddenFor(c => c.Entity.IsLast) <br />
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+        </tbody>
+    </table>
+    <table >
+        <tbody>
+            <tr>
+                <td align="left" class="5">
+                    <button type="button" class="easyui-linkbutton" onclick="return Save(@Model.Added);">保存</button>
+                    <button type="reset" class="easyui-linkbutton">重置</button>&nbsp;&nbsp;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @Html.HiddenFor(c => c.CurrentPageNum)
+    @Html.HiddenFor(c => c.PageSize)
+    @Html.HiddenFor(c => c.Entity.ID)
+    @Html.HiddenFor(c => c.Entity.ParentId)
+    @Html.HiddenFor(c => c.Entity.AddDate)
+    @Html.HiddenFor(c => c.Entity.Level)
+    @Html.HiddenFor(c => c.Entity.NodePath)
+    @Html.HiddenFor(c => c.Entity.OrderBy)
+    @Html.HiddenFor(c => c.Entity.IsLast)
+}
 
 @section scripts{
     <script type="text/javascript">
-        function ValidationMessage() {
+        function VerifyFrom() {
             var Name = $("#Entity_Name").val();
             var Code = $("#Entity_HelperCode").val();
             if (Name.length <= 2) {
@@ -97,6 +74,24 @@
                 return false;
             }
             return true;
+        }
+        function Save(added) {
+            var flg = VerifyFrom();
+            if (flg == true) {
+                var ID = $("#Entity_ID").val();
+                var Name = $("#Entity_Name").val();
+                var Remark = $("#Entity_HelperCode").val();
+
+                if (added) {
+                    $.post("AjaxAdd", { ID: ID, Name: Name, Remark: Remark }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                    }, "json");
+                } else {
+                    $.post("AjaxEdit", { ID: ID, Name: Name, Remark: Remark }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                    }, "json");
+                }
+            }
         }
     </script>
 }

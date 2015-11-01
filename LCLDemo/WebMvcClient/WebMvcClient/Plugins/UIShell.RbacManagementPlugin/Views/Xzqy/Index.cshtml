@@ -2,131 +2,174 @@
 @{
     ViewBag.Title = "行政区域";
 }
-<!-- Page title -->
-<div class="page-title">
-    <h2><i class="icon-desktop color"></i> 行政区域 <small>显示所有行政区域</small></h2>
-    <hr />
+<div data-options="region:'west',title:'行政区域'" style="width: 200px;">
+    <ul id="uitree" class="easyui-tree"></ul>
 </div>
-<!-- Page title -->
-<div class="awidget">
-    <div class="awidget-head">
-        <div class="row">
-            <div class="col-md-10">
-                <span>&nbsp;&nbsp;&nbsp;总数：@Model.TotalCount</span>
-            </div>
-            <div class="col-md-2">
-                @if (Model.PagedModels.Count == 0)
-                {
-                    <form class="form-inline definewidth m20">
-                        <button type="button" class="btn btn-primary" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-                        new { PID=0,currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'">
-                            新 增
-                        </button>
-                    </form>
-                }
-            </div>
-        </div>
+<div data-options="region:'center',title:'行政区域管理'" style="padding: 5px; overflow-y: hidden;">
+    <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;">
+        <a id="a_addCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增下级</a>&nbsp;
+        <a id="a_delCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>&nbsp;
+        <a id="a_editCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-save">保存</a>&nbsp;
     </div>
-    <div class="awidget-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>&nbsp;&nbsp;操作</th>
-                            <th>区划代码</th>
-                            <th>区划名称</th>
-                            <th>是否下级</th>
-                            <th>树形深度</th>
-                            <th>排序</th>
-                            <th>更新时间</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            foreach (var view in Model.PagedModels)
-                            {
-                                <tr>
-                                    <td>&nbsp;&nbsp;
-                                        <a href="##"  onclick="javascript: location.href='@Url.Action("AddOrEdit",
-new { PID = @view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                                            @{
-                                string addName = "添加";
-                                if (view.Level == 1)
-                                {
-                                    addName = "添加省";
-                                }
-                                else if (view.Level == 2)
-                                {
-                                    addName = "添加市县";
-                                }
-                                else if (view.Level == 3)
-                                {
-                                    addName = "添加区";
-                                }
-                                else if (view.Level == 4)
-                                {
-                                    addName = "添加镇";
-                                }
-                                else if (view.Level == 5)
-                                {
-                                    addName = "添加村";
-                                }
-                                            }
-                                            @addName
-                                        </a>
+    <table class="tb_searchbar">
+        <tbody>
+            <tr>
+                <td class="td_title">
+                    上级区划
+                </td>
+                <td>
+                   <select>
+                       <option>1</option>
+                       <option>2</option>
+                       <option>3</option>
+                       <option>4</option>
+                   </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_title">
+                    区划代码
+                </td>
+                <td>
+                    <input type="text" id="Entity_HelperCode" name="Entity.HelperCode" value="" data-options="required:true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td_title">
+                    区划名称
+                </td>
+                <td>
+                    <input type="text" id="Entity_Name" name="Entity.Name" value="" data-options="required:true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td_title">
+                    负责人
+                </td>
+                <td>
+                    <input type="text" id="Entity_Name" name="Entity.Name" value="" data-options="required:true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td_title">
+                    区划介绍
+                </td>
+                <td>
+                    <textarea id="Entity_Intro" name="Entity.Intro" cols="80" rows="20"></textarea>
+                </td>
+            </tr>
 
-                                        <a href="##" onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">编辑</a>
-                                        <a href="##" onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };"> 删除</a>
-                                    </td>
-                                    <td>
-                                        @if (view.Level == 0)
-                                        {
-                                            <span>&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/home.png" style="padding:2px; left:2px; width:auto; height:auto" /></span>
-                                        }
-                                        else if (view.Level == 1)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/home.png" style="padding:2px; left:2px;" /></span>
-                                        }
-                                        else if (view.Level == 2)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/facebook.png" style="padding:2px;height:16px;width:16px;left:2px;" />
-                                        }
-                                        else if (view.Level == 3)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/twitter.png" style="padding:2px;height:16px;width:16px;left:2px;" /> </span>
-                                        }
-                                        else if (view.Level == 4)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/docs.png" style="padding:2px;" /></span>
-                                        }
-                                        else if (view.Level == 5)
-                                        {
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/docs.png" style="padding:2px;" /></span>
-                                        }
-                                        @view.HelperCode
-                                    </td>
-                                    <td>&nbsp;@view.Name</td>
-                                    <td>&nbsp;
-                                        @if (view.IsLast)
-                                        {
-                                            <img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/true.gif" />
-                                        }
-                                        else
-                                        {
-                                            <img src="~/Plugins/UIShell.BUIAdminShellPlugin/Content/Images/false.gif" />
-                                        }
-                                    </td>
-                                    <td>&nbsp;@view.Level</td>
-                                    <td>&nbsp;@view.OrderBy</td>
-                                    <td>&nbsp;@view.UpdateDate</td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @Html.Partial("_PagedListBottom")
-    </div>
+        </tbody>
+    </table>
 </div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DicCategory.showTree(); //显示数据字典列表树
+
+            var heightMargin = $("#toolbar").height() + 60;
+            var widthMargin = $(document.body).width() - $("#tb").width();
+            // 第一次加载时和当窗口大小发生变化时，自动变化大小
+            $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            $(window).resize(function () {
+                $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            });
+        });
+        var DicCategory = {
+            showTree: function () {
+                $('#uitree').tree({
+                    url: 'AjaxEasyUITree',
+                    lines: true,
+                    onClick: function (node) {
+                        var cc = node.id;
+                        dicType = cc;
+                        //mygrid.reload(cc);
+                    }
+                });
+            },
+            reload: function () {
+                $('#dataDicType').tree('reload');
+            },
+            getSelected: function () {
+                return $('#dataDicType').tree('getSelected');
+            },
+            add: function () {
+                var d = $('#dlg').dialog({
+                    title: '添加',
+                    width: 500,
+                    height: 280,
+                    closed: true,
+                    cache: false,
+                    href: 'AddOrEdit',
+                    iconCls: 'icon-add',
+                    modal: true,
+                    onClose: function () {
+                        reload();
+                    }
+                });
+                $("#dlg").dialog("open");
+            },
+            edit: function () {
+                var node = DicCategory.getSelected();
+                if (node) {
+                    $('#dlg').dialog({
+                        title: '修改',
+                        width: 500,
+                        height: 280,
+                        closed: true,
+                        cache: false,
+                        href: 'AddOrEdit?id=' + trim(row.ID),
+                        iconCls: 'icon-edit',
+                        modal: true,
+                        onClose: function () {
+                            reload();
+                        }
+                    });
+                    $("#dlg").dialog("open");
+                }
+                else {
+                    alert('请选择字典类别');
+                }
+                return false;
+            },
+            del: function () {
+                var node = DicCategory.getSelected();
+                var rows = $('#dicGrid').datagrid('getData');
+                if (rows && rows.total > 0) {
+                    alert('当前字典有明细数据，不能删除。请先删除明细数据。');
+                    return false;
+                }
+                if (node) {
+                    var childs = $('#dataDicType').tree('getChildren', node.target);
+                    if (childs && childs.length > 0) {
+                        alert('当前字典有下级数据，不能删除。请先删除子节点数据。');
+                        return false;
+                    }
+
+                    $.messager.confirm('确认', '确认要删除选中记录吗?', function (y) {
+                        if (y) {
+                            //提交
+                            $.post('AjaxDelete/', node.id,
+                            function (msg) {
+                                if (msg.Success) {
+                                    $.messager.alert('提示', msg.Message, 'info', function () {
+                                        //重新加载当前页
+                                        $('#grid').datagrid('reload');
+                                    });
+                                } else {
+                                    $.messager.alert('提示', msg.Message, 'info')
+                                }
+                            }, "json");
+                        }
+                    });
+
+                }
+                else {
+                    alert('请选择字典类别');
+                }
+                return false;
+            }
+        }
+    </script>
+}
+

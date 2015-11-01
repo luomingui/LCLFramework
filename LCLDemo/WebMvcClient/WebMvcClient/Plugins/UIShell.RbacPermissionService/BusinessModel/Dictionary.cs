@@ -5,7 +5,7 @@ namespace UIShell.RbacPermissionService
     /// <summary>
     /// 字典管理
     /// </summary>
-    public partial class Dictionary : BaseModel
+    public partial class Dictionary : BaseTreeModel
     {
         /// <summary>
         /// 字典类型

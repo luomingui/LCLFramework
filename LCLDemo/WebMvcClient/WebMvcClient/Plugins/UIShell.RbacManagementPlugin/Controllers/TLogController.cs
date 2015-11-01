@@ -14,15 +14,15 @@ using LCL.MvcExtensions;
 using LCL.Repositories;
 using System.Web.Mvc;
 using UIShell.RbacPermissionService;
+using LCL;
 
 namespace UIShell.RbacManagementPlugin.Controllers
 {
     public class TLogController : RbacController<TLog>
     {
-        ITLogRepository repo = RF.Concrete<ITLogRepository>();
         public TLogController()
         {
-
+            repo = RF.Concrete<ITLogRepository>();
         }
         [Permission("Ê×Ò³", "Index")]
         public override System.Web.Mvc.ActionResult Index(int? currentPageNum, int? pageSize, System.Web.Mvc.FormCollection collection)
@@ -33,13 +33,13 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<TLog>.DefaultPageSize;
+                pageSize = PagedResult<TLog>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
 
             var list = repo.FindAll(p => p.UpdateDate, LCL.SortOrder.Descending);
 
-            var contactLitViewModel = new PagedListViewModel<TLog>(pageNum, pageSize.Value, list.ToList());
+            var contactLitViewModel = new PagedResult<TLog>(pageNum, pageSize.Value, list.ToList());
 
             return View(contactLitViewModel);
         }

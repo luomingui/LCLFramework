@@ -10,6 +10,7 @@ namespace UIShell.RbacPermissionService
     public interface IDepartmentRepository : IRepository<Department>
     {
         List<Department> GetXzqyDepartment(Guid xzqyId);
+        string GetByName(Guid id);
 
     }
     public class DepartmentRepository : EntityFrameworkRepository<Department>, IDepartmentRepository
@@ -25,7 +26,7 @@ namespace UIShell.RbacPermissionService
             List<Department> list = new List<Department>();
             if (xzqyId != null && xzqyId != Guid.Empty)
             {
-                ISpecification<Department> spec = Specification<Department>.Eval(p => p.Xzqy.ID == xzqyId && p.DepartmentType == DepartmentType.网点 && p.IsDelete == false);
+                ISpecification<Department> spec = Specification<Department>.Eval(p => p.Xzqy.ID == xzqyId && p.IsDelete == false);
                 list = this.FindAll(spec).ToList();
             }
             return list;
@@ -35,6 +36,11 @@ namespace UIShell.RbacPermissionService
         {
             DbFactory.DBA.ExecuteText("UPDATE [User] SET IsDelete=1 WHERE Department_ID='" + entity.ID + "'");
             base.DoRemove(entity);
+        }
+        public string GetByName(Guid id)
+        {
+            var model= this.GetByKey(id);
+            return model.Name;
         }
     }
 }

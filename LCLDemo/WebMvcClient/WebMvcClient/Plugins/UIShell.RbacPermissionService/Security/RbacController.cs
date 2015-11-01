@@ -125,7 +125,8 @@ namespace UIShell.RbacPermissionService
         }
         public ActionResult Error(Exception ex)
         {
-            return View("Error");
+            if (ex == null) ex = new Exception("未知错误.");
+            return View("Error",ex);
         }
         public override ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
         {
@@ -135,7 +136,7 @@ namespace UIShell.RbacPermissionService
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<TEntity>.DefaultPageSize;
+                pageSize = PagedResult<TEntity>.DefaultPageSize;
             }
             if (!id.HasValue)
             {
@@ -168,11 +169,66 @@ namespace UIShell.RbacPermissionService
                 });
             }
         }
-
-        #region 行政区域
-        [HttpPost]
-        public JsonResult GetOrgChildList(Guid pid)
+        public override CustomJsonResult AjaxGetByPage(int? page, int? rows)
         {
+            /*
+1、easyui-datagrid 分页接收参数
+page 接受客户端的页码，对应的就是用户选择或输入的pageNumber（按照上图的例子，用户点了下一页，传到服务器端就是2）
+rows 接受客户端的每页记录数，对应的就是pageSize  （用户在下拉列表选择每页显示30条记录，传到服务器就是30）
+
+返回到前台的值必须按照如下的格式包括 total and rows 
+ */
+            if (!page.HasValue)
+            {
+                page = 1;
+            }
+            if (!rows.HasValue)
+            {
+                rows = PagedResult<TEntity>.DefaultPageSize;
+            }
+            int pageNumber = page.Value;
+            int pageSize = rows.Value;
+            var modelList = repo.FindAll(p => p.UpdateDate, LCL.SortOrder.Descending, pageNumber, pageSize);
+
+            var easyUIPages = new Dictionary<string, object>();
+            easyUIPages.Add("total", modelList.PageCount);
+            easyUIPages.Add("rows", modelList.PagedModels);
+ 
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = easyUIPages;
+            return json;
+        }
+        #region 树形
+        public List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
+        [HttpPost]
+        public virtual CustomJsonResult AjaxEasyUITree_Department()
+        {
+            var repo = RF.Concrete<IDepartmentRepository>();
+            var modelList = repo.FindAll().ToList();
+            string id = LRequest.GetString("id");
+            Guid guid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id);
+            var list = modelList.Where(p => p.ParentId == guid);
+            foreach (var item in list)
+            {
+                EasyUITreeModel model = new EasyUITreeModel();
+                model.id = item.ID.ToString();
+                model.attributes = item.ID.ToString();
+                model.text = item.Name;
+                model.parentId = item.ParentId.ToString();
+                model.children = new List<EasyUITreeModel>();
+                easyTree.Add(model);
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = easyTree;
+            return json;
+        }
+        [HttpPost]
+        public CustomJsonResult AjaxEasyUITree_Xzqy()
+        {
+            string id = LRequest.GetString("id");
+            Guid pid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id);
             var repo = RF.Concrete<IXzqyRepository>();
             ISpecification<Xzqy> spec = Specification<Xzqy>.Eval(p => p.ParentId == Guid.Empty);
             ISpecification<Xzqy> spec1 = Specification<Xzqy>.Eval(p => p.ParentId == pid);
@@ -181,10 +237,23 @@ namespace UIShell.RbacPermissionService
             {
                 list = repo.FindAll(spec1);
             }
-            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+            easyTree = new List<EasyUITreeModel>();
+            foreach (var item in list)
+            {
+                EasyUITreeModel model = new EasyUITreeModel();
+                model.id = item.ID.ToString();
+                model.attributes = item.ID.ToString();
+                model.text = item.Name;
+                model.parentId = item.ParentId.ToString();
+                model.children = new List<EasyUITreeModel>();
+                easyTree.Add(model);
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = easyTree;
+            return json;
         }
         #endregion
-
         public void AddTLog(string title, string content, EnumLogType enumlogtype)
         {
 
@@ -208,6 +277,10 @@ namespace UIShell.RbacPermissionService
                 IP = HttpContext.Request.UserHostAddress,
             });
             repo.Context.Commit();
+        }
+        public void alert(string msg)
+        {
+            Response.Write("<script>$.messager.alert('消息','" + msg + "');</script>");
         }
 
     }

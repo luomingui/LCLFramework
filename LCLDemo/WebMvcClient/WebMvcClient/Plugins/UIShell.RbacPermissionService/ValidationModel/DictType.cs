@@ -10,9 +10,9 @@ namespace UIShell.RbacPermissionService
         public class DictTypeMD  
         {  
             [Display(Name = "Ãû³Æ")]  
-            public string Name { get; set; }  
-            [Display(Name = "ÃèÊö")]  
-            public string DicDes { get; set; }  
+            public string Name { get; set; }
+            [Display(Name = "±àÂë")]
+            public string Code { get; set; }  
         }  
     }  
  

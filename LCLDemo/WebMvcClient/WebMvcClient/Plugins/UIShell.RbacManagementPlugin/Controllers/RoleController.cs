@@ -1,5 +1,3 @@
-using LCL.Repositories;
-using System.Web.Mvc;
 /******************************************************* 
 *  
 * 作者：罗敏贵 
@@ -11,6 +9,8 @@ using System.Web.Mvc;
 *    创建文件 罗敏贵 20154月18日 星期六
 *  
 *******************************************************/
+using LCL.Repositories;
+using System.Web.Mvc;
 using UIShell.RbacPermissionService;
 
 namespace UIShell.RbacManagementPlugin.Controllers
@@ -22,7 +22,6 @@ namespace UIShell.RbacManagementPlugin.Controllers
         {
 
         }
-
         public JsonResult CheckRoleName(string RoleName)
         {
             bool isValidate = repo.CheckRoleName(RoleName);

@@ -20,12 +20,12 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<ScheduledEvents>.DefaultPageSize;
+                pageSize = PagedResult<ScheduledEvents>.DefaultPageSize;
             }
 
             var list = FindAll();
 
-            var contactLitViewModel = new PagedListViewModel<ScheduledEvents>(currentPageNum.Value, pageSize.Value, list.ToList());
+            var contactLitViewModel = new PagedResult<ScheduledEvents>(currentPageNum.Value, pageSize.Value, list.ToList());
             return View(contactLitViewModel);
 
         }
@@ -55,7 +55,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<ScheduledEvents>.DefaultPageSize;
+                pageSize = PagedResult<ScheduledEvents>.DefaultPageSize;
             }
             if (string.IsNullOrWhiteSpace(Key))
             {
@@ -219,5 +219,166 @@ namespace UIShell.RbacManagementPlugin.Controllers
             var list = dt.ToArray<ScheduledEvents>();
             return list.ToList();
         }
+
+        #region AJAX
+        [HttpPost]
+        public CustomJsonResult AjaxGetBy()
+        {
+            var modelList = FindAll();
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = modelList;
+
+            return json;
+        }
+        [HttpPost]
+        public CustomJsonResult AjaxAdd(ScheduledEvents model, FormCollection collection)
+        {
+            int Entity_ExetimeType = 0;
+            if (collection.GetValues("Entity.ExetimeType") != null)
+            {
+                Entity_ExetimeType = int.Parse(collection.GetValue("Entity.ExetimeType").AttemptedValue);
+            }
+
+            #region MyRegion
+            ScheduleConfigInfo sci = ScheduleConfigs.GetConfig();
+            foreach (EventInfo ev1 in sci.Events)
+            {
+                if (ev1.Key == model.Key.Trim())
+                {
+                    ModelState.AddModelError("Key", "消息：计划任务名称已经存在！");
+                    //return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
+                }
+            }
+
+            EventInfo ev = new EventInfo();
+            ev.Key = model.Key;
+            ev.Enabled = true;
+            ev.IsSystemEvent = false;
+            ev.ScheduleType = model.ScheduleType.ToString();
+            model.ExetimeType = Entity_ExetimeType == 0 ? false : true;
+
+            if (model.ExetimeType)
+            {
+                ev.TimeOfDay = model.hour * 60 + model.minute;
+                ev.Minutes = sci.TimerMinutesInterval;
+            }
+            else
+            {
+                ev.Minutes = model.timeserval;
+                ev.TimeOfDay = -1;
+            }
+            EventInfo[] es = new EventInfo[sci.Events.Length + 1];
+            for (int i = 0; i < sci.Events.Length; i++)
+            {
+                es[i] = sci.Events[i];
+            }
+            es[es.Length - 1] = ev;
+            sci.Events = es;
+            ScheduleConfigs.SaveConfig(sci);
+            #endregion
+
+            var result = new Result(true);
+   
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
+
+        }
+        [HttpPost]
+        public CustomJsonResult AjaxEdit(ScheduledEvents model)
+        {
+            var key = LRequest.GetFormString("Key");
+            #region MyRegion
+            ScheduleConfigInfo sci = ScheduleConfigs.GetConfig();
+            foreach (EventInfo ev1 in sci.Events)
+            {
+                if (ev1.Key == model.Key.Trim())
+                {
+                    ModelState.AddModelError("Key", "消息：计划任务名称已经存在！");
+                    //return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
+                }
+            }
+            foreach (EventInfo ev1 in sci.Events)
+            {
+                if (ev1.Key == key)
+                {
+                    ev1.Key = model.Key.Trim();
+                    ev1.ScheduleType = model.ScheduleType.Trim();
+
+                    if (model.ExetimeType)
+                    {
+                        ev1.TimeOfDay = model.hour * 60 + model.minute;
+                        ev1.Minutes = sci.TimerMinutesInterval;
+                    }
+                    else
+                    {
+                        if (model.timeserval < sci.TimerMinutesInterval)
+                            ev1.Minutes = sci.TimerMinutesInterval;
+                        else
+                            ev1.Minutes = model.timeserval;
+                        ev1.TimeOfDay = -1;
+                    }
+                    if (!ev1.IsSystemEvent)
+                    {
+                        ev1.Enabled = model.Enable;
+                    }
+                    break;
+                }
+            }
+            ScheduleConfigs.SaveConfig(sci);
+            #endregion
+
+            var result = new Result(true);
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
+
+        }
+        [HttpPost]
+        public CustomJsonResult AjaxDelete(string Key)
+        {
+            ScheduleConfigInfo sci = ScheduleConfigs.GetConfig();
+            sci.Events = sci.Events.Where(p => p.Key != Key).ToArray();
+            ScheduleConfigs.SaveConfig(sci);
+
+            var result = new Result(true);
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
+        }
+        [HttpPost]
+        public CustomJsonResult AjaxExecCommand(string Key)
+        {
+            if (!string.IsNullOrWhiteSpace(Key))
+            {
+                EventInfo[] events = ScheduleConfigs.GetConfig().Events;
+                foreach (EventInfo ev in events)
+                {
+                    if (ev.Key == Key)
+                    {
+                        ((IEvent)Activator.CreateInstance(Type.GetType(ev.ScheduleType))).Execute(HttpContext);
+                        Event.SetLastExecuteScheduledEventDateTime(ev.Key, Environment.MachineName, DateTime.Now);
+                        break;
+                    }
+                }
+            }
+            var result = new Result(true);
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+            return json;
+        }
+        #endregion
+       
     }
 }

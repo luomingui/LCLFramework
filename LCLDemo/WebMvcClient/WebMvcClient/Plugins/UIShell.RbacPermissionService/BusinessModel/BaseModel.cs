@@ -19,8 +19,7 @@ namespace UIShell.RbacPermissionService
     public partial class BaseTreeModel : BaseModel,IEntityTree
     {
         public BaseTreeModel()
-        {
-            
+        {         
             IsLast = false;
             Level = 0;
             NodePath = "";

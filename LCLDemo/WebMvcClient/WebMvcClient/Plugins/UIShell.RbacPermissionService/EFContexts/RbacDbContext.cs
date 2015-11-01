@@ -87,12 +87,12 @@ namespace UIShell.RbacPermissionService
     {
         protected override void Seed(RbacDbContext context)
         {
-            var dep1 = context.Set<Department>().Add(new Department { Name = "研发部", OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "", DepartmentType = DepartmentType.部门 });
-            var dep2 = context.Set<Department>().Add(new Department { Name = "市场部", OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "", DepartmentType = DepartmentType.部门 });
+            var dep1 = context.Set<Department>().Add(new Department { Name = "研发部", OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
+            var dep2 = context.Set<Department>().Add(new Department { Name = "市场部", OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
 
-            var role1 = context.Set<Role>().Add(new Role { Name = "系统管理员", RoleType = 1, Remark = "" });
-            var role2 = context.Set<Role>().Add(new Role { Name = "业务管理者", RoleType = 1, Remark = "" });
-            var role3 = context.Set<Role>().Add(new Role { Name = "业务操作者", RoleType = 1, Remark = "" });
+            var role1 = context.Set<Role>().Add(new Role { Name = "系统管理员", RoleType = 1, Remark = "系统管理员" });
+            var role2 = context.Set<Role>().Add(new Role { Name = "业务管理者", RoleType = 1, Remark = "业务管理者" });
+            var role3 = context.Set<Role>().Add(new Role { Name = "业务操作者", RoleType = 1, Remark = "业务操作者" });
 
             int flgInt = 0;
             for (int i = 0; i < 10; i++)
@@ -128,9 +128,11 @@ namespace UIShell.RbacPermissionService
                 });
             }
 
-            var dict = context.Set<DictType>().Add(new DictType { Name = "Sex", DicDes = "性别" });
+            var dict = context.Set<DictType>().Add(new DictType { Name = "Sex", Code = "性别" });
             context.Set<Dictionary>().Add(new Dictionary { DictType = dict, Name = "男", Value = "0", Order = 1 });
             context.Set<Dictionary>().Add(new Dictionary { DictType = dict, Name = "女", Value = "1", Order = 2 });
+
+
 
             try
             {

@@ -20,7 +20,7 @@ namespace UIShell.RbacPermissionService
         }
         void app_AllPluginsIntialized(object sender, System.EventArgs e)
         {
-            //DatabaseInitializer.Initialize();
+            DatabaseInitializer.Initialize();
             //设置权限提供程序为本模块中实体类
             PermissionMgr.Provider = new LCLPermissionProvider();
 

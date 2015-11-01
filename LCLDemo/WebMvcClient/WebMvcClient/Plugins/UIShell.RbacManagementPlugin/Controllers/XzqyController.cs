@@ -1,3 +1,4 @@
+using LCL;
 /******************************************************* 
 *  
 * 作者：罗敏贵 
@@ -12,6 +13,7 @@
 using LCL.MvcExtensions;
 using LCL.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using UIShell.RbacPermissionService;
@@ -20,7 +22,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
 {
     public class XzqyController : RbacController<Xzqy>
     {
-        IXzqyRepository repo =null;
+        IXzqyRepository repo = null;
         public XzqyController()
         {
             repo = RF.Concrete<IXzqyRepository>();
@@ -34,13 +36,13 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<Xzqy>.DefaultPageSize;
+                pageSize = PagedResult<Xzqy>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
 
             var list = repo.GetFull();
 
-            var contactLitViewModel = new PagedListViewModel<Xzqy>(pageNum, pageSize.Value, list.ToList());
+            var contactLitViewModel = new PagedResult<Xzqy>(pageNum, pageSize.Value, list.ToList());
 
             return View(contactLitViewModel);
         }
@@ -52,7 +54,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<Xzqy>.DefaultPageSize;
+                pageSize = PagedResult<Xzqy>.DefaultPageSize;
             }
             if (!id.HasValue)
             {
@@ -120,16 +122,76 @@ namespace UIShell.RbacManagementPlugin.Controllers
 
             return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
         }
-        [Permission("删除", "Delete")]
-        [BizActivityLog("删除行政区域", "Name")]
-        public override ActionResult Delete(Xzqy village, int? currentPageNum, int? pageSize, FormCollection collection)
+        public override CustomJsonResult AjaxDelete(Xzqy model)
         {
-            village = repo.GetByKey(village.ID);
-            DbFactory.DBA.ExecuteText("DELETE Xzqy WHERE NodePath LIKE '" + village.NodePath + "%'");
-            DbFactory.DBA.ExecuteText("DELETE Xzqy WHERE ID= '" + village.ID + "'");
+            model = repo.GetByKey(model.ID);
+            DbFactory.DBA.ExecuteText("DELETE Xzqy WHERE NodePath LIKE '" + model.NodePath + "%'");
+            DbFactory.DBA.ExecuteText("DELETE Xzqy WHERE ID= '" + model.ID + "'");
 
-            return RedirectToAction("Index", new { currentPageNum = currentPageNum.Value, pageSize = pageSize.Value });
+            var result = new Result(true);
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
         }
+        public override CustomJsonResult AjaxGetByPage(int? page, int? rows)
+        {
+            /*
+1、easyui-datagrid 分页接收参数
+page 接受客户端的页码，对应的就是用户选择或输入的pageNumber（按照上图的例子，用户点了下一页，传到服务器端就是2）
+rows 接受客户端的每页记录数，对应的就是pageSize  （用户在下拉列表选择每页显示30条记录，传到服务器就是30）
+
+返回到前台的值必须按照如下的格式包括 total and rows 
+ */
+            if (!page.HasValue)
+            {
+                page = 1;
+            }
+            if (!rows.HasValue)
+            {
+                rows = PagedResult<Xzqy>.DefaultPageSize;
+            }
+            int pageNumber = page.Value;
+            int pageSize = rows.Value;
+            var modelList = repo.FindAll(p => p.NodePath, LCL.SortOrder.Ascending, pageNumber, pageSize);
+            //	{"id":2,"name":"Designing","begin":"3/4/2010","end":"3/10/2010","progress":100,"_parentId":1,"state":"closed"},
+            var easyUIPages = new Dictionary<string, object>();
+            easyUIPages.Add("total", modelList.PageCount);
+            easyUIPages.Add("rows", modelList.PagedModels);
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = easyUIPages;
+            return json;
+        }
+
+        #region MyRegion
+        public List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
+        [HttpPost]
+        public virtual CustomJsonResult AjaxEasyUITree()
+        {
+            var modelList = repo.FindAll().ToList();
+            string id = LRequest.GetString("id");
+            Guid guid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id);
+            var list = modelList.Where(p => p.ParentId == guid);
+            foreach (var item in list)
+            {
+                EasyUITreeModel model = new EasyUITreeModel();
+                model.id = item.ID.ToString();
+                model.attributes = item.ID.ToString();
+                model.text = item.Name;
+                model.parentId = item.ParentId.ToString();
+                model.children = new List<EasyUITreeModel>();
+                easyTree.Add(model);
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = easyTree;
+            return json;
+        }
+        #endregion
     }
 }
 

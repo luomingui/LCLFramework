@@ -2,73 +2,166 @@
 @{
     ViewBag.Title = "用户管理";
 }
-<!-- Page title -->
-<div class="page-title">
-    <h2><i class="icon-desktop color"></i> 用户管理 <small>显示所有用户信息</small></h2>
-    <hr />
-</div>
-<!-- Page title -->
-<div class="awidget">
-    <div class="awidget-head">
-        <div class="row">
-            <div class="col-md-10">
-                <span>总数：@Model.TotalCount</span>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary pull-right" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                    新 增
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="awidget-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>操作</th>
-                            <th>登录名称</th>
-                            <th>是否锁定</th>
-                            <th>更新时间</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            foreach (var view in Model.PagedModels)
-                            {
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-xs btn-warning"
-                                        onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                                    <i class="icon-pencil"></i>
-                                </button>
-                                <button type="button" class="btn btn-xs btn-danger"
-                                        onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">
-                                    <i class="icon-remove"></i>
-                                </button>
-
-                            </td>
-                            <td>@view.Name</td>
-                            <td>
-                                @if (view.IsLockedOut)
-                                {
-                                    <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/true.gif" />
-                                }
-                                else
-                                {
-                                    <img src="~/Plugins/UIShell.OlsonAdminShellPlugin/Images/false.gif" />
-                                }
-                            </td>
-                            <td>@view.UpdateDate</td>
-                        </tr>
-                            }
-                        }
-                    </tbody>
+<div id="tb" style="padding:5px;height:auto">
+    <!-------------------------------搜索框----------------------------------->
+    <fieldset>
+        <legend>信息查询</legend>
+        <form id="ffSearch" method="post">
+            <div id="toolbar">
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <label class="sr-only" for="inputfile"> 组织：</label>
+                            <select id="cc" class="easyui-combotree" style="width:100px;"
+                                    data-options="url:'AjaxEasyUITree_Department'"></select>
+                            <label class="sr-only" for="inputfile">搜:</label>
+                            <input type="text" name="Keyword" id="Keyword" class="input-large" placeholder="请输入" />
+                        </td>
+                        <td colspan="2">
+                            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="btnSearch">查询</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnImport" iconcls="icon-excel" onclick="ShowImport()">导入</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnExport" iconcls="icon-excel" onclick="ShowExport()">导出</a>
+                        </td>
+                    </tr>
                 </table>
             </div>
-        </div>
-        @Html.Partial("_PagedListBottom")
+        </form>
+    </fieldset>
+    <!-------------------------------详细信息展示表格----------------------------------->
+    <table id="grid" style="width: 940px" title="用户管理" class="easyui-datagrid" toolbar="#tbar" data-options="iconCls:'icon-view'"></table>
+    <!--   命令列表     -->
+    <div id="tbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="del()" />初始化密码
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
+        <a href="javascript:void(0)" />
     </div>
 </div>
+<!--   弹出框       -->
+<div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
+
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#grid').datagrid({
+                url: 'AjaxGetByPage',
+                loadMsg: '数据加载中....',
+                title: '用户信息一览表',
+                iconCls: 'icon-edit',
+                pagination: true,
+                rownumbers: true,
+                fitCloumns: true,
+                hideColumn: [[
+                  { title: '编号', field: 'ID' }
+                ]],
+                columns: [[
+                    { field: 'ck', checkbox: true },
+                    { field: 'Name', title: '名称', width: 200 },
+                    {
+                        field: 'IsLockedOut', title: '是否锁定', align: 'center', width: 100,
+                        //添加超级链，并将来文号作为参数传入  
+                        formatter: function (val, rec) {
+                            //alert(rec.adviceid);  
+                            if (val) {
+                                return '<div class="icon-true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
+                            } else {
+                                return '<div class="icon-false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
+                            }
+                        }
+                    },
+                    { field: 'UpdateDate', title: '更新时间', width: 150 },
+                    {
+                        field: 'opt', title: '操作', width: 100, align: 'center',
+                        formatter: function (value, rec) {
+                            return " "
+                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-edit' plain='true' onclick='edit()'>修改 </a>  "
+                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-remove' plain='true' onclick='del()'>删除 </a>    ";
+                        }
+                    }
+                ]]
+            });
+
+            var heightMargin = $("#toolbar").height() + 25;
+            var widthMargin = $(document.body).width() - $("#tb").width();
+            // 第一次加载时和当窗口大小发生变化时，自动变化大小
+            $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            $(window).resize(function () {
+                $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            });
+
+        });
+        function add() {
+            var d = $('#dlg').dialog({
+                title: '添加',
+                width: 500,
+                height: 280,
+                closed: true,
+                cache: false,
+                href: 'AddOrEdit',
+                iconCls: 'icon-add',
+                modal: true,
+                onClose: function () {
+                    refresh();
+                }
+            });
+            $("#dlg").dialog("open");
+
+        }
+        function edit() {
+            var row = $("#grid").datagrid("getSelected");
+            if (row) {
+                $('#dlg').dialog({
+                    title: '修改',
+                    width: 500,
+                    height: 280,
+                    closed: true,
+                    cache: false,
+                    href: 'AddOrEdit?id=' + trim(row.ID),
+                    iconCls: 'icon-edit',
+                    modal: true,
+                    onClose: function () {
+                        refresh();
+                    }
+                });
+                $("#dlg").dialog("open");
+            }
+        }
+        function del() {
+            var rows = $('#grid').datagrid('getSelections');
+            if (!rows || rows.length == 0) {
+                $.messager.alert('提示', '请选择要删除的数据!', 'info');
+                return;
+            }
+            var parm;
+            $.each(rows, function (i, row) {
+                if (i == 0) {
+                    parm = "idList=" + row.ID;
+                } else {
+                    parm += "&idList=" + row.ID;
+                }
+            });
+            $.messager.confirm('提示', '是否删除选中数据?', function (r) {
+                if (!r) {
+                    return;
+                }
+                //提交
+                $.post('AjaxDeleteList/', parm,
+                function (msg) {
+                    if (msg.Success) {
+                        $.messager.alert('提示', msg.Message, 'info', function () {
+                            //重新加载当前页
+                            $('#grid').datagrid('reload');
+                        });
+                    } else {
+                        $.messager.alert('提示', msg.Message, 'info')
+                    }
+                }, "json");
+            });
+        }
+        function refresh() {
+            $('#grid').datagrid('load');
+        }
+    </script>
+}

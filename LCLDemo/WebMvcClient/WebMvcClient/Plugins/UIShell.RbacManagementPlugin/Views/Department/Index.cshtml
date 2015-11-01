@@ -3,63 +3,80 @@
 @{
     ViewBag.Title = "单位管理";
 }
-<div class="page-title">
-    <h2>
-        <i class="icon-desktop color"></i> 单位管理 <small></small>
-    </h2> <hr />
+<div data-options="region:'west',title:'单位管理'" style="width: 200px;">
+    <ul id="uitree" class="easyui-tree"></ul>
 </div>
-<!-- Page title -->
-<div class="awidget">
-    <div class="awidget-head">
-        <div class="row">
-            <div class="col-md-10">
-                <span>&nbsp;&nbsp;&nbsp;总数：@Model.TotalCount</span>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" id="addnew" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-                        new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'">
-                    新 增
-                </button>
-            </div>
-        </div>
+<div data-options="region:'center',title:'单位管理'" style="padding: 5px; overflow-y: hidden;">
+
+    <div id="p" class="easyui-panel"
+         style="width: 100%; height:450px; padding: 10px; background: #fafafa;"
+         data-options="iconCls:'icon-save'">
+        <p>panel content.</p>
+        <p>panel content.</p>
     </div>
-    <div class="awidget-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>名称</th>
-                            <th>办公电话</th>
-                            <th>地址</th>
-                            <th>描述</th>
-                            <th>更新时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            foreach (var view in Model.PagedModels)
-                            {
-                                <tr>
-                                    <td>&nbsp;@view.Name</td>
-                                    <td>&nbsp;@view.OfficePhone</td>
-                                    <td>&nbsp;@view.Address</td>
-                                    <td>&nbsp;@view.Remark</td>
-                                    <td>&nbsp;@view.UpdateDate</td>
-                                    <td>
-                                        <a class="btn btn-xs btn-primary" href="DepartmentUser?depId=@view.ID">员工</a>
-                                        <a class="btn btn-xs btn-warning" href="##" onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">编辑</a>
-                                        <a class="btn btn-xs btn-danger" href="##" onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">删除</a>
-                                    </td>
-                                </tr>
-                            }
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            LCLTree.showTree();
+            LCLTree.add();
+
+        });
+        var LCLTree = {
+            showTree: function () {
+                $('#uitree').tree({
+                    url: 'AjaxEasyUITree_Department',
+                    lines: true,
+                    onClick: function (node) {
+                        var cc = node.id;
+                        dicType = cc;
+                        LCLTree.edit();
+                    }
+                });
+            },
+            reload: function () {
+                $('#uitree').tree('reload');
+            },
+            getSelected: function () {
+                return $('#uitree').tree('getSelected');
+            },
+            add: function () {
+                $('#p').panel({
+                    href: 'AddOrEdit'
+                });
+            },
+            edit: function () {
+                $('#p').panel({
+                    href: 'AddOrEdit?id=' + trim(dicType)
+                });
+            },
+            del: function () {
+                var node = LCLTree.getSelected();
+                if (node) {
+                    $.messager.confirm('确认', '确认要删除选中记录吗?', function (y) {
+                        if (y) {
+                            //提交
+                            $.post('AjaxDelete/', node.id,
+                            function (msg) {
+                                if (msg.Success) {
+                                    $.messager.alert('提示', msg.Message, 'info', function () {
+                                        //重新加载当前页
+                                        $('#grid').datagrid('reload');
+                                    });
+                                } else {
+                                    $.messager.alert('提示', msg.Message, 'info')
+                                }
+                            }, "json");
                         }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @Html.Partial("_PagedListBottom")
-    </div>
-</div>
+                    });
+                }
+                else {
+                    alert('请选择');
+                }
+                return false;
+            }
+        }
+
+    </script>
+}
 

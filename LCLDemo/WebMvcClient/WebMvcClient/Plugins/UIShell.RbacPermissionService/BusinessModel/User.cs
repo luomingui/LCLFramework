@@ -10,7 +10,7 @@ namespace UIShell.RbacPermissionService
     {
         public User()
         {
-            this.Role =new HashSet<Role>();
+            this.Role = new HashSet<Role>();
         }
         /// <summary>
         /// 登录名称
@@ -30,8 +30,43 @@ namespace UIShell.RbacPermissionService
         /// </summary>
         public ICollection<Role> Role { get; set; }
         /// <summary>
-        /// 部门/网点
+        /// 部门
         /// </summary>
         public Department Department { get; set; }
+        #region UserInfo
+        /// <summary>
+        /// 照片
+        /// </summary>
+        public string UserPhoto{ get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public string Sex { get; set; }
+        /// <summary>
+        /// 出生年月
+        /// </summary>
+        public string Birthday { get; set; }
+        /// <summary>
+        /// 民族
+        /// </summary>
+        public string NationalID { get; set; }
+        /// <summary>
+        /// 政治面貌
+        /// </summary>
+        public string PoliticalID { get; set; }
+        /// <summary>
+        /// 身份证号
+        /// </summary>
+        public string IdCard { get; set; }
+        /// <summary>
+        /// 电话
+        /// </summary>
+        public string Telephone { get; set; }
+        public string UserQQ { get; set; }
+        /// <summary>
+        /// 电子邮箱
+        /// </summary>
+        public string Email { get; set; }
+        #endregion
     }
 }

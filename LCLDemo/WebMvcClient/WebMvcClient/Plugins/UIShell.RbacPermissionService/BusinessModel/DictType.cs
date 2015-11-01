@@ -5,21 +5,21 @@ namespace UIShell.RbacPermissionService
     /// <summary>
     ///  字典类型
     /// </summary>
-    public partial class DictType : BaseModel
+    public partial class DictType:BaseTreeModel
     {
         public DictType()
         {
-            this.Dictionarys = new HashSet<Dictionary>();
+            //this.Dictionarys = new HashSet<Dictionary>();
         }
         /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 描述
+        /// 编码
         /// </summary>
-        public string DicDes { get; set; }
+        public string Code { get; set; }
 
-        public ICollection<Dictionary> Dictionarys { get; set; }
+        //public ICollection<Dictionary> Dictionarys { get; set; }
     }
 }

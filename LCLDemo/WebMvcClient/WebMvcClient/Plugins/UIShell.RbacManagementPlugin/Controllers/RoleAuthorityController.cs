@@ -1,3 +1,4 @@
+using LCL;
 using LCL.MetaModel;
 /******************************************************* 
 *  
@@ -36,7 +37,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<Xzqy>.DefaultPageSize;
+                pageSize = PagedResult<Xzqy>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
             string roleId = LRequest.GetString("roleId");
@@ -56,7 +57,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
 
             var list = repo.GetRoleAuthority(Guid.Parse(roleId));
 
-            var contactLitViewModel = new PagedListViewModel<RoleAuthority>(pageNum, pageSize.Value, list);
+            var contactLitViewModel = new PagedResult<RoleAuthority>(pageNum, pageSize.Value, list);
 
             return View(contactLitViewModel);
         }

@@ -2,67 +2,183 @@
 @{
     ViewBag.Title = "字典类型";
 }
-<!-- Page title -->
-<div class="page-title">
-    <h2><i class="icon-desktop color"></i> 字典类型 <small>显示所有字典类型</small></h2>
-    <hr />
-</div>
-<!-- Page title -->
-<div class="awidget">
-    <div class="awidget-head">
-        <div class="row">
-            <div class="col-md-10">
-                <span>总数：@Model.TotalCount</span>
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'west',title:'字典类型'" style="width: 200px; overflow-y: hidden;">
+        <div style="height: 550px; width: 100%; border: #99bbe8 1px solid; ">
+            <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;">
+                <a id="a_addCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增</a>&nbsp;
+                <a id="a_editCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-edit">修改</a>&nbsp;
+                <a id="a_delCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary pull-right" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-    new { currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                    新 增
-                </button>
+            <div style="padding:2px 5px 5px 5px;overflow-y:hidden;">
+                <ul id="dataDicType" class="easyui-tree" style="height:80%;"></ul>
             </div>
         </div>
+        <!--   弹出框       -->
+        <div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
+
+        </div>
     </div>
-    <div class="awidget-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>名称</th>
-                            <th>描述</th>
-                            <th>更新时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            foreach (var view in Model.PagedModels)
-                            {
-                                <tr>
-                                    <td>@view.Name</td>
-                                    <td>@view.DicDes</td>
-                                    <td>@view.UpdateDate</td>
-                                    <td>
-                                        <a class="btn btn-xs btn-primary" href="~/UIShell.RbacManagementPlugin/Dictionary/Index?dicTypeId=@view.ID">查看</a>
-                                        <button type="button" class="btn btn-xs btn-warning"
-                                                onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">
-                                            <i class="icon-pencil"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-danger"
-                                                onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">
-                                            <i class="icon-remove"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
+    <div data-options="region:'center',title:'字典信息一览表'" style="padding: 5px; overflow-y: hidden;">
+        <!--   数据列表       -->
+        <table id="grid" title="字典信息一览表" class="easyui-datagrid" style="width:100%" toolbar="#toolbar"></table>
+        <!--   命令列表       -->
+        <div id="toolbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
+            <a href="javascript:void(0)" />
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        var dicType;
+        $(document).ready(function () {
+
+            DicCategory.showTree(); //显示数据字典列表树
+            mygrid.dginit(); //显示数据字典详情
+
+            $('#a_addCategory').click(DicCategory.add);
+            $('#a_delCategory').click(DicCategory.del);
+            $('#a_editCategory').click(DicCategory.edit);
+        });
+        function trim(str) {
+            v = str.replace(/(^\s*)|(\s*$)/g, "");
+            return v;
+        }
+        var DicCategory = {
+            showTree: function () {
+                $('#dataDicType').tree({
+                    url: 'AjaxEasyUITree',
+                    lines: true,
+                    onClick: function (node) {
+                        var cc = node.id;
+                        dicType = cc;
+                        mygrid.reload(cc);
+                    }
+                });
+            },
+            reload: function () {
+                $('#dataDicType').tree('reload');
+            },
+            getSelected: function () {
+                return $('#dataDicType').tree('getSelected');
+            },
+            add: function () {
+                var d = $('#dlg').dialog({
+                    title: '添加',
+                    width: 500,
+                    height: 280,
+                    closed: true,
+                    cache: false,
+                    href: 'AddOrEdit',
+                    iconCls: 'icon-add',
+                    modal: true,
+                    onClose: function () {
+                        reload();
+                    }
+                });
+                $("#dlg").dialog("open");
+            },
+            edit: function () {
+                var node = DicCategory.getSelected();
+                if (node) {
+                    $('#dlg').dialog({
+                        title: '修改',
+                        width: 500,
+                        height: 280,
+                        closed: true,
+                        cache: false,
+                        href: 'AddOrEdit?id=' + trim(row.ID),
+                        iconCls: 'icon-edit',
+                        modal: true,
+                        onClose: function () {
+                            reload();
                         }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @Html.Partial("_PagedListBottom")
-    </div>
-</div>
+                    });
+                    $("#dlg").dialog("open");
+                }
+                else {
+                    alert('请选择字典类别');
+                }
+                return false;
+            },
+            del: function () {
+                var node = DicCategory.getSelected();
+                var rows = $('#dicGrid').datagrid('getData');
+                if (rows && rows.total > 0) {
+                    alert('当前字典有明细数据，不能删除。请先删除明细数据。');
+                    return false;
+                }
+                if (node) {
+                    var childs = $('#dataDicType').tree('getChildren', node.target);
+                    if (childs && childs.length > 0) {
+                        alert('当前字典有下级数据，不能删除。请先删除子节点数据。');
+                        return false;
+                    }
+
+                    $.messager.confirm('确认', '确认要删除选中记录吗?', function (y) {
+                        if (y) {
+                            //提交
+                            $.post('AjaxDelete/', node.id,
+                            function (msg) {
+                                if (msg.Success) {
+                                    $.messager.alert('提示', msg.Message, 'info', function () {
+                                        //重新加载当前页
+                                        $('#grid').datagrid('reload');
+                                    });
+                                } else {
+                                    $.messager.alert('提示', msg.Message, 'info')
+                                }
+                            }, "json");
+                        }
+                    });
+
+                }
+                else {
+                    alert('请选择字典类别');
+                }
+                return false;
+            }
+        }
+        var mygrid = {
+            dginit: function (size) {
+                $('#grid').datagrid({
+                    url: "http://localhost:3921//UIShell.RbacManagementPlugin/Dictionary/GetDicChildList",
+                    queryParams: { dictId: dicType },
+                    title: "数据字典明细",
+                    height: 500,
+                    nowrap: false, //折行
+                    striped: true,
+                    idField: 'ID', //主键
+                    singleSelect: true, //单选
+                    fitColumns: true,
+                    pagination: true,
+                    pageNumber: 1, //当设置了 pagination 特性时，初始化页码。
+                    pageSize: 10,
+                    pageList: [5, 10, 15, 20, 50, 100],
+                    columns: [
+                        [
+                         { title: 'Id', field: 'ID', width: 120, hidden: true },
+                         { title: '名称', field: 'Name', width: 120 },
+                         { title: '编码', field: 'Value', width: 100 },
+                        ]
+                    ]
+                });
+            },
+            databind: function (cc) {
+                $('#grid').datagrid('load', { dictId: cc });
+            },
+            reload: function (cc) {
+                mygrid.databind(cc);
+            },
+        }
+    </script>
+}
+
+
+
 
 
 

@@ -2,59 +2,137 @@
 @{
     ViewBag.Title = "角色管理";
 }
-<div class="page-title">
-    <h2>
-        <i class="icon-desktop color"></i> 角色管理 <small></small>
-    </h2> <hr />
+<div id="tb" style="padding:5px;height:auto">
+    <!-------------------------------详细信息展示表格----------------------------------->
+    <table id="grid" style="width: 940px" title="角色管理" class="easyui-datagrid" toolbar="#tbar" data-options="iconCls:'icon-view'"></table>
 </div>
-<!-- Page title -->
-<div class="awidget">
-    <div class="awidget-head">
-        <div class="row">
-            <div class="col-md-10">
-                <span>&nbsp;&nbsp;&nbsp;总数：@Model.TotalCount</span>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" onclick="javascript: location.href='@Url.Action("AddOrEdit",
-                        new {currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'">
-                    新 增
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="awidget-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>名称</th>
-                            <th>描述</th>
-                            <th>更新时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            foreach (var view in Model.PagedModels)
-                            {
-                                <tr>
-                                    <td>&nbsp;@view.Name</td>
-                                    <td>&nbsp;@view.Remark</td>
-                                    <td>&nbsp;@view.UpdateDate</td>
-                                    <td>
-                                        <a class="btn btn-xs btn-primary" href="~/UIShell.RbacManagementPlugin/RoleAuthority/Index?roleId=@view.ID">权限</a>
-                                        <a class="btn btn-xs btn-warning" href="##" onclick="javascript: location.href = '@Url.Action("AddOrEdit", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })';">编辑</a>
-                                        <a class="btn btn-xs btn-danger" href="##" onclick="javacript: if (confirm('确认要删除这条数据吗？')) {  location.href = '@Url.Action("Delete", new { ID = view.ID, currentPageNum = Model.CurrentPageNum, pageSize = Model.PageSize })'; };">删除</a>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @Html.Partial("_PagedListBottom")
-    </div>
+<!--   命令列表     -->
+<div id="tbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
+    <a href="javascript:void(0)" />
 </div>
+<!--   弹出框       -->
+<div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
 
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#grid').datagrid({
+                url: 'AjaxGetByPage',
+                loadMsg: '数据加载中....',
+                title: '角色信息一览表',
+                iconCls: 'icon-edit',
+                pagination: true,
+                rownumbers: true,
+                fitCloumns: true,
+                hideColumn: [[
+                  { title: '编号', field: 'ID' }
+                ]],
+                columns: [[
+                    { field: 'ck', checkbox: true },
+                    { field: 'Name', title: '登录名称', width: 200 },
+                    { field: 'IsLockedOut', title: '是否锁定', width: 500 },
+                    { field: 'UpdateDate', title: '更新时间', width: 150 },
+                    {
+                        field: 'opt', title: '操作', width: 100, align: 'center',
+                        formatter: function (value, rec) {
+                            return "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-man' plain='true' onclick='Authority()'>权限</a>  "
+                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-edit' plain='true' onclick='edit()'>修改 </a>  "
+                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-remove' plain='true' onclick='del()'>删除 </a>    ";
+                        }
+                    }
+                ]]
+            });
+
+            var heightMargin = $("#toolbar").height() + 10;
+            var widthMargin = $(document.body).width() - $("#tb").width();
+            // 第一次加载时和当窗口大小发生变化时，自动变化大小
+            $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            $(window).resize(function () {
+                $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            });
+
+        });
+        function add() {
+            var d = $('#dlg').dialog({
+                title: '添加角色',
+                width: 500,
+                height: 280,
+                closed: true,
+                cache: false,
+                href: 'AddOrEdit',
+                iconCls: 'icon-add',
+                modal: true,
+                onClose: function () {
+                    refresh();
+                }
+            });
+            $("#dlg").dialog("open");
+
+        }
+        function edit() {
+            var row = $("#grid").datagrid("getSelected");
+            if (row) {
+                $('#dlg').dialog({
+                    title: '修改角色',
+                    width: 500,
+                    height: 280,
+                    closed: true,
+                    cache: false,
+                    href: 'AddOrEdit?id=' + trim(row.ID),
+                    iconCls: 'icon-edit',
+                    modal: true,
+                    onClose: function () {
+                        refresh();
+                    }
+                });
+                $("#dlg").dialog("open");
+            }
+        }
+        function del() {
+            var rows = $('#grid').datagrid('getSelections');
+            if (!rows || rows.length == 0) {
+                $.messager.alert('提示', '请选择要删除的数据!', 'info');
+                return;
+            }
+            var parm;
+            $.each(rows, function (i, row) {
+                if (i == 0) {
+                    parm = "idList=" + row.ID;
+                } else {
+                    parm += "&idList=" + row.ID;
+                }
+            });
+            $.messager.confirm('提示', '是否删除选中数据?', function (r) {
+                if (!r) {
+                    return;
+                }
+                //提交
+                $.post('AjaxDeleteList/', parm,
+                function (msg) {
+                    if (msg.Success) {
+                        $.messager.alert('提示', msg.Message, 'info', function () {
+                            //重新加载当前页
+                            $('#grid').datagrid('reload');
+                        });
+                    } else {
+                        $.messager.alert('提示', msg.Message, 'info')
+                    }
+                }, "json");
+            });
+        }
+        function Authority() {
+            var row = $('#grid').datagrid('getSelected');
+            if (row) {
+                window.location.href = "../RoleAuthority/Index?roleId=" + trim(row.ID);
+            }
+        }
+        function refresh() {
+            $('#grid').datagrid('load');
+        }
+      
+    </script>
+}
