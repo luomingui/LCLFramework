@@ -16,7 +16,6 @@ namespace LCL.Repositories
         void Delete(Expression<Func<TEntity, bool>> predicate);
         TEntity GetByKey(object keyValue);
 
-
         #region Specification
         IQueryable<TEntity> FindAll(); 
         IQueryable<TEntity> FindAll(ISpecification<TEntity> specification);
@@ -32,7 +31,6 @@ namespace LCL.Repositories
         bool Exists(ISpecification<TEntity> specification);
 
         #endregion
-
 
         List<TEntity> FindByPid(Guid? pid);
     }

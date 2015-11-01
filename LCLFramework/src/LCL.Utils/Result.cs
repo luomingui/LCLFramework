@@ -157,6 +157,7 @@ namespace LCL
                 _message = value;
             }
         }
+        public object DataObject { get; set; }
 
         /// <summary>
         /// Reset this result to a unsuccessful status.

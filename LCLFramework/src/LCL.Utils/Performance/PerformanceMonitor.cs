@@ -189,7 +189,7 @@ namespace LCL
     /// <summary>
     /// Display attribute
     /// </summary>
-    public class DisplayAttribute : Attribute
+    internal class DisplayAttribute : Attribute
     {
         /// <summary>
         /// Gets the name.

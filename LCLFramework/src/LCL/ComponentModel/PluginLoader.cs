@@ -122,6 +122,7 @@ namespace LCL.ComponentModel
             }
             return null;
         }
+        // TODO:文件改变就替换
         private static void CopyToTempPluginFolderDirectory()
         {
             #region 清空临时目录

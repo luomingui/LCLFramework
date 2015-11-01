@@ -3,7 +3,7 @@
 namespace LCL.MetaModel.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event)]
-    public class DisplayAttribute : Attribute
+   internal class DisplayAttribute : Attribute
     {
         public string Label { get; set; }
         public string FieldName { get; set; }

@@ -57,7 +57,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -90,6 +90,7 @@
     <Compile Include="CommonHelper.cs" />
     <Compile Include="Controller\ControllerTypeCache.cs" />
     <Compile Include="Controller\DefaultControllerConfig.cs" />
+    <Compile Include="Controller\JsonRepoController.cs" />
     <Compile Include="Controller\PluginControllerFactory.cs" />
     <Compile Include="Controller\BaseRepoController.cs" />
     <Compile Include="Extensions\ActionExtension.cs" />

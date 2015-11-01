@@ -13,7 +13,7 @@ namespace LCL.MvcExtensions
     [Authorize]
     public class BaseRepoController<TAggregateRoot> : BaseController where TAggregateRoot : class, IEntity, new()
     {
-        IRepository<TAggregateRoot> repo = RF.FindRepo<TAggregateRoot>();
+        public IRepository<TAggregateRoot> repo = RF.FindRepo<TAggregateRoot>();
         public bool Check(string permissionId)
         {
             string areaName = this.ControllerContext.RouteData.GetAreaName();
@@ -32,21 +32,18 @@ namespace LCL.MvcExtensions
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
+                pageSize = PagedResult<TAggregateRoot>.DefaultPageSize;
             }
             int pageNum = currentPageNum.Value;
-            var modelList = repo.FindAll().ToList();
-            var pageList = new PagedListViewModel<TAggregateRoot>(pageNum, pageSize.Value, modelList.ToList());
+            var pageList = repo.FindAll(p => p.UpdateDate, LCL.SortOrder.Descending, currentPageNum.Value, pageSize.Value);
             return View(pageList);
         }
         [Permission("首页", "Index")]
         public virtual ActionResult Index(int? currentPageNum, int? pageSize, FormCollection collection)
         {
             if (!Check("Index"))
-            {
                 return NoPermissionView();
-            }
-            return List(currentPageNum, pageSize, collection);
+            return View();
         }
         public virtual ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
         {
@@ -56,7 +53,7 @@ namespace LCL.MvcExtensions
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
+                pageSize = PagedResult<TAggregateRoot>.DefaultPageSize;
             }
             if (!id.HasValue)
             {
@@ -105,7 +102,7 @@ namespace LCL.MvcExtensions
             }
             if (!pageSize.HasValue)
             {
-                pageSize = PagedListViewModel<TAggregateRoot>.DefaultPageSize;
+                pageSize = PagedResult<TAggregateRoot>.DefaultPageSize;
             }
             var entity = repo.GetByKey(model.ID);
             repo.Delete(entity);
@@ -160,5 +157,107 @@ namespace LCL.MvcExtensions
             }
             Logger.LogDebug(sb.ToString());
         }
+
+        #region Ajax
+        [HttpPost]
+        public virtual CustomJsonResult AjaxGetBy()
+        {
+            var modelList = repo.FindAll().ToList();
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = modelList;
+
+            return json;
+        }
+        [HttpPost]
+        public virtual CustomJsonResult AjaxGetByPage(int? page, int? rows)
+        {
+            /*
+1、easyui-datagrid 分页接收参数
+page 接受客户端的页码，对应的就是用户选择或输入的pageNumber（按照上图的例子，用户点了下一页，传到服务器端就是2）
+rows 接受客户端的每页记录数，对应的就是pageSize  （用户在下拉列表选择每页显示30条记录，传到服务器就是30）
+             */
+            if (!page.HasValue)
+            {
+                page = 1;
+            }
+            if (!rows.HasValue)
+            {
+                rows = PagedResult<TAggregateRoot>.DefaultPageSize;
+            }
+            int pageNumber = page.Value;
+            int pageSize = rows.Value;
+            var modelList = repo.FindAll(p => p.UpdateDate, LCL.SortOrder.Descending, pageNumber, pageSize);
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = modelList;
+
+            return json;
+        }
+        [HttpPost]
+        public virtual CustomJsonResult AjaxAdd(TAggregateRoot model)
+        {
+            var result = new Result(true);
+            repo.Create(model);
+            repo.Context.Commit();
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
+
+        }
+        [HttpPost]
+        public virtual CustomJsonResult AjaxEdit(TAggregateRoot model)
+        {
+            var result = new Result(true);
+
+            model.UpdateDate = DateTime.Now;
+            repo.Update(model);
+            repo.Context.Commit();
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
+
+        }
+        [HttpPost]
+        public virtual CustomJsonResult AjaxDelete(TAggregateRoot model)
+        {
+            var result = new Result(true);
+
+            var entity = repo.GetByKey(model.ID);
+            repo.Delete(entity);
+            repo.Context.Commit();
+
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
+        }
+        [HttpPost]
+        public CustomJsonResult AjaxDeleteList(IList<Guid> idList)
+        {
+            var result = new Result(true);
+
+            for (int i = 0; i < idList.Count; i++)
+            {
+                var entity = repo.GetByKey(idList[i]);
+                repo.Delete(entity);
+            }
+            repo.Context.Commit();
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+
+            return json;
+        }
+        #endregion
     }
 }

@@ -33,6 +33,7 @@ namespace LCL
             }
         }
         public List<TModel> PagedModels { get; set; }
+        public List<TModel> PagedSourceModels { get; set; }
         public List<int> PageSizeList { get; private set; }
         /// <summary> 
         /// 从数据库获取分页后的数据，然后设置到PagedListViewModel。 
@@ -43,6 +44,7 @@ namespace LCL
         /// <param name="pagedModels">当前页对象列表。</param> 
         public PagedResult(int? totalCount, int? totalPages, int? pageSize, int? pageNumber, List<TModel> pagedModels)
         {
+            PagedSourceModels = pagedModels;
             TotalCount = totalCount.Value;
             PageSize = pageSize.Value;
             TotalPages = totalPages.Value;
@@ -59,6 +61,7 @@ namespace LCL
         /// <param name="pagedModels">当前页对象列表。</param> 
         public PagedResult(int totalCount, int currentPageNum, int pageSize, List<TModel> pagedModels)
         {
+            PagedSourceModels = pagedModels;
             TotalCount = totalCount;
             TotalPages = (totalCount + pageSize - 1) / pageSize;
             PageSize = pageSize;
@@ -74,6 +77,7 @@ namespace LCL
         /// <param name="allModels">所有实例。</param> 
         public PagedResult(int currentPageNum, int pageSize, List<TModel> allModels)
         {
+            PagedSourceModels = allModels;
             PageSize = pageSize;
             TotalPages = (allModels.Count + pageSize - 1) / pageSize;
             PageSizeList = new List<int>();
