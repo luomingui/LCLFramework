@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+      正在加载中....
     </div>
     </form>
 </body>
