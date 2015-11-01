@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @using LCL.MvcExtensions;
+    @using UIShell.EasyUIAdminShellPlugin;
+    @using UIShell.RbacPermissionService;
+    @using LCL.MetaModel;
+    <meta charset="UTF-8">
+    <!-- Title here -->
+    <title>@LAppliction.Config.AppName</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/default/easyui.css"))">
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))">
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/icons.css"))" />
+
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))"></script>
+    <!-- Favicon -->
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript">
+        $(function () {
+            //绑定菜单单击事件
+            BindMenuClickHrefEvent();
+            //读取动态时间的变化
+            ReadDateTimeShow();
+            //这里实现对时间动态的变化
+            var setTimeInterval = setInterval(ReadDateTimeShow, 1000);
+            //实现Tab布局
+            $("#tabs").tabs({});
+
+            openPwd();
+            $('#editpass').click(function () {
+                $('#w').window('open');
+            });
+            $('#btnEp').click(function () {
+                serverLogin();
+            })
+            $('#btnCancel').click(function () { closePwd(); })
+            $('#loginOut').click(function () {
+                $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function (r) {
+                    if (r) {
+                        location.href = 'Logout';
+                    }
+                });
+            })
+        });
+        //实现用户单击导航栏跳转页面的方法
+        function BindMenuClickHrefEvent() {
+            $(".menulink").click(function () {
+                //获取按钮里面的Src属性
+                var src = $(this).attr("rel");
+                //Tab页面添加页面标签，每当单击左边的导航栏的时候跳转
+                var titleShow = trim($(this).text());
+                var strHtml = '<iframe id="frmWorkArea" width="100%" height="100%" frameborder="0" scrolling="yes" src="' + src + '"></iframe>';
+                //判断Tab标签中是否有相同的数据标签
+                var isExist = $("#tabs").tabs('exists', titleShow);
+                if (!isExist) {
+                    $("#tabs").tabs('add', {
+                        title: titleShow,
+                        content: strHtml,
+                        iconCls: 'icon-nav',
+                        closable: true,
+                    });
+                }
+            });
+        }
+        //读取动态时间的变化
+        function ReadDateTimeShow() {
+            var year = new Date().getFullYear();
+            var Month = new Date().getMonth() + 1;
+            var Day = new Date().getDate();
+            var Time = new Date().toLocaleTimeString();
+            var AddDate = year + "年" + Month + "月" + Day + "日,时间:" + Time;
+            $("#date").text(AddDate);
+        }
+        function trim(str) {
+            //FUNCTION:去掉字符串的两边空格,中间的空格保留
+            v = str.replace(/(^\s*)|(\s*$)/g, "");
+            return v;
+        }
+        //设置登录窗口
+        function openPwd() {
+            $('#w').window({
+                title: '修改密码',
+                width: 300,
+                modal: true,
+                shadow: true,
+                closed: true,
+                height: 180,
+                resizable: false
+            });
+        }
+        //关闭登录窗口
+        function closePwd() {
+            $('#w').window('close');
+        }
+        //修改密码
+        function serverLogin() {
+            var $newpass = $('#txtNewPass');
+            var $rePass = $('#txtRePass');
+
+            if ($newpass.val() == '') {
+                msgShow('系统提示', '请输入密码！', 'warning');
+                return false;
+            }
+            if ($rePass.val() == '') {
+                msgShow('系统提示', '请在一次输入密码！', 'warning');
+                return false;
+            }
+
+            if ($newpass.val() != $rePass.val()) {
+                msgShow('系统提示', '两次密码不一至！请重新输入', 'warning');
+                return false;
+            }
+
+            $.post('/ajax/editpassword.ashx?newpass=' + $newpass.val(), function (msg) {
+                msgShow('系统提示', '恭喜，密码修改成功！<br>您的新密码为：' + msg, 'info');
+                $newpass.val('');
+                $rePass.val('');
+                close();
+            })
+
+        }
+    </script>
+</head>
+
+<body style="overflow: hidden; overflow-y: hidden; overflow-x: hidden;" scroll="no" class="easyui-layout" fit="true">
+    <noscript>
+        <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+            <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+        </div>
+    </noscript>
+    <div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
+        <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;">
+            <img src="images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...
+        </div>
+    </div>
+    <!-- head begin -->
+    <div data-options="region:'north',split:true" style="overflow: hidden;">
+        <div class="index_top_box">
+            <h1>@LAppliction.Config.AppName</h1>
+            <div class="index_top_box_rt">
+                <span id="bgclock"></span>
+                <span>
+                    <a id="btnUser" href="#">@LCL.LEnvironment.Principal.Identity.Name 用户您好！欢迎进入</a>
+                    |&nbsp;&nbsp;<a href="#" id="editpass">修改密码</a>
+                    |&nbsp;&nbsp;<a href="#" id="loginOut"><b>退出</b>&nbsp;&nbsp;</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- head end -->
+    <!-- left begin -->
+    <div data-options="iconCls:'icon-home',region:'west',split:true" title=" 操作平台 " style="width: 200px; padding: 1px; overflow: hidden;">
+        <div id="leftmenu" class="easyui-accordion left-Accordion" data-options="animate:false,fit:true,border:false">
+            @for (int i = 0; i < CommonModel.Modules.Roots.Count; i++)
+            {
+                var node = CommonModel.Modules.Roots[i];
+                string divdataoption = "false";
+                if (i == 0)
+                {
+                    divdataoption = "true";
+                }
+                <div title="@node.Label" data-options='iconCls:"icon tu0601",selected:@divdataoption' style="overflow: auto; padding: 10px;">
+                    @for (int j = 0; j < node.Children.Count; j++)
+                    {
+                        var child = node.Children[j];
+                        <ul class="zyl_left">
+                            <li>
+                                <div>
+                                    <a href="javascript:void(@j)" rel="@Url.Content(child.CustomUI)" class="menulink">
+                                        <span class="icon-nav">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span class="nav">&nbsp;@child.Label</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <!-- left end -->
+    <!-- center begin -->
+    <div id="mainPanle" data-options="region:'center'" style="background: #eee; overflow-y: hidden">
+        <div id="tabs" class="easyui-tabs" fit="true">
+
+            <div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; ">
+                <h1 style="font-size:24px;">* 作者：罗敏贵 QQ：271391233</h1>
+                <h1 style="font-size:24px;">* BLOG: <a style="font-size:24px;color:green;" href="http://luomingui.cnblogs.com" target="_blank">博客</a></h1>
+                <h1 style="font-size:24px;">* 讨论群：34178394</h1>
+                <h1 style="font-size:24px;">* 广告：本人承接各类大中小型管理系统的软件的设计与开发，有需要的朋友联系我啦~~~~</h1>
+            </div>
+
+        </div>
+    </div>
+    <!-- center end -->
+    <!-- foot begin -->
+    <div data-options="region:'south',split:true" title="" style="height: 30px; background: #eee;">
+        <div style="text-align: center; padding: 2px;">
+            <span>&copy; 2015 </span><span><a href="http://luomingui.cnblogs.com/" target="_blank">@LAppliction.Config.CompanyName</a></span>
+            <span><a href="#">联系我们</a></span>&nbsp;&nbsp; 当前时间：<b id="date"></b>
+        </div>
+    </div>
+    <!-- foot end -->
+    <!--修改密码窗口-->
+    <div id="w" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
+         maximizable="false" icon="icon-save" style="width: 300px; height: 220px; padding: 5px;
+        background: #fafafa;">
+        <div class="easyui-layout" fit="true">
+            <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <table cellpadding=3>
+                    <tr>
+                        <td>新密码：</td>
+                        <td><input id="txtNewPass" type="Password" class="txt01" /></td>
+                    </tr>
+                    <tr>
+                        <td>确认密码：</td>
+                        <td><input id="txtRePass" type="Password" class="txt01" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;">
+                <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    确定
+                </a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+            </div>
+        </div>
+    </div>
+    <!--Tab上菜单操作-->
+    <div id="mm" class="easyui-menu" style="width:150px;">
+        <div id="mm-tabupdate">刷新</div>
+        <div class="menu-sep"></div>
+        <div id="mm-tabclose">关闭</div>
+        <div id="mm-tabcloseall">全部关闭</div>
+        <div id="mm-tabcloseother">除此之外全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="mm-tabcloseright">当前页右侧全部关闭</div>
+        <div id="mm-tabcloseleft">当前页左侧全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="mm-exit">退出</div>
+    </div>
+</body>
+</html>

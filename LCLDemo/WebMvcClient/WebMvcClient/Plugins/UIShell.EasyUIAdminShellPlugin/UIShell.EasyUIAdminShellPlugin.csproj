@@ -1,0 +1,908 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0CFD403-4921-4094-937B-27E235576AC6}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UIShell.EasyUIAdminShellPlugin</RootNamespace>
+    <AssemblyName>UIShell.EasyUIAdminShellPlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BundleActivator.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\easyuiDefault.css" />
+    <Content Include="Content\icons.css" />
+    <Content Include="Content\images\blocks.gif" />
+    <Content Include="Content\images\CategorizeMenu.png" />
+    <Content Include="Content\images\directory.png" />
+    <Content Include="Content\images\layout-browser-hd-bg.gif" />
+    <Content Include="Content\images\nav_link.png" />
+    <Content Include="Content\images\noscript.gif" />
+    <Content Include="Content\images\plugin_big.gif" />
+    <Content Include="Content\images\ShowCustomPropertiesPage.png" />
+    <Content Include="Content\images\tabicons.png" />
+    <Content Include="Content\images\TableDrawTable.png" />
+    <Content Include="Content\images\tools-sprites-trans.gif" />
+    <Content Include="Content\JQueryEasyUI\changelog.txt" />
+    <Content Include="Content\JQueryEasyUI\easyloader.js" />
+    <Content Include="Content\JQueryEasyUI\jquery-url.js" />
+    <Content Include="Content\JQueryEasyUI\jquery.easyui.min.js" />
+    <Content Include="Content\JQueryEasyUI\jquery.min.js" />
+    <Content Include="Content\JQueryEasyUI\jquery.pngFix.pack.js" />
+    <Content Include="Content\JQueryEasyUI\jquery.ua.js" />
+    <Content Include="Content\JQueryEasyUI\licence_gpl.txt" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-af.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-am.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-ar.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-bg.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-ca.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-cs.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-cz.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-da.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-de.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-el.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-en.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-es.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-fr.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-it.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-jp.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-nl.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-pl.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-pt_BR.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-ru.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-sv_SE.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-tr.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-zh_CN.js" />
+    <Content Include="Content\JQueryEasyUI\locale\easyui-lang-zh_TW.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.accordion.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.calendar.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.combo.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.combobox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.combogrid.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.combotree.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.cookie.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.datagrid.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.datebox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.datetimebox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.datetimespinner.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.dialog.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.draggable.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.droppable.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.filebox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.form.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.layout.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.linkbutton.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.menu.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.menubutton.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.messager.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.numberbox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.numberspinner.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.pagination.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.panel.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.parser.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.progressbar.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.propertygrid.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.qrcode.min.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.resizable.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.searchbox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.slider.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.spinner.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.splitbutton.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.tabs.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.textbox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.timespinner.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.tooltip.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.tree.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.treegrid.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.validatebox.js" />
+    <Content Include="Content\JQueryEasyUI\plugins\jquery.window.js" />
+    <Content Include="Content\JQueryEasyUI\readme.txt" />
+    <Content Include="Content\JQueryEasyUI\src\easyloader.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.accordion.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.calendar.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.combobox.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.datebox.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.draggable.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.droppable.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.form.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.linkbutton.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.menu.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.parser.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.progressbar.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.propertygrid.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.resizable.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.slider.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.tabs.js" />
+    <Content Include="Content\JQueryEasyUI\src\jquery.window.js" />
+    <Content Include="Content\JQueryEasyUI\themes\black\accordion.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\calendar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\combo.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\combobox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\datagrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\datebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\dialog.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\easyui.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\filebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\accordion_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\blank.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\calendar_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\combo_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\datagrid_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\datebox_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\layout_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\linkbutton_bg.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\loading.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\menu_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\messager_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\pagination_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\panel_tools.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\searchbox_button.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\slider_handle.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\spinner_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\tabs_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\tree_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\images\validatebox_warning.png" />
+    <Content Include="Content\JQueryEasyUI\themes\black\layout.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\linkbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\menu.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\menubutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\messager.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\numberbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\pagination.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\panel.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\progressbar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\propertygrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\searchbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\slider.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\spinner.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\splitbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\tabs.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\textbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\tooltip.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\tree.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\validatebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\black\window.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\accordion.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\calendar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\combo.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\combobox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\datagrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\datebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\dialog.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\easyui.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\filebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\accordion_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\blank.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\calendar_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\combo_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\datagrid_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\datebox_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\layout_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\linkbutton_bg.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\loading.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\menu_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\messager_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\pagination_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\panel_tools.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\searchbox_button.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\slider_handle.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\spinner_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\tabs_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\tree_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\images\validatebox_warning.png" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\layout.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\linkbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\menu.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\menubutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\messager.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\numberbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\pagination.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\panel.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\progressbar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\propertygrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\searchbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\slider.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\spinner.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\splitbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\tabs.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\textbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\tooltip.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\tree.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\validatebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\bootstrap\window.css" />
+    <Content Include="Content\JQueryEasyUI\themes\color.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\accordion.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\calendar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\combo.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\combobox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\datagrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\datebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\dialog.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\easyui.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\filebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\accordion_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\blank.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\calendar_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\combo_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\datagrid_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\datebox_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\layout_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\linkbutton_bg.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\loading.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\menu_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\messager_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\pagination_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\panel_tools.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\searchbox_button.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\slider_handle.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\spinner_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\tabs_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\tree_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\images\validatebox_warning.png" />
+    <Content Include="Content\JQueryEasyUI\themes\default\layout.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\linkbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\menu.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\menubutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\messager.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\numberbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\pagination.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\panel.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\progressbar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\propertygrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\searchbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\slider.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\spinner.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\splitbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\tabs.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\textbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\tooltip.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\tree.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\validatebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\default\window.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\accordion.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\calendar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\combo.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\combobox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\datagrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\datebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\dialog.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\easyui.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\filebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\accordion_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\blank.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\calendar_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\combo_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\datagrid_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\datebox_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\layout_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\linkbutton_bg.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\loading.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\menu_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\messager_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\pagination_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\panel_tools.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\searchbox_button.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\slider_handle.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\spinner_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\tabs_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\tree_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\images\validatebox_warning.png" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\layout.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\linkbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\menu.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\menubutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\messager.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\numberbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\pagination.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\panel.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\progressbar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\propertygrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\searchbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\slider.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\spinner.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\splitbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\tabs.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\textbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\tooltip.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\tree.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\validatebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\gray\window.css" />
+    <Content Include="Content\JQueryEasyUI\themes\icon.css" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\back.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\blank.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\cancel.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\clear.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\alarm.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\bar.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\batch_add.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\book.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\collapse.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\comment.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\computer.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\curve.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\date.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\email.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\excel.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\expand.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\first.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\group.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\group_key.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\house.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\key.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\last.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\lock.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\next.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\organ.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\photo.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\pie.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\previous.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\setting.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\stop.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\table.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\telephone.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\user.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\view.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\customed\word.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\cut.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\edit_add.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\edit_remove.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\filesave.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\filter.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\help.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\large_chart.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\large_clipart.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\large_picture.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\large_shapes.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\large_smartart.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\lock.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\man.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\mini_add.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\mini_edit.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\mini_refresh.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\nav.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\no.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\ok.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\pencil.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\print.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\redo.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\reload.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\search.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\sum.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\tabicons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\tip.png" />
+    <Content Include="Content\JQueryEasyUI\themes\icons\undo.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\accordion.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\calendar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\combo.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\combobox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\datagrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\datebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\dialog.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\easyui.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\filebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\accordion_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\blank.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\calendar_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\combo_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\datagrid_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\datebox_arrow.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\layout_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\linkbutton_bg.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\loading.gif" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\menu_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\messager_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\pagination_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\panel_tools.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\searchbox_button.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\slider_handle.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\spinner_arrows.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\tabs_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\tree_icons.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\images\validatebox_warning.png" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\layout.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\linkbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\menu.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\menubutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\messager.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\numberbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\pagination.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\panel.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\progressbar.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\propertygrid.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\searchbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\slider.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\spinner.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\splitbutton.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\tabs.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\textbox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\tooltip.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\tree.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\validatebox.css" />
+    <Content Include="Content\JQueryEasyUI\themes\metro\window.css" />
+    <Content Include="Content\JQueryTools\ckeditor\adapters\jquery.js" />
+    <Content Include="Content\JQueryTools\ckeditor\build-config.js" />
+    <Content Include="Content\JQueryTools\ckeditor\ckeditor.js" />
+    <Content Include="Content\JQueryTools\ckeditor\config.js" />
+    <Content Include="Content\JQueryTools\ckeditor\contents.css" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\af.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ar.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\bg.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\bn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\bs.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ca.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\cs.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\cy.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\da.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\de.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\el.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\en-au.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\en-ca.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\en-gb.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\en.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\eo.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\es.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\et.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\eu.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\fa.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\fi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\fo.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\fr-ca.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\fr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\gl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\gu.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\he.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\hi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\hr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\hu.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\id.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\is.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\it.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ja.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ka.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\km.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ko.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ku.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\lt.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\lv.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\mk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\mn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ms.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\nb.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\nl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\no.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\pl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\pt-br.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\pt.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ro.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ru.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\si.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\sk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\sl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\sq.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\sr-latn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\sr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\sv.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\th.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\tr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\ug.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\uk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\vi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\zh-cn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\lang\zh.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\fakeobjects\images\spacer.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\icons.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\templates\dialogs\templates.css" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\dialogs\tmp.html" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\dialog.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\dialog_ie.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\dialog_ie7.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\dialog_ie8.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\dialog_iequirks.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\dialog_opera.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\editor.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\editor_ie.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\editor_ie7.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\editor_ie8.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\editor_iequirks.css" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\icons.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\close.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\hidpi\close.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\hidpi\lock.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\lock-open.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\lock.png" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="Content\JQueryTools\ckeditor\styles.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\demo.css" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\2.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\3.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\4.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\5.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\6.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\7.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\8.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\diy\9.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\loading.gif" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Content\JQueryTools\JQueryTree\css\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery-1.4.4.min.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.all-3.5.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.core-3.5.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.core-3.5.min.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.excheck-3.5.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.excheck-3.5.min.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.exedit-3.5.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.exedit-3.5.min.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.exhide-3.5.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\js\jquery.ztree.exhide-3.5.min.js" />
+    <Content Include="Content\JQueryTools\JQueryTree\log v3.x.txt" />
+    <Content Include="Content\JQueryTools\LODOP\CheckActivX.js" />
+    <Content Include="Content\JQueryTools\LODOP\install_lodop.exe" />
+    <Content Include="Content\JQueryTools\LODOP\LodopFuncs.js" />
+    <Content Include="Content\JQueryTools\uploadify\Browse.jpg" />
+    <Content Include="Content\JQueryTools\uploadify\Change Log.txt" />
+    <Content Include="Content\JQueryTools\uploadify\jquery.uploadify.js" />
+    <Content Include="Content\JQueryTools\uploadify\jquery.uploadify.min.js" />
+    <Content Include="Content\JQueryTools\uploadify\license.txt" />
+    <Content Include="Content\JQueryTools\uploadify\uploadify-cancel.png" />
+    <Content Include="Content\JQueryTools\uploadify\uploadify.css" />
+    <Content Include="Content\JQueryTools\uploadify\uploadify.swf" />
+    <Content Include="readMe.txt" />
+    <Content Include="Scripts\iepng.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\killie.js" />
+    <Content Include="Scripts\outlook2.js" />
+    <Content Include="Scripts\public.js" />
+    <Content Include="Scripts\util.js" />
+    <Content Include="Scripts\validate.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\LCLFramework\src\LCL.Utils\LCL.Utils.csproj">
+      <Project>{c19bc1f7-549f-424d-b987-2282f6d889e3}</Project>
+      <Name>LCL.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\LCLFramework\src\LCL\LCL.csproj">
+      <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
+      <Name>LCL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\LCLFramework\src\Web\LCL.MvcExtensions\LCL.MvcExtensions.csproj">
+      <Project>{06eda144-8636-412f-8061-595a592d7514}</Project>
+      <Name>LCL.MvcExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIShell.RbacPermissionService\UIShell.RbacPermissionService.csproj">
+      <Project>{b91f2399-6395-439b-9645-c83e747c356f}</Project>
+      <Name>UIShell.RbacPermissionService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\NoPermission.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\JQueryTools\ckeditor\CHANGES.md" />
+    <Content Include="Content\JQueryTools\ckeditor\LICENSE.md" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Content\JQueryTools\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Content\JQueryTools\ckeditor\README.md" />
+    <Content Include="Content\JQueryTools\ckeditor\skins\moono\readme.md" />
+    <Content Include="Content\JQueryTools\uploadify\check-exists.php" />
+    <Content Include="Content\JQueryTools\uploadify\index.php" />
+    <Content Include="Content\JQueryTools\uploadify\uploadify.php" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>33290</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:33290/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
