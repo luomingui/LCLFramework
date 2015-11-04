@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "平台设置";
+}
+@using LCL.MvcExtensions;
+@using UIShell.RbacPermissionService;
+@model GeneralConfigInfo
+<style type="text/css">
+    input {
+        width: 300px;
+    }
+</style>
+<!-- Page title -->
+@using (Html.BeginForm("Save", "GeneralConfigInfo", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+{
+   <table class="tb_searchbar">
+        <tr>
+            <td width="15%" class="td_title">网站名称</td>
+            <td>
+                @Html.TextBoxFor(c => c.AppName, new { @class = "easyui-validatebox", @placeholder = "请输入网站名称" })
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">网站Logo</td>
+            <td>
+                @Html.TextBoxFor(c => c.AppLogo, new { @class = "easyui-validatebox", @placeholder = "请输入网站Logo" })
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">网站地址</td>
+            <td>
+                @Html.TextBoxFor(c => c.Appurl, new { @class = "easyui-validatebox", @placeholder = "请输入网站地址" })
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">企业名称</td>
+            <td>
+                @Html.TextBoxFor(c => c.CompanyName, new { @class = "easyui-validatebox", @placeholder = "请输入企业名称" })
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">统计代码</td>
+            <td>
+                @Html.TextAreaFor(c => c.Statcode, 5, 60, new { @class = "easyui-validatebox", @placeholder = "请输入统计代码" })
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title">版权信息</td>
+            <td>
+
+                @Html.TextAreaFor(c => c.Copyright, 5, 60, new { @class = "easyui-validatebox", @placeholder = "请输入版权信息" })
+            </td>
+        </tr>
+        <tr>
+            <td class="td_title"></td>
+            <td>
+                <button type="submit" class="easyui-linkbutton">提交</button>
+            </td>
+        </tr>
+    </table>
+}
+
