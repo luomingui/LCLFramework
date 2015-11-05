@@ -177,14 +177,7 @@
     <Content Include="Views\Department\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Department\DepartmentUser.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Department\DepartmentUserAddOrEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\PublishProfiles\UIShell.RbacManagementPlugin.pubxml" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup />

@@ -65,8 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appliction\IdCardHelper.cs" />
-    <Compile Include="Appliction\LAppliction.cs" />
     <Compile Include="Appliction\AppConstant.cs" />
     <Compile Include="BusinessModel\Dictionary.cs" />
     <Compile Include="BusinessModel\DictType.cs" />
@@ -103,10 +101,8 @@
     <Compile Include="Security\LCLIdentity.cs" />
     <Compile Include="Security\LCLPermissionProvider.cs" />
     <Compile Include="Security\LCLPrincipal.cs" />
-    <Compile Include="Security\LoginUserInfo.cs" />
     <Compile Include="Security\MyAuthorizeAttribute.cs" />
     <Compile Include="Security\RbacController.cs" />
-    <Compile Include="Security\StringHelper.cs" />
     <Compile Include="Specifications\DepartmentSpecifications.cs" />
     <Compile Include="ValidationModel\Department.cs" />
     <Compile Include="ValidationModel\Dictionary.cs" />
