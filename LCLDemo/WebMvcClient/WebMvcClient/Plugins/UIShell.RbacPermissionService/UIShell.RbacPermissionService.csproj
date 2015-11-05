@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appliction\AppConstant.cs" />
+    <Compile Include="Appliction\LAppliction.cs" />
     <Compile Include="BusinessModel\Dictionary.cs" />
     <Compile Include="BusinessModel\DictType.cs" />
     <Compile Include="BusinessModel\Role.cs" />
