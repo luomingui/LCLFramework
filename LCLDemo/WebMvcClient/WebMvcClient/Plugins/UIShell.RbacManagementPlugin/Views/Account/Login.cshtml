@@ -12,16 +12,17 @@
     <title>@LAppliction.Config.AppName</title>
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Login/css/body.css"))" />
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))"></script>
 </head>
 <body class="login_bgs">
     <noscript>
         <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
-            <img src="~/Plugins/UIShell.EasyUIAdminShellPlugin/Content/images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+            <img src="~/UIShell.EasyUIAdminShellPlugin/Content/images/noscript.gif" alt='抱歉，请开启脚本支持！' />
         </div>
     </noscript>
     <div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
         <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;">
-            <img src="~/Plugins/UIShell.EasyUIAdminShellPlugin/Content/images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...
+            <img src="~/UIShell.EasyUIAdminShellPlugin/Content/images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...
         </div>
     </div>
     <div class="login_bg">

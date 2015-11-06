@@ -23,9 +23,7 @@
             </td>
             <td>
                 <input id="parentid" class="change" type="hidden" readonly />
-                <input id="parentname" class="change" disabled type="text" readonly style=" width:310px" />
-
-                <input type="hidden" id="Entity_DepartmentType" name="Entity.DepartmentType" value="@Model.Entity.DepartmentType" />
+                <input id="parentname" class="change" disabled type="text" readonly style="width:310px" />
                 <input type="hidden" id="Entity_ID" name="Entity.ID" value="@Model.Entity.ID" />
                 <input type="hidden" id="Entity_ParentId" name="Entity.ParentId" value="@Model.Entity.ParentId" />
                 <input type="hidden" id="Entity_NodePath" name="Entity.NodePath" value="@Model.Entity.NodePath" />
@@ -57,13 +55,13 @@
             <td>
                 @if (Model.Entity.DepartmentType == DepartmentType.公司)
                 {
-                <input type="radio" name="Entity.DepartmentType" checked="checked" value="1" />
-                <input type="radio" name="Entity.DepartmentType" value="2" />
+                    <input type="radio" name="Entity.DepartmentType" checked="checked" value="1" />
+                    <input type="radio" name="Entity.DepartmentType" value="2" />
                 }
                 else
                 {
-                <input type="radio" name="Entity.DepartmentType" value="1" />
-                <input type="radio" name="Entity.DepartmentType" checked="checked" value="2" />
+                    <input type="radio" name="Entity.DepartmentType" value="1" />
+                    <input type="radio" name="Entity.DepartmentType" checked="checked" value="2" />
                 }
             </td>
         </tr>
@@ -95,14 +93,11 @@
             $('#selector1').combotree({
                 //获取数据URL
                 url: 'AjaxEasyUITree_Xzqy',
-                //选择树节点触发事件
                 onSelect: function (node) {
-                    //返回树对象
                     var tree = $(this).tree;
-                    //选中的节点是否为叶子节点,如果不是叶子节点,清除选中
+                    //只能选择最后一级
                     var isLeaf = tree('isLeaf', node.target);
                     if (isLeaf) {
-                        //清除选中
                         $('#selector1').combotree('clear');
                     }
                 }
@@ -139,7 +134,7 @@
                 var t = $('#selector1').combotree('tree');
                 var n = t.tree('getSelected');
                 var xzqyId = n.id;
-                //DepartmentType
+                //DepartmentType , Xzqy: xzqyId, DepartmentType: chk
                 var chk = 0;
                 var chkObjs = document.getElementsByName("Entity.DepartmentType");
                 for (var i = 0; i < chkObjs.length; i++) {
@@ -151,14 +146,14 @@
                 if (added) {
                     $.post("AjaxAdd", {
                         ID: ID, Name: Name, ParentId: $('#parentid').val(), OfficePhone: OfficePhone,
-                        Address: Address, Remark: Remark, Xzqy: xzqyId, DepartmentType: chk
+                        Address: Address, Remark: Remark
                     }, function (data) {
                         $.messager.alert('系统消息', data.Message);
                     }, "json");
                 } else {
                     $.post("AjaxEdit", {
                         ID: ID, Name: Name, ParentId: newpId, OfficePhone: OfficePhone,
-                        Address: Address, Remark: Remark, Xzqy: xzqyId, DepartmentType: chk
+                        Address: Address, Remark: Remark
                     }, function (data) {
                         $.messager.alert('系统消息', data.Message);
                     }, "json");

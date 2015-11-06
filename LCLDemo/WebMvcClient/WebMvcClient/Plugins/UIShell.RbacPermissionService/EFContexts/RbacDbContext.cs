@@ -31,7 +31,6 @@ namespace UIShell.RbacPermissionService
         public DbSet<TLog> TLog { get; set; }
         public DbSet<Xzqy> Xzqy { get; set; }
         public DbSet<Department> Department { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
@@ -52,7 +51,6 @@ namespace UIShell.RbacPermissionService
             base.OnModelCreating(modelBuilder);
 
         }
-
     }
 
     /// <summary>
@@ -96,7 +94,7 @@ namespace UIShell.RbacPermissionService
             var role3 = context.Set<Role>().Add(new Role { Name = "业务操作者", RoleType = 1, Remark = "业务操作者" });
 
             int flgInt = 0;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var dep = new Department();
                 var list = new List<Role>();
