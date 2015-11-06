@@ -10,7 +10,12 @@
 .icon-blocks {
     background: url('images/blocks.gif') no-repeat center center;
 }
-
+.icon-blue-tree-folder {
+    background: url('images/blue_tree_folder.png') no-repeat center center;
+}
+.icon-blue-tree-folder-open {
+    background: url('images/blue_tree_folder_open.png') no-repeat center center;
+}
 
 
 

@@ -25,7 +25,8 @@ namespace UIShell.RbacPermissionService
         List<User> GetDepartmentUsers(Guid depId);
         User GetUserByName(string name);
         User GetUserByLoginName();
-        bool ChangePassword(UserChangePassword userChangePassword);
+        bool ChangePassword(string userId, string password);
+        bool ChangeLoginPassword(UserChangePassword userChangePassword);
         User GetBy(string code, string password);
     }
     public class UserRepository : EntityFrameworkRepository<User>, IUserRepository
@@ -65,7 +66,7 @@ namespace UIShell.RbacPermissionService
                 return null;
             }
         }
-        public bool ChangePassword(UserChangePassword userChangePassword)
+        public bool ChangeLoginPassword(UserChangePassword userChangePassword)
         {
             try
             {
@@ -73,7 +74,7 @@ namespace UIShell.RbacPermissionService
                 if (user != null)
                 {
                     user.Password = userChangePassword.ConfirmPassword;
-                    this.Create(user);
+                    this.Update(user);
                     this.Context.Commit();
                     return true;
                 }
@@ -96,6 +97,31 @@ namespace UIShell.RbacPermissionService
             if (user != null && user.Password == password) { return user; }
 
             return null;
+        }
+        public bool ChangePassword(string userId, string password)
+        {
+            try
+            {
+                ISpecification<User> spec = Specification<User>.Eval(p => p.ID == Guid.Parse(userId));
+                var user = this.Find(spec);
+                if (user != null)
+                {
+                    user.Password = password;
+                    this.Update(user);
+                    this.Context.Commit();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("ÐÞ¸ÄÃÜÂë", ex);
+                return false;
+            }
+            throw new NotImplementedException();
         }
     }
 }

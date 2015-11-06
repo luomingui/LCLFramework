@@ -12,7 +12,7 @@
                             <select id="cc" class="easyui-combotree" style="width:100px;"
                                     data-options="url:'AjaxEasyUITree_Department'"></select>
                             <label class="sr-only" for="inputfile">搜:</label>
-                            <input type="text" name="Keyword" id="Keyword" class="input-large" placeholder="请输入" />
+                            <input type="text" name="Keyword" id="Keyword" class="easyui-validatebox" placeholder="请输入" />
                         </td>
                         <td colspan="2">
                             <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="btnSearch">查询</a>
@@ -29,7 +29,7 @@
     <!--   命令列表     -->
     <div id="tbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="del()" />初始化密码
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="ResetPassword()" />初始化密码
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
         <a href="javascript:void(0)" />
@@ -56,11 +56,13 @@
                 columns: [[
                     { field: 'ck', checkbox: true },
                     { field: 'Name', title: '名称', width: 200 },
+                    { field: 'Sex', title: '性别', width: 50 },
+                    { field: 'Birthday', title: '出生年月', width: 100 },
+                    { field: 'IdCard', title: '身份证号', width: 100 },
+                    { field: 'Telephone', title: '电话', width: 100 },
                     {
                         field: 'IsLockedOut', title: '是否锁定', align: 'center', width: 100,
-                        //添加超级链，并将来文号作为参数传入  
                         formatter: function (val, rec) {
-                            //alert(rec.adviceid);  
                             if (val) {
                                 return '<div class="icon-true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
                             } else {
@@ -149,6 +151,37 @@
                     if (msg.Success) {
                         $.messager.alert('提示', msg.Message, 'info', function () {
                             //重新加载当前页
+                            $('#grid').datagrid('reload');
+                        });
+                    } else {
+                        $.messager.alert('提示', msg.Message, 'info')
+                    }
+                }, "json");
+            });
+        }
+        function ResetPassword() {
+            var rows = $('#grid').datagrid('getSelections');
+            if (!rows || rows.length == 0) {
+                $.messager.alert('提示', '请选择要重置的数据!', 'info');
+                return;
+            }
+            var parm;
+            $.each(rows, function (i, row) {
+                if (i == 0) {
+                    parm = "idList=" + row.ID;
+                } else {
+                    parm += "&idList=" + row.ID;
+                }
+            });
+            $.messager.confirm('提示', '是否重置选中数据?', function (r) {
+                if (!r) {
+                    return;
+                }
+                //提交
+                $.post('ResetPassword/', parm,
+                function (msg) {
+                    if (msg.Success) {
+                        $.messager.alert('提示', msg.Message, 'info', function () {
                             $('#grid').datagrid('reload');
                         });
                     } else {

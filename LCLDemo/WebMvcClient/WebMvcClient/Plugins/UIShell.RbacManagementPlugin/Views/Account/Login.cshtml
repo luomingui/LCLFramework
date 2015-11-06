@@ -35,7 +35,8 @@
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2" class="login_box"><input type="submit" value="" class="login_bt" onclick="AjaxLogin();" /> <div class="login_gif"></div></td>
+                <td colspan="2" class="login_box">
+                <input id="butLogin"  type="button" value="" class="login_bt" onclick="AjaxLogin();" /> <div class="login_gif"></div></td>
             </tr>
 
         </table>
@@ -61,6 +62,7 @@
                 $("#Password").focus();
                 return;
             }
+            $('#butLogin').attr('disabled', "true");
             $.ajax({
                 type: "get",
                 url: "AjaxLogin",
@@ -72,9 +74,11 @@
                             window.location.href = result.Message;
                         } else {
                             alert(result.Message)
+                            $('#butLogin').removeattr("disabled");
                         }
                     } else {
                         alert("找不到此会员信息。")
+                        $('#butLogin').removeattr("disabled");
                     }
                     return;
                 }

@@ -139,7 +139,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
         [UIShell.RbacPermissionService.MyAuthorize]
         public ActionResult ChangePassword(UserChangePassword userChangePassword)
         {
-            RF.Concrete<IUserRepository>().ChangePassword(userChangePassword);
+            RF.Concrete<IUserRepository>().ChangeLoginPassword(userChangePassword);
             return View("ChangePassword");
         }
         #endregion

@@ -31,6 +31,13 @@
                         var cc = node.id;
                         dicType = cc;
                         LCLTree.edit();
+                    },
+                    onExpand: function (node) {
+                        $(".icon-company.tree-folder-open").css("background", ".icon-blue-tree-folder-open");
+                    },
+                    onCollapse: function (node) {
+                        $(".icon-company").css("background", ".icon-blue-tree-folder");
+                        $(".icon-company.tree-folder-open").css("background", ".icon-blue-tree-folder-open");
                     }
                 });
             },

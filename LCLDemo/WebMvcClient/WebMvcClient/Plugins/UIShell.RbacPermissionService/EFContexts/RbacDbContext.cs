@@ -87,7 +87,7 @@ namespace UIShell.RbacPermissionService
     {
         protected override void Seed(RbacDbContext context)
         {
-            var dep0 = context.Set<Department>().Add(new Department { ParentId = Guid.Empty, NodePath = "永新科技", Name = "永新科技", OrderBy = 0, Level = 0, IsLast = false, DepartmentType=DepartmentType.公司, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
+            var dep0 = context.Set<Department>().Add(new Department { ParentId = Guid.Empty, NodePath = "永新科技", Name = "永新科技", OrderBy = 0, Level = 0, IsLast = false, DepartmentType = DepartmentType.公司, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
             var dep1 = context.Set<Department>().Add(new Department { ParentId = dep0.ID, NodePath = dep0.Name + "/研发部", Name = "研发部", OrderBy = 1, Level = 1, IsLast = true, DepartmentType = DepartmentType.部门, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
             var dep2 = context.Set<Department>().Add(new Department { ParentId = dep0.ID, NodePath = dep0.Name + "/市场部", Name = "市场部", OrderBy = 2, Level = 1, IsLast = true, DepartmentType = DepartmentType.部门, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
 
@@ -124,6 +124,14 @@ namespace UIShell.RbacPermissionService
                     Name = "员工" + i,
                     IsLockedOut = false,
                     Password = "123456",
+                    IdCard = "362430" + i + "00000000000",
+                    Sex = "男",
+                    Telephone = "130262" + i + "0000",
+                    Birthday = DateTime.Now.AddDays(i).ToString("yyyy-MM-dd"),
+                    UserQQ = "271391233" + i,
+                    PoliticalID = "政治面貌",
+                    NationalID = "汉族",
+                    Email = "luo." + i + "@163.com",
                     Department = dep,
                     Role = list,
                 });

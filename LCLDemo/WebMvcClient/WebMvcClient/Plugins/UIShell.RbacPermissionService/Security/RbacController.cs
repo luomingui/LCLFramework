@@ -3,6 +3,7 @@ using LCL.MvcExtensions;
 using LCL.Repositories;
 using LCL.Specifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -126,7 +127,7 @@ namespace UIShell.RbacPermissionService
         public ActionResult Error(Exception ex)
         {
             if (ex == null) ex = new Exception("未知错误.");
-            return View("Error",ex);
+            return View("Error", ex);
         }
         public override ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
         {
@@ -193,7 +194,7 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             var easyUIPages = new Dictionary<string, object>();
             easyUIPages.Add("total", modelList.PageCount);
             easyUIPages.Add("rows", modelList.PagedModels);
- 
+
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = easyUIPages;
@@ -213,8 +214,9 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             {
                 EasyUITreeModel model = new EasyUITreeModel();
                 model.id = item.ID.ToString();
-                model.attributes = item.ID.ToString();
+                model.attributes.Add("Deptno", item.Name != "" ? item.Name : "-1");
                 model.text = item.Name;
+                model.iconCls = (item.DepartmentType == DepartmentType.公司) || item.Name != "" ? "icon-company" : "";
                 model.parentId = item.ParentId.ToString();
                 model.children = new List<EasyUITreeModel>();
                 easyTree.Add(model);
@@ -242,7 +244,7 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             {
                 EasyUITreeModel model = new EasyUITreeModel();
                 model.id = item.ID.ToString();
-                model.attributes = item.ID.ToString();
+                model.attributes.Add("Deptno", item.Name != "" ? item.Name : "-1");
                 model.text = item.Name;
                 model.parentId = item.ParentId.ToString();
                 model.children = new List<EasyUITreeModel>();

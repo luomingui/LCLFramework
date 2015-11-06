@@ -78,7 +78,7 @@ namespace UIShell.RbacPermissionService
                     ModuleName = moduleId,
                     MachineName = Environment.MachineName,
                     Title = _activityLogTypeName,
-                    IP = filterContext.HttpContext.Request.UserHostAddress,
+                    IP =LRequest.GetIP(),
                     url = filterContext.HttpContext.Request.Path,
                     IsActiveX = bc.ActiveXControls,
                     Browser = Browser,

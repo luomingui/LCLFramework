@@ -7,7 +7,7 @@
 
 <div class="page-title">
     <div id="tbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true">新增下级</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">新增下级</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="Save(@Model.Added)">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>
         <a href="javascript:void(0)" />
@@ -26,6 +26,7 @@
                 <input id="parentname" class="change" disabled type="text" readonly style=" width:310px" />
 
                 <input type="hidden" id="Entity_DepartmentType" name="Entity.DepartmentType" value="@Model.Entity.DepartmentType" />
+                <input type="hidden" id="Entity_ID" name="Entity.ID" value="@Model.Entity.ID" />
                 <input type="hidden" id="Entity_ParentId" name="Entity.ParentId" value="@Model.Entity.ParentId" />
                 <input type="hidden" id="Entity_NodePath" name="Entity.NodePath" value="@Model.Entity.NodePath" />
                 <input type="hidden" id="Entity_OrderBy" name="Entity.OrderBy" value="@Model.Entity.OrderBy" />
@@ -88,16 +89,15 @@
                 if (Model.Added) { actionTag = "新增一个部门"; } else { actionTag = "编辑一个部门"; }
             }@actionTag
         </small>
-    </h2> 
+    </h2>
 </div>
 @section scripts{
     <script type="text/javascript">
         var oldpId = "@Model.Entity.ParentId";
         $(function () {
-
             $('#selector1').combotree({
                 //获取数据URL
-                url: 'AjaxEasyUITree_Org',
+                url: 'AjaxEasyUITree_Xzqy',
                 //选择树节点触发事件
                 onSelect: function (node) {
                     //返回树对象
@@ -110,11 +110,9 @@
                     }
                 }
             });
-
         });
         setparentname();
-        function setparentname()
-        {
+        function setparentname() {
             $('#parentid').val(oldpId);
             $.post("GetByName", { id: oldpId }, function (data) {
                 if (data != "") {
@@ -126,15 +124,13 @@
         }
         function VerifyFrom() {
             var Name = $("#Entity_Name").val();
-            if (Name == "")
-            {
+            if (Name == "") {
                 $.messager.alert('系统消息', '名称不能重复');
                 return false;
             }
             return true;
         }
         function Save(added) {
-
             var t = $('#selector').combotree('tree');	// 获取树对象
             var n = t.tree('getSelected');		// 获取选择的节点
             alert(n.ID);
@@ -150,7 +146,7 @@
                 var Remark = $("#Entity_Remark").val();
 
                 if (added) {
-                    $.post("AjaxAdd", { ID: ID, Name: Name, ParentId:  $('#parentid').val(), OfficePhone: OfficePhone, Address: Address, Remark: Remark }, function (data) {
+                    $.post("AjaxAdd", { ID: ID, Name: Name, ParentId: $('#parentid').val(), OfficePhone: OfficePhone, Address: Address, Remark: Remark }, function (data) {
                         $.messager.alert('系统消息', data.Message);
                     }, "json");
                 } else {
@@ -160,7 +156,21 @@
                 }
             }
         }
-        function  del() {
+        function add() {
+            var Name = $("#Entity_Name").val();
+            var id = $("#Entity_ID").val();
+            $('#parentid').val(id);
+            $('#parentname').val(Name);
+            $('#Entity_Name').val("");
+            $('#Entity_OfficePhone').val("");
+            $('#Entity_Address').val("");
+            $('#Entity_Remark').val("");
+            @{
+
+       Model.Added = true;
+   }
+        }
+        function del() {
             $.messager.confirm('确认', '确认要删除吗?', function (y) {
                 if (y) {
                     //提交

@@ -90,6 +90,8 @@
     <Content Include="Content\icons.css" />
     <Content Include="Content\images\add.gif" />
     <Content Include="Content\images\blocks.gif" />
+    <Content Include="Content\images\blue_tree_folder.png" />
+    <Content Include="Content\images\blue_tree_folder_open.png" />
     <Content Include="Content\images\CategorizeMenu.png" />
     <Content Include="Content\images\directory.png" />
     <Content Include="Content\images\docs.png" />
