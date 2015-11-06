@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace LCL.MvcExtensions
@@ -135,7 +136,35 @@ namespace LCL.MvcExtensions
         {
             return HttpContext.Current.Request.Url.ToString();
         }
+        /// <summary>
+        /// 获得当前页面客户端的IP
+        /// </summary>
+        /// <returns>当前页面客户端的IP</returns>
+        public static string GetIP()
+        {
+            string result = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            if (string.IsNullOrEmpty(result))
+                result = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
 
+            if (string.IsNullOrEmpty(result))
+                result = HttpContext.Current.Request.UserHostAddress;
+
+            if (string.IsNullOrEmpty(result) || !Regex.IsMatch(result, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$"))
+                return "127.0.0.1";
+
+            return result;
+        }
+        /// <summary>
+        /// 保存用户上传的文件
+        /// </summary>
+        /// <param name="path">保存路径</param>
+        public static void SaveRequestFile(string path)
+        {
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                HttpContext.Current.Request.Files[0].SaveAs(path);
+            }
+        }
         /// <summary>
         /// 获得当前页面的名称
         /// </summary>
@@ -154,17 +183,7 @@ namespace LCL.MvcExtensions
         {
             return HttpContext.Current.Request.Form.Count + HttpContext.Current.Request.QueryString.Count;
         }
-        /// <summary>
-        /// 保存用户上传的文件
-        /// </summary>
-        /// <param name="path">保存路径</param>
-        public static void SaveRequestFile(string path)
-        {
-            if (HttpContext.Current.Request.Files.Count > 0)
-            {
-                HttpContext.Current.Request.Files[0].SaveAs(path);
-            }
-        }
+
         #region 获得Url参数 GetQueryString/GetFormString
         /// <summary>
         /// 获得指定Url参数的值

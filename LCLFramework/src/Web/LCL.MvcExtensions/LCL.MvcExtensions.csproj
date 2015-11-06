@@ -90,7 +90,6 @@
     <Compile Include="CommonHelper.cs" />
     <Compile Include="Controller\ControllerTypeCache.cs" />
     <Compile Include="Controller\DefaultControllerConfig.cs" />
-    <Compile Include="Controller\JsonRepoController.cs" />
     <Compile Include="Controller\PluginControllerFactory.cs" />
     <Compile Include="Controller\BaseRepoController.cs" />
     <Compile Include="Extensions\ActionExtension.cs" />
