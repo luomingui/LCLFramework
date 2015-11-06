@@ -8,7 +8,7 @@
 <div class="page-title">
     <div id="tbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">新增下级</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="Save(@Model.Added)">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="Save()">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>
         <a href="javascript:void(0)" />
     </div>
@@ -80,20 +80,10 @@
         </tr>
     </tbody>
 </table>
-<!-- Page title -->
-<div class="page-title">
-    <h2>
-        <i class="icon-desktop color"></i> 部门 <small>
-            @{
-                string actionTag = "";
-                if (Model.Added) { actionTag = "新增一个部门"; } else { actionTag = "编辑一个部门"; }
-            }@actionTag
-        </small>
-    </h2>
-</div>
 @section scripts{
     <script type="text/javascript">
         var oldpId = "@Model.Entity.ParentId";
+        var added = "@Model.Added";
         $(function () {
             $('#selector1').combotree({
                 //获取数据URL
@@ -130,7 +120,7 @@
             }
             return true;
         }
-        function Save(added) {
+        function Save() {
             var t = $('#selector').combotree('tree');	// 获取树对象
             var n = t.tree('getSelected');		// 获取选择的节点
             alert(n.ID);
@@ -165,6 +155,7 @@
             $('#Entity_OfficePhone').val("");
             $('#Entity_Address').val("");
             $('#Entity_Remark').val("");
+            added=true;
             @{
 
        Model.Added = true;
