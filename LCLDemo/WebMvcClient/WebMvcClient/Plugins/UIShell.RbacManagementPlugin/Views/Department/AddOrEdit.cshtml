@@ -55,8 +55,16 @@
                 是否组织
             </td>
             <td>
-                <input type="radio" name="Entity.DepartmentType" checked="checked" value="@Model.Entity.DepartmentType" />
-                <input type="radio" name="Entity.DepartmentType" value="@Model.Entity.DepartmentType" />
+                @if (Model.Entity.DepartmentType == DepartmentType.公司)
+                {
+                <input type="radio" name="Entity.DepartmentType" checked="checked" value="1" />
+                <input type="radio" name="Entity.DepartmentType" value="2" />
+                }
+                else
+                {
+                <input type="radio" name="Entity.DepartmentType" value="1" />
+                <input type="radio" name="Entity.DepartmentType" checked="checked" value="2" />
+                }
             </td>
         </tr>
         <tr>
@@ -65,8 +73,7 @@
             </td>
             <td>
                 地区：
-                <select id="selector1" class="easyui-combotree" style="width:180px;"></select>
-
+                <select id="selector1" class="easyui-combotree" style="width:180px;" data-options="required:true"></select>
                 <input type="text" id="Entity_Address" name="Entity.Address" style=" width:310px" value="@Model.Entity.Address" />
             </td>
         </tr>
@@ -121,26 +128,38 @@
             return true;
         }
         function Save() {
-            var t = $('#selector').combotree('tree');	// 获取树对象
-            var n = t.tree('getSelected');		// 获取选择的节点
-            alert(n.ID);
-
             var flg = VerifyFrom();
-
             if (flg == true) {
-
                 var ID = $("#Entity_ID").val();
                 var Name = $("#Entity_Name").val();
                 var OfficePhone = $("#Entity_OfficePhone").val();
                 var Address = $("#Entity_Address").val();
                 var Remark = $("#Entity_Remark").val();
-
+                //xzqyId
+                var t = $('#selector1').combotree('tree');
+                var n = t.tree('getSelected');
+                var xzqyId = n.id;
+                //DepartmentType
+                var chk = 0;
+                var chkObjs = document.getElementsByName("Entity.DepartmentType");
+                for (var i = 0; i < chkObjs.length; i++) {
+                    if (chkObjs[i].checked) {
+                        chk = i;
+                        break;
+                    }
+                }
                 if (added) {
-                    $.post("AjaxAdd", { ID: ID, Name: Name, ParentId: $('#parentid').val(), OfficePhone: OfficePhone, Address: Address, Remark: Remark }, function (data) {
+                    $.post("AjaxAdd", {
+                        ID: ID, Name: Name, ParentId: $('#parentid').val(), OfficePhone: OfficePhone,
+                        Address: Address, Remark: Remark, Xzqy: xzqyId, DepartmentType: chk
+                    }, function (data) {
                         $.messager.alert('系统消息', data.Message);
                     }, "json");
                 } else {
-                    $.post("AjaxEdit", { ID: ID, Name: Name, ParentId: newpId, OfficePhone: OfficePhone, Address: Address, Remark: Remark }, function (data) {
+                    $.post("AjaxEdit", {
+                        ID: ID, Name: Name, ParentId: newpId, OfficePhone: OfficePhone,
+                        Address: Address, Remark: Remark, Xzqy: xzqyId, DepartmentType: chk
+                    }, function (data) {
                         $.messager.alert('系统消息', data.Message);
                     }, "json");
                 }
@@ -149,17 +168,16 @@
         function add() {
             var Name = $("#Entity_Name").val();
             var id = $("#Entity_ID").val();
-            $('#parentid').val(id);
-            $('#parentname').val(Name);
-            $('#Entity_Name').val("");
-            $('#Entity_OfficePhone').val("");
-            $('#Entity_Address').val("");
-            $('#Entity_Remark').val("");
-            added=true;
-            @{
-
-       Model.Added = true;
-   }
+            if (oldpId != "00000000-0000-0000-0000-000000000000") {
+                $('#parentid').val(id);
+                $('#parentname').val(Name);
+                $('#Entity_Name').val("");
+                $('#Entity_OfficePhone').val("");
+                $('#Entity_Address').val("");
+                $('#Entity_Remark').val("");
+                $("#Entity_ID").val(@Guid.NewGuid());
+            }
+            added = true;
         }
         function del() {
             $.messager.confirm('确认', '确认要删除吗?', function (y) {
