@@ -62,7 +62,7 @@
                     { field: 'Telephone', title: '电话', width: 100 },
                     { field: 'Email', title: '电子邮箱', width: 100 },
                     {
-                        field: 'IsLockedOut', title: '是否锁定', align: 'center', width: 100,
+                        field: 'IsLockedOut', title: '是否锁定', align: 'center', width: 80,
                         formatter: function (val, rec) {
                             if (val) {
                                 return '<div class="icon-true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
@@ -71,7 +71,7 @@
                             }
                         }
                     },
-                    { field: 'UpdateDate', title: '更新时间', width: 150 },
+                    { field: 'UpdateDate', title: '更新时间', width: 100 },
                     {
                         field: 'opt', title: '操作', width: 100, align: 'center',
                         formatter: function (value, rec) {

@@ -18,12 +18,14 @@
                     上级区划
                 </td>
                 <td>
-                   <select>
-                       <option>1</option>
-                       <option>2</option>
-                       <option>3</option>
-                       <option>4</option>
-                   </select>
+                    <input id="parentid" class="change" type="hidden" readonly />
+                    <input id="parentname" class="change" disabled type="text" readonly style="width:310px" />
+                    <input type="hidden" id="Entity_ID" name="Entity.ID" value="" />
+                    <input type="hidden" id="Entity_ParentId" name="Entity.ParentId" value="" />
+                    <input type="hidden" id="Entity_NodePath" name="Entity.NodePath" value="" />
+                    <input type="hidden" id="Entity_OrderBy" name="Entity.OrderBy" value="" />
+                    <input type="hidden" id="Entity_Level" name="Entity.Level" value="" />
+                    <input type="hidden" id="Entity_IsLast" name="Entity.IsLast" value="" />
                 </td>
             </tr>
             <tr>
@@ -37,14 +39,6 @@
             <tr>
                 <td class="td_title">
                     区划名称
-                </td>
-                <td>
-                    <input type="text" id="Entity_Name" name="Entity.Name" value="" data-options="required:true" />
-                </td>
-            </tr>
-            <tr>
-                <td class="td_title">
-                    负责人
                 </td>
                 <td>
                     <input type="text" id="Entity_Name" name="Entity.Name" value="" data-options="required:true" />
@@ -74,6 +68,8 @@
             $(window).resize(function () {
                 $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
             });
+
+
         });
         var DicCategory = {
             showTree: function () {
@@ -84,6 +80,9 @@
                         var cc = node.id;
                         dicType = cc;
                         //mygrid.reload(cc);
+                        $('#Entity_HelperCode').val(node.text);
+                        $('#Entity_Name').val(node.text);
+                        $('#Entity_Intro').val(node.text);
                     }
                 });
             },
@@ -169,6 +168,16 @@
                 }
                 return false;
             }
+        }
+        //获取左边已选择的部门数据
+        function getselectd() {
+            var node = $('#depttree').tree('getSelected');
+            if (!node) {
+                alert("请选择部门");
+                return;
+            }
+            selectnode = node;
+            return node;
         }
     </script>
 }

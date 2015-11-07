@@ -823,6 +823,9 @@
     <Content Include="Content\JQueryTools\uploadify\uploadify.swf" />
     <Content Include="readMe.txt" />
     <Content Include="Scripts\iepng.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jQuery.browser.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\killie.js" />
     <Content Include="Scripts\outlook2.js" />

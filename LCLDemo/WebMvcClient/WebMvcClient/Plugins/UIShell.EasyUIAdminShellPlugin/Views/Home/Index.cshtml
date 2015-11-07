@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))">
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/icons.css"))" />
-
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/jquery-1.8.0.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"))"></script>
@@ -135,23 +135,36 @@
 <body style="overflow: hidden; overflow-y: hidden; overflow-x: hidden;" scroll="no" class="easyui-layout" fit="true">
     <noscript>
         <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
-            <img src="~/UIShell.EasyUIAdminShellPlugin/Content/images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+            <img src="@(Url.BundleContent(BundleActivator.Bundle, "Content/images/noscript.gif"))" alt='抱歉，请开启脚本支持！' />
         </div>
     </noscript>
     <div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
         <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;">
-            <img src="~/UIShell.EasyUIAdminShellPlugin/Content/images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...
+            <img src="@(Url.BundleContent(BundleActivator.Bundle, "Content/images/loading.gif"))" align="absmiddle" /> 正在加载中,请稍候...
         </div>
     </div>
     <!-- head begin -->
     <div data-options="region:'north',split:true" style="overflow: hidden;">
         <div class="index_top_box">
-            <h1>@LAppliction.Config.AppName</h1>
+            <h1>
+                @LAppliction.Config.AppName
+            </h1>
             <div class="index_top_box_rt">
                 <span id="bgclock"></span>
                 <span>
                     <a id="btnUser" href="#">@LCL.LEnvironment.Principal.Identity.Name 用户您好！欢迎进入</a>
                     |&nbsp;&nbsp;<a href="#" id="editpass">修改密码</a>
+                    |&nbsp;&nbsp;
+                    <a href="javascript:void(0)" id="mb" class="easyui-menubutton" data-options="menu:'#help'">帮助中心</a>
+                    <div id="help" style="width:150px;">
+                        <div data-options="iconCls:'icon-help'" onclick="window.open('~/Help', '_blank')">查看帮助</div>
+                        <div data-options="iconCls:'icon-redo'" title="将反馈建议提交给开发商进行解决"
+                             onclick="window.open('http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GnZvdXdzdH1vc1prazR5dXc', '_blank')">反馈建议</div>
+                        <div class="menu-sep"></div>
+                        <div onclick="Support()">技术支持</div>
+                        <div onclick="About()">关于我们</div>
+                        <div>Paste</div>
+                    </div>
                     |&nbsp;&nbsp;<a href="#" id="loginOut"><b>退出</b>&nbsp;&nbsp;</a>
                 </span>
             </div>
@@ -169,22 +182,22 @@
                 {
                     divdataoption = "true";
                 }
-                <div title="@node.Label" data-options='iconCls:"icon tu0601",selected:@divdataoption' style="overflow: auto; padding: 10px;">
-                    @for (int j = 0; j < node.Children.Count; j++)
+            <div title="@node.Label" data-options='iconCls:"icon tu0601",selected:@divdataoption' style="overflow: auto; padding: 10px;">
+                @for (int j = 0; j < node.Children.Count; j++)
                     {
                         var child = node.Children[j];
-                        <ul class="zyl_left">
-                            <li>
-                                <div>
-                                    <a href="javascript:void(@j)" rel="@Url.Content(child.CustomUI)" class="menulink">
-                                        <span class="icon-nav">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                        <span class="nav">&nbsp;@child.Label</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                    <ul class="zyl_left">
+                        <li>
+                            <div>
+                                <a href="javascript:void(@j)" rel="@Url.Content(child.CustomUI)" class="menulink">
+                                    <span class="icon-nav">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="nav">&nbsp;@child.Label</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
                     }
-                </div>
+            </div>
             }
         </div>
     </div>
@@ -234,19 +247,6 @@
                 </a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
             </div>
         </div>
-    </div>
-    <!--Tab上菜单操作-->
-    <div id="mm" class="easyui-menu" style="width:150px;">
-        <div id="mm-tabupdate">刷新</div>
-        <div class="menu-sep"></div>
-        <div id="mm-tabclose">关闭</div>
-        <div id="mm-tabcloseall">全部关闭</div>
-        <div id="mm-tabcloseother">除此之外全部关闭</div>
-        <div class="menu-sep"></div>
-        <div id="mm-tabcloseright">当前页右侧全部关闭</div>
-        <div id="mm-tabcloseleft">当前页左侧全部关闭</div>
-        <div class="menu-sep"></div>
-        <div id="mm-exit">退出</div>
     </div>
 </body>
 </html>
