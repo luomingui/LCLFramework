@@ -48,6 +48,12 @@ namespace LCL.MvcExtensions
             string path = "http://" + _bundlerootUrl + @"/" + symbolicName + @"/" + url;
             return path;
         }
+        public static string BundlePContent(this UrlHelper helper, string symbolicName, string url)
+        {
+            string _bundlerootUrl = System.Web.HttpContext.Current.Request.Url.Authority.ToString();
+            string path = "http://" + _bundlerootUrl + @"/" + symbolicName + @"/" + url;
+            return path;
+        }
         public static string BundleContent(this UrlHelper helper, string url)
         {
             string _bundlerootUrl = System.Web.HttpContext.Current.Request.Url.Authority.ToString() + @"/" ;

@@ -200,62 +200,96 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
         public virtual CustomJsonResult AjaxAdd(TAggregateRoot model)
         {
             var result = new Result(true);
-            repo.Create(model);
-            repo.Context.Commit();
-
+            try
+            {
+                repo.Create(model);
+                repo.Context.Commit();
+            }
+            catch (Exception)
+            {
+                result = new Result(false);
+            }
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = result;
-
             return json;
-
         }
         [HttpPost]
         public virtual CustomJsonResult AjaxEdit(TAggregateRoot model)
         {
             var result = new Result(true);
-
-            model.UpdateDate = DateTime.Now;
-            repo.Update(model);
-            repo.Context.Commit();
-
+            try
+            {
+                model.UpdateDate = DateTime.Now;
+                repo.Update(model);
+                repo.Context.Commit();
+            }
+            catch (Exception)
+            {
+                result = new Result(false);
+            }
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = result;
-
             return json;
-
         }
         [HttpPost]
         public virtual CustomJsonResult AjaxDelete(TAggregateRoot model)
         {
             var result = new Result(true);
-
-            var entity = repo.GetByKey(model.ID);
-            repo.Delete(entity);
-            repo.Context.Commit();
-
+            try
+            {
+                var entity = repo.GetByKey(model.ID);
+                repo.Delete(entity);
+                repo.Context.Commit();
+            }
+            catch (Exception)
+            {
+                result = new Result(false);
+            }
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = result;
-
             return json;
         }
         [HttpPost]
         public CustomJsonResult AjaxDeleteList(IList<Guid> idList)
         {
             var result = new Result(true);
-
-            for (int i = 0; i < idList.Count; i++)
+            try
             {
-                var entity = repo.GetByKey(idList[i]);
-                repo.Delete(entity);
+                for (int i = 0; i < idList.Count; i++)
+                {
+                    var entity = repo.GetByKey(idList[i]);
+                    repo.Delete(entity);
+                }
+                repo.Context.Commit();
             }
-            repo.Context.Commit();
+            catch (Exception)
+            {
+                result = new Result(false);
+            }
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = result;
-
+            return json;
+        }
+        [HttpPost]
+        public virtual CustomJsonResult AjaxGetByModel(Guid id)
+        {
+            var result = new Result(true);
+            try
+            {
+                var model = repo.GetByKey(id);
+                result.DataObject = model;
+            }
+            catch (Exception)
+            {
+                result = new Result(false);
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
             return json;
         }
         #endregion

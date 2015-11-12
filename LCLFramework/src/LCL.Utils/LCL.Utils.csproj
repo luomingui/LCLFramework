@@ -85,6 +85,7 @@
     <Compile Include="Device\MP3Helper.cs" />
     <Compile Include="Device\ShellIcon.cs" />
     <Compile Include="Files\CsvHelper.cs" />
+    <Compile Include="Files\EmailSender.cs" />
     <Compile Include="Files\MyExcelUtls.cs" />
     <Compile Include="Data\DbAccesser.cs" />
     <Compile Include="Data\DbConnectionSchema.cs" />
