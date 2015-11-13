@@ -9,9 +9,10 @@
     <!-- Title here -->
     <title>@LAppliction.Config.AppName</title>
     <!-- Description, Keywords and Author -->
-    <meta name="description" content="Your description">
-    <meta name="keywords" content="Your,Keywords">
-    <meta name="author" content="ResponsiveWebInc">
+    <meta name="keywords" content="MVC,EasyUI,LCL,DDD,Domain,Services,Specifications,Events">
+    <meta name="description" content="ASP.NET MVC+EasyUI+LCL+插件构建的企业信息化快速开发框架,LCLFramework就是一套在.NET下支持面向领域驱动的软件系统管理类软件的快速开发框架">
+    <meta name="author" content="Luomg">
+    <meta name="copyright" content="All Rights Reserved, Copyright (C) 2015, luomg, Ltd." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/default/easyui.css"))">
@@ -21,8 +22,8 @@
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/jquery-1.8.0.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"))"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"))" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))" charset="utf-8"></script>
     <!-- Favicon -->
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script type="text/javascript">
@@ -33,6 +34,7 @@
             ReadDateTimeShow();
             //这里实现对时间动态的变化
             var setTimeInterval = setInterval(ReadDateTimeShow, 1000);
+            $("#tabs").contextMenus();
             //实现Tab布局
             $("#tabs").tabs({});
 
@@ -54,37 +56,14 @@
         });
         //实现用户单击导航栏跳转页面的方法
         function BindMenuClickHrefEvent() {
-            $(".menulink").click(function () {
-                //获取按钮里面的Src属性
-                var src = $(this).attr("rel");
-                //Tab页面添加页面标签，每当单击左边的导航栏的时候跳转
-                var titleShow = trim($(this).text());
-                var strHtml = '<iframe id="frmWorkArea" width="100%" height="100%" frameborder="0" scrolling="yes" src="' + src + '"></iframe>';
-                //判断Tab标签中是否有相同的数据标签
-                var isExist = $("#tabs").tabs('exists', titleShow);
-                if (!isExist) {
-                    $("#tabs").tabs('add', {
-                        title: titleShow,
-                        content: strHtml,
-                        iconCls: 'icon-nav',
-                        closable: true,
-                    });
-                }
+
+            $(".menulink").bind("click", function () {
+                var title = trim($(this).text());
+                var url = $(this).attr('rel');
+                var iconCls = $(this).attr('iconcss');
+                var iframe = $(this).attr('iframe') == 1 ? true : false;
+                addTab(title, url, iconCls, iframe);
             });
-        }
-        //读取动态时间的变化
-        function ReadDateTimeShow() {
-            var year = new Date().getFullYear();
-            var Month = new Date().getMonth() + 1;
-            var Day = new Date().getDate();
-            var Time = new Date().toLocaleTimeString();
-            var AddDate = year + "年" + Month + "月" + Day + "日,时间:" + Time;
-            $("#date").text(AddDate);
-        }
-        function trim(str) {
-            //FUNCTION:去掉字符串的两边空格,中间的空格保留
-            v = str.replace(/(^\s*)|(\s*$)/g, "");
-            return v;
         }
         //设置登录窗口
         function openPwd() {
@@ -132,42 +111,36 @@
     </script>
 </head>
 
-<body style="overflow: hidden; overflow-y: hidden; overflow-x: hidden;" scroll="no" class="easyui-layout" fit="true">
+<body style="overflow: hidden; overflow-y: hidden; overflow-x: hidden;" scrolling="no" class="easyui-layout" fit="true">
     <noscript>
         <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
             <img src="@(Url.BundleContent(BundleActivator.Bundle, "Content/images/noscript.gif"))" alt='抱歉，请开启脚本支持！' />
         </div>
     </noscript>
     <div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
-        <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;">
-            <img src="@(Url.BundleContent(BundleActivator.Bundle, "Content/images/loading.gif"))" align="absmiddle" /> 正在加载中,请稍候...
+        <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px;
+text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px;
+font-weight:bold; background:#fff; color:#15428B;">
+            正在加载中,请稍候...
         </div>
     </div>
     <!-- head begin -->
-    <div data-options="region:'north',split:true" style="overflow: hidden;">
-        <div class="index_top_box">
+    <div class="wu-header" data-options="region:'north',split:true" style="overflow: hidden;">
+        <div class="wu-header-left">
             <h1>
                 @LAppliction.Config.AppName
             </h1>
-            <div class="index_top_box_rt">
-                <span id="bgclock"></span>
-                <span>
-                    <a id="btnUser" href="#">@LCL.LEnvironment.Principal.Identity.Name 用户您好！欢迎进入</a>
-                    |&nbsp;&nbsp;<a href="#" id="editpass">修改密码</a>
-                    |&nbsp;&nbsp;
-                    <a href="javascript:void(0)" id="mb" class="easyui-menubutton" data-options="menu:'#help'">帮助中心</a>
-                    <div id="help" style="width:150px;">
-                        <div data-options="iconCls:'icon-help'" onclick="window.open('~/Help', '_blank')">查看帮助</div>
-                        <div data-options="iconCls:'icon-redo'" title="将反馈建议提交给开发商进行解决"
-                             onclick="window.open('http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GnZvdXdzdH1vc1prazR5dXc', '_blank')">反馈建议</div>
-                        <div class="menu-sep"></div>
-                        <div onclick="Support()">技术支持</div>
-                        <div onclick="About()">关于我们</div>
-                        <div>Paste</div>
-                    </div>
-                    |&nbsp;&nbsp;<a href="#" id="loginOut"><b>退出</b>&nbsp;&nbsp;</a>
-                </span>
-            </div>
+        </div>
+        <div class="wu-header-right">
+            <p>
+                <strong class="easyui-tooltip">@LCL.LEnvironment.Principal.Identity.Name </strong>，欢迎您！
+            </p>
+            <p>
+                <a href="#" title="将反馈建议提交给开发商进行解决"
+                   onclick="window.open('http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GnZvdXdzdH1vc1prazR5dXc', '_blank')">反馈建议</a>
+                |<a href="#" id="editpass">修改密码</a>
+                |<a href="#" id="loginOut"><b>退出</b></a>
+            </p>
         </div>
     </div>
     <!-- head end -->
@@ -182,22 +155,22 @@
                 {
                     divdataoption = "true";
                 }
-            <div title="@node.Label" data-options='iconCls:"icon tu0601",selected:@divdataoption' style="overflow: auto; padding: 10px;">
-                @for (int j = 0; j < node.Children.Count; j++)
+                <div title="@node.Label" data-options='iconCls:"@node.Image",selected:@divdataoption' style="overflow: auto; padding: 10px;">
+                    @for (int j = 0; j < node.Children.Count; j++)
                     {
                         var child = node.Children[j];
-                    <ul class="zyl_left">
-                        <li>
-                            <div>
-                                <a href="javascript:void(@j)" rel="@Url.Content(child.CustomUI)" class="menulink">
-                                    <span class="icon-nav">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                    <span class="nav">&nbsp;@child.Label</span>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
+                        <ul class="zyl_left">
+                            <li>
+                                <div>
+                                    <a href="javascript:void(@j)" rel="@Url.Content(child.CustomUI)" class="menulink" iconcss="@child.Image" iframe="0">
+                                        <span id="iconCss" class="@child.Image" iconcss="@child.Image">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span class="nav">&nbsp;@child.Label</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     }
-            </div>
+                </div>
             }
         </div>
     </div>
@@ -206,7 +179,7 @@
     <div id="mainPanle" data-options="region:'center'" style="background: #eee; overflow-y: hidden">
         <div id="tabs" class="easyui-tabs" fit="true">
 
-            <div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; ">
+            <div title="欢迎使用" data-options="closable:false,iconCls:'icon-tip',cls:'pd3'" style="padding:20px;overflow:hidden; color:red; ">
                 <h1 style="font-size:24px;">* 作者：罗敏贵 QQ：271391233</h1>
                 <h1 style="font-size:24px;">* BLOG: <a style="font-size:24px;color:green;" href="http://luomingui.cnblogs.com" target="_blank">博客</a></h1>
                 <h1 style="font-size:24px;">* 讨论群：34178394</h1>
@@ -248,5 +221,9 @@
             </div>
         </div>
     </div>
+
+    @*<script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/include_script.js"))"></script>
+        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/killie.js"))"></script>
+        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/SetSafe.js"))"></script>*@
 </body>
 </html>

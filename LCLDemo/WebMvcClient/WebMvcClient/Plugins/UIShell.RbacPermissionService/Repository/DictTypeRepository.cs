@@ -18,8 +18,7 @@ namespace UIShell.RbacPermissionService
 {
     public interface IDictTypeRepository : IRepository<DictType>
     {
-        List<Dictionary> GetDictionaryList(string dicTypeName);
-        List<Dictionary> GetModelList(params string[] dictypeId);
+        string GetByName(Guid guid);
     }
     public class DictTypeRepository : EntityFrameworkRepository<DictType>, IDictTypeRepository
     {
@@ -31,13 +30,17 @@ namespace UIShell.RbacPermissionService
             this.className = typeof(DictType).Name;
             this.cacheKey = "LCL_Cache_" + className;
         }
-        public List<Dictionary> GetDictionaryList(string dicTypeName)
+        public string GetByName(Guid id)
         {
-            throw new NotImplementedException();
-        }
-        public List<Dictionary> GetModelList(params string[] dictypeId)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var model = this.GetByKey(id);
+                return model.Name;
+            }
+            catch (Exception)
+            {
+                return "±£√‹";
+            }
         }
     }
 }  

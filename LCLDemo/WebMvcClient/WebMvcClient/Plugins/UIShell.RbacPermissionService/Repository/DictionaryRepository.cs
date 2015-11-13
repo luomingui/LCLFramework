@@ -22,6 +22,8 @@ namespace UIShell.RbacPermissionService
     public interface IDictionaryRepository : IRepository<Dictionary>  
     {
         List<Dictionary> GetDictTypeList(Guid dicTypeId);
+
+        string GetByName(Guid guid);
     }  
     public class DictionaryRepository : EntityFrameworkRepository<Dictionary>, IDictionaryRepository  
     {  
@@ -37,6 +39,18 @@ namespace UIShell.RbacPermissionService
              Specification<Dictionary>.Eval(p => p.DictType.ID == dicTypeId);
             var list = this.FindAll(spec, e => e.UpdateDate, SortOrder.Descending);
             return list.ToList();
+        }
+        public string GetByName(Guid id)
+        {
+            try
+            {
+                var model = this.GetByKey(id);
+                return model.Name;
+            }
+            catch (Exception)
+            {
+                return "±£√‹";
+            }
         }
     }  
 }  

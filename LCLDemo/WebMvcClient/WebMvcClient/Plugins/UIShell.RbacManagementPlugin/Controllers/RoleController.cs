@@ -1,3 +1,4 @@
+using LCL.MetaModel;
 /******************************************************* 
 *  
 * ×÷Õß£ºÂÞÃô¹ó 
@@ -20,7 +21,9 @@ namespace UIShell.RbacManagementPlugin.Controllers
         IRoleRepository repo = RF.Concrete<IRoleRepository>();
         public RoleController()
         {
-
+            // hasPermission = PermissionMgr.HasCommand(pluginName, controller, Name);
+            //var model = CommonModel.Modules[typeof(RoleController)];
+            //var number = model.CustomOpertions.Count;
         }
         public JsonResult CheckRoleName(string RoleName)
         {

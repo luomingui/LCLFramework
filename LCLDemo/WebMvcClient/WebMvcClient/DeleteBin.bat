@@ -4,5 +4,5 @@
 
 del /s/q/f *.user
 del /s/q/f *.suo
-del /s/q/f *.log
+del /s/q/f log.txt
 

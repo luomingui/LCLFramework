@@ -49,9 +49,10 @@ namespace UIShell.RbacPermissionService
                         }
                     }
                 }
-
+             
                 //日志内容
                 StringBuilder logContent = new StringBuilder();
+                logContent.Append(filterContext.Controller.ViewBag.Title);
                 foreach (KeyValuePair<string, string> kvp in parmsObj)
                 {
                     logContent.AppendFormat("{0}:{1} ", kvp.Key, kvp.Value);

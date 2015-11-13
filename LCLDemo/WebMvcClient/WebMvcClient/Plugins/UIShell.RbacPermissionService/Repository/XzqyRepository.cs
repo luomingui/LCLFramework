@@ -25,6 +25,7 @@ namespace UIShell.RbacPermissionService
         List<Xzqy> GetXzqyChildList(Guid? pid);
         List<Xzqy> GetFull();
         XzqyTreeModel GetXzqyTreeModel(Guid CountyId);
+        string GetByName(Guid id);
     }
     public class XzqyRepository : EntityFrameworkRepository<Xzqy>, IXzqyRepository
     {
@@ -79,6 +80,18 @@ FROM    dbo.Xzqy a
                 return list[0];
             else
                 return null;
+        }
+        public string GetByName(Guid id)
+        {
+            try
+            {
+                var model = this.GetByKey(id);
+                return model.Name;
+            }
+            catch (Exception)
+            {
+                return "±£√‹";
+            }
         }
     }
 }

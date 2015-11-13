@@ -22,7 +22,7 @@
     </noscript>
     <div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
         <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;">
-            <img src="~/UIShell.EasyUIAdminShellPlugin/Content/images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...
+             正在加载中,请稍候...
         </div>
     </div>
     <div class="login_bg">
@@ -57,9 +57,26 @@
     <script type="text/javascript">
         //判断显示用户登录的时候显示整个页面
         if (window.parent.window != window) {
-            window.top.location.href = "/Home/Index";
+            window.top.location.href = "/UIShell.EasyUIAdminShellPlugin/Home/Index";
         }
-
+        /*
+       检查浏览器是否支持
+       */
+        var isIE = !!window.ActiveXObject;
+        var isIE6 = isIE && !window.XMLHttpRequest;
+        if (isIE6) {
+            window.location.href = "../Error";
+        }
+        //回车键
+        document.onkeydown = function (e) {
+            if (!e) e = window.event; //火狐中是 window.event
+            if ((e.keyCode || e.which) == 13) {
+                var btlogin = document.getElementById("butLogin");
+                btlogin.focus();
+                btlogin.click();
+            }
+        }
+        $("#Name").focus();
         function AjaxLogin() {
             var Name = $("#Name").val();
             var Password = $("#Password").val();

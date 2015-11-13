@@ -6,9 +6,9 @@
     <div data-options="region:'west',title:'字典类型'" style="width: 200px; overflow-y: hidden;">
         <div style="height: 550px; width: 100%; border: #99bbe8 1px solid; ">
             <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;">
-                <a id="a_addCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增</a>&nbsp;
-                <a id="a_editCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-edit">修改</a>&nbsp;
-                <a id="a_delCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>
+                <a id="a_add" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增</a>&nbsp;
+                <a id="a_edit" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-edit">修改</a>&nbsp;
+                <a id="a_del" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>
             </div>
             <div style="padding:2px 5px 5px 5px;overflow-y:hidden;">
                 <ul id="dataDicType" class="easyui-tree" style="height:80%;"></ul>
@@ -24,33 +24,35 @@
         <table id="grid" title="字典信息一览表" class="easyui-datagrid" style="width:100%" toolbar="#toolbar"></table>
         <!--   命令列表       -->
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
+            <a id="b_add" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" />添加
+            <a id="b_edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" />修改
+            <a id="b_del" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true"  />删除
+            <a id="b_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" />刷新
             <a href="javascript:void(0)" />
         </div>
     </div>
 </div>
 @section scripts{
     <script type="text/javascript">
-        var dicType;
+        var dicType = "00000000-0000-0000-0000-000000000000";
         $(document).ready(function () {
 
-            DicCategory.showTree(); //显示数据字典列表树
+            LCL.showTree(); //显示数据字典列表树
+
             mygrid.dginit(); //显示数据字典详情
 
-            $('#a_addCategory').click(DicCategory.add);
-            $('#a_delCategory').click(DicCategory.del);
-            $('#a_editCategory').click(DicCategory.edit);
+            $('#a_add').click(LCL.add);
+            $('#a_del').click(LCL.del);
+            $('#a_edit').click(LCL.edit);
+
+            $('#b_add').click(mygrid.add);
+            $('#b_del').click(mygrid.del);
+            $('#b_edit').click(mygrid.edit);
         });
-        function trim(str) {
-            v = str.replace(/(^\s*)|(\s*$)/g, "");
-            return v;
-        }
-        var DicCategory = {
+        var LCL = {
             showTree: function () {
                 $('#dataDicType').tree({
-                    url: 'AjaxEasyUITree',
+                    url: 'AjaxEasyUITree_DictType',
                     lines: true,
                     onClick: function (node) {
                         var cc = node.id;
@@ -76,13 +78,13 @@
                     iconCls: 'icon-add',
                     modal: true,
                     onClose: function () {
-                        reload();
+                        LCL.reload();
                     }
                 });
                 $("#dlg").dialog("open");
             },
             edit: function () {
-                var node = DicCategory.getSelected();
+                var node = LCL.getSelected();
                 if (node) {
                     $('#dlg').dialog({
                         title: '修改',
@@ -90,11 +92,11 @@
                         height: 280,
                         closed: true,
                         cache: false,
-                        href: 'AddOrEdit?id=' + trim(row.ID),
+                        href: 'AddOrEdit?id=' + trim(node.id),
                         iconCls: 'icon-edit',
                         modal: true,
                         onClose: function () {
-                            reload();
+                            LCL.reload();
                         }
                     });
                     $("#dlg").dialog("open");
@@ -105,8 +107,8 @@
                 return false;
             },
             del: function () {
-                var node = DicCategory.getSelected();
-                var rows = $('#dicGrid').datagrid('getData');
+                var node = LCL.getSelected();
+                var rows = $('#grid').datagrid('getData');
                 if (rows && rows.total > 0) {
                     alert('当前字典有明细数据，不能删除。请先删除明细数据。');
                     return false;
@@ -145,7 +147,7 @@
         var mygrid = {
             dginit: function (size) {
                 $('#grid').datagrid({
-                    url: "http://localhost:3921//UIShell.RbacManagementPlugin/Dictionary/GetDicChildList",
+                    url: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Dictionary/GetDicChildList"))",
                     queryParams: { dictId: dicType },
                     title: "数据字典明细",
                     height: 500,
@@ -173,6 +175,56 @@
             reload: function (cc) {
                 mygrid.databind(cc);
             },
+            add: function () {
+                var d = $('#dlg').dialog({
+                    title: '添加',
+                    width: 500,
+                    height: 280,
+                    closed: true,
+                    cache: false,
+                    href: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Dictionary/AddOrEdit"))",
+                    iconCls: 'icon-add',
+                    modal: true,
+                    onClose: function () {
+                        mygrid.reload(dicType);
+                    }
+                });
+                $("#dlg").dialog("open");
+            },
+            edit: function () {
+                var row = mygrid.getSelected();
+                if (row) {
+                    $('#dlg').dialog({
+                        title: '修改',
+                        width: 500,
+                        height: 280,
+                        closed: true,
+                        cache: false,
+                        href: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Dictionary/AddOrEdit?id="))" + trim(row.id),
+                        iconCls: 'icon-edit',
+                        modal: true,
+                        onClose: function () {
+                            mygrid.reload();
+                        }
+                    });
+                    $("#dlg").dialog("open");
+                }
+                else {
+                    alert('请选择字典类别');
+                }
+                return false;
+            },
+            del: function () {
+                var node = LCL.getSelected();
+                if (node) {
+
+
+                }
+                else {
+                    alert('请选择字典类别');
+                }
+                return false;
+            }
         }
     </script>
 }

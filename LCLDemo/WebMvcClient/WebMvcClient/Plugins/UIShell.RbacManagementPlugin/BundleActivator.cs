@@ -25,26 +25,27 @@ namespace UIShell.RbacManagementPlugin
             CommonModel.Modules.AddRoot(new MvcModuleMeta
             {
                 Label = "基础数据",
-                Image = "icon-sitemap",
+                Image = "icon-application-form-edit",
                 Bundle = this,
                 Children =
                 {
-                    new MvcModuleMeta{ Image="icon-sitemap", Label = "单位管理", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
+                    new MvcModuleMeta{ Image="icon-organ", Label = "单位管理", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
                     new MvcModuleMeta{ Image="icon-group", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
-                    new MvcModuleMeta{ Image="icon-group", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
+                    new MvcModuleMeta{ Image="icon-user", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
+                    new MvcModuleMeta{ Image="icon-chart-organisation", Label = "流程定义", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
                     new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
             {
                 Label = "系统管理",
-                Image = "icon-cog",
+                Image = "icon-wrench",
                 Bundle = this,
                 Children =
                 {
-                      new MvcModuleMeta{ Image="icon-cogs", Label = "系统设置", CustomUI="/UIShell.RbacManagementPlugin/GeneralConfigInfo/Index",EntityType=typeof(GeneralConfigInfoController)},
-                    new MvcModuleMeta{ Image="icon-sitemap", Label = "行政区域", CustomUI="/UIShell.RbacManagementPlugin/Xzqy/Index",EntityType=typeof(XzqyController)},
-                    new MvcModuleMeta{ Image="icon-qrcode", Label = "字典管理", CustomUI="/UIShell.RbacManagementPlugin/DictType/Index",EntityType=typeof(DictTypeController)},
+                    new MvcModuleMeta{ Image="icon-cog", Label = "系统设置", CustomUI="/UIShell.RbacManagementPlugin/GeneralConfigInfo/Index",EntityType=typeof(GeneralConfigInfoController)},
+                    new MvcModuleMeta{ Image="icon-organ", Label = "行政区域", CustomUI="/UIShell.RbacManagementPlugin/Xzqy/Index",EntityType=typeof(XzqyController)},
+                    new MvcModuleMeta{ Image="icon-book", Label = "字典管理", CustomUI="/UIShell.RbacManagementPlugin/DictType/Index",EntityType=typeof(DictTypeController)},
                     new MvcModuleMeta{ Image="icon-time", Label = "计划任务", CustomUI="/UIShell.RbacManagementPlugin/Schedule/Index",EntityType=typeof(ScheduleController)},   
                 }
             });

@@ -27,7 +27,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
         {
             repo = RF.Concrete<IXzqyRepository>();
         }
-        [Permission("Ê×Ò³", "Index")]
+        //[Permission("Ê×Ò³", "Index")]
         public override ActionResult Index(int? currentPageNum, int? pageSize, System.Web.Mvc.FormCollection collection)
         {
             if (!currentPageNum.HasValue)
@@ -167,31 +167,15 @@ rows ½ÓÊÜ¿Í»§¶ËµÄÃ¿Ò³¼ÇÂ¼Êý£¬¶ÔÓ¦µÄ¾ÍÊÇpageSize  £¨ÓÃ»§ÔÚÏÂÀ­ÁÐ±íÑ¡ÔñÃ¿Ò³ÏÔÊ¾30Ì
             return json;
         }
 
-        #region MyRegion
-        public List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
         [HttpPost]
-        public virtual CustomJsonResult AjaxEasyUITree()
+        public CustomJsonResult GetByName(Guid id)
         {
-            var modelList = repo.FindAll().ToList();
-            string id = LRequest.GetString("id");
-            Guid guid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id);
-            var list = modelList.Where(p => p.ParentId == guid);
-            foreach (var item in list)
-            {
-                EasyUITreeModel model = new EasyUITreeModel();
-                model.id = item.ID.ToString();
-                model.attributes = item.ID.ToString();
-                model.text = item.Name;
-                model.parentId = item.ParentId.ToString();
-                model.children = new List<EasyUITreeModel>();
-                easyTree.Add(model);
-            }
+            string name = repo.GetByName(id);
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            json.Data = easyTree;
+            json.Data = name;
             return json;
         }
-        #endregion
     }
 }
 

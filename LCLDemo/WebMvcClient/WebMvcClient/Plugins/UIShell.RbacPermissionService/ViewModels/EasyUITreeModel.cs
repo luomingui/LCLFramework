@@ -15,11 +15,13 @@ namespace LCL.MvcExtensions
             children = null;
             iconCls = "icon-bullet_green";
             attributes = new Hashtable();
+            children = new List<EasyUITreeModel>();
         }
         public string id { get; set; }
         public string text { get; set; }
         public string state { get; set; }
         public string parentId { get; set; }
+        public string parentName { get; set; }
         public string iconCls { get; set; }
         public bool Checked { get; set; }
         /// <summary>

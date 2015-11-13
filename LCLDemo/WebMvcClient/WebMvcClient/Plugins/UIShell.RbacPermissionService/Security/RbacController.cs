@@ -95,9 +95,10 @@ namespace UIShell.RbacPermissionService
     public class RbacController<TEntity> : BaseRepoController<TEntity> where TEntity : class, IEntity, new()
     {
         string moduleId = "";
+        string title = "";
         public RbacController()
         {
-
+            title = ViewBag.Title;
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -114,20 +115,83 @@ namespace UIShell.RbacPermissionService
             }
             base.OnActionExecuting(filterContext);
         }
+
+        #region  error 
+        private Exception _serverException;
+        private Exception _baseException;
         protected override void OnException(ExceptionContext filterContext)
         {
-            Logger.LogError(filterContext.GetPluginSymbolicName() + "插件错误信息：", filterContext.Exception);
-
-            // 标记异常已处理
+            _serverException = filterContext.Exception;
+            LogErrorRecursive(_serverException);
+          
+            //处理Ajax请求
+            if (filterContext.HttpContext.Request.IsAjaxRequest() && filterContext.Exception != null)
+            {
+                HandleAjaxRequestError(filterContext);
+            }
+            //处理一般请求
+            else
+            {
+                // 标记异常已处理
+                filterContext.ExceptionHandled = true;
+                // 跳转到错误页
+                filterContext.Result = new RedirectResult(Url.Action("Error"));
+            }
             filterContext.ExceptionHandled = true;
-            // 跳转到错误页
-            filterContext.Result = new RedirectResult(Url.Action("Error"));
-
+            base.OnException(filterContext);
         }
         public ActionResult Error(Exception ex)
         {
             if (ex == null) ex = new Exception("未知错误.");
             return View("Error", ex);
+        }
+        /// <summary>  
+        /// 递归输出错误日志  
+        /// </summary>  
+        private void LogErrorRecursive(Exception ex)
+        {
+            if (ex.InnerException != null)
+            {
+                LogErrorRecursive(ex.InnerException);
+            }
+            else
+            {
+                _baseException = ex;
+            }
+            Logger.LogError(title + "插件错误信息：", ex);
+
+        }
+        /// <summary>  
+        /// 绑定Ajax错误 - 返回错误消息  
+        /// </summary>  
+        private static void HandleAjaxRequestError(ExceptionContext filterContext)
+        {
+            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
+            filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+            filterContext.Result = new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { filterContext.Exception.Message }
+            };
+        }
+        #endregion  
+
+        #region override
+        public override ActionResult Index(int? currentPageNum, int? pageSize, FormCollection collection)
+        {
+            return base.Index(currentPageNum, pageSize, collection);
+        }
+        public override ActionResult Add(AddOrEditViewModel<TEntity> model, FormCollection collection)
+        {
+            return base.Add(model, collection);
+        }
+        public override ActionResult Edit(AddOrEditViewModel<TEntity> model, FormCollection collection)
+        {
+            return base.Edit(model, collection);
+        }
+        public override ActionResult Delete(TEntity model, int? currentPageNum, int? pageSize, FormCollection collection)
+        {
+            return base.Delete(model, currentPageNum, pageSize, collection);
         }
         public override ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
         {
@@ -170,6 +234,26 @@ namespace UIShell.RbacPermissionService
                 });
             }
         }
+        [Permission("添加", "Add")]
+        [BizActivityLog("添加", "ID,Name")]
+        public override CustomJsonResult AjaxAdd(TEntity model)
+        {
+            return base.AjaxAdd(model);
+        }
+        [Permission("删除", "Delete")]
+        [BizActivityLog("删除", "ID,Name")]
+        public override CustomJsonResult AjaxDelete(TEntity model)
+        {
+            return base.AjaxDelete(model);
+        }
+        [Permission("修改", "Edit")]
+        [BizActivityLog("修改", "ID,Name")]
+        public override CustomJsonResult AjaxEdit(TEntity model)
+        {
+            return base.AjaxEdit(model);
+        }
+        [Permission("首页", "Index")]
+        [BizActivityLog("首页", "rows,page")]
         public override CustomJsonResult AjaxGetByPage(int? page, int? rows)
         {
             /*
@@ -200,8 +284,9 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             json.Data = easyUIPages;
             return json;
         }
+        #endregion
+
         #region 树形
-        public List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
         [HttpPost]
         public virtual CustomJsonResult AjaxEasyUITree_Department()
         {
@@ -210,16 +295,32 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             string id = LRequest.GetString("id");
             Guid guid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id);
             var list = modelList.Where(p => p.ParentId == guid);
+            List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
+            int i = 0;
             foreach (var item in list)
             {
                 EasyUITreeModel model = new EasyUITreeModel();
                 model.id = item.ID.ToString();
-                model.attributes.Add("Deptno", item.Name != "" ? item.Name : "-1");
                 model.text = item.Name;
                 model.iconCls = (item.DepartmentType == DepartmentType.公司) || item.Name != "" ? "icon-company" : "";
                 model.parentId = item.ParentId.ToString();
-                model.children = new List<EasyUITreeModel>();
+                model.parentName = repo.GetByName(item.ParentId);
+
+                model.attributes.Add("Xzqy", item.Xzqy != null ? item.Xzqy.ID.ToString() : "");
+                model.attributes.Add("OfficePhone", item.OfficePhone);
+                model.attributes.Add("Address", item.Address);
+                model.attributes.Add("Source", item.Source);
+                model.attributes.Add("Remark", item.Remark);
+                model.attributes.Add("DepartmentType", item.DepartmentType == DepartmentType.公司 ? (int)DepartmentType.公司 : (int)DepartmentType.部门);
+
+                model.attributes.Add("IsLast", item.IsLast);
+                model.attributes.Add("Level", item.Level);
+                model.attributes.Add("NodePath", item.NodePath);
+                model.attributes.Add("OrderBy", item.OrderBy);
+                if (i == 0)
+                    model.Checked = true;
                 easyTree.Add(model);
+                i++;
             }
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -234,21 +335,108 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             var repo = RF.Concrete<IXzqyRepository>();
             ISpecification<Xzqy> spec = Specification<Xzqy>.Eval(p => p.ParentId == Guid.Empty);
             ISpecification<Xzqy> spec1 = Specification<Xzqy>.Eval(p => p.ParentId == pid);
-            IEnumerable<Xzqy> list = repo.FindAll(spec);
+            IEnumerable<Xzqy> list = repo.FindAll(spec).ToList();
             if (pid != Guid.Empty)
             {
-                list = repo.FindAll(spec1);
+                list = repo.FindAll(spec1).ToList();
             }
-            easyTree = new List<EasyUITreeModel>();
+            List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
+            int i = 0;
             foreach (var item in list)
             {
                 EasyUITreeModel model = new EasyUITreeModel();
                 model.id = item.ID.ToString();
-                model.attributes.Add("Deptno", item.Name != "" ? item.Name : "-1");
+
                 model.text = item.Name;
                 model.parentId = item.ParentId.ToString();
-                model.children = new List<EasyUITreeModel>();
+                model.parentName = repo.GetByName(item.ParentId);
+
+                model.attributes.Add("HelperCode", item.HelperCode != "" ? item.HelperCode : "-1");
+                model.attributes.Add("Intro", item.Intro != "" ? item.Intro : "");
+
+                model.attributes.Add("IsLast", item.IsLast);
+                model.attributes.Add("Level", item.Level);
+                model.attributes.Add("NodePath", item.NodePath);
+                model.attributes.Add("OrderBy", item.OrderBy);
+                if (i == 0)
+                    model.Checked = true;
+
                 easyTree.Add(model);
+                i++;
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = easyTree;
+            return json;
+        }
+        [HttpPost]
+        public virtual CustomJsonResult AjaxEasyUITree_DictType()
+        {
+            string id = LRequest.GetString("id");
+            Guid pid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id);
+            var repo = RF.Concrete<IDictTypeRepository>();
+            var spec = Specification<DictType>.Eval(p => p.ParentId == Guid.Empty);
+            var spec1 = Specification<DictType>.Eval(p => p.ParentId == pid);
+            var list = repo.FindAll(spec).ToList();
+            if (pid != Guid.Empty)
+            {
+                list = repo.FindAll(spec1).ToList();
+            }
+            List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
+            int i = 0;
+            foreach (var item in list)
+            {
+                EasyUITreeModel model = new EasyUITreeModel();
+                model.id = item.ID.ToString();
+                model.text = item.Code;
+                model.parentId = item.ParentId.ToString();
+                model.parentName = repo.GetByName(item.ParentId);
+
+                model.attributes.Add("IsLast", item.IsLast);
+                model.attributes.Add("Level", item.Level);
+                model.attributes.Add("NodePath", item.NodePath);
+                model.attributes.Add("OrderBy", item.OrderBy);
+                if (i == 0)
+                    model.Checked = true;
+                easyTree.Add(model);
+                i++;
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = easyTree;
+            return json;
+        }
+        [HttpPost]
+        public virtual CustomJsonResult AjaxEasyUITree_Dictionary()
+        {
+            string id = LRequest.GetString("id");
+            Guid pid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id);
+            var repo = RF.Concrete<IDictionaryRepository>();
+            var spec = Specification<Dictionary>.Eval(p => p.ParentId == Guid.Empty);
+            var spec1 = Specification<Dictionary>.Eval(p => p.ParentId == pid);
+            var list = repo.FindAll(spec).ToList();
+            if (pid != Guid.Empty)
+            {
+                list = repo.FindAll(spec1).ToList();
+            }
+            List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>();
+            int i = 0;
+            foreach (var item in list)
+            {
+                EasyUITreeModel model = new EasyUITreeModel();
+                model.id = item.ID.ToString();
+                model.text = item.Name;
+                model.parentId = item.ParentId.ToString();
+                model.parentName = repo.GetByName(item.ParentId);
+
+                model.attributes.Add("IsLast", item.IsLast);
+                model.attributes.Add("Level", item.Level);
+                model.attributes.Add("NodePath", item.NodePath);
+                model.attributes.Add("OrderBy", item.OrderBy);
+                if (i == 0)
+                    model.Checked = true;
+                easyTree.Add(model);
+                i++;
             }
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -284,6 +472,6 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
         {
             Response.Write("<script>$.messager.alert('消息','" + msg + "');</script>");
         }
-
+    
     }
 }

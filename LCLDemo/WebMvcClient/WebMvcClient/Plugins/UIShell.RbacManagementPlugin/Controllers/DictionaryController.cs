@@ -29,95 +29,15 @@ namespace UIShell.RbacManagementPlugin.Controllers
         {
 
         }
-        public void ddlDictionary(Guid dtId)
-        {
-            var repo = RF.FindRepo<DictType>();
-            var list = repo.FindAll();
-            List<SelectListItem> selitem = new List<SelectListItem>();
-            if (list.Count() > 0)
-            {
-                var roots = list;
-                foreach (var item in roots)
-                {
-                    selitem.Add(new SelectListItem { Text = item.Code + "(" + item.Name + ")", Value = item.ID.ToString() });
-                }
-            }
-            selitem.Insert(0, new SelectListItem { Text = "==◊÷µ‰¿‡–Õ==", Value = "-1" });
-            ViewData["ddlDictionary"] = selitem;
-        }
-        public override System.Web.Mvc.ActionResult Index(int? currentPageNum, int? pageSize, System.Web.Mvc.FormCollection collection)
-        {
-            if (!currentPageNum.HasValue)
-            {
-                currentPageNum = 1;
-            }
-            if (!pageSize.HasValue)
-            {
-                pageSize = PagedResult<Dictionary>.DefaultPageSize;
-            }
-            int pageNum = currentPageNum.Value;
-
-            Guid guid = Guid.Parse(LRequest.GetString("dicTypeId"));
-
-            var list = repo.GetDictTypeList(guid);
-
-            var contactLitViewModel = new DictionaryPagedListViewModel(pageNum, pageSize.Value, list.ToList());
-            contactLitViewModel.DicTypeId = guid;
-
-            return View(contactLitViewModel);
-        }
-        public override ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
-        {
-            if (!currentPageNum.HasValue)
-            {
-                currentPageNum = 1;
-            }
-            if (!pageSize.HasValue)
-            {
-                pageSize = PagedResult<Dictionary>.DefaultPageSize;
-            }
-            Guid guid = Guid.Parse(LRequest.GetString("dicTypeId"));
-            if (!id.HasValue)
-            {
-                return View(new DictionaryAddOrEditViewModel
-                {
-                    Added = true,
-                    Entity = null,
-                    DicTypeId = guid,
-                    CurrentPageNum = currentPageNum.Value,
-                    PageSize = pageSize.Value
-                });
-            }
-            else
-            {
-                var repo = RF.FindRepo<Dictionary>();
-                var village = repo.GetByKey(id.Value);
-                return View(new DictionaryAddOrEditViewModel
-                {
-                    Added = false,
-                    Entity = village,
-                    DicTypeId = guid,
-                    CurrentPageNum = currentPageNum.Value,
-                    PageSize = pageSize.Value
-                });
-            }
-        }
-        public ActionResult Add(DictionaryAddOrEditViewModel model, FormCollection collection)
-        {
-            return base.Add(model, collection);
-        }
-        public override ActionResult Delete(Dictionary model, int? currentPageNum, int? pageSize, FormCollection collection)
-        {
-            var entity = RF.Concrete<IDictionaryRepository>().GetByKey(model.ID);
-            return base.Delete(entity, currentPageNum, pageSize, collection);
-        }
-
-
         [HttpPost]
-        public JsonResult GetDicChildList(Guid dictId)
+        public JsonResult GetDicChildList(Guid? dictId)
         {
+            if (!dictId.HasValue)
+            {
+                dictId = Guid.Empty;
+            }
             var spec = Specification<Dictionary>.Eval(p => p.DictType.ID == dictId);
-            IEnumerable<Dictionary> list = repo.FindAll(spec);
+            var list = repo.FindAll(spec).ToList();
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
     }

@@ -39,8 +39,15 @@ namespace UIShell.RbacPermissionService
         }
         public string GetByName(Guid id)
         {
-            var model= this.GetByKey(id);
-            return model.Name;
+            try
+            {
+                var model = this.GetByKey(id);
+                return model.Name;
+            }
+            catch (Exception)
+            {
+                return "保密";
+            }
         }
     }
 }

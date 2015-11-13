@@ -5,63 +5,73 @@
 @using LCL.MvcExtensions 
 @using UIShell.RbacPermissionService 
 @model AddOrEditViewModel<DictType> 
- 
 <!-- Page title --> 
-<div class="page-title"> 
-    <h2><i class="icon-desktop color"></i> 字典类型 <small>  
-          @{ 
-            string actionTag=""; 
-            if (Model.Added) { actionTag = "新增一个字典类型"; } else { actionTag = "编辑一个字典类型"; } 
-            }@actionTag 
-   </small></h2> <hr /> 
-</div> 
-<!-- Page title --> 
-<div class="row"> 
-    <!--col-md-6 start--> 
-    <div class="col-md-12"> 
-        <!--box-info start--> 
-        <div class="col-md-12"> 
-            <!--box-info start--> 
-            <div class="awidget"> 
-                <div class="awidget-head"> 
-                    <h3>字典类型</h3> 
-                </div> 
-                <div class="awidget-body"> 
-                    <!--form-horizontal row-border start--> 
-                    @using (Html.BeginForm(Model.Added ? "Add" : "Edit", "DictType", FormMethod.Post, new { @class = "form-horizontal", @role = "form" })) 
-                    { 
-                        @Html.HiddenFor(c => c.CurrentPageNum) 
-                        @Html.HiddenFor(c => c.PageSize) 
-                        @Html.HiddenFor(c => c.Entity.ID, new { @value = Guid.NewGuid() }) 
- 
-                        <div class="form-group"> 
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.Name)</label> 
-                            <div class="col-sm-10"> 
-                                @Html.TextBoxFor(c => c.Entity.Name, new { @class = "form-control", @placeholder = "请输入名称" }) 
-                                @Html.ValidationMessageFor(c => c.Entity.Name) 
-                            </div> 
-                        </div> 
-                        <div class="form-group"> 
-                            <label class="col-sm-2 control-label">@Html.LabelFor(c => c.Entity.DicDes)</label> 
-                            <div class="col-sm-10"> 
-                                @Html.TextBoxFor(c => c.Entity.DicDes, new { @class = "form-control", @placeholder = "请输入描述" }) 
-                                @Html.ValidationMessageFor(c => c.Entity.DicDes) 
-                            </div> 
-                        </div> 
- 
-                        <div class="form-group"> 
-                            <label class="col-sm-2 control-label"></label> 
-                            <div class="col-sm-10"> 
-                                <button type="submit" class="btn btn-primary">保存</button>&nbsp;&nbsp; 
-                                <button type="button" class="btn btn-default" onclick="javascript: window.history.back();">返回</button> 
-                            </div> 
-                        </div> 
-                         
-                         
-                    } 
-                </div> 
-            </div> 
- 
-        </div> 
-    </div> 
-</div> 
+<table class="tb_searchbar">
+    <tr>
+        <td width="15%" class="td_title">@Html.LabelFor(c => c.Entity.Code) </td>
+        <td>
+            @Html.TextBoxFor(c => c.Entity.Code, new { @class = "form-control", @placeholder = "请输入描述" })
+            @Html.ValidationMessageFor(c => c.Entity.Code)
+        </td>
+    </tr>
+    <tr>
+        <td width="15%" class="td_title">@Html.LabelFor(c => c.Entity.Name)</td>
+        <td>
+            @Html.TextBoxFor(c => c.Entity.Name, new { @class = "form-control", @placeholder = "请输入名称" })
+            @Html.ValidationMessageFor(c => c.Entity.Name)
+
+            @Html.HiddenFor(c => c.CurrentPageNum)
+            @Html.HiddenFor(c => c.PageSize)
+            @Html.HiddenFor(c => c.Entity.ID, new { @value = Guid.NewGuid() })
+        </td>
+    </tr>   
+    <tr>
+        <td width="15%" class="td_title">上级：</td>
+        <td>
+            <select id="selector1" class="easyui-combotree" style="width:200px;"data-options="url:'AjaxEasyUITree'"></select>
+        </td>
+    </tr>
+    <tr>
+        <td width="15%" class="td_title">排序：</td>
+        <td>
+            <input id="Entity_OrderBy" class="easyui-numberspinner" value="1" style="width:80px;"required="required" data-options="min:1,max:10,editable:false">
+        </td>
+    </tr>
+    <tr>
+        <td class="td_title"></td>
+        <td>
+            <button type="button" class="easyui-linkbutton" onclick="return Save(@Model.Added);">保存</button>
+            <button type="reset" class="easyui-linkbutton">重置</button>
+        </td>
+    </tr>
+</table>
+@section scripts{
+    <script type="text/javascript">
+        function VerifyFrom() {
+            var Name = $("#Entity_Name").val();
+            if (Name == "") {
+                $.messager.alert('系统消息', '角色名称不能为空');
+                return false;
+            }
+            return true;
+        }
+        function Save(added) {
+            var flg = VerifyFrom();
+            if (flg == true) {
+                var ID = $("#Entity_ID").val();
+                var Name = $("#Entity_Name").val();
+                var Code = $("#Entity_Code").val();
+
+                if (added) {
+                    $.post("AjaxAdd", { ID: ID, Name: Name, Code: Code }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                    }, "json");
+                } else {
+                    $.post("AjaxEdit", { ID: ID, Name: Name, Code: Code }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                    }, "json");
+                }
+            }
+        }
+    </script>
+}

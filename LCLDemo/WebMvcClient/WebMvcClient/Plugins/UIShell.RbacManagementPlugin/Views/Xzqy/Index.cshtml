@@ -7,9 +7,9 @@
 </div>
 <div data-options="region:'center',title:'行政区域管理'" style="padding: 5px; overflow-y: hidden;">
     <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;">
-        <a id="a_addCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增下级</a>&nbsp;
-        <a id="a_delCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>&nbsp;
-        <a id="a_editCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-save">保存</a>&nbsp;
+        <a id="a_addCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add" onclick="LCL.add();">新增下级</a>&nbsp;
+        <a id="a_delCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove" onclick="LCL.del();">删除</a>&nbsp;
+        <a id="a_editCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-save" onclick="LCL.save();">保存</a>&nbsp;
     </div>
     <table class="tb_searchbar">
         <tbody>
@@ -21,11 +21,6 @@
                     <input id="parentid" class="change" type="hidden" readonly />
                     <input id="parentname" class="change" disabled type="text" readonly style="width:310px" />
                     <input type="hidden" id="Entity_ID" name="Entity.ID" value="" />
-                    <input type="hidden" id="Entity_ParentId" name="Entity.ParentId" value="" />
-                    <input type="hidden" id="Entity_NodePath" name="Entity.NodePath" value="" />
-                    <input type="hidden" id="Entity_OrderBy" name="Entity.OrderBy" value="" />
-                    <input type="hidden" id="Entity_Level" name="Entity.Level" value="" />
-                    <input type="hidden" id="Entity_IsLast" name="Entity.IsLast" value="" />
                 </td>
             </tr>
             <tr>
@@ -33,7 +28,7 @@
                     区划代码
                 </td>
                 <td>
-                    <input type="text" id="Entity_HelperCode" name="Entity.HelperCode" value="" data-options="required:true" />
+                    <input type="text" id="Entity_HelperCode" name="Entity.HelperCode" style="width:310px" value="" data-options="required:true" />
                 </td>
             </tr>
             <tr>
@@ -41,7 +36,7 @@
                     区划名称
                 </td>
                 <td>
-                    <input type="text" id="Entity_Name" name="Entity.Name" value="" data-options="required:true" />
+                    <input type="text" id="Entity_Name" name="Entity.Name" value="" style="width:310px" data-options="required:true" />
                 </td>
             </tr>
             <tr>
@@ -49,7 +44,7 @@
                     区划介绍
                 </td>
                 <td>
-                    <textarea id="Entity_Intro" name="Entity.Intro" cols="80" rows="20"></textarea>
+                    <textarea id="Entity_Intro" name="Entity.Intro" cols="75" rows="20"></textarea>
                 </td>
             </tr>
 
@@ -59,7 +54,7 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            DicCategory.showTree(); //显示数据字典列表树
+            LCL.showTree(); //显示数据字典列表树
 
             var heightMargin = $("#toolbar").height() + 60;
             var widthMargin = $(document.body).width() - $("#tb").width();
@@ -68,83 +63,92 @@
             $(window).resize(function () {
                 $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
             });
-
-
         });
-        var DicCategory = {
+        var dicType;
+        var added = true;
+        var LCL = {
             showTree: function () {
                 $('#uitree').tree({
-                    url: 'AjaxEasyUITree',
+                    url: 'AjaxEasyUITree_Xzqy',
                     lines: true,
                     onClick: function (node) {
                         var cc = node.id;
                         dicType = cc;
-                        //mygrid.reload(cc);
-                        $('#Entity_HelperCode').val(node.text);
+                        added = false;
+                        $('#parentid').val(node.parentId);
+                        $('#parentname').val(node.parentName);
+                        $('#Entity_ID').val(node.id);
+                        $('#Entity_HelperCode').val(node.attributes.HelperCode);
                         $('#Entity_Name').val(node.text);
-                        $('#Entity_Intro').val(node.text);
+                        $('#Entity_Intro').val(node.attributes.Intro);
                     }
                 });
             },
             reload: function () {
-                $('#dataDicType').tree('reload');
+                $('#uitree').tree('reload');
             },
             getSelected: function () {
-                return $('#dataDicType').tree('getSelected');
+                var node = $('#uitree').tree('getSelected');
+                if (!node) {
+                    alert("请选择");
+                    return;
+                }
+                selectnode = node;
+                return node;
             },
             add: function () {
-                var d = $('#dlg').dialog({
-                    title: '添加',
-                    width: 500,
-                    height: 280,
-                    closed: true,
-                    cache: false,
-                    href: 'AddOrEdit',
-                    iconCls: 'icon-add',
-                    modal: true,
-                    onClose: function () {
-                        reload();
-                    }
-                });
-                $("#dlg").dialog("open");
-            },
-            edit: function () {
-                var node = DicCategory.getSelected();
+                var node = LCL.getSelected();
                 if (node) {
-                    $('#dlg').dialog({
-                        title: '修改',
-                        width: 500,
-                        height: 280,
-                        closed: true,
-                        cache: false,
-                        href: 'AddOrEdit?id=' + trim(row.ID),
-                        iconCls: 'icon-edit',
-                        modal: true,
-                        onClose: function () {
-                            reload();
-                        }
-                    });
-                    $("#dlg").dialog("open");
+                    //新增下级
+                    added = true;
+                    $('#parentid').val(node.id);
+                    $('#parentname').val(node.text);
+                    $('#Entity_ID').val("");
+                    $('#Entity_HelperCode').val("");
+                    $('#Entity_Name').val("");
+                    $('#Entity_Intro').val("");
                 }
-                else {
-                    alert('请选择字典类别');
+            },
+            save: function () {
+
+                var ID = $("#Entity_ID").val();
+                var HelperCode = $("#Entity_HelperCode").val();
+                var Name = $("#Entity_Name").val();
+                var Intro = $("#Entity_Intro").val();
+                var PID = $("#parentid").val();
+                if (HelperCode.length <= 1) {
+                    $.messager.alert('系统消息', "区划代码不能为空.");
+                    $("#Entity_HelperCode").focus();
+                    return;
                 }
-                return false;
+                if (Name.length <= 1) {
+                    $.messager.alert('系统消息', "区划名称不能为空.");
+                    $("#Entity_Name").focus();
+                    return;
+                }
+
+                if (added) {
+                    $.post("AjaxAdd", { ID: ID, Name: Name, HelperCode: HelperCode, ParentId: PID, Intro: Intro }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                        //重新加载当前页
+                        LCL.reload();
+                    }, "json");
+                } else {
+                    $.post("AjaxEdit", { ID: ID, Name: Name, HelperCode: HelperCode, ParentId: PID, Intro: Intro }, function (data) {
+                        $.messager.alert('系统消息', data.Message);
+                        //重新加载当前页
+                        LCL.reload();
+                    }, "json");
+                }
             },
             del: function () {
-                var node = DicCategory.getSelected();
-                var rows = $('#dicGrid').datagrid('getData');
-                if (rows && rows.total > 0) {
-                    alert('当前字典有明细数据，不能删除。请先删除明细数据。');
-                    return false;
-                }
+                var node = LCL.getSelected();
                 if (node) {
                     var childs = $('#dataDicType').tree('getChildren', node.target);
                     if (childs && childs.length > 0) {
-                        alert('当前字典有下级数据，不能删除。请先删除子节点数据。');
+                        alert('当前有下级数据，不能删除。请先删除子节点数据。');
                         return false;
                     }
-
                     $.messager.confirm('确认', '确认要删除选中记录吗?', function (y) {
                         if (y) {
                             //提交
@@ -153,7 +157,7 @@
                                 if (msg.Success) {
                                     $.messager.alert('提示', msg.Message, 'info', function () {
                                         //重新加载当前页
-                                        $('#grid').datagrid('reload');
+                                        LCL.reload();
                                     });
                                 } else {
                                     $.messager.alert('提示', msg.Message, 'info')
@@ -161,19 +165,18 @@
                             }, "json");
                         }
                     });
-
                 }
                 else {
-                    alert('请选择字典类别');
+                    alert('请选择');
                 }
                 return false;
             }
         }
         //获取左边已选择的部门数据
         function getselectd() {
-            var node = $('#depttree').tree('getSelected');
+            var node = $('#uitree').tree('getSelected');
             if (!node) {
-                alert("请选择部门");
+                alert("请选择");
                 return;
             }
             selectnode = node;
