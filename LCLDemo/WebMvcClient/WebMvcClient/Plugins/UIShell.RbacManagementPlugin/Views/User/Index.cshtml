@@ -1,43 +1,42 @@
 ﻿@using LCL.MvcExtensions;
-<div id="tb" style="padding:5px;height:auto">
+@{
+    ViewBag.Title = "用户信息";
+}
+<div class="easyui-layout" data-options="fit:true" id="tb">
     <!-------------------------------搜索框----------------------------------->
-    <fieldset>
-        <legend>信息查询</legend>
-        <form id="ffSearch" method="post">
-            <div id="toolbar">
-                <table cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <label class="sr-only" for="inputfile"> 组织：</label>
-                            <select id="cc" class="easyui-combotree" style="width:100px;"
-                                    data-options="url:'AjaxEasyUITree_Department'"></select>
-                            <label class="sr-only" for="inputfile">搜:</label>
-                            <input type="text" name="Keyword" id="Keyword" class="easyui-validatebox" placeholder="请输入" />
-                        </td>
-                        <td colspan="2">
-                            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="btnSearch">查询</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnImport" iconcls="icon-excel" onclick="ShowImport()">导入</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnExport" iconcls="icon-excel" onclick="ShowExport()">导出</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </form>
-    </fieldset>
-    <!-------------------------------详细信息展示表格----------------------------------->
-    <table id="grid" style="width: 940px" title="用户管理" class="easyui-datagrid" toolbar="#tbar" data-options="iconCls:'icon-view'"></table>
-    <!--   命令列表     -->
-    <div id="tbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="ResetPassword()" />初始化密码
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
-        <a href="javascript:void(0)" />
+    <div data-options="region:'north'" style="padding: 1px; height:70px;">
+        <fieldset>
+            <legend>信息查询</legend>
+            <form id="ffSearch" method="post">
+                <div id="toolbar" style="margin-bottom:5px">
+                    <label class="sr-only" for="inputfile"> 组织：</label>
+                    <select id="cc" class="easyui-combotree"
+                            data-options="url:'AjaxEasyUITree_Department'" style="width: 120px; height: 28px;"></select>
+                    <label class="sr-only" for="inputfile">搜:</label>
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
+                    <a id="btnSearch" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                    <a id="btnImport" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-excel" onclick="ShowImport()">导入</a>&nbsp;
+                    <a id="btnExport" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-excel" onclick="ShowExport()">导出</a>&nbsp;
+                </div>
+            </form>
+        </fieldset>
     </div>
-</div>
-<!--   弹出框       -->
-<div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
+    <!-------------------------------详细信息展示表格----------------------------------->
+    <div data-options="region:'center'">
+        <table id="grid" style="width: 100%" title="用户管理" toolbar="#tbar" data-options="iconCls:'icon-view'" fit="true"></table>
+        <!--   命令列表     -->
+        <div id="tbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">添加</a>&nbsp;
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="ResetPassword()">初始化密码</a>&nbsp;
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>&nbsp;
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()">刷新</a>&nbsp;
+            <a href="javascript:void(0)" />
+        </div>
+    </div>
+    <!--   弹出框       -->
+    <div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
 
+    </div>
 </div>
 @section scripts{
     <script type="text/javascript">
@@ -81,14 +80,6 @@
                         }
                     }
                 ]]
-            });
-
-            var heightMargin = $("#toolbar").height() + 25;
-            var widthMargin = $(document.body).width() - $("#tb").width();
-            // 第一次加载时和当窗口大小发生变化时，自动变化大小
-            $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
-            $(window).resize(function () {
-                $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
             });
 
         });

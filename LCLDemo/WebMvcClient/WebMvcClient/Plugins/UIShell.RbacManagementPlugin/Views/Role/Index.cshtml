@@ -2,15 +2,15 @@
 @{
     ViewBag.Title = "角色管理";
 }
-<div id="tb" style="padding:5px;height:auto">
+<div class="easyui-layout" data-options="fit:true" id="tb">
     <!-------------------------------详细信息展示表格----------------------------------->
     <table id="grid" style="width: 940px" title="角色管理" class="easyui-datagrid" toolbar="#tbar" data-options="iconCls:'icon-view'"></table>
 </div>
 <!--   命令列表     -->
 <div id="tbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">添加</a>&nbsp;
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>&nbsp;
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()">刷新</a>&nbsp;
     <a href="javascript:void(0)" />
 </div>
 <!--   弹出框       -->
@@ -133,6 +133,6 @@
         function refresh() {
             $('#grid').datagrid('load');
         }
-      
+
     </script>
 }

@@ -2,48 +2,43 @@
 @{
     ViewBag.Title = "系统操作日志";
 }
-
-<!-------------------------------搜索框----------------------------------->
-<fieldset>
-    <legend>信息查询</legend>
-    <form id="ffSearch" method="post">
-        <div id="toolbar">
-            <table cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <select name="Logtype" id="Logtype" class="form-control" style="width:120px;">
-                            <option value="0">==日志类型==</option>
-                            <option value="0">未指定类型</option>
-                            <option value="1">执行命令</option>
-                            <option value="2">打开模块</option>
-                            <option value="3">登录</option>
-                        </select>&nbsp;&nbsp;
-                        <select name="Scope" id="Scope" class="form-control" style="width:150px;">
-                            <option value="">==请选择==</option>
-                            <option value="UserName">用户名</option>
-                            <option value="UserName">标题</option>
-                            <option value="UserName">内容</option>
-                            <option value="UserName">浏览器</option>
-                            <option value="IP">IP地址</option>
-                        </select>&nbsp;&nbsp;
-                        <label class="sr-only" for="inputfile">搜:</label>
-                        <input type="text" name="Keyword" id="Keyword" class="input-large" placeholder="请输入" />
-                    </td>
-                    <td colspan="2">
-                        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="btnSearch">查询</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" id="btnImport" iconcls="icon-excel" onclick="ShowImport()">导入</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" id="btnExport" iconcls="icon-excel" onclick="ShowExport()">导出</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </form>
-</fieldset>
-<!-------------------------------详细信息展示表格----------------------------------->
-<table id="grid" style="width:100%;height:500px; background-color:red;" title="系统操作日志"
-   class="easyui-datagrid" data-options="iconCls:'icon-view',fitColumns:true,singleSelect:true"></table>
-
-
+<div class="easyui-layout" data-options="fit:true" id="tb">
+    <div data-options="region:'north'" style="padding: 1px; height:70px;">
+        <!-------------------------------搜索框----------------------------------->
+        <fieldset>
+            <legend>信息查询</legend>
+            <form id="ffSearch" method="post">
+                <div id="toolbar" style="margin-bottom:5px">
+                    <label class="sr-only" for="Logtype">日志类型:</label>
+                    <select name="Logtype" id="Logtype" class="easyui-combobox" style="width: 120px; height: 25px; text-align:center;">
+                        <option value="-1" selected>==日志类型==</option>
+                        <option value="0">未指定类型</option>
+                        <option value="1">执行命令</option>
+                        <option value="2">打开模块</option>
+                        <option value="3">登录</option>
+                    </select>&nbsp;&nbsp;
+                    <label for="Scope">请选择:</label>
+                    <select name="Scope" id="Scope" class="easyui-combobox" style="width: 150px; height: 25px; text-align: center;">
+                        <option value="" selected>==请选择==</option>
+                        <option value="UserName">用户名</option>
+                        <option value="UserName">标题</option>
+                        <option value="UserName">内容</option>
+                        <option value="UserName">浏览器</option>
+                        <option value="IP">IP地址</option>
+                    </select>&nbsp;&nbsp;
+                    <label for="Keyword">搜:</label>
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
+                    &nbsp;
+                    <a id="btnSearch" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div data-options="region:'center'">
+        <!-------------------------------详细信息展示表格----------------------------------->
+        <table id="grid" title="系统操作日志" data-options="iconCls:'icon-view'" fit="true"></table>
+    </div>
+</div>
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
@@ -67,6 +62,8 @@
                     { field: 'IP', title: 'IP地址', width: 150 }
                 ]]
             });
+
+
         });
         function refresh() {
             $('#grid').datagrid('load');

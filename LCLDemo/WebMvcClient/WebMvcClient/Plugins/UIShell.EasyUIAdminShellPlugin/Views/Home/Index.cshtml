@@ -1,22 +1,27 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     @using LCL.MvcExtensions;
     @using UIShell.EasyUIAdminShellPlugin;
     @using UIShell.RbacPermissionService;
     @using LCL.MetaModel;
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <!-- Title here -->
     <title>@LAppliction.Config.AppName</title>
     <!-- Description, Keywords and Author -->
-    <meta name="keywords" content="MVC,EasyUI,LCL,DDD,Domain,Services,Specifications,Events">
-    <meta name="description" content="ASP.NET MVC+EasyUI+LCL+插件构建的企业信息化快速开发框架,LCLFramework就是一套在.NET下支持面向领域驱动的软件系统管理类软件的快速开发框架">
-    <meta name="author" content="Luomg">
+    <meta name="keywords" content="MVC,EasyUI,LCL,DDD,Domain,Services,Specifications,Events" />
+    <meta name="description" content="ASP.NET MVC+EasyUI+LCL+插件构建的企业信息化快速开发框架,LCLFramework就是一套在.NET下支持面向领域驱动的软件系统管理类软件的快速开发框架" />
+    <meta name="author" content="Luomg" />
     <meta name="copyright" content="All Rights Reserved, Copyright (C) 2015, luomg, Ltd." />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/default/easyui.css"))">
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))">
+    @*<meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="x-ua-compatible" content="ie=8" />
+    <meta http-equiv="Expires" content="0" />*@
+
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/default/easyui.css"))" />
+    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/icons.css"))" />
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/jquery-1.8.0.min.js"))"></script>
@@ -69,12 +74,15 @@
         function openPwd() {
             $('#w').window({
                 title: '修改密码',
-                width: 300,
-                modal: true,
-                shadow: true,
-                closed: true,
+                width: 400,
                 height: 180,
-                resizable: false
+                modal: true,
+                shadow: false,
+                closed: true,
+                resizable: false,
+                minimizable: false,
+                maximizable: false,
+                collapsible: false
             });
         }
         //关闭登录窗口
@@ -125,22 +133,20 @@ font-weight:bold; background:#fff; color:#15428B;">
         </div>
     </div>
     <!-- head begin -->
-    <div class="wu-header" data-options="region:'north',split:true" style="overflow: hidden;">
-        <div class="wu-header-left">
+    <div data-options="region:'north'" style="overflow: hidden;height:55px;">
+        <div class="index_top_box">
             <h1>
                 @LAppliction.Config.AppName
             </h1>
-        </div>
-        <div class="wu-header-right">
-            <p>
-                <strong class="easyui-tooltip">@LCL.LEnvironment.Principal.Identity.Name </strong>，欢迎您！
-            </p>
-            <p>
-                <a href="#" title="将反馈建议提交给开发商进行解决"
-                   onclick="window.open('http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GnZvdXdzdH1vc1prazR5dXc', '_blank')">反馈建议</a>
-                |<a href="#" id="editpass">修改密码</a>
-                |<a href="#" id="loginOut"><b>退出</b></a>
-            </p>
+            <div class="index_top_box_rt">
+                <span id="bgclock"></span>
+                <span>
+                    <a id="btnUser" href="#">@LCL.LEnvironment.Principal.Identity.Name 用户您好！欢迎进入</a>
+                    |&nbsp;&nbsp;<a href="#" id="editpass">修改密码</a>
+                    |&nbsp;&nbsp;<a href="#" title="将反馈建议提交给开发商进行解决" onclick="window.open('http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GnZvdXdzdH1vc1prazR5dXc', '_blank')">反馈建议</a>
+                    |&nbsp;&nbsp;<a href="#" id="loginOut"><b>退出</b>&nbsp;&nbsp;</a>
+                </span>
+            </div>
         </div>
     </div>
     <!-- head end -->
@@ -203,18 +209,18 @@ font-weight:bold; background:#fff; color:#15428B;">
         background: #fafafa;">
         <div class="easyui-layout" fit="true">
             <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
-                <table cellpadding=3>
+                <table class="tb_searchbar" cellpadding=3>
                     <tr>
-                        <td>新密码：</td>
+                        <td class="td_title">新密码：</td>
                         <td><input id="txtNewPass" type="Password" class="txt01" /></td>
                     </tr>
                     <tr>
-                        <td>确认密码：</td>
+                        <td class="td_title">确认密码：</td>
                         <td><input id="txtRePass" type="Password" class="txt01" /></td>
                     </tr>
                 </table>
             </div>
-            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;">
+            <div region="south" border="false" style="text-align: right;">
                 <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
                     确定
                 </a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
