@@ -123,6 +123,7 @@
     <Content Include="Content\Login\images\valicode.jpg" />
     <Content Include="Scripts\DepartmentAddOrEdit.js" />
     <Content Include="Scripts\Department.js" />
+    <Content Include="Scripts\Xzqy.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

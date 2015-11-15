@@ -9,18 +9,18 @@ using System.Text;
 
 namespace UIShell.RbacPermissionService
 {
-    public class RbacDbContext : BaseDbContext
+    public class RbacDbContext : DbContext
     {
         public RbacDbContext()
             : base("LCL")
         {
 
         }
-        //public RbacDbContext(string nameOrConnectionString)
-        //    : base(nameOrConnectionString)
-        //{
+        public RbacDbContext(string nameOrConnectionString)
+            : base(nameOrConnectionString)
+        {
 
-        //}
+        }
         //RBAC
         public DbSet<Role> Role { get; set; }
         public DbSet<RoleAuthority> RoleAuthority { get; set; }
@@ -31,6 +31,13 @@ namespace UIShell.RbacPermissionService
         public DbSet<TLog> TLog { get; set; }
         public DbSet<Xzqy> Xzqy { get; set; }
         public DbSet<Department> Department { get; set; }
+        //流程
+        public DbSet<WFItem> WFItem { get; set; }
+        public DbSet<WFRout> WFRout { get; set; }
+        public DbSet<WFActor> WFActor { get; set; }
+        public DbSet<WFActorUser> WFActorUser { get; set; }
+        public DbSet<WFTaskList> WFTaskList { get; set; }
+        public DbSet<WFTaskHistory> WFTaskHistory { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
@@ -85,6 +92,13 @@ namespace UIShell.RbacPermissionService
     {
         protected override void Seed(RbacDbContext context)
         {
+            var rout = context.Set<WFRout>().Add(new WFRout { Name = "请假审批流程", State = 1, DeptId = Guid.Empty, IsEnable = true, Version = "1.0" });
+
+            var actor1 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 1, Name = "组长审批" });
+            var actor2 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 2, Name = "部门经里审批" });
+            var actor3 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 3, Name = "财务审批" });
+            var actor4 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 4, Name = "老板审批" });
+
             var dep0 = context.Set<Department>().Add(new Department { ParentId = Guid.Empty, NodePath = "永新科技", Name = "永新科技", OrderBy = 0, Level = 0, IsLast = false, DepartmentType = DepartmentType.公司, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
             var dep1 = context.Set<Department>().Add(new Department { ParentId = dep0.ID, NodePath = dep0.Name + "/研发部", Name = "研发部", OrderBy = 1, Level = 1, IsLast = true, DepartmentType = DepartmentType.部门, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
             var dep2 = context.Set<Department>().Add(new Department { ParentId = dep0.ID, NodePath = dep0.Name + "/市场部", Name = "市场部", OrderBy = 2, Level = 1, IsLast = true, DepartmentType = DepartmentType.部门, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
@@ -117,22 +131,34 @@ namespace UIShell.RbacPermissionService
                 }
                 flgInt++;
 
-                context.Set<User>().Add(new User
+                var urse = context.Set<User>().Add(new User
+                 {
+                     Name = "员工" + i,
+                     IsLockedOut = false,
+                     Password = "123456",
+                     IdCard = "362430" + i + "00000000000",
+                     Sex = "男",
+                     Telephone = "130262" + i + "0000",
+                     Birthday = DateTime.Now.AddDays(i).ToString("yyyy-MM-dd"),
+                     UserQQ = "271391233" + i,
+                     PoliticalID = "政治面貌",
+                     NationalID = "汉族",
+                     Email = "luo." + i + "@163.com",
+                     Department = dep,
+                     Role = list,
+                 });
+                switch (flgInt)
                 {
-                    Name = "员工" + i,
-                    IsLockedOut = false,
-                    Password = "123456",
-                    IdCard = "362430" + i + "00000000000",
-                    Sex = "男",
-                    Telephone = "130262" + i + "0000",
-                    Birthday = DateTime.Now.AddDays(i).ToString("yyyy-MM-dd"),
-                    UserQQ = "271391233" + i,
-                    PoliticalID = "政治面貌",
-                    NationalID = "汉族",
-                    Email = "luo." + i + "@163.com",
-                    Department = dep,
-                    Role = list,
-                });
+                    case 0:
+                        context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor1, OperateUserId = urse.ID });
+                        break;
+                    case 1:
+                        context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor2, OperateUserId = urse.ID });
+                        break;
+                    default:
+                        context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor3, OperateUserId = urse.ID });
+                        break;
+                }
             }
 
             try

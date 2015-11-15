@@ -1,5 +1,5 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html>
 <head>
     @using LCL.MvcExtensions;
     @using UIShell.EasyUIAdminShellPlugin;
@@ -15,11 +15,6 @@
     <meta name="copyright" content="All Rights Reserved, Copyright (C) 2015, luomg, Ltd." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    @*<meta http-equiv="Cache-Control" content="no-store" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="x-ua-compatible" content="ie=8" />
-    <meta http-equiv="Expires" content="0" />*@
-
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/default/easyui.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
@@ -28,7 +23,7 @@
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"))" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))"></script>
     <!-- Favicon -->
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script type="text/javascript">
@@ -40,11 +35,9 @@
             //这里实现对时间动态的变化
             var setTimeInterval = setInterval(ReadDateTimeShow, 1000);
             $("#tabs").contextMenus();
-            //实现Tab布局
-            $("#tabs").tabs({});
 
-            openPwd();
             $('#editpass').click(function () {
+                openPwd();
                 $('#w').window('open');
             });
             $('#btnEp').click(function () {
@@ -205,8 +198,8 @@ font-weight:bold; background:#fff; color:#15428B;">
     <!-- foot end -->
     <!--修改密码窗口-->
     <div id="w" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
-         maximizable="false" icon="icon-save" style="width: 300px; height: 220px; padding: 5px;
-        background: #fafafa;">
+         maximizable="false" iconcls="icon-edit" style="width: 400px; height: 180px; padding: 5px;
+        background: #fafafa;" closed="true">
         <div class="easyui-layout" fit="true">
             <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
                 <table class="tb_searchbar" cellpadding=3>
@@ -230,6 +223,6 @@ font-weight:bold; background:#fff; color:#15428B;">
 
     @*<script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/include_script.js"))"></script>
         <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/killie.js"))"></script>
-        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/SetSafe.js"))"></script>*@
+        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/SetSafe.js"))"></script>*@    
 </body>
 </html>

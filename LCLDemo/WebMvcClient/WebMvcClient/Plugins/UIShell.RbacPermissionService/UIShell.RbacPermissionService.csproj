@@ -74,6 +74,12 @@
     <Compile Include="BusinessModel\ScheduledEvents.cs" />
     <Compile Include="BusinessModel\TLog.cs" />
     <Compile Include="BusinessModel\ValueObject.cs" />
+    <Compile Include="BusinessModel\Workflow\WFActor.cs" />
+    <Compile Include="BusinessModel\Workflow\WFRout.cs" />
+    <Compile Include="BusinessModel\Workflow\WFTaskHistory.cs" />
+    <Compile Include="BusinessModel\Workflow\WFActorUser.cs" />
+    <Compile Include="BusinessModel\Workflow\WFTaskList.cs" />
+    <Compile Include="BusinessModel\Workflow\WFItem.cs" />
     <Compile Include="BusinessModel\Xzqy.cs" />
     <Compile Include="Config\GeneralConfig.cs" />
     <Compile Include="Config\ScheduleConfig.cs" />

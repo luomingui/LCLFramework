@@ -1,5 +1,5 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html>
 <head>
     @using LCL.MvcExtensions;
     @using UIShell.EasyUIAdminShellPlugin;
@@ -14,33 +14,26 @@
     <meta name="copyright" content="All Rights Reserved, Copyright (C) 2015, luomg, Ltd." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    @*<meta http-equiv="Cache-Control" content="no-store" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="x-ua-compatible" content="ie=8" />
-    <meta http-equiv="Expires" content="0" />*@
-
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/default/easyui.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/icons.css"))" />
+
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/jquery-1.8.0.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))"></script>
     <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"))" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))"></script>
     <!-- Favicon -->
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
     @RenderSection("header", required: false)
 </head>
 <body style="overflow: hidden; overflow-y: hidden; overflow-x: hidden;" scroll="no" class="easyui-layout" fit="true">
 
     @RenderBody()
 
-
-    @*<script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/include_script.js"))"></script>
-        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/killie.js"))"></script>
-        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/SetSafe.js"))"></script>*@
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
+

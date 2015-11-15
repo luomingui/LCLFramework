@@ -273,15 +273,23 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             }
             int pageNumber = page.Value;
             int pageSize = rows.Value;
-            var modelList = repo.FindAll(p => p.UpdateDate, LCL.SortOrder.Descending, pageNumber, pageSize);
-
-            var easyUIPages = new Dictionary<string, object>();
-            easyUIPages.Add("total", modelList.PageCount);
-            easyUIPages.Add("rows", modelList.PagedModels);
 
             var json = new CustomJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            json.Data = easyUIPages;
+
+            try
+            {
+                var modelList = repo.FindAll(p => p.UpdateDate, LCL.SortOrder.Descending, pageNumber, pageSize);
+                var easyUIPages = new Dictionary<string, object>();
+                easyUIPages.Add("total", modelList.PageCount);
+                easyUIPages.Add("rows", modelList.PagedModels);
+
+                json.Data = easyUIPages;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("AjaxGetByPage:", ex);
+            }
             return json;
         }
         #endregion

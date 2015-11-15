@@ -21,7 +21,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#grid').datagrid({
-                url: 'AjaxGetByPage',
+                url: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Role/AjaxGetByPage"))",
                 loadMsg: '数据加载中....',
                 title: '角色信息一览表',
                 iconCls: 'icon-edit',

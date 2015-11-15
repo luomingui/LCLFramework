@@ -33,26 +33,10 @@ a:link {
     }
 
 input{
-    width: 200px;
-    height: 20px;
-    border: #878787 1px solid;
-    padding: 4px 3px;
-    font: Verdana, Geneva, sans-serif,宋体;
-    line-height: 14px;
-    background-color: #fff;
-    font-size: 14px;
     text-align:left;
 }
 
 select {
-    width: 200px;
-    height: 20px;
-    border: #878787 1px solid;
-    padding: 0px 0px;
-    font: Verdana, Geneva, sans-serif,宋体;
-    line-height: 14px;
-    background-color: #fff;
-    font-size: 14px;
     text-align:center;
 }
 
@@ -155,7 +139,6 @@ select {
     overflow: hidden;
     position: relative;
     z-index: 0;
-    overflow: hidden;
     border-bottom: 1px #95b8e7 solid;
 }
 

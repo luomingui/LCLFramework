@@ -52,7 +52,6 @@ namespace UIShell.RbacPermissionService
              
                 //日志内容
                 StringBuilder logContent = new StringBuilder();
-                logContent.Append(filterContext.Controller.ViewBag.Title);
                 foreach (KeyValuePair<string, string> kvp in parmsObj)
                 {
                     logContent.AppendFormat("{0}:{1} ", kvp.Key, kvp.Value);
@@ -69,24 +68,26 @@ namespace UIShell.RbacPermissionService
                 //   比如：string.Format("删除记录，删除操作者{0}","xxxx");
                 
                 var repo = RF.Concrete<ITLogRepository>();
-                repo.Create(new TLog
+                if (repo != null)
                 {
-                    ID = Guid.NewGuid(),
-                    UpdateDate = DateTime.Now,
-                    AddDate = DateTime.Now,
-                    UserName = LCL.LEnvironment.Principal.Identity.Name,
-                    LogType = EnumLogType.打开模块,
-                    ModuleName = moduleId,
-                    MachineName = Environment.MachineName,
-                    Title = _activityLogTypeName,
-                    IP =LRequest.GetIP(),
-                    url = filterContext.HttpContext.Request.Path,
-                    IsActiveX = bc.ActiveXControls,
-                    Browser = Browser,
-                    Content = _activityLogTypeName + logContent.ToString()
-
-                });
-                repo.Context.Commit();
+                    repo.Create(new TLog
+                    {
+                        ID = Guid.NewGuid(),
+                        UpdateDate = DateTime.Now,
+                        AddDate = DateTime.Now,
+                        UserName = LCL.LEnvironment.Principal.Identity.Name,
+                        LogType = EnumLogType.打开模块,
+                        ModuleName = moduleId,
+                        MachineName = Environment.MachineName,
+                        Title = _activityLogTypeName,
+                        IP = LRequest.GetIP(),
+                        url = filterContext.HttpContext.Request.Path,
+                        IsActiveX = bc.ActiveXControls,
+                        Browser = Browser,
+                        Content = _activityLogTypeName + logContent.ToString()
+                    });
+                    repo.Context.Commit();
+                }
                 //******************************************************************************
             }
             catch (Exception ex)

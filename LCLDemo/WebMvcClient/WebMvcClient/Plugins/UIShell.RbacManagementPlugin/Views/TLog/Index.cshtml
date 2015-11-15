@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "系统操作日志";
 }
-<div class="easyui-layout" data-options="fit:true" id="tb">
+<div class="easyui-layout" fit="true" id="tb">
     <div data-options="region:'north'" style="padding: 1px; height:70px;">
         <!-------------------------------搜索框----------------------------------->
         <fieldset>
@@ -43,7 +43,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#grid').datagrid({
-                url: 'AjaxGetByPage',
+                url: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "TLog/AjaxGetByPage"))",
                 loadMsg: '数据加载中....',
                 title: '系统操作日志信息一览表',
                 iconCls: 'icon-edit',
