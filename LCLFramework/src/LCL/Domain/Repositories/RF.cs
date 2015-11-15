@@ -12,7 +12,12 @@ namespace LCL.Repositories
     {
         public static IRepository<TEntity> FindRepo<TEntity>() where TEntity : class, IEntity
         {
-            return ServiceLocator.Instance.Resolve<IRepository<TEntity>>();
+            var repo= ServiceLocator.Instance.Resolve<IRepository<TEntity>>();
+            if (repo == null)
+            {
+                throw new Exception("IOC不存在此类型！请将此类型加入到IOC中！");
+            }
+            return repo;
         }
         public static TRepository Concrete<TRepository>() where TRepository : class
         {
