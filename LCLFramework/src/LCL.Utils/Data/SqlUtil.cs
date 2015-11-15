@@ -4,6 +4,10 @@ using System.Text;
 
 namespace LCL.Data
 {
+    /// <summary>
+    /// string sql = @"select * from cb_cond_subject cmt where seq_id=@seq_id";
+    ///        sql = SqlUtil.setString(sql, "@seq_id", CbcondsubjectId);
+    /// </summary>
     public class SqlUtil
     {
         /// <summary>

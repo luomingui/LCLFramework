@@ -2,9 +2,14 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.Unity;
+using System.Configuration;
+using Microsoft.Practices.Unity.Configuration;
 
 namespace LCL.ObjectContainers.Unity
 {
+    /// <summary>
+    /// https://msdn.microsoft.com/en-us/library/microsoft.practices.unity.iunitycontainer_members(v=pandp.30).aspx
+    /// </summary>
     public class UnityObjectContainer : IObjectContainer
     {
         private IUnityContainer _unityContainer;
@@ -202,5 +207,38 @@ namespace LCL.ObjectContainers.Unity
             //RegisterType(typeof(IRepository<>), typeof(Repository<>));
             _unityContainer.RegisterType(from, to, new ContainerControlledLifetimeManager());
         }
+
+
+        #region 从config文件中读取配置信息
+        public void GetUnityContainerList()
+        {
+            foreach (var item in _unityContainer.Registrations)
+            {
+                string msg = string.Format("ioc:Name[{0}]RegisteredType[{1}]LifetimeManager[{2}]MappedToType[{3}]"
+                    , item.Name, item.RegisteredType.ToString(), item.LifetimeManager.ToString(), item.MappedToType.ToString());
+
+            }
+        }
+        /// <summary>
+        /// 从config文件中读取配置信息
+        /// http://www.tuicool.com/articles/yiUzQj
+        /// </summary>
+        /// <returns></returns>
+        public IUnityContainer LoadUnityConfig()
+        {
+            ////根据文件名获取指定config文件
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + @"Configs\Unity.config";
+            var fileMap = new ExeConfigurationFileMap { ExeConfigFilename = filePath };
+            //从config文件中读取配置信息
+            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
+            var unitySection = (UnityConfigurationSection)configuration.GetSection("unity");
+            var container = new UnityContainer();
+            foreach (var item in unitySection.Containers)
+            {
+                container.LoadConfiguration(unitySection, item.Name);
+            }
+            return container;
+        }
+        #endregion
     }
 }

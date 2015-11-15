@@ -24,6 +24,12 @@ namespace LCL
             jsonSerializer.RegisterConverters(jsonConverters ?? new JavaScriptConverter[0]);
             return jsonSerializer.Serialize(instance);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         public static string ToString4(this object obj, string format)
         {
             MatchEvaluator evaluator = match =>

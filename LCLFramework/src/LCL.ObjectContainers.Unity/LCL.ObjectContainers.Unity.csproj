@@ -79,6 +79,7 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="LogCallHandler.cs" />
     <Compile Include="UnityAdapterPlugin.cs" />
     <Compile Include="InterceptionBehaviors\ExceptionLoggingBehavior.cs" />
     <Compile Include="PerRequestLifetimeManager.cs" />
