@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 namespace LCL
 {
     [DebuggerDisplay("ObjectContainer = {_container}")]
-    public class ServiceLocator //: ObjectContainer
+    public sealed class ServiceLocator : IServiceLocator
     {
         private readonly IObjectContainer _container = LEnvironment.AppObjectContainer;
-        public static readonly ServiceLocator Instance = new ServiceLocator();
+        private static readonly ServiceLocator instance = new ServiceLocator();
         private ServiceLocator()
         {
 
+        }
+        public static ServiceLocator Instance
+        {
+            get { return instance; }
         }
         /// <summary>
         /// 注册一个给定的类型及其所有实现的接口

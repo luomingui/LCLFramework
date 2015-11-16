@@ -6,7 +6,7 @@ namespace LCL
     /// <summary>
     /// 表示持久化事件时出现的并发异常
     /// </summary>
-    public interface IObjectContainer
+    public interface IObjectContainer:IServiceLocator
     {
         T GetWrappedContainer<T>();
         /// <summary>
@@ -71,6 +71,11 @@ namespace LCL
         /// <param name="key"></param>
         /// <param name="life"></param>
         void Register<T>(T instance, string key, LifeStyle life) where T : class;
+      
+    }
+
+    public interface IServiceLocator
+    {
         /// <summary>
         /// 判断给定的类型是否已经注册
         /// </summary>

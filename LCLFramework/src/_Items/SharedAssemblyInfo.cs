@@ -8,4 +8,4 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
 [assembly: NeutralResourcesLanguage("zh-CHS")]
-[assembly: AssemblyProduct("LCL Framework")]
+[assembly: AssemblyProduct("LCL Framework NET 4.5.1")]

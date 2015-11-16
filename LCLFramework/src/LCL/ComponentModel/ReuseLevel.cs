@@ -27,12 +27,12 @@ namespace LCL.ComponentModel
     }
 
     /// <summary>
-    /// Rafy 中的其它插件启动级别。
+    /// LCL 中的其它插件启动级别。
     /// </summary>
     public static class PluginSetupLevel
     {
         /// <summary>
-        /// Rafy 系统级别的重用级别，一般不要使用。
+        /// LCL 系统级别的重用级别，一般不要使用。
         /// </summary>
         public const int System = -1;
     }
