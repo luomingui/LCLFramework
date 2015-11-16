@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LCL.ObjectContainers.Unity</RootNamespace>
     <AssemblyName>LCL.ObjectContainers.Unity</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,25 +42,17 @@
     <AssemblyOriginatorKeyFile>LCL.ObjectContainers.Unity.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Microsoft.Practices.Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <HintPath>..\..\Lib\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -79,10 +72,26 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="LogCallHandler.cs" />
-    <Compile Include="UnityAdapterPlugin.cs" />
-    <Compile Include="InterceptionBehaviors\ExceptionLoggingBehavior.cs" />
+    <Compile Include="InstanceItems.cs" />
+    <Compile Include="LifetimeManagers\GlobalSuppressions.cs" />
+    <Compile Include="LifetimeManagers\UnityBehaviorExtensionElement.cs" />
+    <Compile Include="LifetimeManagers\UnityCallContextInitializer.cs" />
+    <Compile Include="LifetimeManagers\UnityContextChannelExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityContextChannelLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceContextExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceContextInitializer.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceContextLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceProvider.cs" />
+    <Compile Include="LifetimeManagers\UnityOperationContextExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityOperationContextLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityOperationContextMessageInspector.cs" />
+    <Compile Include="LifetimeManagers\UnityServiceBehavior.cs" />
+    <Compile Include="LifetimeManagers\UnityServiceHostBaseExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityServiceHostBaseLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityWcfExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityWcfLifetimeManager.cs" />
     <Compile Include="PerRequestLifetimeManager.cs" />
+    <Compile Include="UnityAdapterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityObjectContainer.cs" />
   </ItemGroup>
@@ -90,14 +99,15 @@
     <ProjectReference Include="..\LCL.Utils\LCL.Utils.csproj">
       <Project>{c19bc1f7-549f-424d-b987-2282f6d889e3}</Project>
       <Name>LCL.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\LCL\LCL.csproj">
       <Project>{9c399804-5036-43d3-9d2e-81f716eef848}</Project>
       <Name>LCL</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="LCL.ObjectContainers.Unity.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

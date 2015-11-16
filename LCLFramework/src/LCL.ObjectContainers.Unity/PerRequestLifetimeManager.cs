@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.Practices.Unity;
 using System.ServiceModel;
 using System.Web;
 using System.Runtime.Remoting.Messaging;
+using Microsoft.Practices.Unity;
 
 namespace LCL.ObjectContainers.Unity
 {
