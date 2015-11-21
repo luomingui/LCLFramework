@@ -28,15 +28,15 @@ namespace LCL
                     var library = pluginAssembly.Instance as LCLPlugin;
                     if (library != null)
                     {
-                        //try
-                        //{
+                        try
+                        {
                             library.Initialize(_appCore);
                             Logger.LogInfo(library.Assembly.FullName + " Initialize....");
-                        //}
-                        //catch (Exception ex)
-                        //{
-                        //    Logger.LogError("【" + library.Assembly.FullName + "】组件初始化失败！", ex);
-                        //}
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogError("【" + library.Assembly.FullName + "】组件初始化失败！", ex);
+                        }
                     }
                 }
             }

@@ -11,6 +11,7 @@ namespace LCL.Repositories.MongoDB
         public override void Initialize(IApp app)
         {
             ServiceLocator.Instance.Register<IMongoDBRepositoryContext, MongoDBRepositoryContext>();
+            ServiceLocator.Instance.RegisterType(typeof(IRepository<>), typeof(MongoDBRepository<>));
         }
     }
 }

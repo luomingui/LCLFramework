@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 
 namespace LCL.ObjectContainers.Unity
@@ -176,9 +177,16 @@ namespace LCL.ObjectContainers.Unity
             {
                 resolved = _unityContainer.Resolve<T>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 resolved = default(T);
+
+                StringBuilder errors = new StringBuilder();
+                var validationResult = ex.InnerException;
+                if (validationResult != null)
+                    Logger.LogWarn("从IOC获取" + typeof(T).FullName + "错误：" + validationResult.ToString());
+                else
+                    Logger.LogWarn("从IOC获取" + typeof(T).FullName + "错误：" + ex.ToString());
             }
             return resolved;
         }

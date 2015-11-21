@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Compilation;
-using System.Web.Hosting;
 
 namespace LCL.ComponentModel
 {
@@ -28,7 +22,6 @@ namespace LCL.ComponentModel
             try
             {
                 PluginFolder = new DirectoryInfo(LEnvironment.Provider.PluginsDirectory);
-
                 if (AppDomain.CurrentDomain.DynamicDirectory != null)
                 {
                     TempPluginFolder = new DirectoryInfo(AppDomain.CurrentDomain.DynamicDirectory);
@@ -105,7 +98,7 @@ namespace LCL.ComponentModel
                 {
                     if (ex.InnerException != null)
                         ex = ex.InnerException;
-                    Logger.LogError("LCL GetAssemblies PluginAssembly " + assembly.GetName().Name, ex);
+                    //Logger.LogError("LCL GetAssemblies PluginAssembly " + assembly.GetName().Name, ex);
                 }
             }
             return plugins.OrderBy(a => a.Instance.SetupLevel).ToList();
