@@ -26,15 +26,10 @@ namespace LCL.MvcExtensions
         }
         public virtual ActionResult List(int? currentPageNum, int? pageSize, FormCollection collection)
         {
-            if (!currentPageNum.HasValue)
-            {
-                currentPageNum = 1;
-            }
-            if (!pageSize.HasValue)
-            {
-                pageSize = PagedResult<TAggregateRoot>.DefaultPageSize;
-            }
+            if (!currentPageNum.HasValue)currentPageNum = 1;
+            if (!pageSize.HasValue)pageSize = PagedResult<TAggregateRoot>.DefaultPageSize;
             int pageNum = currentPageNum.Value;
+
             var pageList = repo.FindAll(p => p.UpdateDate, LCL.SortOrder.Descending, currentPageNum.Value, pageSize.Value);
             return View(pageList);
         }
@@ -47,14 +42,10 @@ namespace LCL.MvcExtensions
         }
         public virtual ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
         {
-            if (!currentPageNum.HasValue)
-            {
-                currentPageNum = 1;
-            }
-            if (!pageSize.HasValue)
-            {
-                pageSize = PagedResult<TAggregateRoot>.DefaultPageSize;
-            }
+            if (!currentPageNum.HasValue) currentPageNum = 1;
+            if (!pageSize.HasValue) pageSize = PagedResult<TAggregateRoot>.DefaultPageSize;
+            int pageNum = currentPageNum.Value;
+
             if (!id.HasValue)
             {
                 if (!Check("Add"))
@@ -253,7 +244,7 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             return json;
         }
         [HttpPost]
-        public CustomJsonResult AjaxDeleteList(IList<Guid> idList)
+        public virtual CustomJsonResult AjaxDeleteList(IList<Guid> idList)
         {
             var result = new Result(true);
             try

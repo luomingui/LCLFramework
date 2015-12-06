@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Diagnostics;
+using System.Collections;
 
 namespace LCL
 {
@@ -39,6 +40,7 @@ namespace LCL
             _success = success;
             _statusCode = 0;
             _message = success ? SuccessMessage : FailedMessage;
+            Attributes = new Hashtable();
         }
 
         /// <summary>
@@ -50,6 +52,7 @@ namespace LCL
             _success = false;
             _statusCode = 0;
             _message = message;
+            Attributes = new Hashtable();
         }
 
         /// <summary>
@@ -61,6 +64,7 @@ namespace LCL
             _success = false;
             _statusCode = statusCode;
             _message = FailedMessage;
+            Attributes = new Hashtable();
         }
 
         /// <summary>
@@ -73,6 +77,7 @@ namespace LCL
             _success = success;
             _statusCode = 0;
             _message = message;
+            Attributes = new Hashtable();
         }
 
         /// <summary>
@@ -85,6 +90,7 @@ namespace LCL
             _success = success;
             _statusCode = statusCode;
             _message = success ? SuccessMessage : FailedMessage;
+            Attributes = new Hashtable();
         }
 
         /// <summary>
@@ -97,6 +103,7 @@ namespace LCL
             _success = false;
             _statusCode = statusCode;
             _message = message;
+            Attributes = new Hashtable();
         }
 
         /// <summary>
@@ -110,6 +117,7 @@ namespace LCL
             _success = success;
             _statusCode = statusCode;
             _message = message;
+            Attributes = new Hashtable();
         }
 
         #endregion
@@ -158,7 +166,7 @@ namespace LCL
             }
         }
         public object DataObject { get; set; }
-
+        public Hashtable Attributes { get; set; }
         /// <summary>
         /// Reset this result to a unsuccessful status.
         /// </summary>

@@ -48,6 +48,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,22 +64,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Build\Common\BuildBase.cs" />
-    <Compile Include="Build\IBuild.cs" />
     <Compile Include="Build\Providers\AdoNetBuild.cs" />
-    <Compile Include="Build\Providers\EntityBuild.cs" />
-    <Compile Include="Build\Providers\MVCUIBuild.cs" />
-    <Compile Include="Build\Providers\MVCViewModelBuild.cs" />
-    <Compile Include="Build\Providers\RepositoryBuild.cs" />
-    <Compile Include="Build\Providers\ServiceLocatorBuild.cs" />
-    <Compile Include="Build\Providers\EntityFrameworkBuild.cs" />
-    <Compile Include="Build\Providers\ValidationModelBuild.cs" />
-    <Compile Include="Build\WorkBuild.cs" />
+    <Compile Include="Build\Providers\BootstrapBuild.cs" />
+    <Compile Include="Build\Providers\EasyUIBuild.cs" />
+    <Compile Include="Build\Providers\LibraryBuild.cs" />
     <Compile Include="ConnectionString.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConnectionString.designer.cs">
       <DependentUpon>ConnectionString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\DbFactory.cs" />
     <Compile Include="Data\DbHelperSQL.cs" />
     <Compile Include="Data\Generate2000Sql.cs" />
     <Compile Include="Data\Generate2005Sql.cs" />
@@ -87,11 +87,9 @@
     <Compile Include="Document\PropertyDocParser.cs" />
     <Compile Include="Document\TypeHelper.cs" />
     <Compile Include="library\BLLFactory.cs" />
-    <Compile Include="library\DbObjects.cs" />
     <Compile Include="library\INIFile.cs" />
     <Compile Include="library\MyExcelUtls.cs" />
     <Compile Include="library\SandData.cs" />
-    <Compile Include="library\StringPlus.cs" />
     <Compile Include="library\Utils.cs" />
     <Compile Include="MainFrm.cs">
       <SubType>Form</SubType>
@@ -117,12 +115,6 @@
     </Compile>
     <Compile Include="WinFrm\FrmDoc.designer.cs">
       <DependentUpon>FrmDoc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WinFrm\FrmDbBuild.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WinFrm\FrmDbBuild.Designer.cs">
-      <DependentUpon>FrmDbBuild.cs</DependentUpon>
     </Compile>
     <Compile Include="WinFrm\FrmDbTableRelation.cs">
       <SubType>Form</SubType>
@@ -163,9 +155,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WinFrm\FrmDoc.resx">
       <DependentUpon>FrmDoc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinFrm\FrmDbBuild.resx">
-      <DependentUpon>FrmDbBuild.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinFrm\FrmDbTableRelation.resx">
       <DependentUpon>FrmDbTableRelation.cs</DependentUpon>

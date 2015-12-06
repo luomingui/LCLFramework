@@ -25,7 +25,7 @@ namespace LCL.Tools
         public static string NameSpace = "UIShell";
         public static string NameSpaceEntities = NameSpace + ".Entities";
         public static string NameSpaceUI = NameSpace + ".WinUI";
-        
+
         /// <summary>
         ///  字符串 截取位： 如： NT_CLCS_|TM|QQ ......
         /// </summary>
@@ -44,6 +44,7 @@ namespace LCL.Tools
         /// 数据库SA密码
         /// </summary>
         public static string Pwd = "123456";
+        public static string DbType = "";
         /// <summary>
         /// 连接字符串
         /// </summary>
@@ -52,6 +53,25 @@ namespace LCL.Tools
             get
             {
                 string temp = "user id=" + User + ";password=" + Pwd + ";initial catalog=" + dbName + ";data source=" + Sqlserver;
+                switch (DbType)
+                {
+                    case "Sql2000 ":
+                    case "Sql2005 ":
+                    case "Sql2008 ":
+                        temp = "user id=" + User + ";password=" + Pwd + ";initial catalog=" + dbName + ";data source=" + Sqlserver;
+                        break;
+                    case "Oracle ":
+                        temp = "data source=" + Sqlserver + " user id=" + User + ";password=" + Pwd;
+                        break;
+                    case "MySql ":
+                        break;
+                    case "MongoDB ":
+                        break;
+                    case "SQLite ":
+                        break;
+                    default:
+                        break;
+                }
                 return temp;
             }
         }
@@ -147,7 +167,7 @@ namespace LCL.Tools
         /// <param name="filescontent">文件内容</param>
         public static void CreateFiles(string path, string filescontent)
         {
-            StreamWriter sw2 = new StreamWriter(path, false, Encoding.Default);
+            StreamWriter sw2 = new StreamWriter(path, false, Encoding.UTF8);
             sw2.WriteLine(filescontent);
             sw2.Flush();
             sw2.Close();

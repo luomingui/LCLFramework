@@ -93,7 +93,7 @@
             this.txtEntityNameSpace.Name = "txtEntityNameSpace";
             this.txtEntityNameSpace.Size = new System.Drawing.Size(294, 21);
             this.txtEntityNameSpace.TabIndex = 132;
-            this.txtEntityNameSpace.Text = "UIShell.RbacPermissionService";
+            this.txtEntityNameSpace.Text = "UIShell.PluginService";
             this.txtEntityNameSpace.Validating += new System.ComponentModel.CancelEventHandler(this.txtEntityNameSpace_Validating);
             // 
             // comboBoxDBType
@@ -103,7 +103,11 @@
             this.comboBoxDBType.Items.AddRange(new object[] {
             "Sql2000",
             "Sql2005",
-            "Sql2008"});
+            "Sql2008",
+            "Oracle",
+            "MySql",
+            "MongoDB",
+            "SQLite"});
             this.comboBoxDBType.Location = new System.Drawing.Point(131, 30);
             this.comboBoxDBType.Name = "comboBoxDBType";
             this.comboBoxDBType.Size = new System.Drawing.Size(288, 20);

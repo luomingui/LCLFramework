@@ -17,8 +17,19 @@ namespace LCL.Tools
     }
     public class TableColumn
     {
+        public TableColumn()
+        {
+            PK = false;
+            Identifying = false;
+            Isnullable = false;
+            MaxLength = 50;
+        }
         public bool PK { get; set; }
+        //标识
         public bool Identifying { get; set; }
+        //允许空
+        public bool Isnullable { get; set; }
+        public int MaxLength { get; set; }
         public string ColumnName { get; set; }
         public string ColumnType { get; set; }
         //字段说明
@@ -29,9 +40,6 @@ namespace LCL.Tools
             get { return ColumnRemark + "[" + ColumnName + "]"; }
         }
     }
-
-
-
     public class DBAModel
     {
 
@@ -39,6 +47,5 @@ namespace LCL.Tools
         {
 
         }
-
     }
 }

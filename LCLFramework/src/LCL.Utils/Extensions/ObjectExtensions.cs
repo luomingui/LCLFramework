@@ -61,6 +61,7 @@ namespace LCL
             PropertyInfo info = type.GetProperty(propertyName);
             return info.GetValue(obj, null);
         }
+        //TODO:类型转换
         public static T GetObjTranNull<T>(this object obj)
         {
             try
@@ -74,6 +75,7 @@ namespace LCL
                     if (obj.GetType() == typeof(T))
                         return (T)obj;
                 }
+
                 return (T)System.Convert.ChangeType(obj, typeof(T));
             }
             catch
@@ -92,7 +94,7 @@ namespace LCL
         public static T CastTo<T>(this object value, T defaultValue)
         {
             object result;
-            Type type = typeof (T);
+            Type type = typeof(T);
             try
             {
                 result = type.IsEnum ? Enum.Parse(type, value.ToString()) : Convert.ChangeType(value, type);

@@ -6,13 +6,13 @@ namespace LCL.Tools
 {
     public partial class ConnectionString : Form
     {
-        public ConnectionString( )
+        public ConnectionString()
         {
             InitializeComponent();
             this.comboBoxDBType.SelectedIndex = 2;
         }
         bool errFlag = true;
-        private void saveUtils( )
+        private void saveUtils()
         {
             Utils.NameSpace = txtEntityNameSpace.Text;
             Utils.TargetFolder = txtTargetFolder.Text;
@@ -22,13 +22,14 @@ namespace LCL.Tools
         private void btn_DbOK_Click(object sender, EventArgs e)
         {
             if (!errFlag) MessageBox.Show("数据输入有误！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            string str = this.comboBoxServer.Text.Trim();
-            string str2 = this.txtUser.Text.Trim();
-            string str3 = this.txtPass.Text.Trim();
+            string dbType = this.comboBoxDBType.SelectedText;
+            string dataSources = this.comboBoxServer.Text.Trim();
+            string dbUser = this.txtUser.Text.Trim();
+            string dbPass = this.txtPass.Text.Trim();
             #region 字符串
-            Utils.User = str2;
-            Utils.Pwd = str3;
-            Utils.Sqlserver = str;
+            Utils.User = dbUser;
+            Utils.Pwd = dbPass;
+            Utils.Sqlserver = dataSources;
             #endregion
             SqlConnection connection = new SqlConnection(Utils.ConnStr);
             try

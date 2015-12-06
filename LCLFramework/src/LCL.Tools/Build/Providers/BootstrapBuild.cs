@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LCL.Tools
 {
-    public class MVCUIBuildBase
+    /// <summary>
+    /// 控制器，视图验证，视图模型，视图
+    /// </summary>
+    class BootstrapBuild
     {
-        public void GenerateControllers(string path)
+        internal void GenerateBootstrapBuild(string path)
+        {
+            GenerateView(path);
+            GenerateControllers(path);
+            GenerateValidationModel(path);
+            GenerateEntityViewsModeel(path);
+        }
+        private void GenerateControllers(string path)
         {
             List<TableModel> tableNames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
             for (int i = 0; i < tableNames.Count; i++)
@@ -108,19 +117,14 @@ namespace LCL.Tools
 
                 if (path.Length > 0)
                 {
-                    string folder = path + @"\LCL\Controllers\";
+                    string folder = path + @"\LCL\Bootstrap\Controllers\";
                     Utils.FolderCheck(folder);
                     string filename = folder + @"\" + tablename + "Controller.cs";
                     Utils.CreateFiles(filename, builder.ToString());
                 }
             }
-
         }
-    }
-    public class MVCUIBuild : MVCUIBuildBase
-    {
-        //bootstrapAdmin
-        public void GenerateBootstrapAdminViews(string path)
+        private void GenerateView(string path)
         {
             List<TableModel> tableNames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
             for (int i = 0; i < tableNames.Count; i++)
@@ -134,9 +138,9 @@ namespace LCL.Tools
                     continue;
                 }
 
-                string fileListPath = path + @"\LCL\Views\" + tablename + @"\Index.cshtml";
-                string fileAddOrEditPath = path + @"\LCL\Views\" + tablename + @"\AddOrEdit.cshtml";
-                Utils.FolderCheck(path + @"\LCL\Views\" + tablename);
+                string fileListPath = path + @"\LCL\Bootstrap\Views\" + tablename + @"\Index.cshtml";
+                string fileAddOrEditPath = path + @"\LCL\Bootstrap\Views\" + tablename + @"\AddOrEdit.cshtml";
+                Utils.FolderCheck(path + @"\LCL\Bootstrap\Views\" + tablename);
 
                 StringBuilder builder = new StringBuilder();
 
@@ -232,7 +236,8 @@ namespace LCL.Tools
                 builder.AppendLine(" ");
                 builder.AppendLine("  ");
 
-                File.AppendAllText(fileListPath, builder.ToString(), Encoding.UTF8);
+                Utils.CreateFiles(fileListPath, builder.ToString());
+                
                 #endregion
 
                 #region AddOrEdit.cshtml
@@ -319,8 +324,104 @@ namespace LCL.Tools
                 builder.AppendLine("        </div> ");
                 builder.AppendLine("    </div> ");
                 builder.AppendLine("</div> ");
-                File.AppendAllText(fileAddOrEditPath, builder.ToString(), Encoding.UTF8);
+                Utils.CreateFiles(fileAddOrEditPath, builder.ToString());
                 #endregion
+            }
+        }
+        private void GenerateValidationModel(string path)
+        {
+            List<TableModel> tableNames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
+            for (int i = 0; i < tableNames.Count; i++)
+            {
+                TableModel tm = tableNames[i];
+                string tablename = tm.TableName;
+                string tableInfo = tm.TableNameRemark;
+                if (tablename == "__MigrationHistory" && tablename == "sysdiagrams")
+                {
+                    continue;
+                }
+                StringBuilder builder = new StringBuilder();
+                builder.AppendLine("using System; ");
+                builder.AppendLine("using System.ComponentModel.DataAnnotations; ");
+                builder.AppendLine("using System.Linq; ");
+                builder.AppendLine("using System.Text; ");
+                builder.AppendLine(" ");
+                builder.AppendLine("namespace UIShell.RbacPermissionService ");
+                builder.AppendLine("{ ");
+                builder.AppendLine("    [Serializable] ");
+                builder.AppendLine("    [MetadataType(typeof(" + tablename + "MD))]  ");
+                builder.AppendLine("    public partial class " + tablename + "  ");
+                builder.AppendLine("    {  ");
+                builder.AppendLine("        public class " + tablename + "MD  ");
+                builder.AppendLine("        {  ");
+                foreach (var item in tm.Columns)
+                {
+                    if (item.ColumnName != "ID"
+                        && item.ColumnName != "AddDate"
+                        && item.ColumnName != "UpdateDate"
+                        && item.ColumnName != "IsDelete"
+                        && !item.ColumnName.Contains("_"))
+                    {
+                        builder.AppendLine("            [Display(Name = \"" + item.ColumnRemark + "\")]  ");
+                        builder.AppendLine("            public " + item.ColumnType + " " + item.ColumnName + " { get; set; }  ");
+                    }
+                }
+                builder.AppendLine("        }  ");
+                builder.AppendLine("    }  ");
+                builder.AppendLine(" ");
+                builder.AppendLine("} ");
+
+                if (path.Length > 0)
+                {
+                    string folder = path + @"\LCL\Bootstrap\ValidationModel\";
+                    Utils.FolderCheck(folder);
+                    string filename = folder + @"\" + tablename + ".cs";
+                    Utils.CreateFiles(filename, builder.ToString());
+                }
+            }
+        }
+        private void GenerateEntityViewsModeel(string path)
+        {
+            List<TableModel> tableNames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
+            for (int i = 0; i < tableNames.Count; i++)
+            {
+                TableModel tm = tableNames[i];
+                string tablename = tm.TableName;
+                string tableInfo = tm.TableNameRemark;
+
+                if (tablename == "__MigrationHistory" || tablename == "sysdiagrams")
+                {
+                    continue;
+                }
+
+                StringBuilder builder = new StringBuilder();
+                builder.AppendLine("using System.Collections.Generic; ");
+                builder.AppendLine("using UIShell.RbacPermissionService; ");
+                builder.AppendLine(" ");
+                builder.AppendLine("namespace LCL.MvcExtensions ");
+                builder.AppendLine("{ ");
+                builder.AppendLine("   public class " + tablename + "AddOrEditViewModel : AddOrEditViewModel<" + tablename + "> ");
+                builder.AppendLine("    { ");
+                builder.AppendLine("        ");
+                builder.AppendLine("    } ");
+
+                builder.AppendLine("   public class " + tablename + "PagedListViewModel : PagedResult<" + tablename + "> ");
+                builder.AppendLine("    { ");
+                builder.AppendLine("        public " + tablename + "PagedListViewModel(int currentPageNum, int pageSize, List<" + tablename + "> allModels) ");
+                builder.AppendLine("            : base(currentPageNum, pageSize, allModels) ");
+                builder.AppendLine("        { ");
+                builder.AppendLine(" ");
+                builder.AppendLine("        } ");
+                builder.AppendLine("    } ");
+                builder.AppendLine(" ");
+                builder.AppendLine("} ");
+                if (path.Length > 0)
+                {
+                    string folder = path + @"\LCL\Bootstrap\ViewModels\";
+                    Utils.FolderCheck(folder);
+                    string filename = folder + @"\" + tablename + "ViewModel.cs";
+                    Utils.CreateFiles(filename, builder.ToString());
+                }
             }
         }
     }
