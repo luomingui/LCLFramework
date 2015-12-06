@@ -9,17 +9,14 @@ using System.Text;
 
 namespace UIShell.RbacPermissionService
 {
-    public class RbacDbContext : DbContext
+    public class RbacDbContext : BaseDbContext
     {
         public RbacDbContext()
             : base("LCL")
         {
-
-        }
-        public RbacDbContext(string nameOrConnectionString)
-            : base(nameOrConnectionString)
-        {
-
+            this.Configuration.AutoDetectChangesEnabled = true;
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
         //RBAC
         public DbSet<Role> Role { get; set; }

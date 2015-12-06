@@ -1,0 +1,59 @@
+﻿<div class="easyui-layout" fit="true" id="tb">
+    <div data-options="region:'north'" style="padding: 1px; height:70px;">
+        <!-------------------------------搜索框----------------------------------->
+        <fieldset>
+            <legend id="search_title">信息查询</legend>
+            <form id="ffSearchwfactor" method="post">
+                <div id="toolbar" style="margin-bottom:5px">
+                    <label for="Keyword" id="search_key">搜:</label>
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
+                    &nbsp;
+                    <a id="btnSearchwfactor" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div data-options="region:'center'">
+        <!-------------------------------详细信息展示表格----------------------------------->
+        <table id="grid_wfactor" title="步骤" toolbar="#tbar_wfactor" data-options="iconCls:'icon-view'" fit="true"></table>
+        <!--   弹出框       -->
+        <div id="win_wfactor"  style="width: 600px; height: 380px; padding: 5px;background: #fafafa;">
+            <div class="easyui-layout" fit="true">
+                <form id="ffwfactor" method="post" ajax="true">
+                    <table class="tb_searchbar">
+                        <tbody>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_wfactor_sortno">步骤序号</label></td>
+                                <td>
+                                    <input id="wfactor_Entity_SortNo" class="easyui-numberspinner" style="width:80px;" required="required" data-options="min:1,max:10,editable:false">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_wfactor_name">步骤描述<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="wfactor_Entity_Name" name="wfactor_EntityName" value=" " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="1" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan='2'>
+                                    <input type='hidden' id='wfactor_Entity_ID' name='wfactor_EntityID' value='' />
+                                    <input type='hidden' id='wfactor_Entity_IsDelete' name='wfactor_EntityIsDelete' value='' />
+                                    <input type='hidden' id='wfactor_Entity_AddDate' name='wfactor_EntityAddDate' value='' />
+                                    <input type='hidden' id='wfactor_Entity_UpdateDate' name='wfactor_EntityUpdateDate' value='' />
+                                    <input type='hidden' id='Entity_Rout_ID' name='wfactor_EntityRout_ID' value='@Model.RoutId' />
+                                <td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        var routId = "@Model.RoutId";
+    </script>
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/wfactor.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/wfactor.cshtml.js" type="text/javascript"></script>
+}

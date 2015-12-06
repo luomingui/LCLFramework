@@ -26,6 +26,7 @@ namespace UIShell.RbacPermissionService
         User GetUserByName(string name);
         User GetUserByLoginName();
         bool ChangePassword(string userId, string password);
+        bool LockedUser(string userId);
         bool ChangeLoginPassword(UserChangePassword userChangePassword);
         User GetBy(string code, string password);
     }
@@ -121,7 +122,32 @@ namespace UIShell.RbacPermissionService
                 Logger.LogError("修改密码", ex);
                 return false;
             }
-            throw new NotImplementedException();
+        }
+
+
+        public bool LockedUser(string userId)
+        {
+            try
+            {
+                ISpecification<User> spec = Specification<User>.Eval(p => p.ID == Guid.Parse(userId));
+                var user = this.Find(spec);
+                if (user != null)
+                {
+                    user.IsLockedOut = user.IsLockedOut ? false : true;
+                    this.Update(user);
+                    this.Context.Commit();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("锁定用户", ex);
+                return false;
+            }
         }
     }
 }

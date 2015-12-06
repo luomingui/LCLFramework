@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UIShell.EasyUIAdminShellPlugin</RootNamespace>
     <AssemblyName>UIShell.EasyUIAdminShellPlugin</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -42,10 +42,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LCL.ObjectContainers.Unity, Version=4.5.2.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,6 +82,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Core\LCL.JQuery.JSON.js" />
+    <Content Include="Content\easyui-validate-rules.js" />
+    <Content Include="Content\easyui-window-extend.1.2.js" />
     <Content Include="Content\easyuiDefault.css" />
     <Content Include="Content\icons.css" />
     <Content Include="Content\images\add.gif" />
@@ -2344,18 +2343,19 @@
     <Content Include="Content\JQueryTools\uploadify\uploadify.css" />
     <Content Include="Content\JQueryTools\uploadify\uploadify.swf" />
     <Content Include="readMe.txt" />
+    <Content Include="Scripts\Home.js" />
     <Content Include="Scripts\iepng.js" />
     <Content Include="Scripts\include_script.js" />
+    <Content Include="Content\JQueryTools\IndexedDB\IndexedDBHelper.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
     <Content Include="Scripts\jQuery.browser.js" />
     <Content Include="Scripts\jquery.cookie.js" />
-    <Content Include="Scripts\json2.js" />
-    <Content Include="Scripts\killie.js" />
-    <Content Include="Scripts\outlook2.js" />
-    <Content Include="Scripts\public.js" />
+    <Content Include="Content\Core\LCL.JQuery.Base.js" />
+    <Content Include="Content\Core\LCL.JQuery.Core.js" />
+    <Content Include="Content\Core\LCL.JQuery.Plugins.js" />
+    <Content Include="Content\Core\LCL.PageModel.js" />
     <Content Include="Scripts\SetSafe.js" />
     <Content Include="Scripts\util.js" />
-    <Content Include="Scripts\validate.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2409,6 +2409,7 @@
     <Content Include="Content\JQueryTools\uploadify\uploadify.php" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\jquery.easyui.common.js" />
     <None Include="Properties\PublishProfiles\UIShell.EasyUIAdminShellPlugin.pubxml" />
   </ItemGroup>
   <PropertyGroup>

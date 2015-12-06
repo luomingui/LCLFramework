@@ -6,7 +6,7 @@
 @model AddOrEditViewModel<ScheduledEvents>
 <!-- Page title -->
 <!--form-horizontal row-border start-->
-@using (Html.BeginForm(Model.Added ? "Add" : "Edit", "Schedule", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+@using (Html.BeginForm(Model.Added ? "Add" : "Edit", "Schedule", FormMethod.Post, new { @class = "form-horizontal", @role = "form"  @id="ffschedule"}))
 {
     @Html.HiddenFor(c => c.CurrentPageNum)
     @Html.HiddenFor(c => c.PageSize)
@@ -69,8 +69,6 @@
         </tr>
     </table>
 }
-
-
 @section scripts{
     <script type="text/javascript">
         function CheckFromData() {

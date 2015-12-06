@@ -292,6 +292,10 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             }
             return json;
         }
+        public override CustomJsonResult AjaxGetByModel(Guid id)
+        {
+             return base.AjaxGetByModel(id);
+        }
         #endregion
 
         #region 树形
@@ -353,22 +357,24 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             foreach (var item in list)
             {
                 EasyUITreeModel model = new EasyUITreeModel();
+                if (i == 0) model.Checked = true;
                 model.id = item.ID.ToString();
-
                 model.text = item.Name;
                 model.parentId = item.ParentId.ToString();
                 model.parentName = repo.GetByName(item.ParentId);
 
+                model.attributes.Add("Name", item.Name);
                 model.attributes.Add("HelperCode", item.HelperCode != "" ? item.HelperCode : "-1");
                 model.attributes.Add("Intro", item.Intro != "" ? item.Intro : "");
-
+                model.attributes.Add("ParentId", item.ParentId);
                 model.attributes.Add("IsLast", item.IsLast);
                 model.attributes.Add("Level", item.Level);
                 model.attributes.Add("NodePath", item.NodePath);
                 model.attributes.Add("OrderBy", item.OrderBy);
-                if (i == 0)
-                    model.Checked = true;
-
+                model.attributes.Add("IsDelete", item.IsDelete);
+                model.attributes.Add("AddDate", item.AddDate);
+                model.attributes.Add("UpdateDate", item.UpdateDate);
+              
                 easyTree.Add(model);
                 i++;
             }

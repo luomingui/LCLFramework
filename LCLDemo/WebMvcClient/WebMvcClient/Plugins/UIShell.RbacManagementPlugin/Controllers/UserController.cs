@@ -12,9 +12,9 @@
 using LCL;
 using LCL.MvcExtensions;
 using LCL.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-
 using UIShell.RbacPermissionService;
 
 namespace UIShell.RbacManagementPlugin.Controllers
@@ -24,7 +24,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
         IUserRepository repo = RF.Concrete<IUserRepository>();
         public UserController()
         {
-         
+
         }
         [Permission("重置密码", "ResetPassword")]
         [HttpPost]
@@ -39,6 +39,31 @@ namespace UIShell.RbacManagementPlugin.Controllers
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = result;
             return json;
+        }
+        [Permission("锁定用户", "LockedUser")]
+        [HttpPost]
+        public CustomJsonResult LockedUser(IList<string> idList)
+        {
+            var result = new Result(true);
+            for (int i = 0; i < idList.Count; i++)
+            {
+                repo.LockedUser(idList[i]);
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+            return json;
+        }
+        [Permission("添加", "Add")]
+        [HttpPost]
+        public override CustomJsonResult AjaxAdd(User model)
+        {
+            var routId = LRequest.GetString("Department_ID");
+            if (model.Department == null && routId != null)
+            {
+                model.Department = new Department { ID = Guid.Parse(routId) };
+            }
+            return base.AjaxAdd(model);
         }
     }
 }

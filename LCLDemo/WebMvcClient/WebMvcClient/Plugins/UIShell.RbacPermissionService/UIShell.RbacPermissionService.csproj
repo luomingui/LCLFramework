@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UIShell.RbacPermissionService</RootNamespace>
     <AssemblyName>UIShell.RbacPermissionService</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -103,6 +105,12 @@
     <Compile Include="Repository\ScheduledEventsRepository.cs" />
     <Compile Include="Repository\TLogRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\WFActorRepository.cs" />
+    <Compile Include="Repository\WFActorUserRepository.cs" />
+    <Compile Include="Repository\WFItemRepository.cs" />
+    <Compile Include="Repository\WFRoutRepository.cs" />
+    <Compile Include="Repository\WFTaskHistoryRepository.cs" />
+    <Compile Include="Repository\WFTaskListRepository.cs" />
     <Compile Include="Repository\XzqyRepository.cs" />
     <Compile Include="Security\BizActivityLogAttribute.cs" />
     <Compile Include="Security\LCLIdentity.cs" />
@@ -130,6 +138,7 @@
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\TLogViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\WFActorViewModel.cs" />
     <Compile Include="ViewModels\XzqyViewModel.cs" />
     <Compile Include="WorkContext\IWorkContext.cs" />
     <Compile Include="WorkContext\WebWorkContext.cs" />

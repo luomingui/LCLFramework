@@ -3,29 +3,112 @@
 @{
     ViewBag.Title = "单位管理";
 }
-<div data-options="region:'west',title:'单位管理'" style="width: 200px;">
-    <ul id="uitree" class="easyui-tree"></ul>
-</div>
-<div data-options="region:'center',title:'单位管理'" style="padding: 5px; overflow-y: hidden;">
-    <div id="p" class="easyui-panel" style="width: 100%; height:450px; padding: 10px; " data-options="iconCls:'icon-save'">
+<div class="easyui-layout" fit="true" id="tb">
+    <div data-options="region:'west',title:'单位管理'" style="width: 200px;">
+        <ul id="uitree" class="easyui-tree"></ul>
+    </div>
+    <div data-options="region:'center',title:'单位管理'" style="padding: 5px; overflow-y: hidden;">
+        <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;">
+            <a id="a_addCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增下级</a>&nbsp;
+            <a id="a_delCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>&nbsp;
+            <a id="a_editCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-save">保存</a>&nbsp;
+        </div>
+        <table class="tb_searchbar">
+            <tbody>
+                <tr>
+                    <td class="td_title">
+                        上级单位
+                    </td>
+                    <td>
+                        <input id="parentid" type="hidden" readonly />
+                        <input id="parentname" disabled type="text" readonly style="width:310px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">部门类型:</td>
+                    <td>
+                        <input type="radio" id="Entity_DepartmentType" name="Entity.DepartmentType" checked />组织
+                        <input type="radio" id="Entity_DepartmentType" name="Entity.DepartmentType" />公司
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">办公名称:</td>
+                    <td>
+                        <input type="text" id="Entity_Name" name="Entity.Name" value="" style="width:310px" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">办公电话:</td>
+                    <td>
+                        <input type="text" id="Entity_OfficePhone" name="Entity.OfficePhone" value="" style="width:310px" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">办公地址:</td>
+                    <td>
+                        <input type="text" id="Entity_Address" name="Entity.Address" value="" style="width:310px" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">来源:</td>
+                    <td>
+                        <input type="text" id="Entity_Source" name="Entity.Source" value="" style="width:310px" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_title">描述:</td>
+                    <td>
+                        <textarea id="Entity_Remark" name="Entity.Remark" cols="30" rows="20" style="width:410px;height:222px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='2'>
+                        <input type='hidden' id='Entity_ID' name='Entity.ID' value='' />
+                        <input type='hidden' id='Entity_ParentId' name='Entity.ParentId' value='' />
+                        <input type='hidden' id='Entity_IsLast' name='Entity.IsLast' value='' />
+                        <input type='hidden' id='Entity_Level' name='Entity.Level' value='' />
+                        <input type='hidden' id='Entity_NodePath' name='Entity.NodePath' value='' />
+                        <input type='hidden' id='Entity_OrderBy' name='Entity.OrderBy' value='' />
+                        <input type='hidden' id='Entity_IsDelete' name='Entity.IsDelete' value='' />
+                        <input type='hidden' id='Entity_AddDate' name='Entity.AddDate' value='' />
+                        <input type='hidden' id='Entity_UpdateDate' name='Entity.UpdateDate' value='' />
+                    <td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 @section scripts{
-    <script>
-        $(document).ready(function () {
-            LCLTree.showTree();
-            LCLTree.add();
-
-        });
-        var LCLTree = {
+    <script type="text/javascript">
+        var root = "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Department"))/";
+        var added = true;
+        var dicType;
+        var LCL = {
             showTree: function () {
                 $('#uitree').tree({
-                    url: 'AjaxEasyUITree_Department',
+                    url: root + 'AjaxEasyUITree_Department',
                     lines: true,
                     onClick: function (node) {
+                        added = false;
                         var cc = node.id;
                         dicType = cc;
-                        LCLTree.edit();
+                        $('#parentid').val(node.parentId);
+                        $('#parentname').val(node.parentName);
+
+                        $('#Entity_ID').val(node.id);
+                        $('#Entity_DepartmentType').val(node.DepartmentType);
+                        $('#Entity_Name').val(node.text);
+                        $('#Entity_OfficePhone').val(node.attributes.OfficePhone);
+                        $('#Entity_Address').val(node.attributes.Address);
+                        $('#Entity_Source').val(node.attributes.Source);
+                        $('#Entity_Remark').val(node.attributes.Remark);
+                        $('#Entity_IsLast').val(node.attributes.IsLast);
+                        $('#Entity_Level').val(node.attributes.Level);
+                        $('#Entity_NodePath').val(node.attributes.NodePath);
+                        $('#Entity_OrderBy').val(node.attributes.OrderBy);
+                        $('#Entity_ParentId').val(node.parentId);
+
+
                     },
                     onExpand: function (node) {
                         $(".icon-company.tree-folder-open").css("background", ".icon-blue-tree-folder-open");
@@ -43,14 +126,65 @@
                 return $('#uitree').tree('getSelected');
             },
             add: function () {
-                $('#p').panel({
-                    href: 'AddOrEdit'
-                });
+                var node = LCL.getSelected();
+                if (node) {
+                    //新增下级
+                    added = true;
+                    $('#parentid').val(node.id);
+                    $('#parentname').val(node.text);
+
+                    $('#Entity_ID').val('');
+                    $('#Entity_DepartmentType').val('');
+                    $('#Entity_Name').val('');
+                    $('#Entity_OfficePhone').val('');
+                    $('#Entity_Address').val('');
+                    $('#Entity_Source').val('');
+                    $('#Entity_Remark').val('');
+                    $('#Entity_IsLast').val('');
+                    $('#Entity_Level').val('');
+                    $('#Entity_NodePath').val('');
+                    $('#Entity_OrderBy').val('');
+                    $('#Entity_ParentId').val('');
+                    $('#Entity_IsDelete').val('');
+                    $('#Entity_AddDate').val('');
+                    $('#Entity_UpdateDate').val('');
+
+                }
             },
-            edit: function () {
-                $('#p').panel({
-                    href: 'AddOrEdit?id=' + trim(dicType)
-                });
+            save: function () {
+
+                var ID = $('#Entity_ID').val();
+                var DepartmentType = $('#Entity_DepartmentType').val();
+                var Name = $('#Entity_Name').val();
+                var OfficePhone = $('#Entity_OfficePhone').val();
+                var Address = $('#Entity_Address').val();
+                var Source = $('#Entity_Source').val();
+                var Remark = $('#Entity_Remark').val();
+                var IsLast = $('#Entity_IsLast').val();
+                var Level = $('#Entity_Level').val();
+                var NodePath = $('#Entity_NodePath').val();
+                var OrderBy = $('#Entity_OrderBy').val();
+                var ParentId = $('#Entity_ParentId').val();
+                var IsDelete = $('#Entity_IsDelete').val();
+                var AddDate = $('#Entity_AddDate').val();
+                var UpdateDate = $('#Entity_UpdateDate').val();
+                var Xzqy_ID = $('#Entity_Xzqy_ID').val();
+
+                if (added) {
+                    $.post(root + 'AjaxAdd',
+                        { ID: ID, DepartmentType: DepartmentType, Name: Name, OfficePhone: OfficePhone, Address: Address, Source: Source, Remark: Remark, IsLast: IsLast, Level: Level, NodePath: NodePath, OrderBy: OrderBy, ParentId: ParentId, IsDelete: IsDelete, AddDate: AddDate, UpdateDate: UpdateDate, Xzqy_ID: Xzqy_ID }, function (data) {
+                            $.messager.alert('系统消息', data.Message);
+                            //重新加载当前页
+                            LCL.reload();
+                        }, "json");
+                } else {
+                    $.post(root + 'AjaxEdit',
+                        { ID: ID, DepartmentType: DepartmentType, Name: Name, OfficePhone: OfficePhone, Address: Address, Source: Source, Remark: Remark, IsLast: IsLast, Level: Level, NodePath: NodePath, OrderBy: OrderBy, ParentId: ParentId, IsDelete: IsDelete, AddDate: AddDate, UpdateDate: UpdateDate, Xzqy_ID: Xzqy_ID }, function (data) {
+                            $.messager.alert('系统消息', data.Message);
+                            //重新加载当前页
+                            LCL.reload();
+                        }, "json");
+                }
             },
             del: function () {
                 var node = LCLTree.getSelected();
@@ -58,7 +192,7 @@
                     $.messager.confirm('确认', '确认要删除选中记录吗?', function (y) {
                         if (y) {
                             //提交
-                            $.post('AjaxDelete/', node.id,
+                            $.post(root + 'AjaxDelete/', node.id,
                             function (msg) {
                                 if (msg.Success) {
                                     $.messager.alert('提示', msg.Message, 'info', function () {
@@ -78,7 +212,12 @@
                 return false;
             }
         }
-
+        $(document).ready(function () {
+            LCL.showTree();
+            $('#a_addCategory').click(function () { LCL.add(); });
+            $('#a_editCategory').click(function () { LCL.save(); });
+            $('#a_delCategory').click(function () { LCL.del(); });
+        });
     </script>
 }
 

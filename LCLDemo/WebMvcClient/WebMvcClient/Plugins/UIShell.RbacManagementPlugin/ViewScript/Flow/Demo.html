@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>流程图显示</title>
+    <style>
+.flow_steps ul li { float:left; height:23px; padding:0 40px 0 30px; line-height:23px; text-align:center; background:url(barbg.png) no-repeat 100% 0 #E4E4E4; font-weight:bold;}  
+.flow_steps ul li.done { background-position:100% -46px; background-color:#FFEDA2;}  
+.flow_steps ul li.current_prev { background-position:100% -23px; background-color:#FFEDA2;}  
+.flow_steps ul li.current { color:#fff; background-color:#990D1B;}  
+.flow_steps ul li.last { background-image:none;}  
+
+    </style>
+</head>
+<body>
+    <div class="flow_steps">
+        <ul>
+            <li class="done">第一步</li>
+            <li class="current_prev">第二步</li>
+            <li class="current">第三步</li>
+            <li>第四步</li>
+            <li class="last">第五步</li>
+        </ul>
+    </div>
+</body>
+</html>

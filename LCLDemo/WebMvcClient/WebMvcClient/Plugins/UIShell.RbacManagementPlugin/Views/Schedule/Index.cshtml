@@ -3,23 +3,20 @@
     ViewBag.Title = "计划任务列表";
 }
 <!--   数据列表    -->
-<table id="grid" title="计划任务列表" class="easyui-datagrid" toolbar="#toolbar"></table>
+<table id="grid_schedule" title="计划任务列表" toolbar="#toolbar_schedule"></table>
 <!--   命令列表   -->
-<div id="toolbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()" />添加
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()" />删除
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()" />刷新
+<div id="toolbar_schedule">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">添加</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()">刷新</a>
     <a href="javascript:void(0)" />
-</div>
-<!--   弹出框       -->
-<div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
-
 </div>
 @section scripts{
     <script type="text/javascript">
+        var root = "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Schedule"))/";
         $(document).ready(function () {
-            $('#grid').datagrid({
-                url: 'AjaxGetBy',
+            $('#grid_schedule').datagrid({
+                url: root + 'AjaxGetBy',
                 loadMsg: '数据加载中....',
                 title: '计划任务信息一览表',
                 iconCls: 'icon-edit',
@@ -31,7 +28,7 @@
                 ]],
                 columns: [[
                     { field: 'ck', checkbox: true },
-                    { field: 'Exetime', title: '计划任务名称', width: 200 },
+                    { field: 'Exetime', title: '计划任务名称', width: 250 },
                     { field: 'Exetime', title: '执行方式', width: 500 },
                     { field: 'Lastexecuted', title: '上次执行时间', width: 150 },
                     {
@@ -55,7 +52,7 @@
                         }
                     },
                     {
-                        field: 'opt', title: '操作', width: 100, align: 'center',
+                        field: 'opt', title: '操作', width: 150, align: 'center',
                         formatter: function (value, rec) {
                             return "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-man' plain='true' onclick='ExecCommand()'>立即执行</a>  "
                                 + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-edit' plain='true' onclick='edit()'>修改 </a>  "
@@ -66,43 +63,91 @@
             });
         });
         function add() {
-            var d = $('#dlg').dialog({
+            $("<div/>").dialog({
+                id: 'dlg_schedule',
                 title: '添加',
+                href: root + 'AddOrEdit',
                 width: 500,
                 height: 280,
-                closed: true,
-                cache: false,
-                href: 'AddOrEdit',
                 iconCls: 'icon-add',
                 modal: true,
+                buttons: [{
+                    id: "ui_schedule_add_btn",
+                    text: '添 加',
+                    handler: function () {
+                        $("#ffschedule").form("submit", {
+                            url: root + "AjaxAdd",
+                            onSubmit: function (param) {
+                                $('#ui_schedule_add_btn').linkbutton('disable');    //点击就禁用按钮，防止连击
+                                param.action = 'add';
+                                if ($(this).form('validate'))
+                                    return true;
+                                else {
+                                    $('#ui_schedule_add_btn').linkbutton('enable');   //恢复按钮
+                                    return false;
+                                }
+                            },
+                            success: function (data) {
+                                var dataJson = eval('(' + data + ')');    //转成json格式
+                                if (dataJson.Success) {
+                                    $("#dlg_schedule").dialog('destroy');  //销毁dialog对象
+                                    $("#grid_schedule").datagrid("reload").datagrid('clearSelections').datagrid('clearChecked');
+                                } else {
+                                    $('#ui_schedule_add_btn').linkbutton('enable');   //恢复按钮
+                                }
+                            }
+                        });
+                    }
+                }],
                 onClose: function () {
-                    refresh();
+                    $("#dlg_schedule").dialog('destroy');  //销毁dialog对象
                 }
             });
-            $("#dlg").dialog("open");
-
         }
         function edit() {
-            var row = $("#grid").datagrid("getSelected");
+            var row = $("#grid_schedule").datagrid("getSelected");
             if (row) {
-                $('#dlg').dialog({
+                $("<div/>").dialog({
+                    id: 'dlg_schedule',
                     title: '修改',
                     width: 500,
                     height: 280,
-                    closed: true,
-                    cache: false,
-                    href: 'AddOrEdit?id=' + trim(row.ID),
+                    href: root + 'AddOrEdit?id=' + $.LCLCore.ValidUI.Trim(ID),
                     iconCls: 'icon-edit',
                     modal: true,
-                    onClose: function () {
-                        refresh();
-                    }
+                    buttons: [{
+                        id: "ui_schedule_add_btn",
+                        text: '添 加',
+                        handler: function () {
+                            $("#ffschedule").form("submit", {
+                                url: root + "AjaxEdit",
+                                onSubmit: function (param) {
+                                    $('#ui_schedule_add_btn').linkbutton('disable');    //点击就禁用按钮，防止连击
+                                    param.action = 'add';
+                                    if ($(this).form('validate'))
+                                        return true;
+                                    else {
+                                        $('#ui_schedule_add_btn').linkbutton('enable');   //恢复按钮
+                                        return false;
+                                    }
+                                },
+                                success: function (data) {
+                                    var dataJson = eval('(' + data + ')');    //转成json格式
+                                    if (dataJson.Success) {
+                                        $("#dlg_schedule").dialog('destroy');  //销毁dialog对象
+                                        $("#grid_schedule").datagrid("reload").datagrid('clearSelections').datagrid('clearChecked');
+                                    } else {
+                                        $('#ui_schedule_add_btn').linkbutton('enable');   //恢复按钮
+                                    }
+                                }
+                            });
+                        }
+                    }],
                 });
-                $("#dlg").dialog("open");
             }
         }
         function del() {
-            var rows = $('#grid').datagrid('getSelections');
+            var rows = $('#grid_schedule').datagrid('getSelections');
             if (!rows || rows.length == 0) {
                 $.messager.alert('提示', '请选择要删除的数据!', 'info');
                 return;
@@ -120,12 +165,12 @@
                     return;
                 }
                 //提交
-                $.post('AjaxDeleteList/', parm,
+                $.post(root + 'AjaxDeleteList/', parm,
                 function (msg) {
                     if (msg.Success) {
                         $.messager.alert('提示', msg.Message, 'info', function () {
                             //重新加载当前页
-                            $('#grid').datagrid('reload');
+                            $('#grid_schedule').datagrid('reload');
                         });
                     } else {
                         $.messager.alert('提示', msg.Message, 'info')
@@ -134,29 +179,21 @@
             });
         }
         function ExecCommand() {
-            var row = $("#grid").datagrid("getSelected");
+            var row = $("#grid_schedule").datagrid("getSelected");
             if (row) {
                 //提交
-                $.post('AjaxExecCommand?key=', row.key,
+                $.post(root + 'AjaxExecCommand?key=', row.key,
                 function (msg) {
                     if (msg.Success) {
                         $.messager.alert('提示', msg.Message, 'info', function () {
                             //重新加载当前页
-                            $('#grid').datagrid('reload');
+                            $('#grid_schedule').datagrid('reload');
                         });
                     } else {
                         $.messager.alert('提示', msg.Message, 'info')
                     }
                 }, "json");
             }
-        }
-        function refresh() {
-            $('#grid').datagrid('load');
-        }
-        function trim(str) {
-            //FUNCTION:去掉字符串的两边空格,中间的空格保留
-            v = str.replace(/(^\s*)|(\s*$)/g, "");
-            return v;
         }
     </script>
 }

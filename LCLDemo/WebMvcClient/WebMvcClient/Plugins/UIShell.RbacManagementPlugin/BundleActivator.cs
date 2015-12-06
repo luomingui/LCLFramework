@@ -24,6 +24,17 @@ namespace UIShell.RbacManagementPlugin
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
             {
+                Label = "与我有关",
+                Image = "icon-user",
+                Bundle = this,
+                Children =
+                {
+                    new MvcModuleMeta{ Image="icon-user-edit32", Label = "我的任务", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
+                    new MvcModuleMeta{ Image="icon-user-key", Label = "我的审批", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
+                }
+            });
+            CommonModel.Modules.AddRoot(new MvcModuleMeta
+            {
                 Label = "基础数据",
                 Image = "icon-application-form-edit",
                 Bundle = this,
@@ -32,7 +43,7 @@ namespace UIShell.RbacManagementPlugin
                     new MvcModuleMeta{ Image="icon-organ", Label = "单位管理", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
                     new MvcModuleMeta{ Image="icon-group", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
                     new MvcModuleMeta{ Image="icon-user", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
-                    new MvcModuleMeta{ Image="icon-chart-organisation", Label = "流程定义", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
+                    new MvcModuleMeta{ Image="icon-chart-organisation", Label = "流程定义", CustomUI="/UIShell.RbacManagementPlugin/WFRout/Index",EntityType=typeof(WFRoutController)},
                     new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }
             });

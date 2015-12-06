@@ -1,189 +1,110 @@
-﻿@using LCL.MvcExtensions;
-@{
-    ViewBag.Title = "用户信息";
-}
-<div class="easyui-layout" data-options="fit:true" id="tb">
-    <!-------------------------------搜索框----------------------------------->
+﻿<div class="easyui-layout" fit="true" id="tb">
     <div data-options="region:'north'" style="padding: 1px; height:70px;">
+        <!-------------------------------搜索框----------------------------------->
         <fieldset>
-            <legend>信息查询</legend>
-            <form id="ffSearch" method="post">
+            <legend id="search_title">信息查询</legend>
+            <form id="ffSearchuser" method="post">
                 <div id="toolbar" style="margin-bottom:5px">
-                    <label class="sr-only" for="inputfile"> 组织：</label>
-                    <select id="cc" class="easyui-combotree"
-                            data-options="url:'AjaxEasyUITree_Department'" style="width: 120px; height: 28px;"></select>
-                    <label class="sr-only" for="inputfile">搜:</label>
+                    <label for="Keyword" id="search_key">搜:</label>
                     <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
-                    <a id="btnSearch" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
-                    <a id="btnImport" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-excel" onclick="ShowImport()">导入</a>&nbsp;
-                    <a id="btnExport" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-excel" onclick="ShowExport()">导出</a>&nbsp;
+                    &nbsp;
+                    <a id="btnSearchuser" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
                 </div>
             </form>
         </fieldset>
     </div>
-    <!-------------------------------详细信息展示表格----------------------------------->
     <div data-options="region:'center'">
-        <table id="grid" style="width: 100%" title="用户管理" toolbar="#tbar" data-options="iconCls:'icon-view'" fit="true"></table>
-        <!--   命令列表     -->
-        <div id="tbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">添加</a>&nbsp;
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="ResetPassword()">初始化密码</a>&nbsp;
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>&nbsp;
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()">刷新</a>&nbsp;
-            <a href="javascript:void(0)" />
+        <!-------------------------------详细信息展示表格----------------------------------->
+        <table id="grid_user" data-options="iconCls:'icon-view'" fit="true"></table>
+        <!--   弹出框       -->
+        <div id="win_user" style="padding: 5px;background: #fafafa;">
+            <div class="easyui-layout" fit="true">
+                <form id="ffuser" method="post" ajax="true">
+                    <table class="tb_searchbar">
+                        <tbody>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_name">登录名称<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="user_Entity_Name" name="user_EntityName" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="1" />
+                                </td>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_department_id">所属部门<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <select id="user_Entity_Department_ID" class='easyui-combotree' data-options='url:"/UIShell.RbacManagementPlugin/Department/AjaxEasyUITree_Department"' style='width: 120px; height: 28px;' tabindex="16" class="easyui-validatebox"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_islockedout">是否锁定</label></td>
+                                <td>
+                                    <input type="radio" id="user_Entity_IsLockedOut1" name="user_Entity_IsLockedOut" value="true" checked tabindex="3" />是
+                                    <input type="radio" id="user_Entity_IsLockedOut2" name="user_Entity_IsLockedOut" value="false" tabindex="3" />否
+                                </td>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_sex">性别<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="radio" id="user_Entity_Sex1" name="user_Entity_Sex" value="男" checked tabindex="4" /> 男
+                                    <input type="radio" id="user_Entity_Sex2" name="user_Entity_Sex" value="女" tabindex="4" />女
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_userphoto">用户照片<span style="color:red;">*</span></label></td>
+                                <td colspan="4">
+                                    <input id="user_Entity_UserPhoto" name="user_EntityUserPhoto" buttontext="请选择" value="" style="width:310px" class="easyui-filebox" tabindex="4" />
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_birthday">出生年月<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="user_Entity_Birthday" name="user_EntityBirthday" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="6" />
+                                </td>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_nationalid">民族<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="user_Entity_NationalID" name="user_EntityNationalID" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="7" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_politicalid">政治面貌<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="user_Entity_PoliticalID" name="user_EntityPoliticalID" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="8" />
+                                </td>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_idcard">身份证号<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="user_Entity_IdCard" name="user_EntityIdCard" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="9" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_telephone">电话<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="user_Entity_Telephone" name="user_EntityTelephone" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="10" />
+                                </td>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_userqq">用户QQ<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="user_Entity_UserQQ" name="user_EntityUserQQ" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="11" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_user_email">电子邮箱<span style="color:red;">*</span></label></td>
+                                <td colspan="4">
+                                    <input type="text" id="user_Entity_Email" name="user_EntityEmail" value="" style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="12" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan='4'>
+                                    <input type='hidden' id='user_Entity_ID' name='user_EntityID' value='' />
+                                    <input type='hidden' id='user_Entity_IsDelete' name='user_EntityIsDelete' value='' />
+                                    <input type='hidden' id='user_Entity_AddDate' name='user_EntityAddDate' value='' />
+                                    <input type='hidden' id='user_Entity_UpdateDate' name='user_EntityUpdateDate' value='' />
+                                    <input type="hidden" id="user_Entity_Password" name="user_EntityPassword" value="123456" />
+                                <td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
         </div>
-    </div>
-    <!--   弹出框       -->
-    <div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
-
     </div>
 </div>
 @section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#grid').datagrid({
-                url: 'AjaxGetByPage',
-                loadMsg: '数据加载中....',
-                title: '用户信息一览表',
-                iconCls: 'icon-edit',
-                pagination: true,
-                rownumbers: true,
-                fitCloumns: true,
-                hideColumn: [[
-                  { title: '编号', field: 'ID' }
-                ]],
-                columns: [[
-                    { field: 'ck', checkbox: true },
-                    { field: 'Name', title: '名称', width: 200 },
-                    { field: 'Sex', title: '性别', width: 50 },
-                    { field: 'Birthday', title: '出生年月', width: 100 },
-                    { field: 'IdCard', title: '身份证号', width: 150 },
-                    { field: 'Telephone', title: '电话', width: 100 },
-                    { field: 'Email', title: '电子邮箱', width: 100 },
-                    {
-                        field: 'IsLockedOut', title: '是否锁定', align: 'center', width: 80,
-                        formatter: function (val, rec) {
-                            if (val) {
-                                return '<div class="icon-true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
-                            } else {
-                                return '<div class="icon-false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
-                            }
-                        }
-                    },
-                    { field: 'UpdateDate', title: '更新时间', width: 100 },
-                    {
-                        field: 'opt', title: '操作', width: 100, align: 'center',
-                        formatter: function (value, rec) {
-                            return " "
-                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-edit' plain='true' onclick='edit()'>修改 </a>  "
-                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-remove' plain='true' onclick='del()'>删除 </a>    ";
-                        }
-                    }
-                ]]
-            });
-
-        });
-        function add() {
-            var d = $('#dlg').dialog({
-                title: '添加',
-                width: 500,
-                height: 280,
-                closed: true,
-                cache: false,
-                href: 'AddOrEdit',
-                iconCls: 'icon-add',
-                modal: true,
-                onClose: function () {
-                    refresh();
-                }
-            });
-            $("#dlg").dialog("open");
-
-        }
-        function edit() {
-            var row = $("#grid").datagrid("getSelected");
-            if (row) {
-                $('#dlg').dialog({
-                    title: '修改',
-                    width: 500,
-                    height: 280,
-                    closed: true,
-                    cache: false,
-                    href: 'AddOrEdit?id=' + trim(row.ID),
-                    iconCls: 'icon-edit',
-                    modal: true,
-                    onClose: function () {
-                        refresh();
-                    }
-                });
-                $("#dlg").dialog("open");
-            }
-        }
-        function del() {
-            var rows = $('#grid').datagrid('getSelections');
-            if (!rows || rows.length == 0) {
-                $.messager.alert('提示', '请选择要删除的数据!', 'info');
-                return;
-            }
-            var parm;
-            $.each(rows, function (i, row) {
-                if (i == 0) {
-                    parm = "idList=" + row.ID;
-                } else {
-                    parm += "&idList=" + row.ID;
-                }
-            });
-            $.messager.confirm('提示', '是否删除选中数据?', function (r) {
-                if (!r) {
-                    return;
-                }
-                //提交
-                $.post('AjaxDeleteList/', parm,
-                function (msg) {
-                    if (msg.Success) {
-                        $.messager.alert('提示', msg.Message, 'info', function () {
-                            //重新加载当前页
-                            $('#grid').datagrid('reload');
-                        });
-                    } else {
-                        $.messager.alert('提示', msg.Message, 'info')
-                    }
-                }, "json");
-            });
-        }
-        function ResetPassword() {
-            var rows = $('#grid').datagrid('getSelections');
-            if (!rows || rows.length == 0) {
-                $.messager.alert('提示', '请选择要重置的数据!', 'info');
-                return;
-            }
-            var parm;
-            $.each(rows, function (i, row) {
-                if (i == 0) {
-                    parm = "idList=" + row.ID;
-                } else {
-                    parm += "&idList=" + row.ID;
-                }
-            });
-            $.messager.confirm('提示', '是否重置选中数据?', function (r) {
-                if (!r) {
-                    return;
-                }
-                //提交
-                $.post('ResetPassword/', parm,
-                function (msg) {
-                    if (msg.Success) {
-                        $.messager.alert('提示', msg.Message, 'info', function () {
-                            $('#grid').datagrid('reload');
-                        });
-                    } else {
-                        $.messager.alert('提示', msg.Message, 'info')
-                    }
-                }, "json");
-            });
-        }
-        function refresh() {
-            $('#grid').datagrid('load');
-        }
-    </script>
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/user.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/user.cshtml.js" type="text/javascript"></script>
 }
+

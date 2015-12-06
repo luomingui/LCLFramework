@@ -24,35 +24,22 @@
         <table id="grid" title="字典信息一览表" class="easyui-datagrid" style="width:100%" toolbar="#toolbar"></table>
         <!--   命令列表       -->
         <div id="toolbar">
-            <a id="b_add" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" />添加
-            <a id="b_edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" />修改
-            <a id="b_del" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" />删除
-            <a id="b_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" />刷新
+            <a id="b_add" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" >添加</a>
+            <a id="b_edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" >修改</a>
+            <a id="b_del" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" >删除</a>
+            <a id="b_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" >刷新</a>
             <a href="javascript:void(0)" />
         </div>
     </div>
 </div>
 @section scripts{
     <script type="text/javascript">
+        var root="@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Role"))/";
         var dicType = "00000000-0000-0000-0000-000000000000";
-        $(document).ready(function () {
-
-            LCL.showTree(); //显示数据字典列表树
-
-            mygrid.dginit(); //显示数据字典详情
-
-            $('#a_add').click(LCL.add);
-            $('#a_del').click(LCL.del);
-            $('#a_edit').click(LCL.edit);
-
-            $('#b_add').click(mygrid.add);
-            $('#b_del').click(mygrid.del);
-            $('#b_edit').click(mygrid.edit);
-        });
         var LCL = {
             showTree: function () {
                 $('#dataDicType').tree({
-                    url: 'AjaxEasyUITree_DictType',
+                    url: root+'AjaxEasyUITree_DictType',
                     lines: true,
                     onClick: function (node) {
                         var cc = node.id;
@@ -74,7 +61,7 @@
                     height: 280,
                     closed: true,
                     cache: false,
-                    href: 'AddOrEdit',
+                    href: root + 'AddOrEdit',
                     iconCls: 'icon-add',
                     modal: true,
                     onClose: function () {
@@ -92,7 +79,7 @@
                         height: 280,
                         closed: true,
                         cache: false,
-                        href: 'AddOrEdit?id=' + trim(node.id),
+                        href: root + 'AddOrEdit?id=' + trim(node.id),
                         iconCls: 'icon-edit',
                         modal: true,
                         onClose: function () {
@@ -123,7 +110,7 @@
                     $.messager.confirm('确认', '确认要删除选中记录吗?', function (y) {
                         if (y) {
                             //提交
-                            $.post('AjaxDelete/', node.id,
+                            $.post(root + 'AjaxDelete/', node.id,
                             function (msg) {
                                 if (msg.Success) {
                                     $.messager.alert('提示', msg.Message, 'info', function () {
@@ -226,6 +213,20 @@
                 return false;
             }
         }
+        $(document).ready(function () {
+
+            LCL.showTree(); //显示数据字典列表树
+
+            mygrid.dginit(); //显示数据字典详情
+
+            $('#a_add').click(LCL.add);
+            $('#a_del').click(LCL.del);
+            $('#a_edit').click(LCL.edit);
+
+            $('#b_add').click(mygrid.add);
+            $('#b_del').click(mygrid.del);
+            $('#b_edit').click(mygrid.edit);
+        });
     </script>
 }
 

@@ -4,53 +4,58 @@
 }
 <div class="easyui-layout" fit="true" id="tb">
     <div data-options="region:'west',title:'行政区域'" style="width: 200px;">
-        <ul id="uitree" class="easyui-tree"></ul>
+        <ul id="ui_xzqy_tree"></ul>
     </div>
     <div data-options="region:'center',title:'行政区域管理'" style="padding: 5px; overflow-y: hidden;">
         <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;">
-            <a id="a_addCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增下级</a>&nbsp;
-            <a id="a_delCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>&nbsp;
-            <a id="a_editCategory" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-save">保存</a>&nbsp;
+            <a id="btnAddxzqy" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增下级</a>&nbsp;
+            <a id="btnDelxzqy" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>&nbsp;
+            <a id="btnSavexzqy" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-save">保存</a>&nbsp;
         </div>
         <table class="tb_searchbar">
             <tbody>
                 <tr>
-                    <td class="td_title">
-                        上级区划
-                    </td>
+                    <td class="td_title"><label style="color: black" id="ff_lab_xzqy_parentid">上级区划</label></td>
                     <td>
-                        <input id="parentid" type="hidden" readonly />
-                        <input id="parentname" disabled type="text" readonly style="width:310px" />
-                        <input type="hidden" id="Entity_ID" name="Entity.ID" value="" />
+                        <input type="hidden" id="xzqy_Entity_ParentId" name="xzqy_EntityParentId" value="  "  style="width:310px"  />
+                        <input type="text" id="xzqy_Entity_ParentName" name="xzqy_EntityParentName" value="  " readonly disabled style="width:310px" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="td_title">
-                        区划代码
-                    </td>
+                    <td class="td_title"><label style="color: black" id="ff_lab_xzqy_helpercode">区划代码<span style="color:red;">*</span></label></td>
                     <td>
-                        <input type="text" id="Entity_HelperCode" name="Entity.HelperCode" style="width:310px" value="" data-options="required:true" />
+                        <input type="text" id="xzqy_Entity_HelperCode" name="xzqy_EntityHelperCode" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="1" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="td_title">
-                        区划名称
-                    </td>
+                    <td class="td_title"><label style="color: black" id="ff_lab_xzqy_name">区划名称<span style="color:red;">*</span></label></td>
                     <td>
-                        <input type="text" id="Entity_Name" name="Entity.Name" value="" style="width:310px" data-options="required:true" />
+                        <input type="text" id="xzqy_Entity_Name" name="xzqy_EntityName" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="2" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="td_title">
-                        区划介绍
-                    </td>
+                    <td class="td_title"><label style="color: black" id="ff_lab_xzqy_intro">区划介绍<span style="color:red;">*</span></label></td>
                     <td>
-                        <textarea id="Entity_Intro" name="Entity.Intro" cols="30" rows="20" style="width:410px;height:222px;"></textarea>
+                        <textarea id="xzqy_Entity_Intro" name="xzqy_EntityIntro" cols="30" rows="20" style="width:410px;height:222px;"></textarea>
                     </td>
                 </tr>
-
+                <tr>
+                    <td colspan='2'>
+                        <input type='hidden' id='xzqy_Entity_ID' name='xzqy_EntityID' value='' />
+                        <input type='hidden' id='xzqy_Entity_IsLast' name='xzqy_EntityIsLast' value='' />
+                        <input type='hidden' id='xzqy_Entity_Level' name='xzqy_EntityLevel' value='' />
+                        <input type='hidden' id='xzqy_Entity_NodePath' name='xzqy_EntityNodePath' value='' />
+                        <input type='hidden' id='xzqy_Entity_OrderBy' name='xzqy_EntityOrderBy' value='' />
+                        <input type='hidden' id='xzqy_Entity_IsDelete' name='xzqy_EntityIsDelete' value='' />
+                        <input type='hidden' id='xzqy_Entity_AddDate' name='xzqy_EntityAddDate' value='' />
+                        <input type='hidden' id='xzqy_Entity_UpdateDate' name='xzqy_EntityUpdateDate' value='' />
+                    <td>
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
-<script src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Scripts/Xzqy.js"))"></script>
+@section scripts{
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/xzqy.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/xzqy.cshtml.js" type="text/javascript"></script>
+}

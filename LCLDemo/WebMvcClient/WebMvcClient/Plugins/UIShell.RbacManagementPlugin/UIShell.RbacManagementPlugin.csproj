@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UIShell.RbacManagementPlugin</RootNamespace>
     <AssemblyName>UIShell.RbacManagementPlugin</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -50,13 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Lib\LCL.MvcExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="LCL.ObjectContainers.Unity, Version=6.1.0.0, Culture=neutral, PublicKeyToken=47418e17c37ae176, processorArchitecture=MSIL">
+    <Reference Include="LCL.Utils, Version=6.1.0.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.ObjectContainers.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="LCL.Utils, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ce030f6cc5a3c898, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Lib\LCL.Utils.dll</HintPath>
+      <HintPath>..\..\..\..\..\LCLFramework\Lib\LCL.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -65,9 +61,11 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -104,6 +102,8 @@
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\TLogController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WFActorController.cs" />
+    <Compile Include="Controllers\WFRoutController.cs" />
     <Compile Include="Controllers\XzqyController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -121,9 +121,71 @@
     <Content Include="Content\Login\images\logn_bt.jpg" />
     <Content Include="Content\Login\images\logn_tit.png" />
     <Content Include="Content\Login\images\valicode.jpg" />
-    <Content Include="Scripts\DepartmentAddOrEdit.js" />
-    <Content Include="Scripts\Department.js" />
-    <Content Include="Scripts\Xzqy.js" />
+    <Content Include="ViewScript\Flow\barbg.png" />
+    <Content Include="ViewScript\Flow\Demo.html" />
+    <Content Include="ViewScript\Flow\FlowDemo.html" />
+    <Content Include="ViewScript\Flow\HtmlDemo.html" />
+    <Content Include="ViewScript\Flow\jquery-1.8.0.min.js" />
+    <Content Include="ViewScript\Flow\Styles\Flow.css" />
+    <Content Include="ViewScript\Flow\Styles\Flow.js" />
+    <Content Include="ViewScript\Flow\Styles\Images\1_circle\flowNo1.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\1_circle\flowYes1.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\2_circle\flowNo2.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\2_circle\flowNo2End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\2_circle\flowNo2Yes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\2_circle\flowYes2.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\3_circle\flowNo3.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\3_circle\flowNo3End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\3_circle\flowNo3Yes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\3_circle\flowYes3.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\3_circle\flowYes3End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\4_circle\flowNo4.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\4_circle\flowNo4End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\4_circle\flowNo4Yes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\4_circle\flowYes4.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\4_circle\flowYes4End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\5_circle\flowNo5.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\5_circle\flowNo5End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\5_circle\flowNo5Yes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\5_circle\flowYes5.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\5_circle\flowYes5End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\6_circle\flowNo6.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\6_circle\flowNo6End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\6_circle\flowNo6Yes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\6_circle\flowYes6.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\6_circle\flowYes6End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\7_circle\flowNo7.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\7_circle\flowNo7End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\7_circle\flowNo7Yes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\7_circle\flowYes7.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\7_circle\flowYes7End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\8_circle\flowNo8.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\8_circle\flowNo8End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\8_circle\flowNo8Yes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\8_circle\flowYes8.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\8_circle\flowYes8End.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\arrowNo.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\arrowYes.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\note.gif" />
+    <Content Include="ViewScript\Flow\Styles\Images\plus.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\reduce.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\rightTriangle.png" />
+    <Content Include="ViewScript\Flow\Styles\Images\triangle.png" />
+    <Content Include="ViewScript\role.cshtml.js" />
+    <Content Include="ViewScript\role.cshtml.LanguageResource.js" />
+    <Content Include="ViewScript\user.cshtml.js" />
+    <Content Include="ViewScript\user.cshtml.LanguageResource.js" />
+    <Content Include="ViewScript\wfactor.cshtml.js" />
+    <Content Include="ViewScript\wfactor.cshtml.LanguageResource.js" />
+    <Content Include="ViewScript\wfrout.cshtml.LanguageResource.js" />
+    <Content Include="ViewScript\wfrout.cshtml.js" />
+    <Content Include="ViewScript\xzqy.cshtml.js" />
+    <Content Include="ViewScript\xzqy.cshtml.LanguageResource.js" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <None Include="Views\User\UserSelect.cshtml" />
+    <Content Include="Views\WFActor\Index.cshtml" />
+    <Content Include="ViewScript\Flow\jsonData.json" />
+    <None Include="Views\WFRout\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -150,14 +212,9 @@
     <Content Include="Views\Dictionary\Index.cshtml" />
     <Content Include="Views\DictType\AddOrEdit.cshtml" />
     <Content Include="Views\DictType\Index.cshtml" />
-    <Content Include="Views\RoleAuthority\AddOrEdit.cshtml" />
     <Content Include="Views\RoleAuthority\Index.cshtml" />
-    <Content Include="Views\Role\AddOrEdit.cshtml" />
-    <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\TLog\Index.cshtml" />
-    <Content Include="Views\User\AddOrEdit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Xzqy\AddOrEdit.cshtml" />
     <Content Include="Views\Xzqy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +238,10 @@
     <None Include="Properties\PublishProfiles\UIShell.RbacManagementPlugin.pubxml" />
     <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+    <Folder Include="ViewScript\Flow\demo\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

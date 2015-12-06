@@ -46,7 +46,7 @@ namespace LCL.MvcExtensions
         /// 确认密码
         /// </summary>
         [Display(Name = "确认密码", Description = "再次输入密码。")]
-        [Compare("NewPassword", ErrorMessage = "密码和确认密码不匹配。")]
+        //[Compare("NewPassword", ErrorMessage = "密码和确认密码不匹配。")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }

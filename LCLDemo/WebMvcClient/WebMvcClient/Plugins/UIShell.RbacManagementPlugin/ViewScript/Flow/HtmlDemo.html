@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>流程图显示</title>
+    <link type="text/css" rel="Stylesheet" href="Styles/Flow.css" />
+    <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+    <script type="text/javascript">
+      
+        //页面入口
+        $(document).ready(function () {
+
+            $(".task").bind("click", function () {
+                $(this).hide();
+                $(this).next('.taskMore').show();
+            });
+            $(".taskTitle").bind("click", function () {
+                $(this).parent('.taskMore').hide();
+                $(this).parent('.taskMore').prev('.task').show();
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id='FlowChart'>
+        <div class="flow">
+            <div class="flowImg">
+                <table border="0" cellspacing="0" cellpadding="0" class="tbFlow">
+                    <tr>
+                        <td>
+                            <div style="width: 140px">
+                                <ul class="flowlist">
+                                    <li class="tdArrowStart" style="width: 35%;"></li>
+                                    <li style="background: url(Styles/Images/1_circle/flowYes1.png) top left no-repeat;
+                                        width: 42px; height: 42px; float: left"></li>
+                                    <li class="tdArrowYes" style="width: 35%; background: url(Styles/Images/arrowYes.png) top left repeat-x;">
+                                    </li>
+                                    <li style="width: 100%; text-align: center; float: left">审核</li>
+                                    <li class="imgTriangle">&nbsp;</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width: 140px">
+                                <ul class="flowlist">
+                                    <li class="tdArrowNo" style="width: 35%; background: url(Styles/Images/arrowNo.png) top left repeat-x;">
+                                    </li>
+                                    <li style="background: url(Styles/Images/2_circle/flowNo2.png) top left no-repeat;
+                                        width: 42px; height: 42px; float: left"></li>
+                                    <li class="tdArrowNo" style="width: 35%; background: url(Styles/Images/arrowNo.png) top left repeat-x;">
+                                    </li>
+                                    <li style="width: 100%; text-align: center; float: left">审批完成</li>
+                                    <li class="imgTriangleNull">&nbsp;</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width: 140px">
+                                <ul class="flowlist">
+                                    <li class="tdArrowNo" style="width: 35%; background: url(Styles/Images/arrowNo.png) top left repeat-x;">
+                                    </li>
+                                    <li style="background: url(Styles/Images/3_circle/flowNo3End.png) top left no-repeat;
+                                        width: 42px; height: 42px; float: left"></li>
+                                    <li class="tdArrowEnd" style="width: 35%;"></li>
+                                    <li style="width: 100%; text-align: center; float: left">已作废</li>
+                                    <li class="imgTriangleNull">&nbsp;</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="flowContent">
+                                <div class="task">
+                                    <div class="taskTitle">
+                                        <div class="taskSerial">
+                                            1.1</div>
+                                        <div class="rightTriangle">
+                                        </div>
+                                        <div class="taskName">
+                                            <span class="txtBold">任务名称：</span>审核</div>
+                                        <div class="iconPlus">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="taskMore" style="display: none">
+                                    <div class="taskTitle">
+                                        <div class="taskSerial">
+                                            1.1</div>
+                                        <div class="rightTriangle">
+                                        </div>
+                                        <div class="taskName">
+                                            <span class="txtBold">任务名称：</span>审核</div>
+                                        <div class="iconReduce">
+                                        </div>
+                                    </div>
+                                    <div class="taskLine">
+                                    </div>
+                                    <table border="0" cellspacing="0" cellpadding="0" class="tbTaskMore">
+                                        <tr>
+                                            <td nowrap="nowrap" class="txtSubtitle">
+                                                当前处理人：
+                                            </td>
+                                            <td class="tbTaskMoreDetail" style="width: 270px; min-width: 300px">
+                                                张谋波6396000223
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap="nowrap" class="txtSubtitle">
+                                                处理人角色：
+                                            </td>
+                                            <td class="tbTaskMoreDetail" style="width: 270px; min-width: 300px">
+                                                产品经理
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap="nowrap" class="txtSubtitle">
+                                                任务说明：
+                                            </td>
+                                            <td class="tbTaskMoreDetail" style="width: 270px; min-width: 300px">
+                                                产品经理审核通过后，系统邮件通知售前技术和配置经理 ，流程结束
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -13,6 +13,10 @@ namespace UIShell.RbacManagementPlugin.Controllers
 {
     public class AccountController : Controller
     {
+        public AccountController()
+        {
+           
+        }
         #region 登录
         public ActionResult Login()
         {

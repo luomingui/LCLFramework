@@ -41,32 +41,46 @@
 </div>
 @section scripts{
     <script type="text/javascript">
+        var root = "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "TLog"))/";
+        var LCL = {
+            gridinit: function () {
+                $('#grid').datagrid({
+                    url: root + "AjaxGetByPage",
+                    loadMsg: '数据加载中....',
+                    title: '系统操作日志信息一览表',
+                    iconCls: 'icon-edit',
+                    pagination: true,
+                    rownumbers: true,
+                    fitCloumns: true,
+                    hideColumn: [[
+                      { title: '编号', field: 'ID' }
+                    ]],
+                    columns: [[
+                     { field: 'Title', title: '标题', width: 100 },
+                     { field: 'Content', title: '内容', width: 200 },
+                     { field: 'UserName', title: '用户名', width: 200 },
+                     { field: 'LogType', title: '日志类型', width: 200 },
+                     { field: 'UpdateDate', title: '操作日期', width: 200 },
+                     { field: 'IP', title: 'IP地址', width: 150 }
+                    ]]
+                });
+            },
+            datagrid: function () {
+                $('#grid').datagrid('reload');
+            },
+            search: function (data) {
+                $('#grid').datagrid('load', data);
+            }
+        };
         $(document).ready(function () {
-            $('#grid').datagrid({
-                url: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "TLog/AjaxGetByPage"))",
-                loadMsg: '数据加载中....',
-                title: '系统操作日志信息一览表',
-                iconCls: 'icon-edit',
-                pagination: true,
-                rownumbers: true,
-                fitCloumns: true,
-                hideColumn: [[
-                  { title: '编号', field: 'ID' }
-                ]],
-                columns: [[
-                    { field: 'Title', title: '标题', width: 100 },
-                    { field: 'Content', title: '内容', width: 200 },
-                    { field: 'UserName', title: '用户名', width: 200 },
-                    { field: 'LogType', title: '日志类型', width: 200 },
-                    { field: 'UpdateDate', title: '操作日期', width: 200 },
-                    { field: 'IP', title: 'IP地址', width: 150 }
-                ]]
-            });
+            LCL.gridinit();
 
+            var queryPram =
+            {
+                key: $('#Keyword').val()
+            };
 
+            $('#btnSearch').click(function () { LCL.search(queryPram); });
         });
-        function refresh() {
-            $('#grid').datagrid('load');
-        }
     </script>
 }

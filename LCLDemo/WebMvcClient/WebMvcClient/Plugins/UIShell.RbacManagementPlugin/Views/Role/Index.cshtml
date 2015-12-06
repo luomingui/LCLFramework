@@ -1,138 +1,63 @@
-﻿@using LCL.MvcExtensions;
-@{
-    ViewBag.Title = "角色管理";
-}
-<div class="easyui-layout" data-options="fit:true" id="tb">
-    <!-------------------------------详细信息展示表格----------------------------------->
-    <table id="grid" style="width: 940px" title="角色管理" class="easyui-datagrid" toolbar="#tbar" data-options="iconCls:'icon-view'"></table>
-</div>
-<!--   命令列表     -->
-<div id="tbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">添加</a>&nbsp;
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="del()">删除</a>&nbsp;
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="refresh()">刷新</a>&nbsp;
-    <a href="javascript:void(0)" />
-</div>
-<!--   弹出框       -->
-<div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
+﻿<div class="easyui-layout" fit="true" id="tb">
+    <div data-options="region:'north'" style="padding: 1px; height:70px;">
+        <!-------------------------------搜索框----------------------------------->
+        <fieldset>
+            <legend id="search_title">信息查询</legend>
+            <form id="ffSearchrole" method="post">
+                <div id="toolbar" style="margin-bottom:5px">
+                    <label for="Keyword" id="search_key">搜:</label>
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
+                    &nbsp;
+                    <a id="btnSearchrole" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div data-options="region:'center'">
+        <!-------------------------------详细信息展示表格----------------------------------->
+        <table id="grid_role" title="角色" toolbar="#tbar_role" data-options="iconCls:'icon-view'" fit="true"></table>
+        <!--   弹出框       -->
+        <div id="win_role" style="padding: 5px;background: #fafafa;">
+            <div class="easyui-layout" fit="true">
+                <form id="ffrole" method="post" ajax="true">
+                    <table class="tb_searchbar">
+                        <tbody>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_role_name">名称<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="role_Entity_Name" name="role_EntityName" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="1" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_role_remark">描述<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="role_Entity_Remark" name="role_EntityRemark" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="2" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_role_roletype">角色类型</label></td>
+                                <td>
+                                    <input type="text" id="role_Entity_RoleType" name="role_EntityRoleType" value="  " style="width:310px" maxlength="4" tabindex="3" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan='2'>
+                                    <input type='hidden' id='role_Entity_ID' name='role_EntityID' value='' />
+                                    <input type='hidden' id='role_Entity_IsDelete' name='role_EntityIsDelete' value='' />
+                                    <input type='hidden' id='role_Entity_AddDate' name='role_EntityAddDate' value='' />
+                                    <input type='hidden' id='role_Entity_UpdateDate' name='role_EntityUpdateDate' value='' />
+                                <td>
+                            </tr>
+                        </tbody>
+                    </table>
 
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#grid').datagrid({
-                url: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Role/AjaxGetByPage"))",
-                loadMsg: '数据加载中....',
-                title: '角色信息一览表',
-                iconCls: 'icon-edit',
-                pagination: true,
-                rownumbers: true,
-                fitCloumns: true,
-                hideColumn: [[
-                  { title: '编号', field: 'ID' }
-                ]],
-                columns: [[
-                    { field: 'ck', checkbox: true },
-                    { field: 'Name', title: '名称', width: 200 },
-                    { field: 'Remark', title: '描述', width: 500 },
-                    { field: 'UpdateDate', title: '更新时间', width: 150 },
-                    {
-                        field: 'opt', title: '操作', width: 100, align: 'center',
-                        formatter: function (value, rec) {
-                            return "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-man' plain='true' onclick='Authority()'>权限</a>  "
-                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-edit' plain='true' onclick='edit()'>修改 </a>  "
-                                + "<a href='javascript:void(0)' class='easyui-linkbutton' iconcls='icon-remove' plain='true' onclick='del()'>删除 </a>    ";
-                        }
-                    }
-                ]]
-            });
-
-            var heightMargin = $("#toolbar").height() + 10;
-            var widthMargin = $(document.body).width() - $("#tb").width();
-            // 第一次加载时和当窗口大小发生变化时，自动变化大小
-            $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
-            $(window).resize(function () {
-                $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
-            });
-
-        });
-        function add() {
-            var d = $('#dlg').dialog({
-                title: '添加角色',
-                width: 500,
-                height: 280,
-                closed: true,
-                cache: false,
-                href: 'AddOrEdit',
-                iconCls: 'icon-add',
-                modal: true,
-                onClose: function () {
-                    refresh();
-                }
-            });
-            $("#dlg").dialog("open");
-
-        }
-        function edit() {
-            var row = $("#grid").datagrid("getSelected");
-            if (row) {
-                $('#dlg').dialog({
-                    title: '修改角色',
-                    width: 500,
-                    height: 280,
-                    closed: true,
-                    cache: false,
-                    href: 'AddOrEdit?id=' + trim(row.ID),
-                    iconCls: 'icon-edit',
-                    modal: true,
-                    onClose: function () {
-                        refresh();
-                    }
-                });
-                $("#dlg").dialog("open");
-            }
-        }
-        function del() {
-            var rows = $('#grid').datagrid('getSelections');
-            if (!rows || rows.length == 0) {
-                $.messager.alert('提示', '请选择要删除的数据!', 'info');
-                return;
-            }
-            var parm;
-            $.each(rows, function (i, row) {
-                if (i == 0) {
-                    parm = "idList=" + row.ID;
-                } else {
-                    parm += "&idList=" + row.ID;
-                }
-            });
-            $.messager.confirm('提示', '是否删除选中数据?', function (r) {
-                if (!r) {
-                    return;
-                }
-                //提交
-                $.post('AjaxDeleteList/', parm,
-                function (msg) {
-                    if (msg.Success) {
-                        $.messager.alert('提示', msg.Message, 'info', function () {
-                            //重新加载当前页
-                            $('#grid').datagrid('reload');
-                        });
-                    } else {
-                        $.messager.alert('提示', msg.Message, 'info')
-                    }
-                }, "json");
-            });
-        }
-        function Authority() {
-            var row = $('#grid').datagrid('getSelected');
-            if (row) {
-                window.location.href = "../RoleAuthority/Index?roleId=" + trim(row.ID);
-            }
-        }
-        function refresh() {
-            $('#grid').datagrid('load');
-        }
-
-    </script>
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/role.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/role.cshtml.js" type="text/javascript"></script>
 }
+

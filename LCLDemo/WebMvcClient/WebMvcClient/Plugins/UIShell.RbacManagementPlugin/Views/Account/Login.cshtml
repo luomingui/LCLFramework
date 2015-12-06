@@ -10,24 +10,23 @@
         Layout = null;
     }
     <title>@LAppliction.Config.AppName</title>
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Login/css/body.css"))" />
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))"></script>
+    <link href="/Plugins/UIShell.RbacManagementPlugin/Content/Login/css/body.css" rel="stylesheet" type="text/css" />
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/jquery.min.js"></script>
 </head>
 <body class="login_bgs">
     <noscript>
         <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
-            <img src="~/UIShell.EasyUIAdminShellPlugin/Content/images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+            <img src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/images/noscript.gif" alt='抱歉，请开启脚本支持！' />
         </div>
     </noscript>
     <div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
-        <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;">
-             正在加载中,请稍候...
+        <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px;  ">
+            <img src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/images/1.gif" alt='正在加载中,请稍候.' />
         </div>
     </div>
     <div class="login_bg">
         <div class="login_tit">
-            <img src="@(Url.BundleContent("UIShell.RbacManagementPlugin", "Content/Login/images/logn_tit.png"))" width="284" height="30" alt="login_tit" />
+            <img src="/Plugins/UIShell.RbacManagementPlugin/Content/Login/images/logn_tit.png" width="284" height="30" alt="login_tit" />
         </div>
         <div class="yanzheng"></div>
         <table cellpadding="0" cellspacing="0" class="login_tab">
@@ -47,7 +46,8 @@
             <tr>
                 <td></td>
                 <td colspan="2" class="login_box">
-                <input id="butLogin"  type="button" value="" class="login_bt" onclick="AjaxLogin();" /> <div class="login_gif"></div></td>
+                    <input id="butLogin" type="button" value="" class="login_bt" onclick="AjaxLogin();" /> <div class="login_gif"></div>
+                </td>
             </tr>
 
         </table>
@@ -59,14 +59,6 @@
         if (window.parent.window != window) {
             window.top.location.href = "/UIShell.EasyUIAdminShellPlugin/Home/Index";
         }
-        /*
-       检查浏览器是否支持
-       */
-        var isIE = !!window.ActiveXObject;
-        var isIE6 = isIE && !window.XMLHttpRequest;
-        if (isIE6) {
-            window.location.href = "../Error";
-        }
         //回车键
         document.onkeydown = function (e) {
             if (!e) e = window.event; //火狐中是 window.event
@@ -75,6 +67,9 @@
                 btlogin.focus();
                 btlogin.click();
             }
+        }
+        window.onload = function () {
+            $('#loading-mask').fadeOut();
         }
         $("#Name").focus();
         function AjaxLogin() {
@@ -113,6 +108,5 @@
             });
         }
     </script>
-
 </body>
 </html>

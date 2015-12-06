@@ -19,110 +19,33 @@
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
     <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/icons.css"))" />
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/jquery-1.8.0.min.js"))"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"))" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/outlook2.js"))"></script>
+
+    <!--加载easyui JS-->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/jquery-1.8.0.min.js"))" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))" charset="utf-8"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"></script>
+    <!--加载LCL JS-->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.Base.js"))" type="text/javascript" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.Core.js"))" type="text/javascript" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.Plugins.js"))" type="text/javascript" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.JSON.js"))" type="text/javascript" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.PageModel.js"))" type="text/javascript" charset="utf-8"></script>
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/jquery.easyui.common.js"))" type="text/javascript" charset="utf-8"></script>
+    <!--加载本页面JS-->
+    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/Home.js"))"></script>
     <!-- Favicon -->
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <script type="text/javascript">
-        $(function () {
-            //绑定菜单单击事件
-            BindMenuClickHrefEvent();
-            //读取动态时间的变化
-            ReadDateTimeShow();
-            //这里实现对时间动态的变化
-            var setTimeInterval = setInterval(ReadDateTimeShow, 1000);
-            $("#tabs").contextMenus();
-
-            $('#editpass').click(function () {
-                openPwd();
-                $('#w').window('open');
-            });
-            $('#btnEp').click(function () {
-                serverLogin();
-            })
-            $('#btnCancel').click(function () { closePwd(); })
-            $('#loginOut').click(function () {
-                $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function (r) {
-                    if (r) {
-                        location.href = 'Logout';
-                    }
-                });
-            })
-        });
-        //实现用户单击导航栏跳转页面的方法
-        function BindMenuClickHrefEvent() {
-
-            $(".menulink").bind("click", function () {
-                var title = trim($(this).text());
-                var url = $(this).attr('rel');
-                var iconCls = $(this).attr('iconcss');
-                var iframe = $(this).attr('iframe') == 1 ? true : false;
-                addTab(title, url, iconCls, iframe);
-            });
-        }
-        //设置登录窗口
-        function openPwd() {
-            $('#w').window({
-                title: '修改密码',
-                width: 400,
-                height: 180,
-                modal: true,
-                shadow: false,
-                closed: true,
-                resizable: false,
-                minimizable: false,
-                maximizable: false,
-                collapsible: false
-            });
-        }
-        //关闭登录窗口
-        function closePwd() {
-            $('#w').window('close');
-        }
-        //修改密码
-        function serverLogin() {
-            var $newpass = $('#txtNewPass');
-            var $rePass = $('#txtRePass');
-
-            if ($newpass.val() == '') {
-                msgShow('系统提示', '请输入密码！', 'warning');
-                return false;
-            }
-            if ($rePass.val() == '') {
-                msgShow('系统提示', '请在一次输入密码！', 'warning');
-                return false;
-            }
-
-            if ($newpass.val() != $rePass.val()) {
-                msgShow('系统提示', '两次密码不一至！请重新输入', 'warning');
-                return false;
-            }
-
-            $.post('/ajax/editpassword.ashx?newpass=' + $newpass.val(), function (msg) {
-                msgShow('系统提示', '恭喜，密码修改成功！<br>您的新密码为：' + msg, 'info');
-                $newpass.val('');
-                $rePass.val('');
-                close();
-            })
-
-        }
-    </script>
 </head>
-
 <body style="overflow: hidden; overflow-y: hidden; overflow-x: hidden;" scrolling="no" class="easyui-layout" fit="true">
     <noscript>
         <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
-            <img src="@(Url.BundleContent(BundleActivator.Bundle, "Content/images/noscript.gif"))" alt='抱歉，请开启脚本支持！' />
+            <img src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/images/noscript.gif" alt='抱歉，请开启脚本支持！' />
         </div>
     </noscript>
     <div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
-        <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px;
-text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px;
-font-weight:bold; background:#fff; color:#15428B;">
-            正在加载中,请稍候...
+        <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px;  ">
+            <img src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/images/1.gif" alt='正在加载中,请稍候.' />
         </div>
     </div>
     <!-- head begin -->
@@ -176,7 +99,7 @@ font-weight:bold; background:#fff; color:#15428B;">
     <!-- left end -->
     <!-- center begin -->
     <div id="mainPanle" data-options="region:'center'" style="background: #eee; overflow-y: hidden">
-        <div id="tabs" class="easyui-tabs" fit="true">
+        <div id="tabs" fit="true">
 
             <div title="欢迎使用" data-options="closable:false,iconCls:'icon-tip',cls:'pd3'" style="padding:20px;overflow:hidden; color:red; ">
                 <h1 style="font-size:24px;">* 作者：罗敏贵 QQ：271391233</h1>
@@ -221,8 +144,9 @@ font-weight:bold; background:#fff; color:#15428B;">
         </div>
     </div>
 
+   
     @*<script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/include_script.js"))"></script>
         <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/killie.js"))"></script>
-        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/SetSafe.js"))"></script>*@    
+        <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/SetSafe.js"))"></script>*@
 </body>
 </html>

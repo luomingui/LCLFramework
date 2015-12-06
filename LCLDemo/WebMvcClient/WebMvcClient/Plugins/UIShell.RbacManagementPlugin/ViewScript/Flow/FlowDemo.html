@@ -1,0 +1,94 @@
+<html>
+<head>
+    <title>流程图显示</title>
+    <link type="text/css" rel="Stylesheet" href="Styles/Flow.css" />
+    <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="Styles/Flow.js"></script>
+    <script type="text/javascript">
+        var options = {
+            LanguageID: "2052", //多语言
+            PBOID: 49862094, // 任务ID
+            SiteRoot: "", // 站点跟路径       
+            JsonService: "",
+            Title: "流程图显示",
+            Data: [
+                    {
+                        "NodeName": "审核",
+                        "Text": "审核",
+                        "DisplayType": 0,
+                        "NodeType": 0,
+                        "subNodes": [
+                            {
+                                "NodeName": "TASK_NAME",
+                                "Text": "审核",
+                                "DisplayType": 0,
+                                "NodeType": 1,
+                                "subNodes": [
+                                    {
+                                        "NodeName": "EXECUTORS",
+                                        "Text": "张谋波6396000223",
+                                        "DisplayType": 0,
+                                        "NodeType": 2,
+                                        "subNodes": [],
+                                        "Visible": true,
+                                        "Status": 2
+                                    },
+                                    {
+                                        "NodeName": "VIEWROLE",
+                                        "Text": "产品经理",
+                                        "DisplayType": 0,
+                                        "NodeType": 2,
+                                        "subNodes": [],
+                                        "Visible": true,
+                                        "Status": 2
+                                    },
+                                    {
+                                        "NodeName": "REMARK",
+                                        "Text": "产品经理审核通过后，系统邮件通知售前技术和配置经理 ，流程结束",
+                                        "DisplayType": 0,
+                                        "NodeType": 2,
+                                        "subNodes": [],
+                                        "Visible": true,
+                                        "Status": 2
+                                    }
+                                ],
+                                "Visible": true,
+                                "Status": 2
+                            }
+                        ],
+                        "Visible": true,
+                        "Status": 2
+                    },
+                    {
+                        "NodeName": "审批完成",
+                        "Text": "审批完成",
+                        "DisplayType": 0,
+                        "NodeType": 0,
+                        "subNodes": [],
+                        "Visible": true,
+                        "Status": 3
+                    },
+                    {
+                        "NodeName": "已作废",
+                        "Text": "已作废",
+                        "DisplayType": 0,
+                        "NodeType": 0,
+                        "subNodes": [],
+                        "Visible": true,
+                        "Status": 3
+                    }
+                ]
+        };
+        $("#FlowChart").Flow(options);
+
+  
+
+
+    </script>
+</head>
+<body>
+    <div id="FlowChart">
+    </div>
+    fdsfsdf
+</body>
+</html>

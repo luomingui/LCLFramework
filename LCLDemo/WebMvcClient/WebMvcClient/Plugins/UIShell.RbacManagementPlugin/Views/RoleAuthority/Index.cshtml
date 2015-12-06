@@ -5,7 +5,6 @@
 }
 <!-- Page title -->
 <div class="page-title">
-    
     <h2>角色-><i class="icon-desktop color"></i> 角色权限: <small>显示所有 @ViewData["RoleName"] 角色权限</small></h2>
     <hr />
 </div>
@@ -15,9 +14,9 @@
     <table class="tb_searchbar">
         <tr>
             <td class="td_head" colspan="2">
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="SelectAll();" />全选
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="UnselectAll();" />取消全选
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="$('form1').submit();" />保存
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-chk-checked" plain="true" onclick="SelectAll()">全选</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-chk-unchecked" plain="true" onclick="UnselectAll()">取消全选</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="$('form1').submit();">保存</a>
                 <input type="hidden" id="RoleId" name="RoleId" value="@ViewData["roleid"]" /><br />
             </td>
         </tr>
@@ -49,15 +48,13 @@
         }
     </table>
 }
-
-
 @section scripts{
     <script language="JavaScript">
         function SelectAll() {
             $("[name='moduleName']").attr("checked", 'true');//全选
         }
         function UnselectAll() {
-            $("[name='moduleName']").removeAttr("checked");//取消全选
+            $("[name='moduleName']").removeAttr("checked", 'false');//取消全选
         }
     </script>
 }
