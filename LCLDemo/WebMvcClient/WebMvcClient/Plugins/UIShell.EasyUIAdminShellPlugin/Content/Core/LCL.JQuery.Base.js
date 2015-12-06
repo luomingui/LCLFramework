@@ -2,14 +2,14 @@
 /// <reference path="LCL.JQuery.Core.js" />
 /// <reference path="../../Doc/VsDoc/Core/LCL.JQuery.Page.js" />
 
- var LCLPageConfig = {
-            SystemName: "",
-            SystemURL: "2052",
-            SystemNameSpace: "",
-            CurrLanguageID: "",
-            SiteRoot: "",
-			CurrUserID:""
-        };
+var LCLPageConfig = {
+    SystemName: "",
+    SystemURL: "2052",
+    SystemNameSpace: "",
+    CurrLanguageID: "",
+    SiteRoot: "",
+    CurrUserID: ""
+};
 
 $.LCLBase = {
     SiteConfig: {
@@ -50,8 +50,7 @@ $.LCLBase = {
             var result = "";
             try {
                 result = decodeURI(LCLPageConfig.SystemURL);
-                if (result == "")
-                {
+                if (result == "") {
                     //获取当前网址，如：http://localhost:2005/Repair/AlarmCounty.aspx
                     var curWwwPath = window.document.location.href;
                     //获取主机地址，如： http://localhost:2005
@@ -79,9 +78,9 @@ $.LCLBase = {
             /// <summary>
             /// 获取当前站点的语言，先重界面隐藏控件获取，再从客户端缓存获取
             /// </summary>
-			var result = "";
+            var result = "";
             try {
-                result= decodeURI(LCLPageConfig.CurrUserID);
+                result = decodeURI(LCLPageConfig.CurrUserID);
             } catch (e) {
 
             }
@@ -93,6 +92,18 @@ $.LCLBase = {
             /// </summary>
             try {
                 if (LCLPageConfig.CurrLanguageID) return decodeURI(LCLPageConfig.CurrLanguageID);
+                //ie 
+                if (navigator.browserLanguage != "undefined" && navigator.browserLanguage != null) {
+                    if (navigator.systemLanguage == "zh-CN") {
+                        document.write("<script src='/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js'><\/script>");
+                    }
+                }
+                else {//firefox、chrome,360 
+                    if (navigator.language == "zh-CN") {
+                        document.write("<script src='/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js'><\/script>");
+                    }
+                }
+
             } catch (e) {
 
             }
@@ -180,11 +191,11 @@ var BaseAttr = {
 var SystemResource = new Array("2052", "1033");
 
 SystemResource["2052"] = {
-    CopyRight: "©2008-2013 中兴通讯股份有限公司 版权所有",
+    CopyRight: "©2008-2018 永新科技股份有限公司 版权所有",
     SystemTitle: "iWeb"
 }
 
 SystemResource["1033"] = {
-    CopyRight: "©Copyright by LCL Corp. 2008-2013 ",
+    CopyRight: "©Copyright by LCL Corp. 2008-2018 ",
     SystemTitle: "SOC Security Operation Center"
 }

@@ -7,18 +7,17 @@
         <!-------------------------------搜索框----------------------------------->
         <fieldset>
             <legend>信息查询</legend>
-            <form id="ffSearch" method="post">
-                <div id="toolbar" style="margin-bottom:5px">
+                <div style="margin-bottom:5px">
                     <label class="sr-only" for="Logtype">日志类型:</label>
-                    <select name="Logtype" id="Logtype" class="easyui-combobox" style="width: 120px; height: 25px; text-align:center;">
+                    <select id="Logtype_tlog" class="easyui-combobox" style="width: 120px; height: 25px; text-align:center;">
                         <option value="-1" selected>==日志类型==</option>
                         <option value="0">未指定类型</option>
                         <option value="1">执行命令</option>
                         <option value="2">打开模块</option>
                         <option value="3">登录</option>
                     </select>&nbsp;&nbsp;
-                    <label for="Scope">请选择:</label>
-                    <select name="Scope" id="Scope" class="easyui-combobox" style="width: 150px; height: 25px; text-align: center;">
+                    <label for="Scope_tlog">请选择:</label>
+                    <select id="Scope_tlog" class="easyui-combobox" style="width: 150px; height: 25px; text-align: center;">
                         <option value="" selected>==请选择==</option>
                         <option value="UserName">用户名</option>
                         <option value="UserName">标题</option>
@@ -27,16 +26,15 @@
                         <option value="IP">IP地址</option>
                     </select>&nbsp;&nbsp;
                     <label for="Keyword">搜:</label>
-                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
+                    <input type="text" id="Keyword_tlog" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
                     &nbsp;
-                    <a id="btnSearch" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                    <a id="btnSearch_tlog" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
                 </div>
-            </form>
         </fieldset>
     </div>
     <div data-options="region:'center'">
         <!-------------------------------详细信息展示表格----------------------------------->
-        <table id="grid" title="系统操作日志" data-options="iconCls:'icon-view'" fit="true"></table>
+        <table id="grid_tlog" title="系统操作日志" data-options="iconCls:'icon-view'" fit="true"></table>
     </div>
 </div>
 @section scripts{
@@ -44,7 +42,7 @@
         var root = "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "TLog"))/";
         var LCL = {
             gridinit: function () {
-                $('#grid').datagrid({
+                $('#grid_tlog').datagrid({
                     url: root + "AjaxGetByPage",
                     loadMsg: '数据加载中....',
                     title: '系统操作日志信息一览表',
@@ -66,21 +64,19 @@
                 });
             },
             datagrid: function () {
-                $('#grid').datagrid('reload');
+                $('#grid_tlog').datagrid('reload');
             },
             search: function (data) {
-                $('#grid').datagrid('load', data);
+                $('#grid_tlog').datagrid('load', data);
             }
         };
         $(document).ready(function () {
             LCL.gridinit();
-
             var queryPram =
             {
                 key: $('#Keyword').val()
             };
-
-            $('#btnSearch').click(function () { LCL.search(queryPram); });
+            $('#btnSearch_tlog').click(function () { LCL.search(queryPram); });
         });
     </script>
 }
