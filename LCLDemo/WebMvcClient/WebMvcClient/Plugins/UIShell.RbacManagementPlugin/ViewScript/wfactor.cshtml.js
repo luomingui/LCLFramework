@@ -39,7 +39,9 @@ function InitControls() {
 function InitEvent() {
     $('#btnAddwfactor').click(function () { pageFunc_wfactorAdd(); });
     $('#btnDelwfactor').click(function () { pageFunc_wfactorDel(); });
-    $('#btnSearchwfactor').click(function () { pageFunc_SearchDatawfactor(); });
+    //$('#btnSearchwfactor').click(function () { pageFunc_SearchDatawfactor(); });
+    
+    $('#btnSearcwfactoruser').click(function () { pageFunc_EmpSingleSelect(); });
 }
 function InitGrid() {
     $('#grid_wfactor').datagrid({
@@ -242,3 +244,27 @@ function grid_wfactor_toolbar() {
     return ihtml;
 }
 
+function pageFunc_EmpSingleSelect()
+{
+    $("<div/>").dialog({
+        id: "ui_UserSelect_dialog",
+        href: pageAttr.JsonServerURL + "User/UserSelect",
+        title: "选择用户",
+        height: 250,
+        width: 400,
+        modal: true,
+        buttons: [{
+            id: "ui_UserSelect_btn",
+            text: '确 定',
+            handler: function () {
+             
+            }
+        }],
+        onLoad: function () {
+       
+        },
+        onClose: function () {
+            $("#ui_UserSelect_btn").dialog('destroy');  //销毁dialog对象
+        }
+    });
+}

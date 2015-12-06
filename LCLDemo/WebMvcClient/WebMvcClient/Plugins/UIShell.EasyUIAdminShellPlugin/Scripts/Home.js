@@ -26,6 +26,17 @@ function InitAttribute() {
 //初始化多语言
 function InitLanguage() {
     $.LCLPageModel.Resource.InitLanguage();
+    ////ie 
+    //if (navigator.browserLanguage != "undefined" && navigator.browserLanguage != null) {
+    //    if (navigator.systemLanguage == "zh-CN") {
+    //        document.write("<script src='/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js'><\/script>");
+    //    }
+    //}
+    //else {//firefox、chrome,360 
+    //    if (navigator.language == "zh-CN") {
+    //        document.write("<script src='/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js'><\/script>");
+    //    }
+    //}
 }
 //初始化控件
 function InitControls() {

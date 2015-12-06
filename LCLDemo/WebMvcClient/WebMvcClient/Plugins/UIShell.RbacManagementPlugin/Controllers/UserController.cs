@@ -65,6 +65,11 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             return base.AjaxAdd(model);
         }
+
+        public ActionResult UserSelect()
+        {
+            return View("UserSelect.cshtml");
+        }
     }
 }
 
