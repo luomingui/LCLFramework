@@ -42,7 +42,7 @@ namespace UIShell.WinUI.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public CustomJsonResult AjaxGetByRoutId(int? page, int? rows,Guid routId)
+        public CustomJsonResult AjaxGetByRoutId(int? page, int? rows, Guid routId)
         {
             if (!page.HasValue) page = 1;
             if (!rows.HasValue) rows = PagedResult<WFActor>.DefaultPageSize;
@@ -73,11 +73,29 @@ namespace UIShell.WinUI.Controllers
         public override CustomJsonResult AjaxAdd(WFActor model)
         {
             var routId = LRequest.GetString("Rout_ID");
-            if (model.Rout == null&&routId!=null)
+            if (model.Rout == null && routId != null)
             {
-                model.Rout = new WFRout { ID=Guid.Parse(routId) };
+                model.Rout = new WFRout { ID = Guid.Parse(routId) };
             }
             return base.AjaxAdd(model);
+        }
+        [HttpPost]
+        public CustomJsonResult AjaxAddActorUser(Guid actorId, IList<Guid> idUserList)
+        {
+            var result = new Result(true);
+            try
+            {
+                repo.AjaxAddActorUser(actorId, idUserList);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("AjaxAddActorUser", ex);
+                result = new Result(false);
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+            return json;
         }
     }
 }

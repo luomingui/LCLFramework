@@ -40,7 +40,7 @@ function InitEvent() {
     $('#btnAddwfactor').click(function () { pageFunc_wfactorAdd(); });
     $('#btnDelwfactor').click(function () { pageFunc_wfactorDel(); });
     //$('#btnSearchwfactor').click(function () { pageFunc_SearchDatawfactor(); });
-    
+
     $('#btnSearcwfactoruser').click(function () { pageFunc_EmpSingleSelect(); });
 }
 function InitGrid() {
@@ -63,7 +63,8 @@ function InitGrid() {
                 {
                     field: 'opt', title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Grid_Operate, width: 120, align: 'center',
                     formatter: function (value, rec, index) {
-                        return '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="pageFunc_wfactorEdit(\'' + rec.ID + '\')">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Edit + '</a>&nbsp;'
+                        return '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="pageFunc_EmpSingleSelect(\'' + rec.ID + '\')">权限</a>&nbsp;'
+                             + '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="pageFunc_wfactorEdit(\'' + rec.ID + '\')">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Edit + '</a>&nbsp;'
                              + '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="pageFunc_wfactorDel()"> ' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del + '</a>&nbsp;';
                     }
                 }
@@ -244,27 +245,46 @@ function grid_wfactor_toolbar() {
     return ihtml;
 }
 
-function pageFunc_EmpSingleSelect()
-{
+function pageFunc_EmpSingleSelect(ID) {
     $("<div/>").dialog({
         id: "ui_UserSelect_dialog",
-        href: pageAttr.JsonServerURL + "User/UserSelect",
+        href: pageAttr.JsonServerURL + "User/UserSelect?actorid=" + ID,
         title: "选择用户",
-        height: 250,
-        width: 400,
+        iconCls: 'icon-edit',
+        width: 500,
+        height: 350,
         modal: true,
         buttons: [{
             id: "ui_UserSelect_btn",
             text: '确 定',
+            iconCls: "icon-ok",
             handler: function () {
-             
+                var parm = 'actorId=' + ID;
+                $("#litGrant option").each(function (i) {
+                    parm += "&idUserList=" + this.value;
+                });
+                debugger;
+                if (parm.length > 0) {
+                    $.LCLMessageBox.Confirm($.LCLPageModel.Resource.PageLanguageResource.LCLMessageBox_Message4, function (r) {
+                        if (r) {
+                            //页面遮盖层
+                            $(document.body).LoadingMask($.LCLBase.SiteConfig.GetCurrLanguageID());
+                            var ajaxUrl = pageAttr.JsonServerURL + 'WFActor/AjaxAddActorUser/';
+                            $.post(ajaxUrl, parm,
+                            function (resultData) {
+                                if (resultData.Success) {
+                                    $.LCLMessageBox.Alert(resultData.Message, function () {
+                                        InitGrid();
+                                    });
+                                } else {
+                                    $.LCLMessageBox.Alert(resultData.Message);
+                                }
+                                $(document.body).UnLoadingMask();
+                            }, "json");
+                        }
+                    });
+                }
             }
-        }],
-        onLoad: function () {
-       
-        },
-        onClose: function () {
-            $("#ui_UserSelect_btn").dialog('destroy');  //销毁dialog对象
-        }
+        }]
     });
 }

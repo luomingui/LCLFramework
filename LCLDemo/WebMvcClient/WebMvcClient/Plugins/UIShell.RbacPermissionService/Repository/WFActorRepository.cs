@@ -24,6 +24,7 @@ namespace UIShell.RbacPermissionService
     public interface IWFActorRepository : IRepository<WFActor>
     {
         List<WFActor> AjaxGetByRoutId(Guid routId);
+        void AjaxAddActorUser(Guid actorId, IList<Guid> idUserList);
     }
     public class WFActorRepository : EntityFrameworkRepository<WFActor>, IWFActorRepository
     {
@@ -37,6 +38,21 @@ namespace UIShell.RbacPermissionService
             var spec = Specification<WFActor>.Eval(p => p.Rout.ID == routId);
             var pageList = this.FindAll(spec, p => p.SortNo, LCL.SortOrder.Ascending);
             return pageList.ToList();
+        }
+        public void AjaxAddActorUser(Guid actorId, IList<Guid> idUserList)
+        {
+            var rf = RF.Concrete<IWFActorUserRepository>();
+            for (int i = 0; i < idUserList.Count; i++)
+            {
+                rf.Create(new WFActorUser
+                {
+                    ID=Guid.NewGuid(),
+                    OperateUserId = idUserList[i],
+                    Actor = new WFActor { ID = actorId }
+                }); 
+                rf.Context.Commit();
+            }
+          
         }
     }
 }

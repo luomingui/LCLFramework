@@ -1,35 +1,73 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <base target="_self" />
-    <title>人员选择器</title>
-    <link id="easyuiTheme" rel="stylesheet" type="text/css" href="../../Content/css/wu.css" />
-    <link id="easyuiTheme" rel="stylesheet" type="text/css" href="../../Content/easyui/1.3.4/themes/default/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="../../Content/css/icon.css" />
-    <script type="text/javascript" src="../../Content/js/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="../../Content/easyui/1.3.4/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../../Content/js/Common.js"></script>
+<!-- 参与人员选择器-->
+<table class="tb_searchbar" cellspacing="1" cellpadding="0" border="0">
+    <tr>
+        <td class="td_title" nowrap>
+            <label style="color: black" id="labModelCode">
+                所属组织
+            </label>
+        </td>
+        <td class="td_detail" colspan="3">
+            <select id="txt_UserSelect_Department" class='easyui-combotree'
+                    data-options='url:"/UIShell.RbacManagementPlugin/Department/AjaxEasyUITree_Department"'
+                    style='width: 120px; height: 28px;' tabindex="16" class="easyui-validatebox"></select>
+        </td>
+    </tr>
+    <tr>
+        <td class="td_title">
+            <label style="color: black" id="labModelCode">
+                姓名
+            </label>
+        </td>
+        <td class="td_detail">
+            <input type="text" id="txt_UserSelect_key" name="txt_UserSelect_key" value="" />&nbsp;
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" plain="true" id="btn_UserSelect_Search">查询</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" plain="true" id="btn_UserSelect_Reset">清空</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table class="tb_input" cellspacing="0" cellpadding="4" width="100%" border="0">
+                <tr>
+                    <td class="td_detail" style="width: 369px">
+                        <label style="color: black" id="labModelCode">
+                            查询结果
+                        </label><br>
+                        <select id="lstSource" name="lstSource" class="lstSource"
+                                style="width: 200px; height: 151px;" multiple="true"></select>
+                    </td>
+                    <td class="td_detail" style="width: 2px;">
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="lbtnSelAll" style=" width:50px; height:25px;">>></a>
+                        <br />
+                        <br />
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="lbtnSel" style=" width: 50px; height: 25px;">></a>
+                        <br />
+                        <br />
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="lbtnDel" style=" width: 50px; height: 25px;"><</a>
+                        <br />
+                        <br />
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="lbtnDelAll" style=" width: 50px; height: 25px;"><<</a>
+                    </td>
+                    <td class="td_detail">
+                        <label style="color: black" id="labModelCode">
+                            被授权人员
+                        </label><br>
+                        <select id="litGrant" name="litGrant" class="lstSource"
+                                style="width: 200px; height: 151px;" multiple="true"></select>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+@section scripts{
     <script language="javascript" type="text/javascript">
-        function GetSelectorgCompanyValue() {
-            var returnValue;
-            returnValue = openModalDialog('/univ/EmployeeTrain/SsoLogin.aspx?pageName=selectorg_company', '组织选择', 400, 560);
-            if (returnValue != null && returnValue.length > 0) {
-                document.getElementById('hidCompanyId').value = returnValue[0];
-                document.getElementById('txtCompanyId').value = returnValue[1];
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
         function GetReturnValue() {
             var returnValue = "";
             $("#litGrant option").each(function (i) {
                 returnValue += this.value;
                 returnValue += "$";
             });
-            window.returnValue = returnValue;
-            window.close();
+            return returnValue;
         }
         //添加
         function addToSelect() {
@@ -50,9 +88,33 @@
         function removeFromSelectAll() {
             $("#litGrant").empty();
         }
+        //查询
+        function UserSelectSearch() {
+            var t = $('#txt_UserSelect_Department').combotree('tree');
+            var n = t.tree('getSelected');
+            var parm = {
+                depId: n.id,
+                key: $('#txt_UserSelect_key').val()
+            };
+            //页面遮盖层
+            $(document.body).LoadingMask($.LCLBase.SiteConfig.GetCurrLanguageID());
+            var ajaxUrl = "/UIShell.RbacManagementPlugin/User/AjaxGetUserList?depId=" + parm.depId + "&key=" + parm.key + "";
+            $.LCLCore.Ajax.CallAjaxPostJsonData(ajaxUrl, parm, function (resultData) {
+                if (resultData.Success) {
+                    $("#lstSource").empty();
+                    if (resultData.DataObject != null && resultData.DataObject.length > 0) {
+                        for (var i = 0; i < resultData.DataObject.length; i++) {
+                            $("#lstSource").append("<option value='" + resultData.DataObject[i].ID + "'>" + resultData.DataObject[i].Name + "</option>");
+                        }
+                    }
+                }
+                $(document.body).UnLoadingMask();
+            }, function (XMLHttpRequest, textStatus, errorThrown) {
+                $(document.body).UnLoadingMask();
+            });
+        }
         //页面入口
         $(document).ready(function () {
-
             $("#lbtnSelAll").click(function () {
                 addToSelectAll();
             });
@@ -65,94 +127,10 @@
             $("#lbtnDelAll").click(function () {
                 removeFromSelectAll();
             });
+            $("#btn_UserSelect_Search").click(function () {
+                UserSelectSearch();
+            });
+
         });
     </script>
-</head>
-<body>
-    <div>
-        <!-- 参与人员选择器-->
-        <table class="tb_searchbar" cellspacing="1" cellpadding="0" border="0">
-            <tr>
-                <td colspan="2">
-                    <img src="../../Content/images/search1.gif" class="icon" alt="请填写查询条件" style="cursor: pointer" />
-                    <label style="color: black" id="labModelCode">
-                        请填写查询条件</label>
-                </td>
-            </tr>
-            <tr>
-                <td class="td_title" nowrap>
-                    <label style="color: black" id="labModelCode">
-                        所属组织</label>
-                </td>
-                <td class="td_detail" colspan="3">
-                    <input type="text" id="txtOrgName" name="txtOrgName" value="" />
-                    <input type="hidden" id="txtOrgId" name="txtOrgId" value="" />
-                    <a href="javascript:void(0)" onclick="return GetSelectorgCompanyValue();">
-                        <img alt="选择组织" src="../../Content/Images/search1.gif" class="icon" style="width: 13px;
-                            height: 13px; cursor: pointer; border: 0px;" />
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td class="td_title">
-                    <label style="color: black" id="labModelCode">
-                        姓名</label>
-                </td>
-                <td class="td_detail">
-                    <input type="text" id="txtUserName" name="txtUserName" value="" />&nbsp; <a href="#"
-                        class="easyui-linkbutton" id="btnSearch">查询</a> <a href="#" class="easyui-linkbutton"
-                            id="btnReset">清空</a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <table class="tb_input" cellspacing="0" cellpadding="4" width="100%" border="0">
-                        <tr>
-                            <td class="td_detail" style="width: 369px">
-                                <label style="color: black" id="labModelCode">
-                                    查询结果</label><br>
-                                <select id="lstSource" name="lstSource" class="lstSource" style="width: 368px; height: 151px;"
-                                    multiple="true">
-                                    <option value="1">测试数据1</option>
-                                    <option value="2">测试数据2</option>
-                                    <option value="3">测试数据3</option>
-                                    <option value="4">测试数据4</option>
-                                    <option value="5">测试数据5</option>
-                                    <option value="6">测试数据6</option>
-                                </select>
-                            </td>
-                            <td class="td_detail" id="TD1" style="width: 2px">
-                                <a href="#" class="easyui-linkbutton" id="lbtnSelAll">>></a>
-                                <br />
-                                <br />
-                                <a href="#" class="easyui-linkbutton" id="lbtnSel">></a>
-                                <br />
-                                <br />
-                                <a href="#" class="easyui-linkbutton" id="lbtnDel"><</a>
-                                <br />
-                                <br />
-                                <a href="#" class="easyui-linkbutton" id="lbtnDelAll"><<</a>
-                            </td>
-                            <td class="td_detail">
-                                <label style="color: black" id="labModelCode">
-                                    被授权人员</label><br>
-                                <select id="litGrant" name="litGrant" class="lstSource" style="width: 368px; height: 151px;"
-                                    multiple="true">
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <table class="tb_searchbar" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-                <td align="right" colspan="7">
-                    <a href="#" class="easyui-linkbutton" id="btnConfirm">确定</a> <a href="#" class="easyui-linkbutton"
-                        id="btnCancel">关闭</a> &nbsp;&nbsp;
-                </td>
-            </tr>
-        </table>
-    </div>
-</body>
-</html>
+}

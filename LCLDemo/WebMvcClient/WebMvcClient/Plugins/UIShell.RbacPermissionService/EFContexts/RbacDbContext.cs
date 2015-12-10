@@ -14,7 +14,7 @@ namespace UIShell.RbacPermissionService
         public RbacDbContext()
             : base("LCL")
         {
-            this.Configuration.AutoDetectChangesEnabled = true;
+            this.Configuration.AutoDetectChangesEnabled = false;
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
         }

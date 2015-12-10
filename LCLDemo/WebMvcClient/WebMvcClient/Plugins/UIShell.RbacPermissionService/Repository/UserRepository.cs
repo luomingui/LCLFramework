@@ -23,6 +23,7 @@ namespace UIShell.RbacPermissionService
     public interface IUserRepository : IRepository<User>
     {
         List<User> GetDepartmentUsers(Guid depId);
+        List<User> GetDepartmentUsers(Guid depId,string key);
         User GetUserByName(string name);
         User GetUserByLoginName();
         bool ChangePassword(string userId, string password);
@@ -49,6 +50,16 @@ namespace UIShell.RbacPermissionService
                 var datatable = DbFactory.DBA.QueryDataTable("SELECT * FROM [User] WHERE Department_ID='" + depId + "'");
                 return datatable.ToArray<User>().ToList();
             }
+        }
+        public List<User> GetDepartmentUsers(Guid depId,string key)
+        {
+            var spec = Specification<User>.Eval(p => p.Department.ID == depId);
+            if (!string.IsNullOrWhiteSpace(key))
+            { 
+              spec.And(new KeyUserSpecification(key,"Name"));
+            }         
+            return this.FindAll(spec).ToList();
+
         }
         public User GetUserByName(string name)
         {

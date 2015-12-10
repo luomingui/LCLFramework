@@ -119,6 +119,7 @@
     <Compile Include="Security\MyAuthorizeAttribute.cs" />
     <Compile Include="Security\RbacController.cs" />
     <Compile Include="Specifications\DepartmentSpecifications.cs" />
+    <Compile Include="Specifications\UserSpecifications.cs" />
     <Compile Include="ValidationModel\Department.cs" />
     <Compile Include="ValidationModel\Dictionary.cs" />
     <Compile Include="ValidationModel\DictType.cs" />

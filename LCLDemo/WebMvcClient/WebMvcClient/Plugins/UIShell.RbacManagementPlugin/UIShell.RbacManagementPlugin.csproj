@@ -105,6 +105,9 @@
     <Compile Include="Controllers\WFActorController.cs" />
     <Compile Include="Controllers\WFRoutController.cs" />
     <Compile Include="Controllers\XzqyController.cs" />
+    <Compile Include="JsonService\Flow.ashx.cs">
+      <DependentUpon>Flow.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +185,7 @@
     <Content Include="ViewScript\xzqy.cshtml.js" />
     <Content Include="ViewScript\xzqy.cshtml.LanguageResource.js" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="JsonService\Flow.ashx" />
     <None Include="Views\User\UserSelect.cshtml" />
     <Content Include="Views\WFActor\Index.cshtml" />
     <Content Include="ViewScript\Flow\jsonData.json" />

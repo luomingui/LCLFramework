@@ -65,10 +65,33 @@ namespace UIShell.RbacManagementPlugin.Controllers
             }
             return base.AjaxAdd(model);
         }
-
+        /// <summary>
+        /// »À‘±—°‘Ò∆˜
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UserSelect()
         {
-            return View("UserSelect.cshtml");
+            return View("UserSelect");
+        }
+
+        [HttpPost]
+        public CustomJsonResult AjaxGetUserList(string depId, string key)
+        {
+            var result = new Result(true);
+            try
+            {
+                var list = repo.GetDepartmentUsers(Guid.Parse(depId), key);
+                result.DataObject = list;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("AjaxGetUserList", ex);
+                result = new Result(false);
+            }
+            var json = new CustomJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+            return json;
         }
     }
 }
