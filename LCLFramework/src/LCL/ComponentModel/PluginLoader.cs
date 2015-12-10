@@ -98,7 +98,7 @@ namespace LCL.ComponentModel
                 {
                     if (ex.InnerException != null)
                         ex = ex.InnerException;
-                    //Logger.LogError("LCL GetAssemblies PluginAssembly " + assembly.GetName().Name, ex);
+                    Logger.LogError("LCL GetAssemblies PluginAssembly " + assembly.GetName().Name, ex);
                 }
             }
             return plugins.OrderBy(a => a.Instance.SetupLevel).ToList();

@@ -12,6 +12,7 @@ namespace LCL.Data
     /// </summary>
     public class DbConnectionSchema
     {
+        public const string Provider_SQLite = "System.Data.SQLite";
         public const string Provider_SqlClient = "System.Data.SqlClient";
         public const string Provider_SqlCe = "System.Data.SqlServerCe";
         public const string Provider_Oracle = "System.Data.OracleClient";

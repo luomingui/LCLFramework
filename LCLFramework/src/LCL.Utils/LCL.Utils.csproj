@@ -44,6 +44,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Caching" />
@@ -80,6 +84,7 @@
     <Compile Include="Cookie&amp;Session&amp;Cache\CookieHelper.cs" />
     <Compile Include="Cookie&amp;Session&amp;Cache\SessionHelper.cs" />
     <Compile Include="Cookie&amp;Session&amp;Cache\SessionHelper2.cs" />
+    <Compile Include="Data\SQLiteDBHelper.cs" />
     <Compile Include="Device\AudioHelper.cs" />
     <Compile Include="Device\Camera.cs" />
     <Compile Include="Device\MP3Helper.cs" />
