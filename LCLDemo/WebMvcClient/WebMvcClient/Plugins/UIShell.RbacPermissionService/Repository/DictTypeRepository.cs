@@ -14,7 +14,7 @@ using LCL.Repositories.EntityFramework;
 using System;
 using System.Collections.Generic;
 
-namespace UIShell.RbacPermissionService  
+namespace UIShell.RbacPermissionService
 {
     public interface IDictTypeRepository : IRepository<DictType>
     {
@@ -30,6 +30,11 @@ namespace UIShell.RbacPermissionService
             this.className = typeof(DictType).Name;
             this.cacheKey = "LCL_Cache_" + className;
         }
+        protected override void DoRemove(object keyValue)
+        {
+            DbFactory.DBA.ExecuteText("delete from Dictionary where DictType_ID='" + keyValue + "'");
+            base.DoRemove(keyValue);
+        }
         public string GetByName(Guid id)
         {
             try
@@ -43,5 +48,5 @@ namespace UIShell.RbacPermissionService
             }
         }
     }
-}  
+}
 

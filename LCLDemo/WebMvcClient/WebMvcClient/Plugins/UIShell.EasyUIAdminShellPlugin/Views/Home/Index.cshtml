@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     @using LCL.MvcExtensions;
     @using UIShell.EasyUIAdminShellPlugin;
@@ -15,25 +15,24 @@
     <meta name="copyright" content="All Rights Reserved, Copyright (C) 2015, luomg, Ltd." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/default/easyui.css"))" />
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/themes/icon.css"))" />
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/easyuiDefault.css"))" />
-    <link rel="stylesheet" type="text/css" href="@(Url.BundleContent(BundleActivator.Bundle, "Content/icons.css"))" />
-
+    <link rel="stylesheet" type="text/css" href="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/easyuiDefault.css" />
+    <link rel="stylesheet" type="text/css" href="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/icons.css" />
     <!--加载easyui JS-->
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/jquery-1.8.0.min.js"))" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.min.js"))" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/JQueryEasyUI/jquery.easyui.min.js"))" charset="utf-8"></script>
-    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/jquery.min.js"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/jquery.easyui.min.js"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
     <!--加载LCL JS-->
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.Base.js"))" type="text/javascript" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.Core.js"))" type="text/javascript" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.Plugins.js"))" type="text/javascript" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.JQuery.JSON.js"))" type="text/javascript" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/Core/LCL.PageModel.js"))" type="text/javascript" charset="utf-8"></script>
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Content/jquery.easyui.common.js"))" type="text/javascript" charset="utf-8"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/Core/LCL.JQuery.Base.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/Core/LCL.JQuery.Core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/Core/LCL.JQuery.Plugins.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/Core/LCL.JQuery.JSON.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/Core/LCL.PageModel.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/jquery.easyui.common.js" type="text/javascript" charset="utf-8"></script>
     <!--加载本页面JS-->
-    <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/Home.js"))"></script>
+    <script src="/Plugins/UIShell.EasyUIAdminShellPlugin/Scripts/Home.js"></script>
     <!-- Favicon -->
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
@@ -48,7 +47,7 @@
             <img src="/Plugins/UIShell.EasyUIAdminShellPlugin/Content/images/1.gif" alt='正在加载中,请稍候.' />
         </div>
     </div>
-    <input type="hidden" id="hidLanguageID" value="2052">
+    <input type="hidden" id="hidLanguageID" value="2052" />
     <!-- head begin -->
     <div data-options="region:'north'" style="overflow: hidden;height:55px;">
         <div class="index_top_box">
@@ -101,14 +100,13 @@
     <!-- center begin -->
     <div id="mainPanle" data-options="region:'center'" style="background: #eee; overflow-y: hidden">
         <div id="tabs" fit="true">
-
-            <div title="欢迎使用" data-options="closable:false,iconCls:'icon-tip',cls:'pd3'" style="padding:20px;overflow:hidden; color:red; ">
+            <div title="欢迎使用" data-options="closable:false,iconCls:'icon-tip',cls:'pd3'" 
+                 style="padding:20px;overflow:hidden; color:red; ">
                 <h1 style="font-size:24px;">* 作者：罗敏贵 QQ：271391233</h1>
                 <h1 style="font-size:24px;">* BLOG: <a style="font-size:24px;color:green;" href="http://luomingui.cnblogs.com" target="_blank">博客</a></h1>
                 <h1 style="font-size:24px;">* 讨论群：34178394</h1>
                 <h1 style="font-size:24px;">* 广告：本人承接各类大中小型管理系统的软件的设计与开发，有需要的朋友联系我啦~~~~</h1>
             </div>
-
         </div>
     </div>
     <!-- center end -->
@@ -145,7 +143,6 @@
         </div>
     </div>
 
-   
     @*<script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/include_script.js"))"></script>
         <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/killie.js"))"></script>
         <script src="@(Url.BundleContent(BundleActivator.Bundle, "Scripts/SetSafe.js"))"></script>*@

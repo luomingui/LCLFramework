@@ -29,7 +29,7 @@ namespace UIShell.RbacPermissionService
             : base(context)  
         {   
           
-        }  
+        }
     }  
 }  
 

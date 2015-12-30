@@ -5,15 +5,15 @@
             <legend id="search_title">信息查询</legend>
             <div id="ui_wfrout_search" style="margin-bottom:5px">
                 <label id="search_key">搜:</label>
-                <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
-                &nbsp;
-                <a id="btnSearchwfrout" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                <input type="text" name="Keyword" id="Keyword" class="easyui-textbox"
+                       style="width: 220px; height: 25px; text-align: center;" />&nbsp;
+                <a id="btnSearchwfrout" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
             </div>
         </fieldset>
     </div>
     <div data-options="region:'center'">
         <!-------------------------------详细信息展示表格----------------------------------->
-        <table id="grid_wfrout" data-options="iconCls:'icon-view'" fit="true"></table>
+        <table id="grid_wfrout" fit="true"></table>
         <!--   弹出框       -->
         <div id="win_wfrout" iconcls="icon-edit" style="width: 600px; height: 380px; padding: 5px;background: #fafafa;">
             <form id="ffwfrout" method="post">
@@ -28,7 +28,7 @@
                         <tr>
                             <td class="td_title"><label style="color: black" id="ff_lab_wfrout_deptid">部门ID</label></td>
                             <td>
-                                <input type="text" id="wfrout_Entity_DeptId" name="wfrout_EntityDeptId" value="" style="width:310px" data-options="required:true" maxlength="16" tabindex="2" />
+                                <select id="wfrout_Entity_DeptId" class='easyui-combotree' data-options='url:"/UIShell.RbacManagementPlugin/Department/AjaxEasyUITree_Department"' style='width: 120px; height: 28px;' tabindex="16" class="easyui-validatebox"></select>
                             </td>
                         </tr>
                         <tr>

@@ -12,24 +12,30 @@ namespace UIShell.RbacPermissionService
     public partial class WFRout : BaseModel
     {
         /// <summary>
-        /// 流程描述
+        /// 流程名称
         /// </summary>
         public string Name { get; set; }
         /// <summary>
         /// 部门ID 
         /// </summary>
-        public Guid DeptId { get; set; }
+        public Guid DepID { get; set; }
         /// <summary>
         /// 版本号
         /// </summary>
         public string Version { get; set; }
         /// <summary>
-        /// 状态(发布，草稿，删除)
+        /// 状态
         /// </summary>
         public int State { get; set; }
         /// <summary>
         /// 是否启用
         /// </summary>
         public bool IsEnable { get; set; }
+        /// <summary>
+        /// 设定审批人分为
+        /// </summary>
+        public int  SetApprovalPerson { get; set; }
     }
+
+
 }

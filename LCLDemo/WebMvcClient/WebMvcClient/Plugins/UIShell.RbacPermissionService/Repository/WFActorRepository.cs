@@ -23,8 +23,9 @@ namespace UIShell.RbacPermissionService
 {
     public interface IWFActorRepository : IRepository<WFActor>
     {
-        List<WFActor> AjaxGetByRoutId(Guid routId);
-        void AjaxAddActorUser(Guid actorId, IList<Guid> idUserList);
+        List<WFActor> GetByRoutId(Guid routId);
+        List<WFActorUser> GetActorUserByActorId(Guid actorId);
+        void AddActorUser(Guid actorId, IList<Guid> idUserList);
     }
     public class WFActorRepository : EntityFrameworkRepository<WFActor>, IWFActorRepository
     {
@@ -33,26 +34,32 @@ namespace UIShell.RbacPermissionService
         {
 
         }
-        public List<WFActor> AjaxGetByRoutId(Guid routId)
+        public List<WFActor> GetByRoutId(Guid routId)
         {
-            var spec = Specification<WFActor>.Eval(p => p.Rout.ID == routId);
+            var spec = Specification<WFActor>.Eval(p => p.Rout_ID == routId);
             var pageList = this.FindAll(spec, p => p.SortNo, LCL.SortOrder.Ascending);
             return pageList.ToList();
         }
-        public void AjaxAddActorUser(Guid actorId, IList<Guid> idUserList)
+        public void AddActorUser(Guid actorId, IList<Guid> idUserList)
         {
             var rf = RF.Concrete<IWFActorUserRepository>();
             for (int i = 0; i < idUserList.Count; i++)
             {
                 rf.Create(new WFActorUser
                 {
-                    ID=Guid.NewGuid(),
-                    OperateUserId = idUserList[i],
+                    ID = Guid.NewGuid(),
+                    User = new User { ID = idUserList[i] },
                     Actor = new WFActor { ID = actorId }
-                }); 
+                });
                 rf.Context.Commit();
             }
-          
+
+        }
+        public List<WFActorUser> GetActorUserByActorId(Guid actorId)
+        {
+            var spec = Specification<WFActorUser>.Eval(p => p.Actor.ID == actorId);
+            var pageList = RF.Concrete<IWFActorUserRepository>().FindAll(spec, p => p.UpdateDate, LCL.SortOrder.Ascending);
+            return pageList.ToList();
         }
     }
 }

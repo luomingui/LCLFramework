@@ -59,9 +59,9 @@ VALUES(@ID,@BlockKey,@ModuleKey,@OperationKey,@Level,@NodePath,@AuthorityType,@A
             try
             {
                 var user = RF.Concrete<IUserRepository>().GetUserByLoginName();
-                if (user != null && user.Role != null)
+                if (user != null && user.Roles != null)
                 {
-                    var roleIds = user.Role.Select(p => p.ID).ToArray();
+                    var roleIds = user.Roles.Select(p => p.ID).ToArray();
                     if (roleIds != null && roleIds.Length > 0)
                     {
                         string str = string.Join(",", roleIds);
@@ -74,7 +74,6 @@ VALUES(@ID,@BlockKey,@ModuleKey,@OperationKey,@Level,@NodePath,@AuthorityType,@A
                         }
                     }
                 }
-                //
                 return true;
             }
             catch (Exception ex)

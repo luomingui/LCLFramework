@@ -1,5 +1,6 @@
 ﻿using LCL;
 using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -12,33 +13,21 @@ namespace UIShell.RbacPermissionService
     {
         protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)
         {
+            bool IsFlg = false;
             try
             {
-                if (LCL.LEnvironment.Principal.Identity.Name.Length > 1)
+                var identity = HttpContext.Current.Session["LCLPrincipal"];
+                if (identity != null)
                 {
-                    return true;
+                    LEnvironment.Principal = (LCLPrincipal)identity;
+                    IsFlg = true;
                 }
-                else
-                {
-                    return false;
-                }
-                //if (httpContext != null)
-                //{
-                //    if (httpContext.User.Identity.IsAuthenticated)
-                //    {
-                //        return true;
-                //    }
-                //}
-                //else
-                //{
-                //    return false;
-                //}
             }
             catch (Exception ex)
             {
                 Logger.LogError("统一认证:", ex);
             }
-            return false;
+            return IsFlg;
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {

@@ -18,6 +18,6 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 处理人ID
         /// </summary>
-        public Guid OperateUserId { get; set; }
+        public User User { get; set; }
     }
 }

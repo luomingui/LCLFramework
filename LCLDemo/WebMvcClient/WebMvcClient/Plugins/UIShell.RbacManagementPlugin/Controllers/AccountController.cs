@@ -76,7 +76,6 @@ namespace UIShell.RbacManagementPlugin.Controllers
             else
             {
                 result = new Result(true);
-              
                 var identity = LCL.LEnvironment.Principal.Identity as LCLIdentity;
                 if (identity != null)
                 {
@@ -90,7 +89,6 @@ namespace UIShell.RbacManagementPlugin.Controllers
                     }
                 }
             }
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         private RedirectResult RedirectIndex()

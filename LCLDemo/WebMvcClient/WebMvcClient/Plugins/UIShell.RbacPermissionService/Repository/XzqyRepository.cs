@@ -70,9 +70,9 @@ namespace UIShell.RbacPermissionService
         b.Name AS City ,
         c.ID AS CountyId,
         c.Name AS County
-FROM    dbo.Xzqy a
+FROM    Xzqy a
         INNER JOIN dbo.Xzqy b ON b.ParentId = a.ID
-        INNER JOIN dbo.Xzqy c ON c.ParentId = b.ID WHERE   c.ID = '" + CountyId + "'");
+        INNER JOIN dbo.Xzqy c ON c.ParentId = b.ID WHERE c.ID = '" + CountyId + "'");
 
             var list = dataTable.ToArray<XzqyTreeModel>();
 

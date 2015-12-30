@@ -25,7 +25,17 @@ namespace UIShell.RbacManagementPlugin.Controllers
     { 
         public WFRoutController() 
         { 
-        } 
+        }
+        [HttpPost]
+        public override CustomJsonResult AjaxAdd(WFRout model)
+        {
+            //var depId = LRequest.GetString("Department_ID");
+            //if (model.Department == null && depId != null)
+            //{
+            //    model.Department = new Department { ID = Guid.Parse(depId),Name="/" };
+            //}
+            return base.AjaxAdd(model);
+        }
     } 
 } 
 

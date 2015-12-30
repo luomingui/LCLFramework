@@ -1,0 +1,57 @@
+﻿<div class="easyui-layout" fit="true" id="tb">
+    <div id="win_edmsrepairsbill" style="padding: 5px;background: #fafafa;">
+        <div class="easyui-layout" fit="true">
+            <form id="ffedmsrepairsbill" method="post" ajax="true">
+                <table class="tb_searchbar">
+                    <tbody>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_edmsrepairsbill_devicename">设备名称<span style="color:red;">*</span></label></td>
+                            <td>
+                                <input type="text" id="edmsrepairsbill_Entity_DeviceName" name="edmsrepairsbill_EntityDeviceName" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="3" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_edmsrepairsbill_devicesite_name">设备地址<span style="color:red;">*</span></label></td>
+                            <td>
+                                <input type="text" id="edmsrepairsbill_Entity_DeviceSite_Name" name="edmsrepairsbill_EntityDeviceBrand" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="6" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_edmsrepairsbill_devicebrand">品牌<span style="color:red;">*</span></label></td>
+                            <td>
+                                <input type="text" id="edmsrepairsbill_Entity_DeviceBrand" name="edmsrepairsbill_EntityDeviceBrand" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="6" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_edmsrepairsbill_devicemodel">型号<span style="color:red;">*</span></label></td>
+                            <td>
+                                <input type="text" id="edmsrepairsbill_Entity_DeviceModel" name="edmsrepairsbill_EntityDeviceModel" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="7" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_edmsrepairsbill_devicedescribe">故障描述<span style="color:red;">*</span></label></td>
+                            <td>
+                                <input type="text" id="edmsrepairsbill_Entity_DeviceDescribe" name="edmsrepairsbill_EntityDeviceDescribe" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="8" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"></td>
+                            <td>
+                                <input type='hidden' id='edmsrepairsbill_Entity_ID' name='edmsrepairsbill_EntityID' value='' />
+                                <input type='hidden' id='edmsrepairsbill_Entity_IsDelete' name='edmsrepairsbill_EntityIsDelete' value='' />
+                                <input type='hidden' id='edmsrepairsbill_Entity_AddDate' name='edmsrepairsbill_EntityAddDate' value='' />
+                                <input type='hidden' id='edmsrepairsbill_Entity_UpdateDate' name='edmsrepairsbill_EntityUpdateDate' value='' />
+                                <a id="btnSaveedmsrepairsbill" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save">提交</a>&nbsp; 
+                            <td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="/Plugins/UIShell.EducationDeviceMaintenancePlugin/ViewScript/edmsrepairsbill.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.EducationDeviceMaintenancePlugin/ViewScript/edmsrepairsbill.cshtml.js" type="text/javascript"></script>
+}
+

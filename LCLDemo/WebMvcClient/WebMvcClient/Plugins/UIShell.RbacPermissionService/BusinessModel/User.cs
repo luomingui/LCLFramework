@@ -10,7 +10,8 @@ namespace UIShell.RbacPermissionService
     {
         public User()
         {
-            this.Role = new HashSet<Role>();
+            this.Roles = new HashSet<Role>();
+            this.Groups = new HashSet<Group>();
         }
         /// <summary>
         /// 登录名称
@@ -28,7 +29,11 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 角色列表
         /// </summary>
-        public ICollection<Role> Role { get; set; }
+        public ICollection<Role> Roles { get; set; }        
+        /// <summary>
+        /// 用户组
+        /// </summary>
+        public ICollection<Group> Groups { get; set; }
         /// <summary>
         /// 部门
         /// </summary>
@@ -62,6 +67,9 @@ namespace UIShell.RbacPermissionService
         /// 电话
         /// </summary>
         public string Telephone { get; set; }
+        /// <summary>
+        /// QQ
+        /// </summary>
         public string UserQQ { get; set; }
         /// <summary>
         /// 电子邮箱

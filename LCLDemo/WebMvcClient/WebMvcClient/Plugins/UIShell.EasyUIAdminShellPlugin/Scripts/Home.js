@@ -9,7 +9,7 @@ window.onload = function () {
 //页面属性PageAttr （该行不允许删除）
 var pageAttr = {
     SiteRoot: "",
-    LanguageId: "2052",
+    LanguageId: "2052"
 };
 //页面入口
 $(document).ready(function () {
@@ -26,17 +26,6 @@ function InitAttribute() {
 //初始化多语言
 function InitLanguage() {
     $.LCLPageModel.Resource.InitLanguage();
-    ////ie 
-    //if (navigator.browserLanguage != "undefined" && navigator.browserLanguage != null) {
-    //    if (navigator.systemLanguage == "zh-CN") {
-    //        document.write("<script src='/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js'><\/script>");
-    //    }
-    //}
-    //else {//firefox、chrome,360 
-    //    if (navigator.language == "zh-CN") {
-    //        document.write("<script src='/Plugins/UIShell.EasyUIAdminShellPlugin/Content/JQueryEasyUI/locale/easyui-lang-zh_CN.js'><\/script>");
-    //    }
-    //}
 }
 //初始化控件
 function InitControls() {
@@ -131,34 +120,59 @@ function serverLogin() {
 * Param iframe 链接跳转方式（true为iframe，false为href）
 */
 function addTab(title, href, iconCls, iframe) {
+    if (iconCls.length == 0) iconCls = 'icon-application';
     var tabPanel = $('#tabs');
-    if (!tabPanel.tabs('exists', title)) {
-        var content = '<iframe scrolling="auto" frameborder="0" src="' + href + '" style="width:100%;height:100%;"></iframe>';
-        if (iframe) {
-            tabPanel.tabs('add', {
-                title: title,
-                content: content,
-                iconCls: iconCls,
-                fit: true,
-                cls: 'pd3',
-                closable: true,
-                closed: true
-            });
+    var nav_MaxCount = 3;
+    var tabCount = tabPanel.tabs('tabs').length;
+    var hasTab = tabPanel.tabs('exists', title);
+    if ((tabCount <= nav_MaxCount) || hasTab) {
+        if (!hasTab) {
+            if (iframe) {
+                var content = '<iframe scrolling="auto" frameborder="0" src="' + href + '" style="width:100%;height:100%;"></iframe>';
+                tabPanel.tabs('add', {
+                    title: title,
+                    content: content,
+                    iconCls: iconCls,
+                    fit: true,
+                    cls: 'pd3',
+                    closable: true,
+                    closed: true
+                });
+                //tabPanel.tabs('addIframeTab', {
+                //    tab: { title: title, iconCls: iconCls, fit: true, cls: 'pd3', closable: true, closed: false },
+                //    iframe: { src: href }
+                //});
+            }
+            else {
+                tabPanel.tabs('add', {
+                    title: title,
+                    href: href,
+                    iconCls: iconCls,
+                    fit: true,
+                    cls: 'pd3',
+                    closable: true,
+                    closed: false
+                });
+            }
         }
         else {
-            tabPanel.tabs('add', {
-                title: title,
-                href: href,
-                iconCls: iconCls,
-                fit: true,
-                cls: 'pd3',
-                closable: true,
-                closed: true
-            });
+            tabPanel.tabs('select', title);//如果tab已经存在,则选中并刷新该tab  
+            refreshTab({ tabTitle: title, url: href });
         }
+    } else {
+        $.messager.confirm("系统提示", '您当前打开了太多的页面，请先关闭，否则无法流畅操作！', function (b) {
+            if (b) {
+                tabPanel.tabs('close', title);
+            }
+        });
     }
-    else {
-        tabPanel.tabs('select', title);
+}
+function refreshTab(cfg) {
+    var refresh_tab = cfg.tabTitle ? $('#tabs').tabs('getTab', cfg.tabTitle) : $('#tabs').tabs('getSelected');
+    if (refresh_tab && refresh_tab.find('iframe').length > 0) {
+        var _refresh_ifram = refresh_tab.find('iframe')[0];
+        var refresh_url = cfg.url ? cfg.url : _refresh_ifram.src;
+        _refresh_ifram.contentWindow.location.href = refresh_url;
     }
 }
 //读取动态时间的变化

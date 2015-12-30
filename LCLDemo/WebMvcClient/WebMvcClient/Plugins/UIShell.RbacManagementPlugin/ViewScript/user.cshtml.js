@@ -35,11 +35,7 @@ function InitControls() {
 } 
 //初始化事件 
 function InitEvent() { 
-    $('#btnAdduser').click(function () { pageFunc_userAdd(); }); 
-    $('#btnDeluser').click(function () { pageFunc_userDel(); }); 
     $('#btnSearchuser').click(function () { pageFunc_SearchDatauser(); });
-    $('#btnLockeduser').click(function () { pageFunc_userLocked(); });
-    $('#btnInitPwduser').click(function () { pageFunc_userInitPwd(); });
 } 
 function InitGrid() { 
     $('#grid_user').datagrid({ 
@@ -59,19 +55,19 @@ function InitGrid() {
         columns: [[
                 { field: 'Name', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Name, width: 100 }, 
                 { 
-                    field: 'IsLockedOut', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_IsLockedOut, width: 80, formatter: function (value, row, index) { 
+                    field: 'IsLockedOut', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_IsLockedOut, width: 70, formatter: function (value, row, index) { 
                         return value ? '<div class="icon-true" style="width:16px; height:16px;" >&nbsp;&nbsp;</div>' :
                                        '<div class="icon-false" style="width:16px; height:16px;">&nbsp;&nbsp;</div>';
                     } 
                 }, 
-                { field: 'Sex', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Sex, width: 50 }, 
-                { field: 'Birthday', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Birthday, width: 50 }, 
-                { field: 'NationalID', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_NationalID, width: 100 }, 
-                { field: 'PoliticalID', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_PoliticalID, width: 100 }, 
-                { field: 'IdCard', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_IdCard, width: 100 }, 
+                { field: 'Sex', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Sex, width: 35 }, 
+                { field: 'Birthday', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Birthday, width: 80 }, 
+                { field: 'NationalID', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_NationalID, width: 50 }, 
+                { field: 'PoliticalID', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_PoliticalID, width: 70 }, 
+                { field: 'IdCard', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_IdCard, width: 130 }, 
                 { field: 'Telephone', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Telephone, width: 100 }, 
                 { field: 'UserQQ', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_UserQQ, width: 100 }, 
-                { field: 'Email', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Email, width: 100 }, 
+                { field: 'Email', title: $.LCLPageModel.Resource.PageLanguageResource.User_Model_Email, width: 110 }, 
                 { 
                     field: 'opt', title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Grid_Operate, width: 120, align: 'center', 
                     formatter: function (value, rec, index) { 
@@ -318,12 +314,26 @@ function pageFunc_userInitPwd()
     });
 }
 function grid_user_toolbar() { 
-    var ihtml = '<div id="tbar_ + tm.TableName.ToLower() + ">' 
-        + '<a id="btnAdduser" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add + '</a>&nbsp;'
-        + '<a id="btnLockeduser" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-lock">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Locked + '</a>&nbsp;'
-        + '<a id="btnInitPwduser" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-key">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_InitPwd + '</a>&nbsp;'
-        + '<a id="btnDeluser" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del + '</a>&nbsp;' 
-        + '<a href="javascript:void(0)" /></div>' 
-    return ihtml; 
+    var ihtml = [{
+        id: "btnAdduser",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add,
+        iconCls: 'icon-add',
+        handler: function () { pageFunc_userAdd(); }
+    }, '-', {
+        id: "btnLockeduser",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Locked,
+        iconCls: 'icon-lock',
+        handler: function () { pageFunc_userLocked(); }
+    }, '-', {
+        id: "btnInitPwduser",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_InitPwd,
+        iconCls: 'icon-key',
+        handler: function () { pageFunc_userInitPwd(); }
+    }, '-', {
+        id: "btnDeluser",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del,
+        iconCls: 'icon-lock',
+        handler: function () { pageFunc_userDel(); }
+    }];
+    return ihtml;
 } 
-

@@ -97,6 +97,8 @@
     <Compile Include="Controllers\DictionaryController.cs" />
     <Compile Include="Controllers\DictTypeController.cs" />
     <Compile Include="Controllers\GeneralConfigInfoController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\HostConfigController.cs" />
     <Compile Include="Controllers\RoleAuthorityController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
@@ -104,8 +106,9 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WFActorController.cs" />
     <Compile Include="Controllers\WFRoutController.cs" />
+    <Compile Include="Controllers\WFTaskListController.cs" />
     <Compile Include="Controllers\XzqyController.cs" />
-    <Compile Include="JsonService\Flow.ashx.cs">
+    <Compile Include="ViewScript\Flow\JsonService\Flow.ashx.cs">
       <DependentUpon>Flow.ashx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,13 +127,14 @@
     <Content Include="Content\Login\images\logn_bt.jpg" />
     <Content Include="Content\Login\images\logn_tit.png" />
     <Content Include="Content\Login\images\valicode.jpg" />
+    <Content Include="ViewScript\flowchart.cshtml.js" />
     <Content Include="ViewScript\Flow\barbg.png" />
     <Content Include="ViewScript\Flow\Demo.html" />
     <Content Include="ViewScript\Flow\FlowDemo.html" />
     <Content Include="ViewScript\Flow\HtmlDemo.html" />
     <Content Include="ViewScript\Flow\jquery-1.8.0.min.js" />
     <Content Include="ViewScript\Flow\Styles\Flow.css" />
-    <Content Include="ViewScript\Flow\Styles\Flow.js" />
+    <Content Include="ViewScript\Flow\Scripts\Flow.js" />
     <Content Include="ViewScript\Flow\Styles\Images\1_circle\flowNo1.png" />
     <Content Include="ViewScript\Flow\Styles\Images\1_circle\flowYes1.png" />
     <Content Include="ViewScript\Flow\Styles\Images\2_circle\flowNo2.png" />
@@ -174,6 +178,10 @@
     <Content Include="ViewScript\Flow\Styles\Images\reduce.png" />
     <Content Include="ViewScript\Flow\Styles\Images\rightTriangle.png" />
     <Content Include="ViewScript\Flow\Styles\Images\triangle.png" />
+    <Content Include="ViewScript\group.cshtml.js" />
+    <Content Include="ViewScript\group.cshtml.LanguageResource.js" />
+    <Content Include="ViewScript\hostconfig.cshtml.js" />
+    <Content Include="ViewScript\hostconfig.cshtml.LanguageResource.js" />
     <Content Include="ViewScript\role.cshtml.js" />
     <Content Include="ViewScript\role.cshtml.LanguageResource.js" />
     <Content Include="ViewScript\user.cshtml.js" />
@@ -182,10 +190,18 @@
     <Content Include="ViewScript\wfactor.cshtml.LanguageResource.js" />
     <Content Include="ViewScript\wfrout.cshtml.LanguageResource.js" />
     <Content Include="ViewScript\wfrout.cshtml.js" />
+    <Content Include="ViewScript\wftasklist.cshtml.js" />
+    <Content Include="ViewScript\wftasklist.cshtml.LanguageResource.js" />
     <Content Include="ViewScript\xzqy.cshtml.js" />
     <Content Include="ViewScript\xzqy.cshtml.LanguageResource.js" />
+    <Content Include="Views\Group\group.cshtml.js" />
+    <Content Include="Views\Group\group.cshtml.LanguageResource.js" />
+    <Content Include="Views\Group\hostconfig.cshtml.js" />
+    <Content Include="Views\Group\hostconfig.cshtml.LanguageResource.js" />
     <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="JsonService\Flow.ashx" />
+    <Content Include="ViewScript\Flow\JsonService\Flow.ashx" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\HostConfig\Index.cshtml" />
     <None Include="Views\User\UserSelect.cshtml" />
     <Content Include="Views\WFActor\Index.cshtml" />
     <Content Include="ViewScript\Flow\jsonData.json" />
@@ -198,6 +214,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\WFTaskList\Index.cshtml" />
+    <Content Include="Views\WFTaskList\frmTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Login.cshtml" />
@@ -242,10 +260,7 @@
     <None Include="Properties\PublishProfiles\UIShell.RbacManagementPlugin.pubxml" />
     <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-    <Folder Include="ViewScript\Flow\demo\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

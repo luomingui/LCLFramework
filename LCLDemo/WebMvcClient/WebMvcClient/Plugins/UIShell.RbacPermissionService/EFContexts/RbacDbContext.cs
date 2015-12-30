@@ -3,6 +3,8 @@ using LCL.Repositories.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Text;
@@ -22,10 +24,12 @@ namespace UIShell.RbacPermissionService
         public DbSet<Role> Role { get; set; }
         public DbSet<RoleAuthority> RoleAuthority { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Group> Group { get; set; }
         public DbSet<DictType> DictType { get; set; }
         public DbSet<Dictionary> Dictionary { get; set; }
         public DbSet<ScheduledEvents> ScheduledEvents { get; set; }
         public DbSet<TLog> TLog { get; set; }
+        public DbSet<HostConfig> HostConfig { get; set; }
         public DbSet<Xzqy> Xzqy { get; set; }
         public DbSet<Department> Department { get; set; }
         //流程
@@ -35,13 +39,19 @@ namespace UIShell.RbacPermissionService
         public DbSet<WFActorUser> WFActorUser { get; set; }
         public DbSet<WFTaskList> WFTaskList { get; set; }
         public DbSet<WFTaskHistory> WFTaskHistory { get; set; }
+        //EDMS
+        public DbSet<EDMSRepairsBill> EDMSRepairsBill { get; set; }
+        public DbSet<EDMSMaintenanceBill> EDMSMaintenance { get; set; }
+        public DbSet<EDMSPartsCost> EDMSPartsCost { get; set; }
+        //BOM
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<IncludeMetadataConvention>();     //不创建EdmMetadata表 
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();//移除复数表名的契约
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();//禁用一对多级联删除
             //表前缀
             modelBuilder.Types().Configure(entity => entity.ToTable(AppConstant.Tableprefix + entity.ClrType.Name));
-
             // 忽略列映射 Fluent API:NotMapped
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.ScheduleType);
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.ExetimeType);
@@ -52,11 +62,10 @@ namespace UIShell.RbacPermissionService
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Enable);
             modelBuilder.Entity<ScheduledEvents>().Ignore(p => p.Issystemevent);
 
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
 
         }
     }
-
     /// <summary>
     /// 数据库初始化操作类
     /// </summary>
@@ -89,12 +98,20 @@ namespace UIShell.RbacPermissionService
     {
         protected override void Seed(RbacDbContext context)
         {
-            var rout = context.Set<WFRout>().Add(new WFRout { Name = "请假审批流程", State = 1, DeptId = Guid.Empty, IsEnable = true, Version = "1.0" });
+            var rout = context.Set<WFRout>().Add(new WFRout { Name = "请假审批流程", State = 1, IsEnable = true, Version = "1.0" });
+            var actor1 = context.Set<WFActor>().Add(new WFActor { Rout_ID = rout.ID, SortNo = 1, Name = "组长审批" });
+            var actor2 = context.Set<WFActor>().Add(new WFActor { Rout_ID = rout.ID, SortNo = 2, Name = "部门经里审批" });
+            var actor3 = context.Set<WFActor>().Add(new WFActor { Rout_ID = rout.ID, SortNo = 3, Name = "财务审批" });
+            var actor4 = context.Set<WFActor>().Add(new WFActor { Rout_ID = rout.ID, SortNo = 4, Name = "老板审批" });
 
-            var actor1 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 1, Name = "组长审批" });
-            var actor2 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 2, Name = "部门经里审批" });
-            var actor3 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 3, Name = "财务审批" });
-            var actor4 = context.Set<WFActor>().Add(new WFActor { Rout = rout, SortNo = 4, Name = "老板审批" });
+            var rout1 = context.Set<WFRout>().Add(new WFRout { Name = "维修审批流程", State = 1, IsEnable = true, Version = "1.0" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "申请校内报修", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSRepairsBill/Index" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "校内维修响应", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSMaintenanceBill/Index" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 2, Name = "申请校外维修", BillAddess = "" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "校长审批", BillAddess = "" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "校外维修响应", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSMaintenanceBill/Index" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 3, Name = "学校验收", BillAddess = "" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 3, Name = "评价维修服务", BillAddess = "" });
 
             var dep0 = context.Set<Department>().Add(new Department { ParentId = Guid.Empty, NodePath = "永新科技", Name = "永新科技", OrderBy = 0, Level = 0, IsLast = false, DepartmentType = DepartmentType.公司, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
             var dep1 = context.Set<Department>().Add(new Department { ParentId = dep0.ID, NodePath = dep0.Name + "/研发部", Name = "研发部", OrderBy = 1, Level = 1, IsLast = true, DepartmentType = DepartmentType.部门, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
@@ -141,23 +158,32 @@ namespace UIShell.RbacPermissionService
                      PoliticalID = "政治面貌",
                      NationalID = "汉族",
                      Email = "luo." + i + "@163.com",
-                     Department = dep,
-                     Role = list,
+                     Department = dep
                  });
-                switch (flgInt)
-                {
-                    case 0:
-                        context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor1, OperateUserId = urse.ID });
-                        break;
-                    case 1:
-                        context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor2, OperateUserId = urse.ID });
-                        break;
-                    default:
-                        context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor3, OperateUserId = urse.ID });
-                        break;
-                }
+                if (flgInt < 5)
+                    context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor1, User = urse });
+                if (flgInt > 5 && flgInt < 10)
+                    context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor2, User = urse });
+                if (flgInt > 10 && flgInt < 15)
+                    context.Set<WFActorUser>().Add(new WFActorUser { Actor = actor3, User = urse });
             }
-
+            context.Set<HostConfig>().Add(new HostConfig
+            {
+                Name = "LCL",
+                IP = "127.0.0.1",
+                Flag = true,
+                Addess = "luo/lcl",
+                Netdisk = "网络映射",
+                SharedDirName = "共享目录名",
+                SharedDirPassword = "共享密码",
+                SharedDirUser = "共享用户",
+                FtpUser = "FTP用户",
+                FtpPassword = "FTP密码",
+            });
+            context.Set<Group>().Add(new Group {
+                Name = "教研组",
+                Remark = "教研组",
+            });
             try
             {
                 context.SaveChanges();
@@ -179,4 +205,13 @@ namespace UIShell.RbacPermissionService
             }
         }
     }
+    internal sealed class ReportingDbMigrationsConfiguration : DbMigrationsConfiguration<RbacDbContext>
+    {
+        public ReportingDbMigrationsConfiguration()
+        {
+            AutomaticMigrationsEnabled = true;//任何Model Class的修改將會直接更新DB
+            AutomaticMigrationDataLossAllowed = true;
+        }
+    }
 }
+

@@ -19,24 +19,6 @@
                         "subNodes": [],
                         "Visible": true,
                         "Status": 2
-                    },
-                    {
-                        "NodeName": "VIEWROLE",
-                        "Text": "产品经理",
-                        "DisplayType": 0,
-                        "NodeType": 2,
-                        "subNodes": [],
-                        "Visible": true,
-                        "Status": 2
-                    },
-                    {
-                        "NodeName": "REMARK",
-                        "Text": "产品经理审核通过后，系统邮件通知售前技术和配置经理 ，流程结束",
-                        "DisplayType": 0,
-                        "NodeType": 2,
-                        "subNodes": [],
-                        "Visible": true,
-                        "Status": 2
                     }
                 ],
                 "Visible": true,

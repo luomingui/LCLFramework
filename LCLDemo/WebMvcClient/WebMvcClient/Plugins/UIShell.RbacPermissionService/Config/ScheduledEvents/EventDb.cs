@@ -23,11 +23,10 @@ namespace UIShell.RbacPermissionService
 WHERE ([key]='{1}') AND ([lastexecuted] < DATEADD([day], - 7, GETDATE()))", AppConstant.Tableprefix, key);
             DbFactory.DBA.ExecuteText(sql);
 
-            sql = string.Format(@"INSERT [{0}ScheduledEvents] ([ID],[key],[servername],[lastexecuted],[AddDate],[UpdateDate]) 
-Values ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')", AppConstant.Tableprefix, Guid.NewGuid(), key, servername,
-              lastexecuted.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+            sql = string.Format(@"INSERT [{0}ScheduledEvents] ([ID],[key],[servername],[lastexecuted],[AddDate],[UpdateDate],[IsDelete]) 
+Values ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}',{7})", AppConstant.Tableprefix, Guid.NewGuid(), key, servername,
+              lastexecuted.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"),0);
             DbFactory.DBA.ExecuteText(sql);
-
         }
     }
 }

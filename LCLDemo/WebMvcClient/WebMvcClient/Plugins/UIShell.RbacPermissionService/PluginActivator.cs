@@ -20,7 +20,7 @@ namespace UIShell.RbacPermissionService
         }
         void app_AllPluginsIntialized(object sender, System.EventArgs e)
         {
-            //DatabaseInitializer.Initialize();
+            DatabaseInitializer.Initialize();
             //设置权限提供程序为本模块中实体类
             PermissionMgr.Provider = new LCLPermissionProvider();
 
@@ -47,6 +47,11 @@ namespace UIShell.RbacPermissionService
             ServiceLocator.Instance.Register<IWFRoutRepository, WFRoutRepository>();
             ServiceLocator.Instance.Register<IWFTaskHistoryRepository, WFTaskHistoryRepository>();
             ServiceLocator.Instance.Register<IWFTaskListRepository, WFTaskListRepository>();
+
+            ServiceLocator.Instance.Register<IEDMSRepairsBillRepository, EDMSRepairsBillRepository>();
+            ServiceLocator.Instance.Register<IEDMSMaintenanceBillRepository, EDMSMaintenanceBillRepository>();
+            ServiceLocator.Instance.Register<IEDMSPartsCostRepository, EDMSPartsCostRepository>();
+        
             #endregion
         }
     }

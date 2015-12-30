@@ -6,35 +6,35 @@
     <div data-options="region:'west',title:'字典类型'" style="width: 200px; overflow-y: hidden;">
         <div style="height: 550px; width: 100%; border: #99bbe8 1px solid; ">
             <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;">
-                <a id="a_add" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增</a>&nbsp;
-                <a id="a_edit" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-edit">修改</a>&nbsp;
-                <a id="a_del" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>
+                <a id="a_add_DictType" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增</a>&nbsp;
+                <a id="a_edit_DictType" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-edit">修改</a>&nbsp;
+                <a id="a_del_DictType" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>
             </div>
             <div style="padding:2px 5px 5px 5px;overflow-y:hidden;">
                 <ul id="dataDicType" class="easyui-tree" style="height:80%;"></ul>
             </div>
         </div>
         <!--   弹出框       -->
-        <div id="dlg" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
+        <div id="dlg_DictType" class="easyui-dialog" style="width: 500px; height: 280px; padding: 1px 1px;" closed="true" buttons="#dlg-buttons">
 
         </div>
     </div>
     <div data-options="region:'center',title:'字典信息一览表'" style="padding: 5px; overflow-y: hidden;">
         <!--   数据列表       -->
-        <table id="grid" title="字典信息一览表" class="easyui-datagrid" style="width:100%" toolbar="#toolbar"></table>
+        <table id="grid_DictType" title="字典信息一览表" class="easyui-datagrid" style="width:100%" toolbar="#toolbar_DictType"></table>
         <!--   命令列表       -->
-        <div id="toolbar">
-            <a id="b_add" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" >添加</a>
-            <a id="b_edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" >修改</a>
-            <a id="b_del" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" >删除</a>
-            <a id="b_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true" >刷新</a>
+        <div id="toolbar_DictType">
+            <a id="b_add_DictType" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true">添加</a>
+            <a id="b_edit_DictType" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true">修改</a>
+            <a id="b_del_DictType" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true">删除</a>
+            <a id="b_reload_DictType" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true">刷新</a>
             <a href="javascript:void(0)" />
         </div>
     </div>
 </div>
 @section scripts{
     <script type="text/javascript">
-        var root="@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Role"))/";
+        var root="@(Url.BundlePContent("UIShell.RbacManagementPlugin", "DictType"))/";
         var dicType = "00000000-0000-0000-0000-000000000000";
         var LCL = {
             showTree: function () {
@@ -55,11 +55,11 @@
                 return $('#dataDicType').tree('getSelected');
             },
             add: function () {
-                var d = $('#dlg').dialog({
+                var d = $('#dlg_DictType').dialog({
                     title: '添加',
                     width: 500,
                     height: 280,
-                    closed: true,
+                    closed: false,
                     cache: false,
                     href: root + 'AddOrEdit',
                     iconCls: 'icon-add',
@@ -68,16 +68,15 @@
                         LCL.reload();
                     }
                 });
-                $("#dlg").dialog("open");
             },
             edit: function () {
                 var node = LCL.getSelected();
                 if (node) {
-                    $('#dlg').dialog({
+                    $('#dlg_DictType').dialog({
                         title: '修改',
                         width: 500,
                         height: 280,
-                        closed: true,
+                        closed: false,
                         cache: false,
                         href: root + 'AddOrEdit?id=' + trim(node.id),
                         iconCls: 'icon-edit',
@@ -86,7 +85,6 @@
                             LCL.reload();
                         }
                     });
-                    $("#dlg").dialog("open");
                 }
                 else {
                     alert('请选择字典类别');
@@ -95,7 +93,7 @@
             },
             del: function () {
                 var node = LCL.getSelected();
-                var rows = $('#grid').datagrid('getData');
+                var rows = $('#grid_DictType').datagrid('getData');
                 if (rows && rows.total > 0) {
                     alert('当前字典有明细数据，不能删除。请先删除明细数据。');
                     return false;
@@ -115,7 +113,7 @@
                                 if (msg.Success) {
                                     $.messager.alert('提示', msg.Message, 'info', function () {
                                         //重新加载当前页
-                                        $('#grid').datagrid('reload');
+                                        $('#grid_DictType').datagrid('reload');
                                     });
                                 } else {
                                     $.messager.alert('提示', msg.Message, 'info')
@@ -133,7 +131,7 @@
         }
         var mygrid = {
             dginit: function (size) {
-                $('#grid').datagrid({
+                $('#grid_DictType').datagrid({
                     url: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Dictionary/GetDicChildList"))",
                     queryParams: { dictId: dicType },
                     title: "数据字典明细",
@@ -157,17 +155,17 @@
                 });
             },
             databind: function (cc) {
-                $('#grid').datagrid('load', { dictId: cc });
+                $('#grid_DictType').datagrid('load', { dictId: cc });
             },
             reload: function (cc) {
                 mygrid.databind(cc);
             },
             add: function () {
-                var d = $('#dlg').dialog({
+                var d = $('#dlg_DictType').dialog({
                     title: '添加',
                     width: 500,
                     height: 280,
-                    closed: true,
+                    closed: false,
                     cache: false,
                     href: "@(Url.BundlePContent("UIShell.RbacManagementPlugin", "Dictionary/AddOrEdit"))",
                     iconCls: 'icon-add',
@@ -176,12 +174,11 @@
                         mygrid.reload(dicType);
                     }
                 });
-                $("#dlg").dialog("open");
             },
             edit: function () {
                 var row = mygrid.getSelected();
                 if (row) {
-                    $('#dlg').dialog({
+                    $('#dlg_DictType').dialog({
                         title: '修改',
                         width: 500,
                         height: 280,
@@ -194,7 +191,6 @@
                             mygrid.reload();
                         }
                     });
-                    $("#dlg").dialog("open");
                 }
                 else {
                     alert('请选择字典类别');
@@ -219,13 +215,13 @@
 
             mygrid.dginit(); //显示数据字典详情
 
-            $('#a_add').click(LCL.add);
-            $('#a_del').click(LCL.del);
-            $('#a_edit').click(LCL.edit);
+            $('#a_add_DictType').click(LCL.add);
+            $('#a_del_DictType').click(LCL.del);
+            $('#a_edit_DictType').click(LCL.edit);
 
-            $('#b_add').click(mygrid.add);
-            $('#b_del').click(mygrid.del);
-            $('#b_edit').click(mygrid.edit);
+            $('#b_add_DictType').click(mygrid.add);
+            $('#b_del_DictType').click(mygrid.del);
+            $('#b_edit_DictType').click(mygrid.edit);
         });
     </script>
 }

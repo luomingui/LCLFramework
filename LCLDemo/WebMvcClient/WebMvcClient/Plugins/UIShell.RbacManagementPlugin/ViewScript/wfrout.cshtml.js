@@ -35,8 +35,6 @@ function InitControls() {
 }
 //初始化事件
 function InitEvent() {
-    $('#btnAddwfrout').click(function () { pageFunc_wfroutAdd(); });
-    $('#btnDelwfrout').click(function () { pageFunc_wfroutDel(); });
     $('#btnSearchwfrout').click(function () { pageFunc_SearchData(); });
 }
 function InitGrid() {
@@ -47,6 +45,7 @@ function InitGrid() {
         pagination: true,
         rownumbers: true,
         fitCloumns: true,
+        fit: true,
         idField: "ID",
         frozenColumns: [[
           { field: 'ck', checkbox: true }
@@ -55,7 +54,7 @@ function InitGrid() {
            { title: 'ID', field: 'ID' }
         ]],
         columns: [[
-                { field: 'Name', title: $.LCLPageModel.Resource.PageLanguageResource.WFRout_Model_ID, width: 100 },
+                { field: 'Name', title: $.LCLPageModel.Resource.PageLanguageResource.WFRout_Model_Name, width: 100 },
                 { field: 'DeptId', title: $.LCLPageModel.Resource.PageLanguageResource.WFRout_Model_DeptId, width: 100 },
                 { field: 'Version', title: $.LCLPageModel.Resource.PageLanguageResource.WFRout_Model_Version, width: 100 },
                 { field: 'State', title: $.LCLPageModel.Resource.PageLanguageResource.WFRout_Model_State, width: 100 },
@@ -69,7 +68,7 @@ function InitGrid() {
                 {
                     field: 'opt', title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Grid_Operate, width: 120, align: 'center',
                     formatter: function (value, rec, index) {
-                        return '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="pageFunc_actorShow(\'' + rec.ID + '\')">' + $.LCLPageModel.Resource.PageLanguageResource.WFRout_Model_Actor + '</a>&nbsp;'
+                        return '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-view" plain="true" onclick="pageFunc_actorShow(\'' + rec.ID + '\')">' + $.LCLPageModel.Resource.PageLanguageResource.WFRout_Model_Actor + '</a>&nbsp;'
                              + '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="pageFunc_wfroutEdit(\'' + rec.ID + '\')">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Edit + '</a>&nbsp;'
                              + '&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="pageFunc_wfroutDel()"> ' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del + '</a>&nbsp;';
                     }
@@ -91,7 +90,7 @@ function pageFunc_SearchData() {
 function pageFunc_wfroutAdd() {
     pageAttr.Added = true;
     $('#ffwfrout').form('clear');
-    $('#win_wfrout').dialog({
+      $('#win_wfrout').dialog({
         title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add,
         width: 500,
         height: 280,
@@ -176,13 +175,25 @@ function pageFunc_wfroutSave() {
         url: ajaxUrl,
         onSubmit: function (param) {
             $('#btnSavewfrout').linkbutton('disable');
-
             param.ID = $('#wfrout_Entity_ID').val();
             param.Name = $('#wfrout_Entity_Name').val();
-            param.DeptId = $('#wfrout_Entity_DeptId').val();
+            var t = $('#wfrout_Entity_DeptId').combotree('tree');	// 获取树对象
+            var n = t.tree('getSelected');		// 获取选择的节点
+            param.Department_ID = n.id;
             param.Version = $('#wfrout_Entity_Version').val();
             param.State = $('#wfrout_Entity_State').val();
             param.IsEnable = $(':radio').val();
+            /*
+            wfrout_EntityName=ffff
+            &=7db7ae4d-9a86-4476-b138-185a60bf6cab
+            &wfrout_EntityVersion=ff
+            &wfrout_EntityState=ff
+            &wfrout_Entity_IsEnable=true
+            &wfrout_EntityID=
+            &wfrout_EntityIsDelete=
+            &wfrout_EntityAddDate=
+            &wfrout_EntityUpdateDate=
+            */
 
             if ($(this).form('validate'))
                 return true;
@@ -225,7 +236,7 @@ function pageFunc_wfroutDel() {
             $.post(pageAttr.JsonServerURL + 'WFRout/AjaxDeleteList/', parm,
             function (resultData) {
                 if (resultData.Success) {
-                    $.LCLMessageBox.Alert(resultData.Message,function () {
+                    $.LCLMessageBox.Alert(resultData.Message, function () {
                         InitGrid();
                     });
                 } else {
@@ -248,9 +259,16 @@ function pageFunc_actorShow(ID) {
     }
 }
 function grid_toolbar() {
-    var ihtml = '<div id="tbar_wfrout">'
-        + '<a id="btnAddwfrout" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add + '</a>&nbsp;'
-        + '<a id="btnDelwfrout" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del + '</a>&nbsp;'
-        + '<a href="javascript:void(0)" /></div>'
+    var ihtml = [{
+        id: "btnAddwfrout",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add,
+        iconCls: 'icon-add',
+        handler: function () { pageFunc_wfroutAdd(); }
+    }, '-', {
+        id: "btnDelwfrout",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del,
+        iconCls: 'icon-remove',
+        handler: function () { pageFunc_wfroutDel(); }
+    }];
     return ihtml;
 }

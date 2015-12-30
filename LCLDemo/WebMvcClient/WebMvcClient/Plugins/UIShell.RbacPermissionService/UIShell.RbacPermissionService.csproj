@@ -71,11 +71,18 @@
     <Compile Include="Appliction\LAppliction.cs" />
     <Compile Include="BusinessModel\Dictionary.cs" />
     <Compile Include="BusinessModel\DictType.cs" />
+    <Compile Include="BusinessModel\EDMS\EDMSMaintenanceBill.cs" />
+    <Compile Include="BusinessModel\EDMS\EDMSPartsCost.cs" />
+    <Compile Include="BusinessModel\EDMS\EDMSRepairsBill.cs" />
+    <Compile Include="BusinessModel\EDMS\ValueObject.cs" />
+    <Compile Include="BusinessModel\Group.cs" />
+    <Compile Include="BusinessModel\HostConfig.cs" />
     <Compile Include="BusinessModel\Role.cs" />
     <Compile Include="BusinessModel\RoleAuthority.cs" />
     <Compile Include="BusinessModel\ScheduledEvents.cs" />
     <Compile Include="BusinessModel\TLog.cs" />
     <Compile Include="BusinessModel\ValueObject.cs" />
+    <Compile Include="BusinessModel\Workflow\ValueObject.cs" />
     <Compile Include="BusinessModel\Workflow\WFActor.cs" />
     <Compile Include="BusinessModel\Workflow\WFRout.cs" />
     <Compile Include="BusinessModel\Workflow\WFTaskHistory.cs" />
@@ -100,6 +107,9 @@
     <Compile Include="Repository\DepartmentRepository.cs" />
     <Compile Include="Repository\DictionaryRepository.cs" />
     <Compile Include="Repository\DictTypeRepository.cs" />
+    <Compile Include="Repository\EDMSMaintenanceBillRepository.cs" />
+    <Compile Include="Repository\EDMSPartsCostRepository.cs" />
+    <Compile Include="Repository\EDMSRepairsBillRepository.cs" />
     <Compile Include="Repository\RoleAuthorityRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\ScheduledEventsRepository.cs" />
@@ -118,11 +128,14 @@
     <Compile Include="Security\LCLPrincipal.cs" />
     <Compile Include="Security\MyAuthorizeAttribute.cs" />
     <Compile Include="Security\RbacController.cs" />
+    <Compile Include="Services\FlowServices.cs" />
     <Compile Include="Specifications\DepartmentSpecifications.cs" />
+    <Compile Include="Specifications\WFRoutSpecifications.cs" />
     <Compile Include="Specifications\UserSpecifications.cs" />
     <Compile Include="ValidationModel\Department.cs" />
     <Compile Include="ValidationModel\Dictionary.cs" />
     <Compile Include="ValidationModel\DictType.cs" />
+    <Compile Include="ValidationModel\MyTaskListViewModel.cs" />
     <Compile Include="ValidationModel\Role.cs" />
     <Compile Include="ValidationModel\RoleAuthority.cs" />
     <Compile Include="ValidationModel\ScheduledEvents.cs" />
@@ -134,6 +147,7 @@
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
     <Compile Include="ViewModels\DictionaryViewModel.cs" />
     <Compile Include="ViewModels\DictTypeViewModel.cs" />
+    <Compile Include="ViewModels\EasyUIGridModel.cs" />
     <Compile Include="ViewModels\EasyUITreeModel.cs" />
     <Compile Include="ViewModels\RoleAuthorityViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
@@ -147,7 +161,10 @@
   <ItemGroup>
     <Content Include="Readme.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="BusinessModel\CRM\" />
+    <Folder Include="BusinessModel\ERP\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

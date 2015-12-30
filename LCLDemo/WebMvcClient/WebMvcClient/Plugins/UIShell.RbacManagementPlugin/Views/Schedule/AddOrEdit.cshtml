@@ -16,7 +16,7 @@
             <td width="15%" class="td_title">启用<s style="color:red;">*</s></td>
             <td>
                 &nbsp;&nbsp;
-                @Html.RadioButtonFor(c => c.Entity.Enable, 1, new { @id = "Enable", @name = "rdolstState" })开启&nbsp;&nbsp;
+                @Html.RadioButtonFor(c => c.Entity.Enable, 1, new { @id = "Enable", @name = "rdolstState" })开启 &nbsp;&nbsp;
                 @Html.RadioButtonFor(c => c.Entity.Enable, 0, new { @id = "Enable", @name = "rdolstState" })关闭
             </td>
         </tr>
@@ -72,7 +72,6 @@
 @section scripts{
     <script type="text/javascript">
         function CheckFromData() {
-
             var key = $("#Entity_Key").val();
             var ScheduleType = $("#Entity_ScheduleType").val();
             var et = $("#Entity_ExetimeType").val();

@@ -11,13 +11,21 @@ namespace UIShell.RbacPermissionService
     public partial class WFItem : BaseModel
     {
         /// <summary>
-        /// 项目描述
+        /// 单据编号
+        /// </summary>
+        public Guid Pbo_ID { get; set; }
+        /// <summary>
+        /// 单据名称
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// 单据地址
+        /// </summary>
+        public string Pbo_Adderss { get; set; }
+        /// <summary>
         /// 流程ID 
         /// </summary>
-        public WFRout Rout { get; set; }
+        public Guid Rout_ID { get; set; }
         /// <summary>
         /// 申请人
         /// </summary>
@@ -26,5 +34,10 @@ namespace UIShell.RbacPermissionService
         /// 流程状态
         /// </summary>
         public int State { get; set; }
+    }
+
+    public enum WFRoutType
+    {
+        维修审批流程
     }
 }

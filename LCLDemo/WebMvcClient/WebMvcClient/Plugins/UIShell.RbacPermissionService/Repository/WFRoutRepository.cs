@@ -20,8 +20,8 @@ using System.Threading.Tasks;
 namespace UIShell.RbacPermissionService
 {  
     public interface IWFRoutRepository : IRepository<WFRout>  
-    {  
-  
+    {
+        WFRout GetRoutName(string routName);
     }  
     public class WFRoutRepository : EntityFrameworkRepository<WFRout>, IWFRoutRepository  
     {  
@@ -29,7 +29,14 @@ namespace UIShell.RbacPermissionService
             : base(context)  
         {   
           
-        }  
+        }
+        public WFRout GetRoutName(string routName)
+        {
+            var entity=Find(new KeyWFRoutSpecification(routName, "Name"));
+            if (entity == null)
+                entity = new WFRout { ID = Guid.Empty };
+            return entity;
+        }
     }  
 }  
 

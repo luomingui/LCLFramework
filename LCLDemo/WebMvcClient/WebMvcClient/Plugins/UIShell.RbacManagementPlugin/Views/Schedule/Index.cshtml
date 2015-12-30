@@ -3,7 +3,7 @@
     ViewBag.Title = "计划任务列表";
 }
 <!--   数据列表    -->
-<table id="grid_schedule" title="计划任务列表" toolbar="#toolbar_schedule"></table>
+<table id="grid_schedule" title="计划任务列表" toolbar="#toolbar_schedule" fit="true"></table>
 <!--   命令列表   -->
 <div id="toolbar_schedule">
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">添加</a>
@@ -28,11 +28,11 @@
                 ]],
                 columns: [[
                     { field: 'ck', checkbox: true },
-                    { field: 'Exetime', title: '计划任务名称', width: 250 },
-                    { field: 'Exetime', title: '执行方式', width: 500 },
+                    { field: 'Key', title: '计划任务名称', width: 250 },
+                    { field: 'Exetime', title: '执行方式', width: 250 },
                     { field: 'Lastexecuted', title: '上次执行时间', width: 150 },
                     {
-                        field: 'Enable', title: '状态', width: 150,
+                        field: 'Enable', title: '状态', width: 80,
                         formatter: function (value, row, index) {
                             if (value) {
                                 return '开启';
@@ -42,7 +42,7 @@
                         }
                     },
                     {
-                        field: 'Issystemevent', title: '级别', width: 150,
+                        field: 'Issystemevent', title: '级别', width: 100,
                         formatter: function (value, row, index) {
                             if (value) {
                                 return '系统级';

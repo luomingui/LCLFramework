@@ -54,7 +54,7 @@ namespace UIShell.WinUI.Controllers
 
             try
             {
-                var pageList = repo.AjaxGetByRoutId(routId);
+                var pageList = repo.GetByRoutId(routId);
                 var viewModel = new WFActorPagedListViewModel(pageNumber, pageSize, pageList);
 
                 var easyUIPages = new Dictionary<string, object>();
@@ -72,11 +72,6 @@ namespace UIShell.WinUI.Controllers
         [HttpPost]
         public override CustomJsonResult AjaxAdd(WFActor model)
         {
-            var routId = LRequest.GetString("Rout_ID");
-            if (model.Rout == null && routId != null)
-            {
-                model.Rout = new WFRout { ID = Guid.Parse(routId) };
-            }
             return base.AjaxAdd(model);
         }
         [HttpPost]
@@ -85,7 +80,7 @@ namespace UIShell.WinUI.Controllers
             var result = new Result(true);
             try
             {
-                repo.AjaxAddActorUser(actorId, idUserList);
+                repo.AddActorUser(actorId, idUserList);
             }
             catch (Exception ex)
             {

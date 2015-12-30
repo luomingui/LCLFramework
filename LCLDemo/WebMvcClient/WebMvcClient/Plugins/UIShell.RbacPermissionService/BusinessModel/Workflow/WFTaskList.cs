@@ -13,11 +13,11 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 项目ID 
         /// </summary>
-        public WFItem Item { get; set; }
-           /// <summary>
+        public Guid Item_ID { get; set; }
+        /// <summary>
         /// 步骤ID
         /// </summary>
-        public WFActor Actor { get; set; }
+        public Guid Actor_ID { get; set; }
         /// <summary>
         /// 状态
         /// </summary>

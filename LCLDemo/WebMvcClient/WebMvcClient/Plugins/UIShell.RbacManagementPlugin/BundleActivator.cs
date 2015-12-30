@@ -22,6 +22,7 @@ namespace UIShell.RbacManagementPlugin
                 Value = @"UIShell.RbacManagementPlugin\Account\Login",
                 Priority = 1
             });
+          
             CommonModel.Modules.AddRoot(new MvcModuleMeta
             {
                 Label = "与我有关",
@@ -29,7 +30,7 @@ namespace UIShell.RbacManagementPlugin
                 Bundle = this,
                 Children =
                 {
-                    new MvcModuleMeta{ Image="icon-user-edit32", Label = "我的任务", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
+                    new MvcModuleMeta{ Image="icon-user-edit32", Label = "我的任务", CustomUI="/UIShell.RbacManagementPlugin/WFTaskList/Index",EntityType=typeof(DepartmentController)},
                     new MvcModuleMeta{ Image="icon-user-key", Label = "我的审批", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
                 }
             });
@@ -43,6 +44,7 @@ namespace UIShell.RbacManagementPlugin
                     new MvcModuleMeta{ Image="icon-organ", Label = "单位管理", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
                     new MvcModuleMeta{ Image="icon-group", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
                     new MvcModuleMeta{ Image="icon-user", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
+                    new MvcModuleMeta{ Image="icon-user-group", Label = "群组管理", CustomUI="/UIShell.RbacManagementPlugin/Group/Index",EntityType=typeof(GroupController)},
                     new MvcModuleMeta{ Image="icon-chart-organisation", Label = "流程定义", CustomUI="/UIShell.RbacManagementPlugin/WFRout/Index",EntityType=typeof(WFRoutController)},
                     new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }
@@ -58,6 +60,7 @@ namespace UIShell.RbacManagementPlugin
                     new MvcModuleMeta{ Image="icon-organ", Label = "行政区域", CustomUI="/UIShell.RbacManagementPlugin/Xzqy/Index",EntityType=typeof(XzqyController)},
                     new MvcModuleMeta{ Image="icon-book", Label = "字典管理", CustomUI="/UIShell.RbacManagementPlugin/DictType/Index",EntityType=typeof(DictTypeController)},
                     new MvcModuleMeta{ Image="icon-time", Label = "计划任务", CustomUI="/UIShell.RbacManagementPlugin/Schedule/Index",EntityType=typeof(ScheduleController)},   
+                    new MvcModuleMeta{ Image="icon-server", Label = "文件服务器", CustomUI="/UIShell.RbacManagementPlugin/HostConfig/Index",EntityType=typeof(HostConfigController)},   
                 }
             });
         }

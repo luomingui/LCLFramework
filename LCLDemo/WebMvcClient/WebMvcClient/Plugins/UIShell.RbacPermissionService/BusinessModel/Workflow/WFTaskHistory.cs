@@ -14,11 +14,15 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 项目ID 
         /// </summary>
-        public WFItem Item { get; set; }
+        public Guid Item_ID { get; set; }
         /// <summary>
         /// 步骤ID
         /// </summary>
-        public WFActor Actor { get; set; }
+        public Guid Actor_ID { get; set; }
+        /// <summary>
+        /// 是否审核通过
+        /// </summary>
+        public bool IsExamine { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
@@ -26,7 +30,7 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 操作人ID 
         /// </summary>
-        public Guid OperateUserId { get; set; }
+        public Guid OperateUserID { get; set; }
     }
 
 }

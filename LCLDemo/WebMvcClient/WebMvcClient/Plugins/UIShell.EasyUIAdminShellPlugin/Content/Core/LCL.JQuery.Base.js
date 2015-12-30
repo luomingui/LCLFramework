@@ -187,3 +187,4 @@ SystemResource["1033"] = {
     CopyRight: "©Copyright by LCL Corp. 2008-2018 ",
     SystemTitle: "SOC Security Operation Center"
 }
+

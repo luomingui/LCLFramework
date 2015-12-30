@@ -71,8 +71,8 @@
         }
         //Ìí¼Ó
         function addToSelect() {
-            removeFromSelect();
             $("#litGrant").append("<option value='" + $("#lstSource  option:selected").val() + "'>" + $("#lstSource  option:selected").text() + "</option>");
+            removeFromSelect();
         }
         function addToSelectAll() {
             $("#litGrant").empty();
@@ -130,7 +130,6 @@
             $("#btn_UserSelect_Search").click(function () {
                 UserSelectSearch();
             });
-
         });
     </script>
 }

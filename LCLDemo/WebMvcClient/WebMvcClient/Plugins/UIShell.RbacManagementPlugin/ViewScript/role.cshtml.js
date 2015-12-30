@@ -34,9 +34,7 @@ function InitControls() {
     InitGrid(); 
 } 
 //初始化事件 
-function InitEvent() { 
-    $('#btnAddrole').click(function () { pageFunc_roleAdd(); }); 
-    $('#btnDelrole').click(function () { pageFunc_roleDel(); }); 
+function InitEvent() {  
     $('#btnSearchrole').click(function () { pageFunc_SearchDatarole(); }); 
 } 
 function InitGrid() { 
@@ -45,7 +43,8 @@ function InitGrid() {
         iconCls: 'icon-edit', 
         pagination: true, 
         rownumbers: true, 
-        fitCloumns: true, 
+        fitCloumns: true,
+        fit:true,
         idField: "ID", 
         frozenColumns: [[ 
           { field: 'ck', checkbox: true } 
@@ -239,10 +238,16 @@ function pageFunc_authority(ID)
     }
 }
 function grid_role_toolbar() { 
-    var ihtml = '<div id="tbar_role">' 
-        + '<a id="btnAddrole" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add + '</a>&nbsp;' 
-        + '<a id="btnDelrole" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del + '</a>&nbsp;' 
-        + '<a href="javascript:void(0)" /></div>' 
-    return ihtml; 
+    var ihtml = [{
+        id: "btnAddrole",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add,
+        iconCls: 'icon-add',
+        handler: function () { pageFunc_roleAdd(); }
+    }, '-', {
+        id: "btnDelrole",
+        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del,
+        iconCls: 'icon-remove',
+        handler: function () { pageFunc_roleDel(); }
+    }];
+    return ihtml;
 } 
-

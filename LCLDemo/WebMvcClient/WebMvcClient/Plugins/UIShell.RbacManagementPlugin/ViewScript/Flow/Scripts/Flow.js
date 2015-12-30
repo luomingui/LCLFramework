@@ -16,16 +16,17 @@
     function buildHTML(target, options) {
         // 1. 静态数据 --加载标题
         buildTitleHtml(target, options);
+        debugger;
         // 2. 动态数据
-        if (options.Data == null) {
+        if (options.Data == null && options.JsonServerURL.length > 0) {
             // 拼接URL
-            var jsonURL;
+            var jsonURL = options.JsonServerURL;
             $.ajax({
                 url: jsonURL,
                 type: "post",
-                data: "",
                 dataType: "json",
                 success: function (data) {
+                    debugger;
                     if (data.Succeed) {
                         // 1. 数据赋值到options.Data中
                         //    options.Title = data.Data.Title;
@@ -44,7 +45,7 @@
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
+                    //console.log(textStatus);
                     alert("流程图jQuery插件报错,请联系系统管理员!");
                 }
             });
@@ -356,27 +357,25 @@
         if (typeof method == "string") {
             return $.fn.Flow.methods[method](this, options);
         }
-
+        debugger;
         method = method || {};
 
-        var opt = $.extend({}, $.fn.Flow.defaults, $.fn.Flow.parseOptions(this), method);
-        flow = $.data(this, "Flow", { options: opt });
-        // 构造HTML
-        return buildHTML(this, flow.options);
+        //var opt = $.extend({}, $.fn.Flow.defaults, $.fn.Flow.parseOptions(this), method);
+        //flow = $.data(this, "Flow", { options: opt });
 
-        //        return this.each(function () {
-        //            var flow = $.data(this, "Flow");
-        //            var opt;
-        //            if (flow) {
-        //                opt = $.extend(flow.options, method);
-        //            }
-        //            else {
-        //                opt = $.extend({}, $.fn.Flow.defaults, $.fn.Flow.parseOptions(this), method);
-        //            }
-        //            flow = $.data(this, "Flow", { options: opt });
-        //            // 构造HTML
-        //            buildHTML(this, flow.options);
-        //        });
+        return this.each(function () {
+            var flow = $.data(this, "Flow");
+            var opt;
+            if (flow) {
+                opt = $.extend(flow.options, method);
+            }
+            else {
+                opt = $.extend({}, $.fn.Flow.defaults, $.fn.Flow.parseOptions(this), method);
+            }
+            flow = $.data(this, "Flow", { options: opt });
+            // 构造HTML
+            buildHTML(this, flow.options);
+        });
     };
     /*******************************插件区域******************************************************/
 

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 namespace UIShell.RbacPermissionService
 {
     /// <summary>
@@ -9,7 +10,6 @@ namespace UIShell.RbacPermissionService
         public Department()
         {
             DepartmentType = DepartmentType.公司;
-            
         }
         /// <summary>
         /// 行政区域
