@@ -1,3 +1,5 @@
+http://www.cnblogs.com/bomo/p/3309766.html
+
 1：领域“仓库”仓库规约
 2：领域事件
 3：服务

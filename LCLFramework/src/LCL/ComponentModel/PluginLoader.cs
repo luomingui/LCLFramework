@@ -98,7 +98,9 @@ namespace LCL.ComponentModel
                 {
                     if (ex.InnerException != null)
                         ex = ex.InnerException;
-                    Logger.LogError("LCL GetAssemblies PluginAssembly " + assembly.GetName().Name, ex);
+                    string assName = assembly.GetName().Name;
+                    if (!assName.StartsWith("System.") || !assName.StartsWith("Microsoft."))
+                        Logger.LogError("LCL GetAssemblies PluginAssembly " + assembly.GetName().Name, ex);
                 }
             }
             return plugins.OrderBy(a => a.Instance.SetupLevel).ToList();

@@ -701,7 +701,7 @@ namespace LCL.Tools
                     }
                 }
             }
-            builder.AppendLine("<tr><td  colspan='2'>" + crto.ToString() + "<td></tr>");
+            builder.AppendLine("<tr><td  colspan='1'>" + crto.ToString() + "<td></tr>");
             builder.AppendLine(" </tbody> ");
             builder.AppendLine("</table> ");
             return builder.ToString();

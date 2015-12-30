@@ -96,9 +96,6 @@
     <Compile Include="Model\BaseLCLModel.cs" />
     <Compile Include="Model\StringTrimModelBinder.cs" />
     <Compile Include="PageFlowService\IPageFlowService.cs" />
-    <Compile Include="Permission\MyFormsAuthentication.cs" />
-    <Compile Include="Permission\MyFormsPrincipal.cs" />
-    <Compile Include="Permission\MyUserDataPrincipal.cs" />
     <Compile Include="PluginMvcApplication.cs" />
     <Compile Include="MvcPathUtility.cs" />
     <Compile Include="UI\CheckBoxListExtension.cs" />
@@ -156,7 +153,9 @@
       <Name>LCL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Permission\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

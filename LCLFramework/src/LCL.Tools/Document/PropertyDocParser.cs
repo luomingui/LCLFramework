@@ -45,6 +45,11 @@ namespace EFDemo.Document
                 PropertyName = "UpdateDate",
                 Comment = "更新时间",
             });
+             this._result.Add(new PropertyDoc
+            {
+                PropertyName = "IsDelete",
+                Comment = "删除标记",
+            });
             #endregion
 
             if (TypeContext.BaseType.Name == "BaseTreeModel")
@@ -118,7 +123,6 @@ namespace EFDemo.Document
             return value;
         }
         #endregion
-
         private void ParseDoc()
         {
             PropertyInfo[] fields = TypeContext.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
@@ -147,12 +151,10 @@ namespace EFDemo.Document
                     }
                 }
                 doc.PropertyName = propertyName;
-
-                if (propertyName != "ID" || propertyName != "AddDate" || propertyName != "UpdateDate")
+                if (propertyName != "ID" || propertyName != "AddDate" || propertyName != "UpdateDate" || propertyName != "IsDelete")
                     this._result.Add(doc);
 
             }
-
             fields = TypeContext.BaseType.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             foreach (PropertyInfo field in fields)
             {

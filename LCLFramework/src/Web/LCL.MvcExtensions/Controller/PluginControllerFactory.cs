@@ -19,6 +19,7 @@ namespace LCL.MvcExtensions
             {
                 //http://localhost:1616/Blog/Index?plugin=BlogPlugin
                 //未找到路径“/UIShell.AreaManagementPlugin/Entity/Add”的控制器 
+                //UIShell.RbacManagementPlugin/ViewScript/Flow/FlowDemo.html
                 var controller = base.CreateController(requestContext, controllerName);
                 if (controller == null)
                 {

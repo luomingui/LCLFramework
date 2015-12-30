@@ -101,6 +101,8 @@
             this.txtcodepath.Name = "txtcodepath";
             this.txtcodepath.Size = new System.Drawing.Size(463, 21);
             this.txtcodepath.TabIndex = 3;
+            this.txtcodepath.Text = "F:\\Github\\LCLFramework\\LCLDemo\\WebMvcClient\\WebMvcClient\\Plugins\\UIShell.RbacPerm" +
+    "issionService\\BusinessModel";
             // 
             // label1
             // 
@@ -128,6 +130,8 @@
             this.txtdllpath.Name = "txtdllpath";
             this.txtdllpath.Size = new System.Drawing.Size(464, 21);
             this.txtdllpath.TabIndex = 1;
+            this.txtdllpath.Text = "F:\\Github\\LCLFramework\\LCLDemo\\WebMvcClient\\WebMvcClient\\Plugins\\UIShell.RbacPerm" +
+    "issionService\\bin\\Debug\\UIShell.RbacPermissionService.dll";
             // 
             // button2
             // 
