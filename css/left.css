@@ -1,0 +1,93 @@
+@charset "utf-8";
+* {
+	margin:0;
+	padding:0;
+	font-size:12px;
+	font-family:Verdana, Arial,, Helvetica, sans-serif;
+	scrollbar-3dlight-color:#D4D0C8; /*- 最外左 -*/
+	scrollbar-highlight-color:#fff; /*- 左二 -*/
+	scrollbar-face-color:#E4E4E4; /*- 面子 -*/
+	scrollbar-arrow-color:#666; /*- 箭头 -*/
+	scrollbar-shadow-color:#808080; /*- 右二 -*/
+	scrollbar-darkshadow-color:#D7DCE0; /*- 右一 -*/
+	scrollbar-base-color:#D7DCE0; /*- 基色 -*/
+ scrollbar-track-color:#;/*- 滑道 -*/
+}
+html {
+	height:100%;
+}
+body {
+	background:#f5f5f5;
+	font-family: "Lucida Grande", Verdana, Lucida, Arial, Helvetica, "宋体", sans-serif;
+	height:100%;
+}
+img {
+	border:0;
+}
+a {
+	color:#165e9e;
+	text-decoration:none;
+}
+#menu {
+	height:100%;
+	margin-top:-1px;
+	width:141px;
+}
+
+#menu dt {
+	height:22px;
+	cursor:pointer;
+	background:url(../images/line_up.gif) no-repeat right top;
+	color:#000;
+	text-align:left;
+	line-height:22px;
+	padding-left:22px;
+	white-space:nowrap;
+}
+#menu dt.hover {
+	background:url(../images/line_up.gif) no-repeat right top;
+	color:#000;
+}
+#menu dt.on {
+	background:url(../images/line_down.gif) no-repeat right top;
+	color:#000;
+}
+#menu dd{
+  	padding:1px;
+	height:22px;
+	line-height:22px;
+	border:1px solid #f5f5f5;
+	white-space:nowrap;
+	word-break: break-all;
+}
+#menu dd a{
+	padding-left:24px;
+	display:block;
+	height:100%;
+	border:1px solid #f5f5f5;
+	border-bottom:1px solid #f1f1f1;
+	color:#666;
+}
+#menu dd a:hover {
+	padding-left:24px;
+	background: url(../images/arr_dot.gif) no-repeat 8px 40%;
+	border:1px solid #989898;
+}
+#menu dd.focus {
+	background: #ffffd0 url(../images/arr_dot.gif) no-repeat 10px 40%;
+}
+#menu dd.focus a {
+	color:#000;
+}
+#treeManu {
+	width:100%;
+	height:100%;
+	overflow:auto;
+	border:0;
+	background-color:#f5f5f5;
+}
+#treeTable {
+	width:100%;
+	border:0;
+	vertical-align:top;
+}

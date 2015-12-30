@@ -1,0 +1,96 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* 存放标准样式，禁止修改 */
+/* 刘凯华 2008-12*/
+*{
+margin:0;
+padding:0;
+}
+
+
+/*add by lily 2009-09-15*/ 
+#tb_content{
+	BORDER-RIGHT: 0px;
+	 BORDER-TOP: 0px; 
+	 BORDER-LEFT: 0px; 
+	 WIDTH: 96%; 
+	 BORDER-BOTTOM: 0px;
+	 HEIGHT: 100%;  
+	 FONT-SIZE: 12px;
+}
+
+body {
+    font-family: "Lucida Grande", Verdana, Lucida, Arial, Helvetica, "宋体",sans-serif;
+    font-size:12px;
+	MARGIN-TOP: 8px;
+	MARGIN-LEFT: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.mud {
+	FONT-SIZE: 12px; LINE-HEIGHT: 19px
+}
+li {
+	LIST-STYLE-POSITION: outside; LIST-STYLE-IMAGE: url(../images/bullet_arr2.gif); MARGIN: auto 3px 6px -10px; VERTICAL-ALIGN: text-top
+}
+ul {
+padding-left:30px;
+}
+H2 {
+	MARGIN-TOP: 5px; FONT-WEIGHT: bold; FONT-SIZE: 15px; MARGIN-BOTTOM: 3px; COLOR: white
+}
+H4 {
+	MARGIN-TOP: 12px; FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-BOTTOM: 3px; COLOR: #000099
+}
+H5 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 13px;
+	BACKGROUND: url(../images/bullet8.gif) no-repeat 2px 30%;
+	MARGIN: 8px auto 8px;
+	COLOR: #000099;
+	TEXT-INDENT: 1.8em;
+	LETTER-SPACING: 1px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-top-color: #D2E1FD;
+	border-right-color: #D2E1FD;
+	border-bottom-color: #D2E1FD;
+	border-left-color: #D2E1FD;
+	text-align: left;
+PADDING-BOTTOM: 3px;}
+H6 {
+	FONT-WEIGHT: normal;
+	FONT-SIZE: 12px;
+	BACKGROUND: url(../images/arr_dot.gif) no-repeat 2px 50%;
+	MARGIN: 6px auto 2px 0px;
+	COLOR: #03319A;
+	TEXT-INDENT: 1.8em;
+	LETTER-SPACING: 1px;
+	
+	text-align: left;
+	border: 1px none #00CCFF;
+}
+
+a{
+color:#03319A;
+text-decoration:none;
+}
+
+a:hover{
+color:#0000ff;
+}
+
+hr{
+background-color:#c6d5f5;
+border:0;
+color:#c6d5f5;
+height:1px;
+width:95%;
+margin:5px auto;
+*margin:0 auto;
+}
+
+

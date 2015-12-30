@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+	树菜单属性说明：
+	Title：必须，树菜单名称；
+	Tip：非必须，菜单提示； 
+	Target：必须，对应菜单所连接的文件；
+	Selected：非必须，初始化时展开的菜单和内容页，缺省情况下，不展开菜单同时载入首页; 
+-->
+<Root>
+  <Node Title="系统概述" Tip="系统概述" Target="" />
+  <Node Title="前台功能" Tip="前台功能" Target="" />
+  <Node Title="后台管理" Tip="后台管理" Target="" />
+  <Node Title="LCL使用" Tip="LCL使用" >
+    <Node Title="安装" Tip="安装" Target=""/>
+    <Node Title="我参与" Tip="我参与的直播"  Target=""/>
+  </Node>
+	<Node Title="常见问题" Tip="常见问题" >
+		<Node Title="在线常见问题" Tip="在线常见问题" Target="http://www.cnblogs.com/luomingui/category/279664.html"/>
+	</Node>
+</Root>
