@@ -7,27 +7,28 @@
 	Selected：非必须，初始化时展开的菜单和内容页，缺省情况下，不展开菜单同时载入首页; 
 -->
 <Root>
-  <Node Title="LCLFramework" Selected="true" >
-      <Node Title="概述" Target="" />
-	  <Node Title="使用" Selected="true">
-		<Node Title="安装"  Target=""/>
-		<Node Title="创建第一个程序" Target=""/>
+  <Node Title="LCLFramework">
+      <Node Title="概述" Target="helpfiles/html/fcbf2471-6f51-4f20-9fda-fbcd06e14f92.htm" />
+	  <Node Title="使用" Target="helpfiles/html/43c84dfc-b1c4-476f-ab06-349c693e5729.htm" >
+		<Node Title="安装"  Target="helpfiles/html/e4f8b90c-9b85-4906-bce9-d2c35d5ba465.htm"/>
+		<Node Title="创建第一个程序" Target="helpfiles/html/fdbb7d56-393e-4e0b-b69f-995a50f513eb.htm"/>
 		<Node Title="如何连接数据库" Target=""/>
+		<Node Title="开发约束" Target="helpfiles/html/de48699a-70a9-4624-8915-84dd7bf59102.htm"/>
       </Node>
-	  <Node Title="设计" Selected="true" >
-	    <Node Title="IOC模式" Target=""/>
-	    <Node Title="Plugin模式" Target=""/>
-		<Node Title="Service模式" Target=""/>
-		<Node Title="Repository模式" Target=""/>
-		<Node Title="规约模式" Target=""/>
+	  <Node Title="设计">
+	    <Node Title="IOC模式" Target="helpfiles/html/ca6e33b5-9fd3-44d6-ae54-8f762a1fea19.htm"/>
+	    <Node Title="Plugin模式" Target="helpfiles/html/153673c9-7c40-4679-b139-a3e7e3cec4ef.htm"/>
+		<Node Title="Service模式" Target="helpfiles/html/353673c9-7c40-4679-b139-a3e7e4cec8ef.htm"/>
+		<Node Title="Repository模式" Target="helpfiles/html/253673c9-7c40-4679-b139-a3e7e3cec8ef.htm"/>
+		<Node Title="规约模式" Target="helpfiles/html/b21ec496-3470-41d8-b959-5dd8ff43db56.htm"/>
 		<Node Title="接口开发设计" Target=""/>
 	  </Node>
-	  <Node Title="工具" Selected="true">
+	  <Node Title="工具">
 		<Node Title="界面生成工具" Target=""/>
 		<Node Title="数据库生成工具" Target=""/>
 		<Node Title="代码生成工具" Target=""/>
 	  </Node>
-	  <Node Title="业务组件" Selected="true" >
+	  <Node Title="业务组件">
 	    <Node Title="组织架构插件" Target=""/>
 		<Node Title="用户管理插件" Target=""/>
 		<Node Title="权限管理插件" Target=""/>
@@ -37,7 +38,7 @@
 		<Node Title="EasyUI界面框架插件" Target=""/>
 	  </Node>
   </Node>
-  <Node Title="常见问题" Selected="true">
+  <Node Title="常见问题">
 	 <Node Title="在线常见问题" Target="http://www.cnblogs.com/luomingui/category/279664.html"/>
   </Node>
 </Root>

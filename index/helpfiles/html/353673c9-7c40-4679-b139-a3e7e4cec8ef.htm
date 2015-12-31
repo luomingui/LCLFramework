@@ -1,0 +1,85 @@
+﻿<html><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>领域服务</title><meta name="Language" content="zh-cn" /><meta name="Microsoft.Help.Id" content="353673c9-7c40-4679-b139-a3e7e4cec8ef" /><meta name="Description" content="领域中的一些概念不太适合建模为对象，即归类到实体对象或值对象，因为它们本质上就是一些操作，一些动作，而不是事物。 这些操作或动作往往会涉及到多个领域对象，并且需要协调这些领域对象共同完成这个操作或动作。 DDD认为服务是一个很自然的范式用来对应这种跨多个对象的操作，所以就有了领域服务这个模式。" /><meta name="Microsoft.Help.ContentType" content="Concepts" /><link rel="stylesheet" type="text/css" href="../styles/Presentation.css" /><script type="text/javascript" src="../scripts/EventUtilities.js"> </script><script type="text/javascript" src="../scripts/SplitScreen.js"> </script><script type="text/javascript" src="../scripts/Dropdown.js"> </script><script type="text/javascript" src="../scripts/script_manifold.js"> </script><script type="text/javascript" src="../scripts/script_feedBack.js"> </script><script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script><script type="text/javascript" src="../scripts/CommonUtilities.js"> </script><link type="text/css" rel="stylesheet" href="../styles/highlight.css" /><script type="text/javascript" src="../scripts/highlight.js"> </script></head><body><input type="hidden" id="userDataCache" class="userDataStyle" /><input type="hidden" id="hiddenScrollOffset" /><img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" /><img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" /><img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" /><img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" /><img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" /><img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" /><img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" /><img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" /><div id="header"><table id="topTable" cellspacing="0" cellpadding="0"><tr><td><span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0"><img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span></td></tr></table><div id="devlangsMenu"><input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" /><label class="checkboxLabel" for="CSharpCheckbox">C#</label><br /></div><table id="bottomTable" cellpadding="0" cellspacing="0"><tr id="headerTableRow1"><td align="left"><span id="runningHeaderText">LCL User Guide</span></td></tr><tr id="headerTableRow2"><td align="left"><span id="nsrTitle">领域服务</span></td></tr><tr id="headerTableRow3"><td align="left"><span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('minguiluo@163.com','LCL User Guide','','1.0.0.0','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" id="headerBottom"><img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" /></td></tr></table></div><div id="mainSection"><div id="mainBody"><div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" /><span style="color: DarkGray">LCL User Guide </span><div class="introduction"><p>This topic contains the following sections.</p><ul class="autoOutline"><li class="outlineSectionEntry"><a href="#intro">领域服务（Domain Service）</a></li><li class="outlineSectionEntry"><a href="#args">服务的输入与输出</a></li><li class="outlineSectionEntry"><a href="#ext">服务的扩展</a></li><li class="outlineSectionEntry"><a href="#ddd">附 </a></li></ul></div><a name="intro"> </a><h1 class="heading"><span onclick="ExpandCollapse(sectionToggleID0EFAAA)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(sectionToggleID0EFAAA, event)" tabindex="0"><img id="sectionToggleID0EFAAA" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />领域服务（Domain Service）</span></h1><div id="sectionSectionID0EFAAA" class="section" name="collapseableSection"><p>
+               领域中的一些概念不太适合建模为对象，即归类到实体对象或值对象，因为它们本质上就是一些操作，一些动作，而不是事物。
+               这些操作或动作往往会涉及到多个领域对象，并且需要协调这些领域对象共同完成这个操作或动作。
+               DDD认为服务是一个很自然的范式用来对应这种跨多个对象的操作，所以就有了领域服务这个模式。
+                </p><p> 个人认为，领域服务的引入，增加了模型的抗需求变更的能力。我们可以通过需求分析，找出业务逻辑中易变的部分，
+               以领域服务的方式“注入”到领域模型中，今后若有需求变更，则可以无需更改任何现有组件，完成业务处理逻辑的改变。</p><p> 模型关注领域的个体行为，场景关注领域的群体行为，模型关注领域的静态结构，软件中一般有三种服务：应用层服务、领域服务、基础服务。</p><p>LCL 领域服务的特点：</p><ul><li><p>它存在的意义就是协调领域对象共完成某个操作</p></li><li><p>领域服务是以动词开头来命名的</p></li><li><p>领域服务没有状态只有行为</p></li><li><p>领域服务是无状态的</p><p>领域服务是无状态的。虽然服务类都有属性，但每一次服务的调用都需要构造新的服务对象，
+				  而服务对象的属性只是为了传递服务的输入和输出，是临时的状态，当调用完成后，服务对象即被丢弃、回收。</p></li><li><p>避免领域逻辑泄露到应用层</p></li><li><p>领域服务具有Façade的功能</p></li><li><p>较高的可扩展性</p><p>服务的可替换性：通过服务的工厂来创建服务的实例，使得我们对服务的创建过程进行扩展。
+				   例如可以使用新的服务来替换旧的服务，而不需要修改旧的服务调用代码。</p></li><li><p>采用命令模式设计</p><p>与其它的服务框架不同，LCL 使用了命令模式来设计领域服务，以单独类来封装每个单独的服务。
+				   而 WebService/WCF 等服务框架，则是用方法来表达每一个单独的服务。把服务抽象为单独的类的模式，
+				   不但可以保证服务与服务间的相互独立，还能更好地使用面向对象的特性来提供服务的可扩展性。</p></li></ul><div class="mediaNear"><div class="caption">领域服务UML</div><img alt="DomainService" src="../media/DomainService.png" /></div></div><a name="demo"> </a><div id="sectionSectionID0EEAAA" class="seeAlsoNoToggleSection"><p>1. 我们将对服务的公共操作部分，提取为IDomainService接口，如下代码：</p><div class="code"><span codeLanguage="CSharp"><table width="100%" cellspacing="0" cellpadding="0"><tr><th>C# </th><th><span class="copyCode" onclick="CopyCode(this)" onkeypress="CopyCode_CheckKey(this, event)" onmouseover="ChangeCopyCodeIcon(this)" onmouseout="ChangeCopyCodeIcon(this)" tabindex="0"><img class="copyCodeImage" name="ccImage" align="absmiddle" alt="Copy image" title="Copy image" src="../icons/copycode.gif" />Copy</span></th></tr><tr><td colspan="2"><pre xml:space="preserve"><span class="highlight-keyword">public</span> <span class="highlight-keyword">interface</span> IDomainService
+{
+    <span class="highlight-keyword">void</span> Invoke();
+}
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">abstract</span> <span class="highlight-keyword">class</span> DomainService : IDomainService
+{
+    <span class="highlight-keyword">protected</span> <span class="highlight-keyword">abstract</span> <span class="highlight-keyword">void</span> Execute();
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> Invoke()
+    {
+        <span class="highlight-keyword">this</span>.Execute(context);
+    }
+}
+<span class="highlight-comment">/// &lt;summary&gt;</span>
+<span class="highlight-comment">/// 服务命名规范：</span>
+<span class="highlight-comment">///    1：服务名称Service</span>
+<span class="highlight-comment">///    2：服务名称Service_V1000</span>
+<span class="highlight-comment">/// &lt;/summary&gt;</span>
+[DebuggerDisplay(<span class="highlight-literal">"Count = {Count}"</span>)]
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> DomainServiceLocator
+{
+   <span class="highlight-keyword">void</span> TryAssemblyAddServices(){}
+}</pre></td></tr></table></span></div><p>1.加载服务，LCL框架会自动加载。如下代码：</p><div class="code"><span codeLanguage="CSharp"><table width="100%" cellspacing="0" cellpadding="0"><tr><th>C# </th><th><span class="copyCode" onclick="CopyCode(this)" onkeypress="CopyCode_CheckKey(this, event)" onmouseover="ChangeCopyCodeIcon(this)" onmouseout="ChangeCopyCodeIcon(this)" tabindex="0"><img class="copyCodeImage" name="ccImage" align="absmiddle" alt="Copy image" title="Copy image" src="../icons/copycode.gif" />Copy</span></th></tr><tr><td colspan="2"><pre xml:space="preserve"><span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Global : System.Web.HttpApplication 
+{ 
+    <span class="highlight-keyword">protected</span> <span class="highlight-keyword">void</span> Application_Start(<span class="highlight-keyword">object</span> sender, EventArgs e) 
+    { 
+        ServiceLocator.Instance.TryAssemblyAddServices(); 
+    } 
+}</pre></td></tr></table></span></div><p>2.创建服务 。如下代码：</p><div class="code"><span codeLanguage="CSharp"><table width="100%" cellspacing="0" cellpadding="0"><tr><th>C# </th><th><span class="copyCode" onclick="CopyCode(this)" onkeypress="CopyCode_CheckKey(this, event)" onmouseover="ChangeCopyCodeIcon(this)" onmouseout="ChangeCopyCodeIcon(this)" tabindex="0"><img class="copyCodeImage" name="ccImage" align="absmiddle" alt="Copy image" title="Copy image" src="../icons/copycode.gif" />Copy</span></th></tr><tr><td colspan="2"><pre xml:space="preserve">[Serializable]
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> AddService : Service
+{
+    <span class="highlight-comment">//两个服务的输入参数</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">int</span> A { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">int</span> B { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+
+    <span class="highlight-comment">//服务的输出参数</span>
+    [ServiceOutput]
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">int</span> Result { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+
+    <span class="highlight-keyword">protected</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Execute()
+    {
+        Result = A + B;
+    }
+}</pre></td></tr></table></span></div><p>3.调用服务 。如下代码：</p><div class="code"><span codeLanguage="CSharp"><table width="100%" cellspacing="0" cellpadding="0"><tr><th>C# </th><th><span class="copyCode" onclick="CopyCode(this)" onkeypress="CopyCode_CheckKey(this, event)" onmouseover="ChangeCopyCodeIcon(this)" onmouseout="ChangeCopyCodeIcon(this)" tabindex="0"><img class="copyCodeImage" name="ccImage" align="absmiddle" alt="Copy image" title="Copy image" src="../icons/copycode.gif" />Copy</span></th></tr><tr><td colspan="2"><pre xml:space="preserve"> <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> HttpHandlerDemo: IHttpHandler
+ {
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ProcessRequest(HttpContext context)
+    {
+        context.Response.ContentType = <span class="highlight-literal">"text/plain"</span>;
+        <span class="highlight-keyword">try</span>
+        {
+            <span class="highlight-keyword">string</span> sMothod = LRequest.GetString(<span class="highlight-literal">"method"</span>);
+            <span class="highlight-keyword">string</span> version = LRequest.GetString(<span class="highlight-literal">"version"</span>);
+                context.Response.Clear();
+                <span class="highlight-keyword">var</span> service = ServiceLocator.Instance.FindImpl(sMothod, version);
+                service.Invoke(context);
+        }
+        <span class="highlight-keyword">catch</span> (Exception ex)
+        {
+            LogManage.AddErrorLog(ex);
+        }
+    }
+}</pre></td></tr></table></span></div></div><a name="args"> </a><h1 class="heading"><span onclick="ExpandCollapse(sectionToggleID0EDAAA)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(sectionToggleID0EDAAA, event)" tabindex="0"><img id="sectionToggleID0EDAAA" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />服务的输入与输出</span></h1><div id="sectionSectionID0EDAAA" class="section" name="collapseableSection"><p>以类的形式封装服务后，同样，每个服务需要声明它的输出和输出，形同方法的参数与返回值。领域服务的输入和输出都以服务类的属性的形式编写。例如上面 AddService 中的 A、B 两个属性是输出属性，而 Result 属性则是输出属性。</p><ul><li><p>输出属性</p><p>
+                            标记了 <span class="code">ServiceOutputAttribute</span> 特性的属性都是服务的输出。
+                        </p><p>注意，一个服务可以有多个输出。</p></li><li><p>输入属性</p><p>
+                            没有任何标记、或者标记了 <span class="code">ServiceInputAttribute</span> 特性的属性都是服务的输入。
+                        </p><p>一个属性可以即是输入也是输出，这时需要同时标记以上两个特性。</p></li></ul></div><a name="ext"> </a><h1 class="heading"><span onclick="ExpandCollapse(sectionToggleID0ECAAA)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(sectionToggleID0ECAAA, event)" tabindex="0"><img id="sectionToggleID0ECAAA" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />服务的扩展</span></h1><div id="sectionSectionID0ECAAA" class="section" name="collapseableSection"><p>在低启动级别的插件中，可以使用 ServiceFactory.Override 方法来替换高启动级别插件中的指定服务。这样，使用工厂创建出的服务，都是替换后的服务。</p></div><a name="ddd"> </a><h1 class="heading"><span onclick="ExpandCollapse(sectionToggleID0EBAAA)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(sectionToggleID0EBAAA, event)" tabindex="0"><img id="sectionToggleID0EBAAA" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />附 </span></h1><div id="sectionSectionID0EBAAA" class="section" name="collapseableSection"><p>
+                    关于 Service Layer 的详细概念，见 P of EAA Catalog  的：《<a href="http://martinfowler.com/eaaCatalog/serviceLayer.html" target="_blank">Service Layer</a> 》。
+                </p><p>
+                    主要借鉴Rafy框架，见 胡庆访  的：《<a href="http://www.cnblogs.com/zgynhqf/" target="_blank">博客</a> 》。
+                </p></div></div><div id="footer"><div class="footerLine"><img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" /></div><A NAME="feedback"></A><span id="fb" class="feedbackcss"></span>
+罗敏贵@版权所有，有问题请联系minguiluo@163.com<p />有关这个主题的评论请发邮件到
+        <a id="HT_MailLink" href="mailto:minguiluo%40163.com?Subject=LCL User Guide">发送反馈</a><script type="text/javascript">
+        var HT_mailLink = document.getElementById("HT_MailLink");
+        var HT_mailLinkText = HT_mailLink.innerHTML;
+        HT_mailLink.href += ": " + document.title;
+        HT_mailLink.innerHTML = HT_mailLinkText;
+        </script><p><a href="http://www.cnblogs.com/luomingui/category/279664.html" target="_blank">LCL User Guide</a></p></div></div></body></html>
