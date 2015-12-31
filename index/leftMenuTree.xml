@@ -7,14 +7,41 @@
 	Selected：非必须，初始化时展开的菜单和内容页，缺省情况下，不展开菜单同时载入首页; 
 -->
 <Root>
-  <Node Title="系统概述" Tip="系统概述" Target="" />
-  <Node Title="前台功能" Tip="前台功能" Target="" />
-  <Node Title="后台管理" Tip="后台管理" Target="" />
-  <Node Title="LCL使用" Tip="LCL使用" >
-    <Node Title="安装" Tip="安装" Target=""/>
-    <Node Title="我参与" Tip="我参与的直播"  Target=""/>
+  <Node Title="LCLFramework" Selected="true" >
+      <Node Title="概述" Target="" />
+	  <Node Title="使用" Selected="true">
+		<Node Title="安装"  Target=""/>
+		<Node Title="创建第一个程序" Target=""/>
+		<Node Title="如何连接数据库" Target=""/>
+      </Node>
+	  <Node Title="设计" Selected="true" >
+	    <Node Title="IOC模式" Target=""/>
+	    <Node Title="Plugin模式" Target=""/>
+		<Node Title="Service模式" Target=""/>
+		<Node Title="Repository模式" Target=""/>
+		<Node Title="规约模式" Target=""/>
+		<Node Title="接口开发设计" Target=""/>
+	  </Node>
+	  <Node Title="工具" Selected="true">
+		<Node Title="界面生成工具" Target=""/>
+		<Node Title="数据库生成工具" Target=""/>
+		<Node Title="代码生成工具" Target=""/>
+	  </Node>
+	  <Node Title="业务组件" Selected="true" >
+	    <Node Title="组织架构插件" Target=""/>
+		<Node Title="用户管理插件" Target=""/>
+		<Node Title="权限管理插件" Target=""/>
+		<Node Title="工作流插件" Target=""/>
+	    <Node Title="定时器插件" Target=""/>
+		<Node Title="EasyUI界面框架插件" Target=""/>
+		<Node Title="EasyUI界面框架插件" Target=""/>
+	  </Node>
   </Node>
-	<Node Title="常见问题" Tip="常见问题" >
-		<Node Title="在线常见问题" Tip="在线常见问题" Target="http://www.cnblogs.com/luomingui/category/279664.html"/>
-	</Node>
+  <Node Title="常见问题" Selected="true">
+	 <Node Title="在线常见问题" Target="http://www.cnblogs.com/luomingui/category/279664.html"/>
+  </Node>
 </Root>
+
+
+
+
