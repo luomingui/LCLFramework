@@ -587,28 +587,26 @@ function createTreeNode(parentNode, xmlNode, pid)
  //创建xml文档对象  
 function createXMLObject(url)
 {  
+    var xmlDoc=null;
 	try //Internet Explorer
 	{
 		xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-		
 	}
 	catch(e)
 	{
 		try //Firefox, Mozilla, Opera, etc.
 		{
-		xmlDoc=document.implementation.createDocument("","",null);
+			xmlDoc=document.implementation.createDocument("","",null);
 		}
-		catch(e) {alert(e.message)}
+		catch(e) {alert("你的浏览器不支持XML文件解析,"+e.message)}
 	}
-
 	try 
 	{
 		xmlDoc.async=false;
 		xmlDoc.load(url);
 		return xmlDoc;
-		//document.write("xmlDoc is loaded, ready for use");
 	}
-	catch(e) {alert(e.message)}
+	catch(e) {alert("你的浏览器不支持XML文件解析,"+e.message)}
  }
  
 function killErrors() { 
