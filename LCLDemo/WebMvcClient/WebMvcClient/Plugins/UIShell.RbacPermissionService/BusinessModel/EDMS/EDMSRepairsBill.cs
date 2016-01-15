@@ -44,10 +44,6 @@ namespace UIShell.RbacPermissionService
         /// </summary>
         public string DeviceDescribe { get; set; }
         /// <summary>
-        /// 是否提交报修
-        /// </summary>
-        public bool IsRepairsSubmit { get; set; }
-        /// <summary>
         /// 流程ID
         /// </summary>
         public WFItem WFItem { get; set; }

@@ -36,15 +36,17 @@ namespace UIShell.RbacManagementPlugin
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
             {
-                Label = "基础数据",
-                Image = "icon-application-form-edit",
+                Label = "组织机构",
+                Image = "icon-organ",
                 Bundle = this,
                 Children =
                 {
-                    new MvcModuleMeta{ Image="icon-organ", Label = "单位管理", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
+                    new MvcModuleMeta{ Image="icon-cmy", Label = "单位管理", CustomUI="/UIShell.RbacManagementPlugin/Department/Index",EntityType=typeof(DepartmentController)},
                     new MvcModuleMeta{ Image="icon-group", Label = "角色管理", CustomUI="/UIShell.RbacManagementPlugin/Role/Index",EntityType=typeof(RoleController)},
                     new MvcModuleMeta{ Image="icon-user", Label = "用户管理", CustomUI="/UIShell.RbacManagementPlugin/User/Index",EntityType=typeof(RoleController)},
                     new MvcModuleMeta{ Image="icon-user-group", Label = "群组管理", CustomUI="/UIShell.RbacManagementPlugin/Group/Index",EntityType=typeof(GroupController)},
+                    new MvcModuleMeta{ Image="icon-user-group", Label = "用户群组", CustomUI="/UIShell.RbacManagementPlugin/UserGroup/Index",EntityType=typeof(GroupController)},
+                    new MvcModuleMeta{ Image="icon-user-group", Label = "角色群组", CustomUI="/UIShell.RbacManagementPlugin/RoleGroup/Index",EntityType=typeof(GroupController)},
                     new MvcModuleMeta{ Image="icon-chart-organisation", Label = "流程定义", CustomUI="/UIShell.RbacManagementPlugin/WFRout/Index",EntityType=typeof(WFRoutController)},
                     new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }

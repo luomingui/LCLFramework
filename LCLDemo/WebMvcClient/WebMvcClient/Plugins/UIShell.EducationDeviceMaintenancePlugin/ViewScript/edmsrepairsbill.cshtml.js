@@ -38,7 +38,9 @@ function InitEvent() {
     $('#btnSaveedmsrepairsbill').click(function () { pageFunc_edmsrepairsbillSave(); });
 }
 function pageFunc_edmsrepairsbillSave() {
-    debugger;
+    //debugger;
+    //页面遮盖层
+    $(document.body).LoadingMask(pageAttr.LanguageId, $.LCLPageModel.Resource.LanguageResourceInfo[pageAttr.LanguageId]['LCLMessageBox_Message4']);
     var ajaxUrl = "";
     ajaxUrl = pageAttr.JsonServerURL + 'EDMSRepairsBill/AjaxAdd';
     $('#ffedmsrepairsbill').form('submit', {
@@ -58,6 +60,7 @@ function pageFunc_edmsrepairsbillSave() {
             param.IsDelete = $('#edmsrepairsbill_Entity_IsDelete').val();
             param.AddDate = $('#edmsrepairsbill_Entity_AddDate').val();
             param.UpdateDate = $('#edmsrepairsbill_Entity_UpdateDate').val();
+
             if ($(this).form('validate'))
                 return true;
             else {
@@ -68,7 +71,8 @@ function pageFunc_edmsrepairsbillSave() {
         success: function (data) {
             var resultData = eval('(' + data + ')');
             $('#btnSaveedmsrepairsbill').linkbutton('enable');
-            $.LCLMessageBox.Alert(data.Message);
+            $.LCLMessageBox.Alert(resultData.Message);
+            $(document.body).UnLoadingMask();
         }
     });
 }

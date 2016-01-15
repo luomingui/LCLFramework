@@ -20,12 +20,12 @@ namespace UIShell.RbacPermissionService
         }
         void app_AllPluginsIntialized(object sender, System.EventArgs e)
         {
-            DatabaseInitializer.Initialize();
+            //DatabaseInitializer.Initialize();
             //设置权限提供程序为本模块中实体类
             PermissionMgr.Provider = new LCLPermissionProvider();
 
-            ServiceLocator.Instance.Register<DbContext, RbacDbContext>();
-            ServiceLocator.Instance.Register<ILCLIdentity, LCLIdentity>();
+            //ServiceLocator.Instance.Register<DbContext, RbacDbContext>();
+            //ServiceLocator.Instance.Register<ILCLIdentity, LCLIdentity>();
             ServiceLocator.Instance.Register<IRepositoryContext, EntityFrameworkRepositoryContext>();
             ServiceLocator.Instance.RegisterType(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
 
@@ -39,7 +39,7 @@ namespace UIShell.RbacPermissionService
             ServiceLocator.Instance.Register<ITLogRepository, TLogRepository>();
             ServiceLocator.Instance.Register<IUserRepository, UserRepository>();
             ServiceLocator.Instance.Register<IXzqyRepository, XzqyRepository>();
-            ServiceLocator.Instance.Register<ILCLIdentityRepository, LCLIdentityRepository>();
+            //ServiceLocator.Instance.Register<ILCLIdentityRepository, LCLIdentityRepository>();
 
             ServiceLocator.Instance.Register<IWFActorRepository, WFActorRepository>();
             ServiceLocator.Instance.Register<IWFActorUserRepository, WFActorUserRepository>();

@@ -37,7 +37,8 @@
                         <tr>
                             <td></td>
                             <td>
-                                <a id="btnSearchuser" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add">处理任务</a>&nbsp;
+                                <input type="hidden" id="pboId" name="pboId" value="@Model.pboId" />
+                                &nbsp;<a id="btnSearedmsmaintenancebill" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save">处理任务</a>&nbsp;
                             </td>
                         </tr>
                     </tbody>
@@ -47,7 +48,13 @@
     </div>
 </div>
 @section scripts{
-    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/edmsmaintenancebill.cshtml.LanguageResource.js" type="text/javascript"></script>
-    <script src="/Plugins/UIShell.RbacManagementPlugin/ViewScript/edmsmaintenancebill.cshtml.js" type="text/javascript"></script>
+    <script>
+        var pboId = "@Model.pboId";
+        var taskId = "@Model.taskId";
+    </script>
+    <script src="/Plugins/UIShell.EducationDeviceMaintenancePlugin/ViewScript/edmsmaintenancebill.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.EducationDeviceMaintenancePlugin/ViewScript/edmsmaintenancebill.cshtml.js" type="text/javascript"></script>
+
+
 }
 

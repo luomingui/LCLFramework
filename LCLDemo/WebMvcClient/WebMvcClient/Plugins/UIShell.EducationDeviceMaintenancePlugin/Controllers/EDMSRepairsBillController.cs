@@ -32,9 +32,8 @@ namespace UIShell.EducationDeviceMaintenancePlugin.Controllers
             var result = new Result(true);
             try
             {
-                model.RepairsPerson = "admin";
-                model.RepairsPersonPhone = "13026209315";
-
+                model.RepairsPerson = RbacPrincipal.CurrentUser.UserName;
+                model.RepairsPersonPhone = RbacPrincipal.CurrentUser.TelePhone;
                 repo.Create(model);
                 repo.Context.Commit();
             }

@@ -30,6 +30,8 @@ namespace UIShell.RbacPermissionService
         bool LockedUser(string userId);
         bool ChangeLoginPassword(UserChangePassword userChangePassword);
         User GetBy(string code, string password);
+        List<Guid> GetRolesIds(Guid userId);
+        List<Guid> GetGroupIds(Guid userId);
     }
     public class UserRepository : EntityFrameworkRepository<User>, IUserRepository
     {
@@ -159,6 +161,34 @@ namespace UIShell.RbacPermissionService
                 Logger.LogError("Ëø¶¨ÓÃ»§", ex);
                 return false;
             }
+        }
+        public List<Guid> GetRolesIds(Guid userId)
+        {
+            var ids = new List<Guid>();
+            var data = DbFactory.DBA.QueryDataTable("select Role_ID from UserRole where USER_ID='" + userId + "'");
+            if (data != null && data.Rows.Count > 0)
+            {
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    ids.Add(Guid.Parse(data.Rows[i]["Role_ID"].ToString()));
+                }
+            }
+            return ids;
+        }
+
+
+        public List<Guid> GetGroupIds(Guid userId)
+        {
+            var ids = new List<Guid>();
+            var data = DbFactory.DBA.QueryDataTable("select Group_ID from UserGroup where USER_ID='" + userId + "'");
+            if (data != null && data.Rows.Count > 0)
+            {
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    ids.Add(Guid.Parse(data.Rows[i]["Group_ID"].ToString()));
+                }
+            }
+            return ids;
         }
     }
 }

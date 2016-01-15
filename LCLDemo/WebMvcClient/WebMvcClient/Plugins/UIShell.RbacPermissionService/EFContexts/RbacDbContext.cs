@@ -105,13 +105,12 @@ namespace UIShell.RbacPermissionService
             var actor4 = context.Set<WFActor>().Add(new WFActor { Rout_ID = rout.ID, SortNo = 4, Name = "老板审批" });
 
             var rout1 = context.Set<WFRout>().Add(new WFRout { Name = "维修审批流程", State = 1, IsEnable = true, Version = "1.0" });
-            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "申请校内报修", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSRepairsBill/Index" });
-            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "校内维修响应", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSMaintenanceBill/Index" });
-            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 2, Name = "申请校外维修", BillAddess = "" });
-            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "校长审批", BillAddess = "" });
-            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "校外维修响应", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSMaintenanceBill/Index" });
-            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 3, Name = "学校验收", BillAddess = "" });
-            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 3, Name = "评价维修服务", BillAddess = "" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 1, Name = "申请校内报修", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSMaintenanceBill/Index" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 2, Name = "申请校外维修", BillAddess = "/UIShell.RbacManagementPlugin/WFTaskList/frmTask" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 3, Name = "校长审批", BillAddess = "/UIShell.RbacManagementPlugin/WFTaskList/frmTask" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 4, Name = "校外维修响应", BillAddess = "/UIShell.EducationDeviceMaintenancePlugin/EDMSMaintenanceBill/Index" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 5, Name = "学校验收", BillAddess = "/UIShell.RbacManagementPlugin/WFTaskList/frmTask" });
+            context.Set<WFActor>().Add(new WFActor { Rout_ID = rout1.ID, SortNo = 6, Name = "评价维修服务", BillAddess = "/UIShell.RbacManagementPlugin/EDMSEvaluate/Index" });
 
             var dep0 = context.Set<Department>().Add(new Department { ParentId = Guid.Empty, NodePath = "永新科技", Name = "永新科技", OrderBy = 0, Level = 0, IsLast = false, DepartmentType = DepartmentType.公司, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });
             var dep1 = context.Set<Department>().Add(new Department { ParentId = dep0.ID, NodePath = dep0.Name + "/研发部", Name = "研发部", OrderBy = 1, Level = 1, IsLast = true, DepartmentType = DepartmentType.部门, OfficePhone = "0791-83881788", Address = "南昌市红谷滩江报路唐宁街B座1501室", Remark = "" });

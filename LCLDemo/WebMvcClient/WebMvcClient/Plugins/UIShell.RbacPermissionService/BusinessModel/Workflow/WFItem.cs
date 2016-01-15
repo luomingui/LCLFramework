@@ -14,6 +14,7 @@ namespace UIShell.RbacPermissionService
         /// 单据编号
         /// </summary>
         public Guid Pbo_ID { get; set; }
+        public int Pbo_Type { get; set; }
         /// <summary>
         /// 单据名称
         /// </summary>

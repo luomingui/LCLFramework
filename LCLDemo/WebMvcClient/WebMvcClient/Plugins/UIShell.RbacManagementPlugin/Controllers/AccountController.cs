@@ -46,7 +46,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
                 return View();
             }
             MemoryCacheHelper.RemoveCacheAll();
-            if (!LCLPrincipal.Login(account.Name, account.Password))
+            if (!RbacPrincipal.Login(account.Name, account.Password))
             {
                 ModelState.AddModelError("Name", "消息：用户或密码错误，请重新输入！");
                 return View();
@@ -69,24 +69,24 @@ namespace UIShell.RbacManagementPlugin.Controllers
                 result.Message = "消息：密码不能为空！";
             }
             MemoryCacheHelper.RemoveCacheAll();
-            if (!LCLPrincipal.Login(name, password))
+            if (!RbacPrincipal.Login(name, password))
             {
                 result.Message = "消息：用户或密码错误，请重新输入！！";
             }
             else
             {
                 result = new Result(true);
-                var identity = LCL.LEnvironment.Principal.Identity as LCLIdentity;
+                var identity = LEnvironment.Principal as MyFormsPrincipal<MyUserDataPrincipal>;
                 if (identity != null)
                 {
-                    if (identity.DepUserType == 2)
-                    {
-                        result.Message = "../../" + LCL.MvcExtensions.PageFlowService.PageNodes.FindPageNode("LayoutHome1").Value;
-                    }
-                    else
-                    {
+                    //if (identity.DepUserType == 2)
+                    //{
+                    //    result.Message = "../../" + LCL.MvcExtensions.PageFlowService.PageNodes.FindPageNode("LayoutHome1").Value;
+                    //}
+                    //else
+                    //{
                         result.Message = "../../" + LCL.MvcExtensions.PageFlowService.PageNodes.FindPageNode("LayoutHome").Value;
-                    }
+                   // }
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -116,7 +116,7 @@ namespace UIShell.RbacManagementPlugin.Controllers
             try
             {
                 Request.Cookies.Clear();
-                LCLPrincipal.Logout();
+                RbacPrincipal.Logout();
             }
             catch (Exception ex)
             {
@@ -132,13 +132,13 @@ namespace UIShell.RbacManagementPlugin.Controllers
         /// 修改密码
         /// </summary>
         /// <returns></returns>
-        [UIShell.RbacPermissionService.MyAuthorize]
+        [MyAuthorize]
         public ActionResult ChangePassword()
         {
             return View("ChangePassword");
         }
         [HttpPost, ActionName("ChangePassword")]
-        [UIShell.RbacPermissionService.MyAuthorize]
+        [MyAuthorize]
         public ActionResult ChangePassword(UserChangePassword userChangePassword)
         {
             RF.Concrete<IUserRepository>().ChangeLoginPassword(userChangePassword);

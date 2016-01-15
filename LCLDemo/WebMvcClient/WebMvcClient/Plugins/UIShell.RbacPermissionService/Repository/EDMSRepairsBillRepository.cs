@@ -39,6 +39,8 @@ namespace UIShell.RbacPermissionService
             flow.Arguments.Attributes = new System.Collections.Hashtable();
             flow.Arguments.Attributes.Add("itemId",entity.ID);
             flow.Arguments.Attributes.Add("userId",entity.RepairsPerson);
+            flow.Arguments.Attributes.Add("Pbo_Type", 1);
+            flow.Arguments.Attributes.Add("Memo", "报修单申请");
             flow.FlowAction = FlowAction.申请工作;
             flow.Invoke();
 

@@ -15,9 +15,16 @@ namespace UIShell.RbacPermissionService
         public EDMSMaintenanceBill()
         {
             MaintenanceStatus = MaintenanceStatus.等待学校响应;
+            FulfillDate = Convert.ToDateTime("1999-01-01");
+            ResponseTime = Convert.ToDateTime("1999-01-01");
+            PartsCosts = new HashSet<EDMSPartsCost>();
+            VisitCost = 0;
         }
         #region 维修单
-        public bool MaintenanceType { get; set; }
+        /// <summary>
+        /// 所属报修单
+        /// </summary>
+        public Guid EDMSMaintenanceBill_ID { get; set; }
         /// <summary>
         /// 维修人
         /// </summary>
@@ -49,7 +56,7 @@ namespace UIShell.RbacPermissionService
         /// <summary>
         /// 解决技巧
         /// </summary>
-        public string SolvingSkills { get; set; } 
+        public string SolvingSkills { get; set; }
         /// <summary>
         /// 维修记录
         /// </summary>
@@ -62,12 +69,11 @@ namespace UIShell.RbacPermissionService
         /// 上门费
         /// </summary>
         public int VisitCost { get; set; }
-        #endregion
         /// <summary>
         /// 维修状态
         /// </summary>
         public MaintenanceStatus MaintenanceStatus { get; set; }
-       
+        #endregion
     }
 }
 

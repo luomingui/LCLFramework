@@ -93,6 +93,7 @@
     <Compile Include="Controllers\EDMSPartsCostController.cs" />
     <Compile Include="Controllers\EDMSRepairsBillController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\EDMSMaintenanceBillViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ViewScript\edmsmaintenancebill.cshtml.js" />
@@ -127,6 +128,12 @@
   <ItemGroup>
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\NoPermission.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\EDMSEvaluate\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\UIShell.EducationDeviceMaintenancePlugin.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

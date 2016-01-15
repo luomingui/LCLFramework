@@ -70,35 +70,11 @@ function pageFunc_SearchDatawftasklist() {
 function pageFunc_FinishTask(TaskID)
 {
     var data = TaskID;
-    var ajaxURL = pageAttr.JsonServerURL + 'WFTaskList/frmTask?taskId=' + TaskID;
-    $.LCLCore.Ajax.CallAjaxPostJsonData(ajaxURL, data, function (data) {
-        $("<div/>").dialog({
-            id: "ui_ExecCommand_dialog",
-            href: data,
-            title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_ExecCommand,
-            height: 350,
-            width: 460,
-            modal: true
-        });
-        $.LCLCore.PageMask.ClosePageMask();
-    }, function (XMLHttpRequest, textStatus, errorThrown) {
-        $.LCLCore.PageMask.ClosePageMask();
-    })
+    var ajaxURL = pageAttr.JsonServerURL + 'WFTaskList/frmTaskUrl?taskId=' + TaskID;
+    var iconCls = "";
+    //addTab($.LCLPageModel.Resource.PageLanguageResource.Page_Command_ExecCommand, ajaxURL, iconCls, 0);
+    location.href = pageAttr.JsonServerURL + 'WFTaskList/frmTaskUrl?taskId=' + TaskID
 }
 function pageFunc_TaskShow(TaskID) {
-    $("<div/>").dialog({
-        id: "ui_ExecCommand_dialog",
-        href: pageAttr.JsonServerURL + 'WFTaskList/frmTask?taskId=' + TaskID,
-        title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_ExecCommand,
-        height: 350,
-        width: 460,
-        modal: true,
-        buttons: [{
-            id: "ui_ExecCommand_btn",
-            text: '提 交',
-            handler: function () {
-
-            }
-        }]
-    });
+    location.href = pageAttr.JsonServerURL + 'WFTaskList/frmTaskUrl?taskId=' + TaskID
 }

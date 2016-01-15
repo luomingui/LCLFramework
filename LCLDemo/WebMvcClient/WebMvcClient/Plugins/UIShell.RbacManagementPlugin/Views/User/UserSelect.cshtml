@@ -1,9 +1,9 @@
-<!-- ²ÎÓëÈËÔ±Ñ¡ÔñÆ÷-->
+ï»¿<!-- å‚ä¸äººå‘˜é€‰æ‹©å™¨-->
 <table class="tb_searchbar" cellspacing="1" cellpadding="0" border="0">
     <tr>
         <td class="td_title" nowrap>
             <label style="color: black" id="labModelCode">
-                ËùÊô×éÖ¯
+                æ‰€å±ç»„ç»‡
             </label>
         </td>
         <td class="td_detail" colspan="3">
@@ -15,13 +15,13 @@
     <tr>
         <td class="td_title">
             <label style="color: black" id="labModelCode">
-                ĞÕÃû
+                å§“å
             </label>
         </td>
         <td class="td_detail">
             <input type="text" id="txt_UserSelect_key" name="txt_UserSelect_key" value="" />&nbsp;
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" plain="true" id="btn_UserSelect_Search">²éÑ¯</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" plain="true" id="btn_UserSelect_Reset">Çå¿Õ</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" plain="true" id="btn_UserSelect_Search">æŸ¥è¯¢</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" plain="true" id="btn_UserSelect_Reset">æ¸…ç©º</a>
         </td>
     </tr>
     <tr>
@@ -30,7 +30,7 @@
                 <tr>
                     <td class="td_detail" style="width: 369px">
                         <label style="color: black" id="labModelCode">
-                            ²éÑ¯½á¹û
+                            æŸ¥è¯¢ç»“æœ
                         </label><br>
                         <select id="lstSource" name="lstSource" class="lstSource"
                                 style="width: 200px; height: 151px;" multiple="true"></select>
@@ -49,7 +49,7 @@
                     </td>
                     <td class="td_detail">
                         <label style="color: black" id="labModelCode">
-                            ±»ÊÚÈ¨ÈËÔ±
+                            è¢«æˆæƒäººå‘˜
                         </label><br>
                         <select id="litGrant" name="litGrant" class="lstSource"
                                 style="width: 200px; height: 151px;" multiple="true"></select>
@@ -69,7 +69,7 @@
             });
             return returnValue;
         }
-        //Ìí¼Ó
+        //æ·»åŠ 
         function addToSelect() {
             $("#litGrant").append("<option value='" + $("#lstSource  option:selected").val() + "'>" + $("#lstSource  option:selected").text() + "</option>");
             removeFromSelect();
@@ -80,7 +80,7 @@
                 $("#litGrant").append("<option value='" + $("#lstSource").get(0).options[i].value + "'>" + $("#lstSource").get(0).options[i].text + "</option>");
             }
         }
-        //ÒÆ³ı
+        //ç§»é™¤
         function removeFromSelect() {
             var selOpt = $("#litGrant option:selected");
             selOpt.remove();
@@ -88,7 +88,7 @@
         function removeFromSelectAll() {
             $("#litGrant").empty();
         }
-        //²éÑ¯
+        //æŸ¥è¯¢
         function UserSelectSearch() {
             var t = $('#txt_UserSelect_Department').combotree('tree');
             var n = t.tree('getSelected');
@@ -96,7 +96,7 @@
                 depId: n.id,
                 key: $('#txt_UserSelect_key').val()
             };
-            //Ò³ÃæÕÚ¸Ç²ã
+            //é¡µé¢é®ç›–å±‚
             $(document.body).LoadingMask($.LCLBase.SiteConfig.GetCurrLanguageID());
             var ajaxUrl = "/UIShell.RbacManagementPlugin/User/AjaxGetUserList?depId=" + parm.depId + "&key=" + parm.key + "";
             $.LCLCore.Ajax.CallAjaxPostJsonData(ajaxUrl, parm, function (resultData) {
@@ -113,7 +113,7 @@
                 $(document.body).UnLoadingMask();
             });
         }
-        //Ò³ÃæÈë¿Ú
+        //é¡µé¢å…¥å£
         $(document).ready(function () {
             $("#lbtnSelAll").click(function () {
                 addToSelectAll();

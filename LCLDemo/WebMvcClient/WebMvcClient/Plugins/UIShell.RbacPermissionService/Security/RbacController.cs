@@ -103,10 +103,6 @@ namespace UIShell.RbacPermissionService
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             moduleId = filterContext.GetPluginSymbolicName();
-
-            var identity = LEnvironment.Identity as LCLIdentity;
-            //if (identity == null) { return; }
-
             if (!string.IsNullOrWhiteSpace(LCL.LEnvironment.Principal.Identity.Name)
                 && LCL.LEnvironment.Principal.Identity.Name.Length > 1)
             {

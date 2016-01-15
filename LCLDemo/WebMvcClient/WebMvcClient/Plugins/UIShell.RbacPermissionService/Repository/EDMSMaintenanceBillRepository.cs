@@ -1,4 +1,5 @@
-﻿/*******************************************************  
+﻿using LCL.DomainServices;
+/*******************************************************  
 *   
 * 作者：罗敏贵  
 * 说明： 维修单 
@@ -8,14 +9,15 @@
 * 历史记录：  
 *    创建文件 罗敏贵 2015年12月23日 
 *   
-*******************************************************/  
-using LCL.Repositories;  
-using LCL.Repositories.EntityFramework;  
-using System;  
-using System.Collections.Generic;  
-using System.Linq;  
-using System.Text;  
+*******************************************************/
+using LCL.Repositories;
+using LCL.Repositories.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using UIShell.RbacPermissionService.Services;
 
 namespace UIShell.RbacPermissionService 
 {  
@@ -29,7 +31,7 @@ namespace UIShell.RbacPermissionService
             : base(context)  
         {   
           
-        }  
+        }
     }  
 }  
 

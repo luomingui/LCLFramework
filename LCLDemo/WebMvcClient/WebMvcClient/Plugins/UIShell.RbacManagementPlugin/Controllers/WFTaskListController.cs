@@ -55,11 +55,11 @@ namespace UIShell.RbacManagementPlugin.Controllers
             return json;
         }
         /// <summary>
-        /// 完成任务
+        /// 任务地址
         /// </summary>
         /// <param name="taskId"></param>
         /// <returns></returns>
-        public ActionResult frmTask(Guid taskId)
+        public ActionResult frmTaskUrl(Guid taskId)
         {
             var ser = DomainServiceFactory.Create<FlowServices>();
             ser.Arguments.Attributes.Add("taskId", taskId);
@@ -67,7 +67,16 @@ namespace UIShell.RbacManagementPlugin.Controllers
             ser.Invoke();
             string taskUrl = ser.Result.Attributes["taskUrl"].ToString();
             if (string.IsNullOrWhiteSpace(taskUrl)) taskUrl = "frmTask";
-            return  Json(taskUrl,JsonRequestBehavior.AllowGet);
+            return Redirect(taskUrl);
+        }
+        /// <summary>
+        /// 完成任务
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <returns></returns>
+        public ActionResult frmTask(Guid taskId)
+        {
+            return View("frmTask");
         }
     }
 }

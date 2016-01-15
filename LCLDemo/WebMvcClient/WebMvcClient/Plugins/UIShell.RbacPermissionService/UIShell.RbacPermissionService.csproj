@@ -123,13 +123,13 @@
     <Compile Include="Repository\WFTaskListRepository.cs" />
     <Compile Include="Repository\XzqyRepository.cs" />
     <Compile Include="Security\BizActivityLogAttribute.cs" />
-    <Compile Include="Security\LCLIdentity.cs" />
     <Compile Include="Security\LCLPermissionProvider.cs" />
-    <Compile Include="Security\LCLPrincipal.cs" />
-    <Compile Include="Security\MyAuthorizeAttribute.cs" />
     <Compile Include="Security\RbacController.cs" />
+    <Compile Include="Security\RbacPrincipal.cs" />
+    <Compile Include="Services\BaseServices.cs" />
     <Compile Include="Services\FlowServices.cs" />
     <Compile Include="Specifications\DepartmentSpecifications.cs" />
+    <Compile Include="Specifications\KeyWFActorSpecification.cs" />
     <Compile Include="Specifications\WFRoutSpecifications.cs" />
     <Compile Include="Specifications\UserSpecifications.cs" />
     <Compile Include="ValidationModel\Department.cs" />
