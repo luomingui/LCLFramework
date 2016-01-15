@@ -69,7 +69,6 @@
     <Compile Include="ActionFilter\CompressFilterAttribute.cs" />
     <Compile Include="ActionFilter\JsonExceptionFilterAttribute.cs" />
     <Compile Include="ActionFilter\LayoutFilterAttribute.cs" />
-    <Compile Include="ActionFilter\MyAuthorizeAttribute.cs" />
     <Compile Include="ActionFilter\PermissionAttribute.cs" />
     <Compile Include="ActionFilter\RedirectOnErrorAttribute.cs" />
     <Compile Include="ActionFilter\RedirectToActionOnErrorAttribute.cs" />
@@ -96,6 +95,10 @@
     <Compile Include="Model\BaseLCLModel.cs" />
     <Compile Include="Model\StringTrimModelBinder.cs" />
     <Compile Include="PageFlowService\IPageFlowService.cs" />
+    <Compile Include="Permission\MyAuthorizeAttribute.cs" />
+    <Compile Include="Permission\MyFormsAuthentication.cs" />
+    <Compile Include="Permission\MyFormsPrincipal.cs" />
+    <Compile Include="Permission\MyUserDataPrincipal.cs" />
     <Compile Include="PluginMvcApplication.cs" />
     <Compile Include="MvcPathUtility.cs" />
     <Compile Include="UI\CheckBoxListExtension.cs" />
@@ -153,9 +156,7 @@
       <Name>LCL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Permission\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

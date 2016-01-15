@@ -4,6 +4,7 @@ using System.Runtime;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
+using System.Web.Security;
 using System.Windows;
 
 namespace LCL
@@ -24,7 +25,7 @@ namespace LCL
                 if (_provider == null)
                 {
                     _provider = new EnvironmentProvider();
-  
+
                 }
                 return _provider;
             }
@@ -99,10 +100,13 @@ namespace LCL
                 var current = AppContext.CurrentPrincipal;
                 if (current == null)
                 {
-                    current = new AnonymousPrincipal();
+                    if (HttpContext.Current.Items["__LCLPrincipal"] == null)
+                        current = new AnonymousPrincipal();
+                    else
+                        current = (IPrincipal)HttpContext.Current.Items["__LCLPrincipal"];
+
                     ////如果想启用 windows 验证，可以使用以下代码。
                     //current = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-
                     AppContext.CurrentPrincipal = current;
                 }
                 return current;
@@ -110,9 +114,9 @@ namespace LCL
             set
             {
                 AppContext.CurrentPrincipal = value;
+                HttpContext.Current.Items["__LCLPrincipal"] = value;
             }
         }
-
         #endregion
 
         #region IApp AppCore

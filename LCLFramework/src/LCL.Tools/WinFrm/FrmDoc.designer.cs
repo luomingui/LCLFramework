@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.txtdllpath = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,6 +86,7 @@
             this.txtcondition.Size = new System.Drawing.Size(437, 21);
             this.txtcondition.TabIndex = 5;
             this.txtcondition.Text = "BaseModel,BaseTreeModel";
+            this.toolTip1.SetToolTip(this.txtcondition, "必须是当前DLL的类");
             // 
             // label2
             // 
@@ -174,6 +177,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtcondition;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

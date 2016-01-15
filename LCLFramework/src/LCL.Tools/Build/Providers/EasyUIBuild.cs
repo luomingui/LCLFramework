@@ -97,7 +97,7 @@ namespace LCL.Tools
             if (builder4.Length > 1)
                 builder4.Remove(builder4.Length - 1, 1);
 
-            builder.AppendLine("        var root = \"@(Url.BundlePContent(\"UIShell.RbacManagementPlugin\", \"" + tm.TableName + "\"))/\"; ");
+            builder.AppendLine("        var root = \"@(Url.BundlePContent(\"" + Utils.NameSpace + "\", \"" + tm.TableName + "\"))/\"; ");
             builder.AppendLine("        var added = true; ");
             builder.AppendLine("        var dicType; ");
             builder.AppendLine("        var LCL_" + tm.TableName.ToLower() + " = { ");
@@ -215,7 +215,7 @@ namespace LCL.Tools
             builder.AppendLine("    </div> ");
             builder.AppendLine("    <div data-options=\"region:'center'\"> ");
             builder.AppendLine("        <!-------------------------------详细信息展示表格-----------------------------------> ");
-            builder.AppendLine("        <table id=\"grid_" + tm.TableName.ToLower() + "\" title=\"" + tm.TableNameRemark + "\" toolbar=\"#tbar_" + tm.TableName.ToLower() + "\" data-options=\"iconCls:'icon-view'\" fit=\"true\"></table> ");
+            builder.AppendLine("        <table id=\"grid_" + tm.TableName.ToLower() + "\" title=\"" + tm.TableNameRemark + "\"  data-options=\"iconCls:'icon-view'\" fit=\"true\"></table> ");
             builder.AppendLine("   <!--   弹出框       --> ");
             builder.AppendLine("        <div id=\"win_" + tm.TableName.ToLower() + "\"  style=\"padding: 5px;background: #fafafa;\" >  ");
             builder.AppendLine("            <div class=\"easyui-layout\" fit=\"true\"> ");
@@ -227,8 +227,8 @@ namespace LCL.Tools
             builder.AppendLine("    </div> ");
             builder.AppendLine("</div> ");
             builder.AppendLine("@section scripts{ ");
-            builder.AppendLine("  <script src=\"/Plugins/UIShell.RbacManagementPlugin/ViewScript/" + tm.TableName.ToLower() + ".cshtml.LanguageResource.js\" type=\"text/javascript\"></script> ");
-            builder.AppendLine("  <script src=\"/Plugins/UIShell.RbacManagementPlugin/ViewScript/" + tm.TableName.ToLower() + ".cshtml.js\" type=\"text/javascript\"></script> ");
+            builder.AppendLine("  <script src=\"/Plugins/" + Utils.NameSpace + "/ViewScript/" + tm.TableName.ToLower() + ".cshtml.LanguageResource.js\" type=\"text/javascript\"></script> ");
+            builder.AppendLine("  <script src=\"/Plugins/" + Utils.NameSpace + "/ViewScript/" + tm.TableName.ToLower() + ".cshtml.js\" type=\"text/javascript\"></script> ");
             builder.AppendLine("} ");
             return builder.ToString();
         }
@@ -333,7 +333,17 @@ namespace LCL.Tools
                 builder.AppendLine("/// <reference path=\"/Content/Core/LCL.JQuery.Core.js\" /> ");
                 builder.AppendLine("/// <reference path=\"/Content/Core/LCL.JQuery.JSON.js\" /> ");
                 builder.AppendLine("/// <reference path=\"/Content/Core/LCL.JQuery.Plugins.js\" /> ");
-                builder.AppendLine(" ");
+                builder.AppendLine("/*******************************************************  ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("* 作者：罗敏贵  ");
+                builder.AppendLine("* 说明： " + tableInfo + " ");
+                builder.AppendLine("* 运行环境：.NET 4.5.0  ");
+                builder.AppendLine("* 版本号：1.0.0  ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("* 历史记录：  ");
+                builder.AppendLine("*    创建文件 罗敏贵 " + DateTime.Now.ToLongDateString() + " ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("*******************************************************/  ");
                 builder.AppendLine("//页面属性PageAttr （该行不允许删除） ");
                 builder.AppendLine("var pageAttr = { ");
                 builder.AppendLine("    SiteRoot: '', ");
@@ -354,7 +364,7 @@ namespace LCL.Tools
                 builder.AppendLine("function InitAttribute() { ");
                 builder.AppendLine("    pageAttr.SiteRoot = $.LCLBase.SiteConfig.GetSiteRoot(); ");
                 builder.AppendLine("    pageAttr.LanguageId = $.LCLBase.SiteConfig.GetCurrLanguageID(); ");
-                builder.AppendLine("    pageAttr.JsonServerURL = pageAttr.SiteRoot + 'UIShell.RbacManagementPlugin/'; ");
+                builder.AppendLine("    pageAttr.JsonServerURL = pageAttr.SiteRoot + '" + Utils.NameSpace + "/'; ");
                 builder.AppendLine("} ");
                 builder.AppendLine("//初始化多语言 ");
                 builder.AppendLine("function InitLanguage() { ");
@@ -568,11 +578,20 @@ namespace LCL.Tools
                 builder.AppendLine("    }); ");
                 builder.AppendLine("} ");
                 builder.AppendLine("function grid_" + tm.TableName.ToLower() + "_toolbar() { ");
-                builder.AppendLine("    var ihtml = '<div id=\"tbar_" + tm.TableName.ToLower() + "\">' ");
-                builder.AppendLine("        + '<a id=\"btnAdd" + tm.TableName.ToLower() + "\" href=\"javascript:;\" plain=\"true\" class=\"easyui-linkbutton\" icon=\"icon-add\">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add + '</a>&nbsp;' ");
-                builder.AppendLine("        + '<a id=\"btnDel" + tm.TableName.ToLower() + "\" href=\"javascript:;\" plain=\"true\" class=\"easyui-linkbutton\" icon=\"icon-remove\">' + $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del + '</a>&nbsp;' ");
-                builder.AppendLine("        + '<a href=\"javascript:void(0)\" /></div>' ");
+
+                builder.AppendLine("  var ihtml = [{ ");
+                builder.AppendLine("        id: \"btnAdd" + tm.TableName.ToLower() + "\", ");
+                builder.AppendLine("        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add, ");
+                builder.AppendLine("        iconCls: 'icon-add', ");
+                builder.AppendLine("        handler: function () { pageFunc_" + tm.TableName.ToLower() + "Add(); } ");
+                builder.AppendLine("    }, '-', { ");
+                builder.AppendLine("        id: \"btnDel" + tm.TableName.ToLower() + "\", ");
+                builder.AppendLine("        text: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Del, ");
+                builder.AppendLine("        iconCls: 'icon-remove', ");
+                builder.AppendLine("        handler: function () { pageFunc_" + tm.TableName.ToLower() + "Del(); } ");
+                builder.AppendLine("    }]; ");
                 builder.AppendLine("    return ihtml; ");
+
                 builder.AppendLine("} ");
 
                 if (path.Length > 0)
@@ -619,15 +638,57 @@ namespace LCL.Tools
                 builder.AppendLine("using System.Linq; ");
                 builder.AppendLine("using System.Web; ");
                 builder.AppendLine("using System.Web.Mvc; ");
-                builder.AppendLine("using UIShell.RbacPermissionService; ");
+                builder.AppendLine("using " + Utils.NameSpace + "; ");
                 builder.AppendLine(" ");
-                builder.AppendLine("namespace " + Utils.NameSpaceUI + ".Controllers ");
+                builder.AppendLine("namespace " + Utils.NameSpace + ".Controllers ");
                 builder.AppendLine("{ ");
                 builder.AppendLine("    public class " + tablename + "Controller : RbacController<" + tablename + "> ");
                 builder.AppendLine("    { ");
                 builder.AppendLine("        public " + tablename + "Controller() ");
                 builder.AppendLine("        { ");
                 builder.AppendLine("        } ");
+                if (tm.IsTree)
+                {
+                    builder.AppendLine("        [HttpPost] ");
+                    builder.AppendLine("        public CustomJsonResult AjaxEasyUITree_" + tablename + "() ");
+                    builder.AppendLine("        { ");
+                    builder.AppendLine("            string id = LRequest.GetString(\"id\"); ");
+                    builder.AppendLine("            Guid pid = string.IsNullOrWhiteSpace(id) ? Guid.Empty : Guid.Parse(id); ");
+                    builder.AppendLine("            var repo = RF.Concrete<I" + tablename + "Repository>(); ");
+                    builder.AppendLine("            ISpecification<" + tablename + "> spec = Specification<" + tablename + ">.Eval(p => p.ParentId == Guid.Empty); ");
+                    builder.AppendLine("            ISpecification<" + tablename + "> spec1 = Specification<" + tablename + ">.Eval(p => p.ParentId == pid); ");
+                    builder.AppendLine("            IEnumerable<" + tablename + "> list = repo.FindAll(spec).ToList(); ");
+                    builder.AppendLine("            if (pid != Guid.Empty) ");
+                    builder.AppendLine("            { ");
+                    builder.AppendLine("                list = repo.FindAll(spec1).ToList(); ");
+                    builder.AppendLine("            } ");
+                    builder.AppendLine("            List<EasyUITreeModel> easyTree = new List<EasyUITreeModel>(); ");
+                    builder.AppendLine("            int i = 0; ");
+                    builder.AppendLine("            foreach (var item in list) ");
+                    builder.AppendLine("            { ");
+                    builder.AppendLine("                EasyUITreeModel model = new EasyUITreeModel(); ");
+                    builder.AppendLine("                if (i == 0) model.Checked = true; ");
+                    builder.AppendLine("                model.id = item.ID.ToString(); ");
+                    builder.AppendLine("                model.text = item.Name; ");
+                    builder.AppendLine("                model.parentId = item.ParentId.ToString(); ");
+                    builder.AppendLine("                model.parentName = repo.GetByName(item.ParentId); ");
+                    builder.AppendLine(" ");
+                    foreach (var item in tm.Columns)
+                    {
+                        builder.AppendLine("                 model.attributes.Add(\"" + item.ColumnName + "\", item." + item.ColumnName + ");  ");
+                    }
+                    builder.AppendLine("               ");
+                    builder.AppendLine("                easyTree.Add(model); ");
+                    builder.AppendLine("                i++; ");
+                    builder.AppendLine("            } ");
+                    builder.AppendLine("            var json = new CustomJsonResult(); ");
+                    builder.AppendLine("            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet; ");
+                    builder.AppendLine("            json.Data = easyTree; ");
+                    builder.AppendLine("            return json; ");
+                    builder.AppendLine("        } ");
+
+                }
+
                 builder.AppendLine("    } ");
                 builder.AppendLine("} ");
 

@@ -14,6 +14,7 @@ namespace LCL.Tools
             BuildDbContext(path);
             BuildEntity(path);
             BuildLCLPlugin(path);
+            BuildSpecification(path);
         }
         private void BuildRepository(string path)
         {
@@ -46,10 +47,16 @@ namespace LCL.Tools
                 builder.AppendLine("  ");
                 builder.AppendLine("namespace " + Utils.NameSpace + "  ");
                 builder.AppendLine("{  ");
+                builder.AppendLine("    /// <summary> ");
+                builder.AppendLine("    /// " + tableInfo + " ");
+                builder.AppendLine("    /// </summary> ");
                 builder.AppendLine("    public interface I" + tablename + "Repository : IRepository<" + tablename + ">  ");
                 builder.AppendLine("    {  ");
                 builder.AppendLine("  ");
                 builder.AppendLine("    }  ");
+                builder.AppendLine("    /// <summary> ");
+                builder.AppendLine("    /// " + tableInfo + " ");
+                builder.AppendLine("    /// </summary> ");
                 builder.AppendLine("    public class " + tablename + "Repository : EntityFrameworkRepository<" + tablename + ">, I" + tablename + "Repository  ");
                 builder.AppendLine("    {  ");
                 builder.AppendLine("        public " + tablename + "Repository(IRepositoryContext context)  ");
@@ -159,6 +166,17 @@ namespace LCL.Tools
                 string tableInfo = tm.TableNameRemark;
 
                 StringBuilder builder = new StringBuilder();
+                builder.AppendLine("/*******************************************************  ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("* 作者：罗敏贵  ");
+                builder.AppendLine("* 说明： " + tableInfo + " ");
+                builder.AppendLine("* 运行环境：.NET 4.5.0  ");
+                builder.AppendLine("* 版本号：1.0.0  ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("* 历史记录：  ");
+                builder.AppendLine("*    创建文件 罗敏贵 " + DateTime.Now.ToLongDateString() + " ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("*******************************************************/  ");
                 builder.AppendLine("using System; ");
                 builder.AppendLine("using System.Collections.Generic; ");
                 builder.AppendLine("using System.Linq; ");
@@ -222,9 +240,11 @@ namespace LCL.Tools
             builder.AppendLine("        { ");
             builder.AppendLine("            ");
 
-            builder.AppendLine("               CommonModel.Modules.AddRoot(new ModuleMeta ");
+            builder.AppendLine("               CommonModel.Modules.AddRoot(new MvcModuleMeta ");
             builder.AppendLine("                { ");
             builder.AppendLine("                    Label = \"" + Utils.dbName + "\", ");
+            builder.AppendLine("                    Image = \".icon-application\", ");
+            builder.AppendLine("                    Bundle = this, ");
             builder.AppendLine("                    Children = ");
             builder.AppendLine("                    { ");
             for (int i = 0; i < tableNames.Count; i++)
@@ -233,7 +253,7 @@ namespace LCL.Tools
                 string tablename = tm.TableName;
                 string tableInfo = tm.TableNameRemark;
 
-                builder.AppendLine("                        new ModuleMeta{ Label = \"" + tableInfo + "\",UIFromType=typeof(" + tablename + "Controller)}, ");
+                builder.AppendLine("                        new MvcModuleMeta{ Image = \".icon-application\",  Label = \"" + tableInfo + "\", CustomUI=\"/"+Utils.NameSpace+"/"+tablename+"/Index\",UIFromType=typeof(" + tablename + "Controller)}, ");
             }
             builder.AppendLine("                    } ");
             builder.AppendLine("                }); ");
@@ -274,6 +294,87 @@ namespace LCL.Tools
                 Utils.FolderCheck(folder);
                 string filename = folder + @"\BundleActivator.cs";
                 Utils.CreateFiles(filename, builder.ToString());
+            }
+        }
+        private void BuildSpecification(string path)
+        {
+            List<TableModel> tableNames = BLLFactory.Instance.idb.GetTableModelList(Utils.dbName, true);
+            for (int i = 0; i < tableNames.Count; i++)
+            {
+                TableModel tm = tableNames[i];
+                string tablename = tm.TableName;
+                string tableInfo = tm.TableNameRemark;
+                StringBuilder builder = new StringBuilder();
+                builder.AppendLine("/*******************************************************  ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("* 作者：罗敏贵  ");
+                builder.AppendLine("* 说明： " + tableInfo + " ");
+                builder.AppendLine("* 运行环境：.NET 4.5.0  ");
+                builder.AppendLine("* 版本号：1.0.0  ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("* 历史记录：  ");
+                builder.AppendLine("*    创建文件 罗敏贵 " + DateTime.Now.ToLongDateString() + " ");
+                builder.AppendLine("*   ");
+                builder.AppendLine("*******************************************************/  ");
+                builder.AppendLine("using System; ");
+                builder.AppendLine("using LCL.Specifications; ");
+                builder.AppendLine("using System.Linq.Expressions; ");
+                builder.AppendLine(" ");
+                builder.AppendLine("namespace "+Utils.NameSpace+" ");
+                builder.AppendLine("{ ");
+                builder.AppendLine("     /// <summary> ");
+                builder.AppendLine("    ///  根据关键字进行查询 ");
+                builder.AppendLine("    /// </summary> ");
+                builder.AppendLine("    public class Key" + tablename + "Specification : Specification<" + tablename + "> ");
+                builder.AppendLine("    { ");
+                builder.AppendLine("        string _keyword = \"\"; ");
+                builder.AppendLine("        string _fieldName = \"\"; ");
+                builder.AppendLine("        public Key" + tablename + "Specification(string keyword, string fieldName) ");
+                builder.AppendLine("        { ");
+                builder.AppendLine("            _keyword = keyword; ");
+                builder.AppendLine("            _fieldName = fieldName; ");
+                builder.AppendLine("        } ");
+                builder.AppendLine("        public override Expression<Func<" + tablename + ", bool>> GetExpression() ");
+                builder.AppendLine("        { ");
+                builder.AppendLine("            Expression<Func<" + tablename + ", bool>> spec = null; ");
+                builder.AppendLine("            switch (_fieldName) ");
+                builder.AppendLine("            { ");
+                foreach (TableColumn column in tm.Columns)
+                {
+                    builder.AppendLine("                case \"" + column.ColumnName + "\": // " + column.ColumnRemark + "");
+                    switch (column.ColumnType.ToLower())
+                    {
+                        case "string":
+                            builder.AppendLine("                    spec = c => c." + column.ColumnName + ".IndexOf(_keyword) != 0; ");
+                            break;
+                        case "int":
+                            builder.AppendLine("                    spec = c => c." + column.ColumnName + "==Convert.ToInt32( _keyword); ");
+                            break;
+                        case "bool":
+                            builder.AppendLine("                    spec = c => c." + column.ColumnName + "==Convert.ToBoolean( _keyword); ");
+                            break;
+                        case "guid":
+                            builder.AppendLine("                    spec = c => c." + column.ColumnName + "== Guid.Parse(_keyword); ");
+                            break;
+                        case "datetime":
+                            builder.AppendLine("                    spec = c => c." + column.ColumnName + "==Convert.ToDateTime( _keyword); ");
+                            break;
+                    }
+                    builder.AppendLine("                    break; ");
+                }
+                builder.AppendLine("            } ");
+                builder.AppendLine("            return spec; ");
+                builder.AppendLine("        } ");
+                builder.AppendLine("    } ");
+                builder.AppendLine("} ");
+
+                if (path.Length > 0)
+                {
+                    string folder = path + @"\LCL\Library\Specifications\";
+                    Utils.FolderCheck(folder);
+                    string filename = folder + @"\Key" + tablename + "Specification.cs";
+                    Utils.CreateFiles(filename, builder.ToString());
+                }
             }
         }
     }

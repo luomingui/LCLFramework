@@ -10,6 +10,7 @@ namespace LCL.Tools
         {
             InitializeComponent();
             this.comboBoxDBType.SelectedIndex = 2;
+            this.txtEntityNameSpace.SelectedIndex = 1;
         }
         bool errFlag = true;
         private void saveUtils()

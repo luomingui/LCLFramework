@@ -168,6 +168,9 @@
     <Compile Include="Application\App.cs" />
     <Compile Include="OpenLicense\AppLicense.cs" />
     <Compile Include="PagedResult.cs" />
+    <Compile Include="Permission\AnonymousIdentity.cs" />
+    <Compile Include="Permission\AnonymousPrincipal.cs" />
+    <Compile Include="Permission\ILCLIdentity.cs" />
     <Compile Include="Transactions\DistributedTransactionCoordinator.cs" />
     <Compile Include="Transactions\ITransactionCoordinator.cs" />
     <Compile Include="Transactions\SuppressedTransactionCoordinator.cs" />
@@ -182,7 +185,6 @@
     <Compile Include="ComponentModel\IPlugin.cs" />
     <Compile Include="IdentityGenerator.cs" />
     <Compile Include="OpenLicense\FileLicenseProvider.cs" />
-    <Compile Include="Permission\AnonymousPrincipal.cs" />
     <Compile Include="Permission\PermissionProvider.cs" />
     <Compile Include="Application\LEnvironment.cs" />
     <Compile Include="MetaModel\Meta\Command\Command.cs" />
@@ -210,8 +212,6 @@
     <Compile Include="MetaModel\Meta\Module\ModuleOperation.cs" />
     <Compile Include="MetaModel\Meta\Module\ModulesContainer.cs" />
     <Compile Include="MetaModel\View\UIModel.cs" />
-    <Compile Include="Permission\AnonymousIdentity.cs" />
-    <Compile Include="Permission\ILCLIdentity.cs" />
     <Compile Include="Permission\PermissionMgr.cs" />
     <Compile Include="Permission\SystemOperationKeys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

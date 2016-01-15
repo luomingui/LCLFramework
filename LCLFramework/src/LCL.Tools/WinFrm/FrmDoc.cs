@@ -33,6 +33,7 @@ namespace LCL.Tools
         private void button3_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.SelectedPath = @"F:\Github\LCLFramework\LCLDemo\WebMvcClient\WebMvcClient\Plugins";
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 this.txtcodepath.Text = dialog.SelectedPath;

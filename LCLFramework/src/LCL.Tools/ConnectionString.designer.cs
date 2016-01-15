@@ -33,7 +33,6 @@
             this.txtUser = new System.Windows.Forms.TextBox();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.txtAuthor = new System.Windows.Forms.TextBox();
-            this.txtEntityNameSpace = new System.Windows.Forms.TextBox();
             this.comboBoxDBType = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.btn_DbOK = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtEntityNameSpace = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtTargetFolder = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -86,15 +86,6 @@
             this.txtAuthor.Size = new System.Drawing.Size(293, 21);
             this.txtAuthor.TabIndex = 138;
             this.txtAuthor.Text = "罗敏贵";
-            // 
-            // txtEntityNameSpace
-            // 
-            this.txtEntityNameSpace.Location = new System.Drawing.Point(120, 20);
-            this.txtEntityNameSpace.Name = "txtEntityNameSpace";
-            this.txtEntityNameSpace.Size = new System.Drawing.Size(294, 21);
-            this.txtEntityNameSpace.TabIndex = 132;
-            this.txtEntityNameSpace.Text = "UIShell.PluginService";
-            this.txtEntityNameSpace.Validating += new System.ComponentModel.CancelEventHandler(this.txtEntityNameSpace_Validating);
             // 
             // comboBoxDBType
             // 
@@ -181,11 +172,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtEntityNameSpace);
             this.groupBox2.Controls.Add(this.txtAuthor);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtTargetFolder);
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.txtEntityNameSpace);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Location = new System.Drawing.Point(12, 172);
             this.groupBox2.Name = "groupBox2";
@@ -193,6 +184,19 @@
             this.groupBox2.TabIndex = 118;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2：参数设置";
+            // 
+            // txtEntityNameSpace
+            // 
+            this.txtEntityNameSpace.FormattingEnabled = true;
+            this.txtEntityNameSpace.Items.AddRange(new object[] {
+            "UIShell.PluginService",
+            "UIShell.HeatMeteringService",
+            "UIShell.HeatMeteringPlugin",
+            "UIShell.RbacPermissionService"});
+            this.txtEntityNameSpace.Location = new System.Drawing.Point(119, 15);
+            this.txtEntityNameSpace.Name = "txtEntityNameSpace";
+            this.txtEntityNameSpace.Size = new System.Drawing.Size(293, 20);
+            this.txtEntityNameSpace.TabIndex = 119;
             // 
             // label10
             // 
@@ -269,9 +273,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtTargetFolder;
         private System.Windows.Forms.Label label11;
-        public System.Windows.Forms.TextBox txtEntityNameSpace;
         public System.Windows.Forms.Label label13;
         public System.Windows.Forms.ComboBox comboBoxDBType;
         public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox txtEntityNameSpace;
     }
 }
