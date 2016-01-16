@@ -1,0 +1,60 @@
+﻿<div class="easyui-layout" fit="true" id="tb"> 
+    <div data-options="region:'north'" style="padding: 1px; height:70px;"> 
+        <!-------------------------------搜索框-----------------------------------> 
+        <fieldset> 
+            <legend id="search_title">信息查询</legend> 
+            <form id="ffSearchhm_billtype" method="post"> 
+                <div id="toolbar" style="margin-bottom:5px"> 
+                    <label for="Keyword" id="search_key">搜:</label> 
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" /> 
+                    &nbsp; 
+                    <a id="btnSearchhm_billtype" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp; 
+                </div> 
+            </form> 
+        </fieldset> 
+    </div> 
+    <div data-options="region:'center'"> 
+        <!-------------------------------详细信息展示表格-----------------------------------> 
+        <table id="grid_hm_billtype" title="票据分类"  data-options="iconCls:'icon-view'" fit="true"></table> 
+   <!--   弹出框       --> 
+        <div id="win_hm_billtype"  style="padding: 5px;background: #fafafa;" >  
+            <div class="easyui-layout" fit="true"> 
+               <form id="ffhm_billtype" method="post" ajax="true">
+<table class="tb_searchbar"> 
+ <tbody> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_billtype_name">票据种类名称<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_billtype_Entity_Name" name="hm_billtype_EntityName" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="1" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_billtype_pagesum">每本页数</label></td> 
+                    <td> 
+                        <input type="text" id="hm_billtype_Entity_PageSum" name="hm_billtype_EntityPageSum" value="  " style="width:310px"  maxlength="4" tabindex="2" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_billtype_billlength">票据编号长度</label></td> 
+                    <td> 
+                        <input type="text" id="hm_billtype_Entity_BillLength" name="hm_billtype_EntityBillLength" value="  " style="width:310px"  maxlength="4" tabindex="3" /> 
+                    </td> 
+                </tr> 
+<tr><td  colspan='1'><input type='hidden' id='hm_billtype_Entity_ID' name='hm_billtype_EntityID' value='' />
+<input type='hidden' id='hm_billtype_Entity_IsDelete' name='hm_billtype_EntityIsDelete' value='' />
+<input type='hidden' id='hm_billtype_Entity_AddDate' name='hm_billtype_EntityAddDate' value='' />
+<input type='hidden' id='hm_billtype_Entity_UpdateDate' name='hm_billtype_EntityUpdateDate' value='' />
+<td></tr>
+ </tbody> 
+</table> 
+
+               </form>
+            </div> 
+        </div> 
+    </div> 
+</div> 
+@section scripts{ 
+  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_billtype.cshtml.LanguageResource.js" type="text/javascript"></script> 
+  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_billtype.cshtml.js" type="text/javascript"></script> 
+} 
+

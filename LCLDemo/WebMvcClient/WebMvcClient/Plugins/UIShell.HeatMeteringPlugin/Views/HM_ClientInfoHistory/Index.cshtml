@@ -1,0 +1,72 @@
+﻿<div class="easyui-layout" fit="true" id="tb"> 
+    <div data-options="region:'north'" style="padding: 1px; height:70px;"> 
+        <!-------------------------------搜索框-----------------------------------> 
+        <fieldset> 
+            <legend id="search_title">信息查询</legend> 
+            <form id="ffSearchhm_clientinfohistory" method="post"> 
+                <div id="toolbar" style="margin-bottom:5px"> 
+                    <label for="Keyword" id="search_key">搜:</label> 
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" /> 
+                    &nbsp; 
+                    <a id="btnSearchhm_clientinfohistory" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp; 
+                </div> 
+            </form> 
+        </fieldset> 
+    </div> 
+    <div data-options="region:'center'"> 
+        <!-------------------------------详细信息展示表格-----------------------------------> 
+        <table id="grid_hm_clientinfohistory" title="采暖变更历史"  data-options="iconCls:'icon-view'" fit="true"></table> 
+   <!--   弹出框       --> 
+        <div id="win_hm_clientinfohistory"  style="padding: 5px;background: #fafafa;" >  
+            <div class="easyui-layout" fit="true"> 
+               <form id="ffhm_clientinfohistory" method="post" ajax="true">
+<table class="tb_searchbar"> 
+ <tbody> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfohistory_user_id">用户</label></td> 
+                    <td> 
+<select id="hm_clientinfohistory_Entity_User_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="1" ></select>
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfohistory_recordtype">变更类别</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientinfohistory_Entity_RecordType" name="hm_clientinfohistory_EntityRecordType" value="  " style="width:310px"  maxlength="4" tabindex="2" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfohistory_record">变更信息<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientinfohistory_Entity_Record" name="hm_clientinfohistory_EntityRecord" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="3" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfohistory_chargeannual_id">ChargeAnnual_ID<span style="color:red;">*</span></label></td> 
+                    <td> 
+<select id="hm_clientinfohistory_Entity_ChargeAnnual_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="7"  data-options="required:true" class="easyui-validatebox" ></select>
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfohistory_clientinfo_id">ClientInfo_ID<span style="color:red;">*</span></label></td> 
+                    <td> 
+<select id="hm_clientinfohistory_Entity_ClientInfo_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="8"  data-options="required:true" class="easyui-validatebox" ></select>
+                    </td> 
+                </tr> 
+<tr><td  colspan='1'><input type='hidden' id='hm_clientinfohistory_Entity_ID' name='hm_clientinfohistory_EntityID' value='' />
+<input type='hidden' id='hm_clientinfohistory_Entity_IsDelete' name='hm_clientinfohistory_EntityIsDelete' value='' />
+<input type='hidden' id='hm_clientinfohistory_Entity_AddDate' name='hm_clientinfohistory_EntityAddDate' value='' />
+<input type='hidden' id='hm_clientinfohistory_Entity_UpdateDate' name='hm_clientinfohistory_EntityUpdateDate' value='' />
+<td></tr>
+ </tbody> 
+</table> 
+
+               </form>
+            </div> 
+        </div> 
+    </div> 
+</div> 
+@section scripts{ 
+  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientinfohistory.cshtml.LanguageResource.js" type="text/javascript"></script> 
+  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientinfohistory.cshtml.js" type="text/javascript"></script> 
+} 
+

@@ -1,0 +1,108 @@
+﻿<div class="easyui-layout" fit="true" id="tb"> 
+    <div data-options="region:'north'" style="padding: 1px; height:70px;"> 
+        <!-------------------------------搜索框-----------------------------------> 
+        <fieldset> 
+            <legend id="search_title">信息查询</legend> 
+            <form id="ffSearchhm_clientcharge" method="post"> 
+                <div id="toolbar" style="margin-bottom:5px"> 
+                    <label for="Keyword" id="search_key">搜:</label> 
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" /> 
+                    &nbsp; 
+                    <a id="btnSearchhm_clientcharge" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp; 
+                </div> 
+            </form> 
+        </fieldset> 
+    </div> 
+    <div data-options="region:'center'"> 
+        <!-------------------------------详细信息展示表格-----------------------------------> 
+        <table id="grid_hm_clientcharge" title="热计量采暖费收费单"  data-options="iconCls:'icon-view'" fit="true"></table> 
+   <!--   弹出框       --> 
+        <div id="win_hm_clientcharge"  style="padding: 5px;background: #fafafa;" >  
+            <div class="easyui-layout" fit="true"> 
+               <form id="ffhm_clientcharge" method="post" ajax="true">
+<table class="tb_searchbar"> 
+ <tbody> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_beginheat">供热开始表数</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientcharge_Entity_BeginHeat" name="hm_clientcharge_EntityBeginHeat" value="  " style="width:310px"  maxlength="8" tabindex="1" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_endheat">供热结束表数</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientcharge_Entity_EndHeat" name="hm_clientcharge_EntityEndHeat" value="  " style="width:310px"  maxlength="8" tabindex="2" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_useheat">用热量（KMH）</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientcharge_Entity_UseHeat" name="hm_clientcharge_EntityUseHeat" value="  " style="width:310px"  maxlength="8" tabindex="3" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_moneyheat">计量热费</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientcharge_Entity_MoneyHeat" name="hm_clientcharge_EntityMoneyHeat" value="  " style="width:310px"  maxlength="8" tabindex="4" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_moneybaseheat">基础热费</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientcharge_Entity_MoneyBaseHeat" name="hm_clientcharge_EntityMoneyBaseHeat" value="  " style="width:310px"  maxlength="8" tabindex="5" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_moneyadvance">预收金额</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientcharge_Entity_MoneyAdvance" name="hm_clientcharge_EntityMoneyAdvance" value="  " style="width:310px"  maxlength="8" tabindex="6" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_moneyorrefunded">退补金额</label></td> 
+                    <td> 
+                        <input type="text" id="hm_clientcharge_Entity_MoneyOrRefunded" name="hm_clientcharge_EntityMoneyOrRefunded" value="  " style="width:310px"  maxlength="8" tabindex="7" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_chargeannual_id">ChargeAnnual_ID<span style="color:red;">*</span></label></td> 
+                    <td> 
+<select id="hm_clientcharge_Entity_ChargeAnnual_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="11"  data-options="required:true" class="easyui-validatebox" ></select>
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_chargeuser_id">ChargeUser_ID<span style="color:red;">*</span></label></td> 
+                    <td> 
+<select id="hm_clientcharge_Entity_ChargeUser_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="12"  data-options="required:true" class="easyui-validatebox" ></select>
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_clientheatcharge_id">ClientHeatCharge_ID<span style="color:red;">*</span></label></td> 
+                    <td> 
+<select id="hm_clientcharge_Entity_ClientHeatCharge_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="13"  data-options="required:true" class="easyui-validatebox" ></select>
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientcharge_clientinfo_id">ClientInfo_ID<span style="color:red;">*</span></label></td> 
+                    <td> 
+<select id="hm_clientcharge_Entity_ClientInfo_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="14"  data-options="required:true" class="easyui-validatebox" ></select>
+                    </td> 
+                </tr> 
+<tr><td  colspan='1'><input type='hidden' id='hm_clientcharge_Entity_ID' name='hm_clientcharge_EntityID' value='' />
+<input type='hidden' id='hm_clientcharge_Entity_IsDelete' name='hm_clientcharge_EntityIsDelete' value='' />
+<input type='hidden' id='hm_clientcharge_Entity_AddDate' name='hm_clientcharge_EntityAddDate' value='' />
+<input type='hidden' id='hm_clientcharge_Entity_UpdateDate' name='hm_clientcharge_EntityUpdateDate' value='' />
+<td></tr>
+ </tbody> 
+</table> 
+
+               </form>
+            </div> 
+        </div> 
+    </div> 
+</div> 
+@section scripts{ 
+  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientcharge.cshtml.LanguageResource.js" type="text/javascript"></script> 
+  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientcharge.cshtml.js" type="text/javascript"></script> 
+} 
+

@@ -1,0 +1,143 @@
+﻿<div class="easyui-layout" fit="true" id="tb">
+    <div data-options="region:'north'" style="padding: 1px; height:70px;">
+        <!-------------------------------搜索框----------------------------------->
+        <fieldset>
+            <legend id="search_title">信息查询</legend>
+            <form id="ffSearchhm_chargeannual" method="post">
+                <div id="toolbar" style="margin-bottom:5px">
+                    <label for="Keyword" id="search_key">搜:</label>
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
+                    &nbsp;
+                    <a id="btnSearchhm_chargeannual" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div data-options="region:'center'">
+        <!-------------------------------详细信息展示表格----------------------------------->
+        <table id="grid_hm_chargeannual" title="年度供热单价" data-options="iconCls:'icon-view'" fit="true"></table>
+        <!--   弹出框       -->
+        <div id="win_hm_chargeannual" style="padding: 5px;background: #fafafa;">
+            <div class="easyui-layout" fit="true">
+                <form id="ffhm_chargeannual" method="post" ajax="true">
+                    <table class="tb_searchbar">
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_name">标识名称<span style="color:red;">*</span></label></td>
+                            <td>
+                                <input type="text" id="hm_chargeannual_Entity_Name" name="hm_chargeannual_EntityName" value="  " style="width:110px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="1" />
+                            </td>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_isopen">开启</label></td>
+                            <td>
+                                <input type="radio" id="hm_chargeannual_Entity_IsOpen1" name="hm_chargeannual_Entity_IsOpen" value="true" checked="checked" tabindex="2" />是
+                                <input type="radio" id="hm_chargeannual_Entity_IsOpen2" name="hm_chargeannual_Entity_IsOpen" value="false" tabindex="2" />否
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_begindate">开始时间</label></td>
+                            <td>
+                                <input type="text" id="hm_chargeannual_Entity_BeginDate" name="hm_chargeannual_EntityBeginDate" value="  " style="width:110px" maxlength="8" tabindex="3" />
+                            </td>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_enddate">结束时间</label></td>
+                            <td>
+                                <input type="text" id="hm_chargeannual_Entity_EndDate" name="hm_chargeannual_EntityEndDate" value="  " style="width:110px" maxlength="8" tabindex="4" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_gongreday">供热天数</label></td>
+                            <td>
+                                <input type="text" id="hm_chargeannual_Entity_GongreDay" name="hm_chargeannual_EntityGongreDay" value="  " style="width:110px" maxlength="4" tabindex="5" />
+                            </td>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_dnabegindate">缔纳开始日期</label></td>
+                            <td>
+                                <input type="text" id="hm_chargeannual_Entity_DnaBeginDate" name="hm_chargeannual_EntityDnaBeginDate" value="  " style="width:110px" maxlength="8" tabindex="6" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_breakmoney">违约金比例</label></td>
+                            <td>
+                                <input type="text" id="hm_chargeannual_Entity_BreakMoney" name="hm_chargeannual_EntityBreakMoney" value="  " style="width:110px" maxlength="8" tabindex="7" />
+                            </td>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_stopheatratio">停热基础费比例</label></td>
+                            <td>
+                                <input type="text" id="hm_chargeannual_Entity_StopHeatRatio" name="hm_chargeannual_EntityStopHeatRatio" value="  " style="width:110px" maxlength="8" tabindex="8" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_fixedportion">固定热费比例</label></td>
+                            <td colspan="3">
+                                <input type="text" id="hm_chargeannual_Entity_Fixedportion" name="hm_chargeannual_EntityFixedportion" value="  " style="width:110px" maxlength="8" tabindex="9" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="tb_searchbar">
+                        <tr>
+                            <td>
+                                <fieldset>
+                                    <legend id="search_title">按面积收费</legend>
+                                    <table class="tb_searchbar">
+                                        <tr>
+                                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_gongjian">公建</label></td>
+                                            <td>
+                                                <input type="text" id="hm_chargeannual_Entity_Gongjian" name="hm_chargeannual_EntityGongjian" value="  " style="width:110px" maxlength="8" tabindex="10" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_resident">居民</label></td>
+                                            <td>
+                                                <input type="text" id="hm_chargeannual_Entity_Resident" name="hm_chargeannual_EntityResident" value="  " style="width:110px" maxlength="8" tabindex="11" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_dishang">底商</label></td>
+                                            <td>
+                                                <input type="text" id="hm_chargeannual_Entity_Dishang" name="hm_chargeannual_EntityDishang" value="  " style="width:110px" maxlength="8" tabindex="12" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </fieldset>
+                            </td>
+                            <td>
+                                <fieldset>
+                                    <legend id="search_title">按计量收费</legend>
+                                    <table class="tb_searchbar">
+                                        <tr>
+                                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_gongjian1">公建1</label></td>
+                                            <td>
+                                                <input type="text" id="hm_chargeannual_Entity_Gongjian1" name="hm_chargeannual_EntityGongjian1" value="  " style="width:110px" maxlength="8" tabindex="13" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_resident1">居民1</label></td>
+                                            <td>
+                                                <input type="text" id="hm_chargeannual_Entity_Resident1" name="hm_chargeannual_EntityResident1" value="  " style="width:110px" maxlength="8" tabindex="14" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_title"><label style="color: black" id="ff_lab_hm_chargeannual_dishang1">底商1</label></td>
+                                            <td>
+                                                <input type="text" id="hm_chargeannual_Entity_Dishang1" name="hm_chargeannual_EntityDishang1" value="  " style="width:110px" maxlength="8" tabindex="15" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan='1'>
+                                <input type='hidden' id='hm_chargeannual_Entity_ID' name='hm_chargeannual_EntityID' value='' />
+                                <input type='hidden' id='hm_chargeannual_Entity_IsDelete' name='hm_chargeannual_EntityIsDelete' value='' />
+                                <input type='hidden' id='hm_chargeannual_Entity_AddDate' name='hm_chargeannual_EntityAddDate' value='' />
+                                <input type='hidden' id='hm_chargeannual_Entity_UpdateDate' name='hm_chargeannual_EntityUpdateDate' value='' />
+                            <td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_chargeannual.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_chargeannual.cshtml.js" type="text/javascript"></script>
+}
+

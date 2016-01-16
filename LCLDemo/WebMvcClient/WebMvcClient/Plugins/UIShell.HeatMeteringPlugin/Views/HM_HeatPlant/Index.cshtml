@@ -1,0 +1,218 @@
+﻿<div class="easyui-layout" fit="true" id="tb"> 
+    <div data-options="region:'west',title:'供热站'" style="width: 200px;"> 
+        <ul id="uitree_hm_heatplant" class="easyui-tree"></ul> 
+    </div> 
+    <div data-options="region:'center',title:'供热站'" style="padding: 5px; overflow-y: hidden;"> 
+        <div style="background: #efefef; width: 100%; border-bottom: #99bbe8 1px solid;"> 
+            <a id="btnAddhm_heatplant" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add">新增下级</a>&nbsp; 
+            <a id="btnDelhm_heatplant" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-remove">删除</a>&nbsp; 
+            <a id="butSavehm_heatplant" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-save">保存</a>&nbsp; 
+        </div> 
+<table class="tb_searchbar"> 
+ <tbody> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_pid">供热站</label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_PID" name="hm_heatplant_EntityPID" value="  " style="width:310px"  maxlength="4" tabindex="1" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_name">名称<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_Name" name="hm_heatplant_EntityName" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="2" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_nameshort">简称<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_NameShort" name="hm_heatplant_EntityNameShort" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="3" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_address">地址<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_Address" name="hm_heatplant_EntityAddress" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="4" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_adminname">负责人<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_AdminName" name="hm_heatplant_EntityAdminName" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="5" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_phone">联系电话<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_Phone" name="hm_heatplant_EntityPhone" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="6" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_remark">备注<span style="color:red;">*</span></label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_Remark" name="hm_heatplant_EntityRemark" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="7" /> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td class="td_title"><label style="color: black" id="ff_lab_hm_heatplant_parentid">上一级</label></td> 
+                    <td> 
+                        <input type="text" id="hm_heatplant_Entity_ParentId" name="hm_heatplant_EntityParentId" value="  " style="width:310px"  maxlength="16" tabindex="12" /> 
+                    </td> 
+                </tr> 
+<tr><td  colspan='1'><input type='hidden' id='hm_heatplant_Entity_ID' name='hm_heatplant_EntityID' value='' />
+<input type='hidden' id='hm_heatplant_Entity_IsLast' name='hm_heatplant_EntityIsLast' value='' />
+<input type='hidden' id='hm_heatplant_Entity_Level' name='hm_heatplant_EntityLevel' value='' />
+<input type='hidden' id='hm_heatplant_Entity_NodePath' name='hm_heatplant_EntityNodePath' value='' />
+<input type='hidden' id='hm_heatplant_Entity_OrderBy' name='hm_heatplant_EntityOrderBy' value='' />
+<input type='hidden' id='hm_heatplant_Entity_IsDelete' name='hm_heatplant_EntityIsDelete' value='' />
+<input type='hidden' id='hm_heatplant_Entity_AddDate' name='hm_heatplant_EntityAddDate' value='' />
+<input type='hidden' id='hm_heatplant_Entity_UpdateDate' name='hm_heatplant_EntityUpdateDate' value='' />
+<td></tr>
+ </tbody> 
+</table> 
+    </div> 
+</div> 
+@section scripts{ 
+    <script> 
+        var root = "@(Url.BundlePContent("UIShell.HeatMeteringPlugin", "HM_HeatPlant"))/"; 
+        var added = true; 
+        var dicType; 
+        var LCL_hm_heatplant = { 
+            showTree: function () { 
+                $('#uitree_hm_heatplant').tree({ 
+                    url: root + 'AjaxEasyUITree_HM_HeatPlant', 
+                    lines: true, 
+                    onClick: function (node) { 
+                        added = false; 
+                        var cc = node.id; 
+                        dicType = cc; 
+                        $('#parentid').val(node.parentId); 
+                        $('#parentname').val(node.parentName); 
+ 
+ $('#hm_heatplant_Entity_ID').val(node.ID); 
+ $('#hm_heatplant_Entity_PID').val(node.PID); 
+ $('#hm_heatplant_Entity_Name').val(node.Name); 
+ $('#hm_heatplant_Entity_NameShort').val(node.NameShort); 
+ $('#hm_heatplant_Entity_Address').val(node.Address); 
+ $('#hm_heatplant_Entity_AdminName').val(node.AdminName); 
+ $('#hm_heatplant_Entity_Phone').val(node.Phone); 
+ $('#hm_heatplant_Entity_Remark').val(node.Remark); 
+ $('#hm_heatplant_Entity_IsLast').val(node.IsLast); 
+ $('#hm_heatplant_Entity_Level').val(node.Level); 
+ $('#hm_heatplant_Entity_NodePath').val(node.NodePath); 
+ $('#hm_heatplant_Entity_OrderBy').val(node.OrderBy); 
+ $('#hm_heatplant_Entity_ParentId').val(node.ParentId); 
+ $('#hm_heatplant_Entity_IsDelete').val(node.IsDelete); 
+ $('#hm_heatplant_Entity_AddDate').val(node.AddDate); 
+ $('#hm_heatplant_Entity_UpdateDate').val(node.UpdateDate); 
+
+ 
+ 
+                    } 
+                }); 
+            }, 
+            reload: function () { 
+                $('#uitree_hm_heatplant').tree('reload'); 
+            }, 
+            getSelected: function () { 
+                return $('#uitree_hm_heatplant').tree('getSelected'); 
+            }, 
+            add: function () { 
+                var node = LCL_hm_heatplant.getSelected(); 
+                if (node) { 
+                    //新增下级 
+                    added = true; 
+                    $('#parentid').val(node.id); 
+                    $('#parentname').val(node.text); 
+ 
+ $('#hm_heatplant_Entity_ID').val(''); 
+ $('#hm_heatplant_Entity_PID').val(''); 
+ $('#hm_heatplant_Entity_Name').val(''); 
+ $('#hm_heatplant_Entity_NameShort').val(''); 
+ $('#hm_heatplant_Entity_Address').val(''); 
+ $('#hm_heatplant_Entity_AdminName').val(''); 
+ $('#hm_heatplant_Entity_Phone').val(''); 
+ $('#hm_heatplant_Entity_Remark').val(''); 
+ $('#hm_heatplant_Entity_IsLast').val(''); 
+ $('#hm_heatplant_Entity_Level').val(''); 
+ $('#hm_heatplant_Entity_NodePath').val(''); 
+ $('#hm_heatplant_Entity_OrderBy').val(''); 
+ $('#hm_heatplant_Entity_ParentId').val(''); 
+ $('#hm_heatplant_Entity_IsDelete').val(''); 
+ $('#hm_heatplant_Entity_AddDate').val(''); 
+ $('#hm_heatplant_Entity_UpdateDate').val(''); 
+
+ 
+ 
+                } 
+            }, 
+            save: function () { 
+var ID= $('#hm_heatplant_Entity_ID').val(); 
+var PID= $('#hm_heatplant_Entity_PID').val(); 
+var Name= $('#hm_heatplant_Entity_Name').val(); 
+var NameShort= $('#hm_heatplant_Entity_NameShort').val(); 
+var Address= $('#hm_heatplant_Entity_Address').val(); 
+var AdminName= $('#hm_heatplant_Entity_AdminName').val(); 
+var Phone= $('#hm_heatplant_Entity_Phone').val(); 
+var Remark= $('#hm_heatplant_Entity_Remark').val(); 
+var IsLast= $('#hm_heatplant_Entity_IsLast').val(); 
+var Level= $('#hm_heatplant_Entity_Level').val(); 
+var NodePath= $('#hm_heatplant_Entity_NodePath').val(); 
+var OrderBy= $('#hm_heatplant_Entity_OrderBy').val(); 
+var ParentId= $('#hm_heatplant_Entity_ParentId').val(); 
+var IsDelete= $('#hm_heatplant_Entity_IsDelete').val(); 
+var AddDate= $('#hm_heatplant_Entity_AddDate').val(); 
+var UpdateDate= $('#hm_heatplant_Entity_UpdateDate').val(); 
+
+ 
+                if (added) { 
+                    $.post(root + 'AjaxAdd', 
+                        { ID: ID,PID: PID,Name: Name,NameShort: NameShort,Address: Address,AdminName: AdminName,Phone: Phone,Remark: Remark,IsLast: IsLast,Level: Level,NodePath: NodePath,OrderBy: OrderBy,ParentId: ParentId,IsDelete: IsDelete,AddDate: AddDate,UpdateDate: UpdateDate }, function (data) { 
+                            $.messager.alert('系统消息', data.Message); 
+                            //重新加载当前页 
+                            LCL_hm_heatplant.reload(); 
+                        }, "json"); 
+                } else { 
+                    $.post(root + 'AjaxEdit', 
+                        { ID: ID,PID: PID,Name: Name,NameShort: NameShort,Address: Address,AdminName: AdminName,Phone: Phone,Remark: Remark,IsLast: IsLast,Level: Level,NodePath: NodePath,OrderBy: OrderBy,ParentId: ParentId,IsDelete: IsDelete,AddDate: AddDate,UpdateDate: UpdateDate }, function (data) { 
+                            $.messager.alert('系统消息', data.Message); 
+                            //重新加载当前页 
+                            LCL_hm_heatplant.reload(); 
+                        }, "json"); 
+                } 
+            }, 
+            del: function () { 
+                var node = LCL_hm_heatplant.getSelected(); 
+                if (node) { 
+                    $.messager.confirm('确认', '确认要删除选中记录吗?', function (y) { 
+                        if (y) { 
+                            //提交 
+                            $.post(root + 'AjaxDelete/', node.id, 
+                            function (msg) { 
+                                if (msg.Success) { 
+                                    $.messager.alert('提示', msg.Message, 'info', function () { 
+                                        //重新加载当前页 
+                                        $('#grid_hm_heatplant').datagrid('reload'); 
+                                    }); 
+                                } else { 
+                                    $.messager.alert('提示', msg.Message, 'info') 
+                                } 
+                            }, "json"); 
+                        } 
+                    }); 
+                } 
+                else { 
+                    alert('请选择'); 
+                } 
+                return false; 
+            } 
+        } 
+        $(document).ready(function () { 
+            LCL_hm_heatplant.showTree(); 
+            $('#btnAddhm_heatplant').click(function () { LCL_hm_heatplant.add(); }); 
+            $('#btnSavehm_heatplant').click(function () { LCL_hm_heatplant.save(); }); 
+            $('#btnDelhm_heatplant').click(function () { LCL_hm_heatplant.del(); }); 
+        }); 
+
+    </script> 
+} 
+

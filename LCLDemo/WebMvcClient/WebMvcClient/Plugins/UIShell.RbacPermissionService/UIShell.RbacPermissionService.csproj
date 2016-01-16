@@ -33,6 +33,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\..\Lib\Aspose.Cells.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\..\..\..\LCLFramework\Lib\EntityFramework.dll</HintPath>
     </Reference>
@@ -55,6 +58,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -98,6 +102,8 @@
     <Compile Include="Config\ScheduledEvents\IEvent.cs" />
     <Compile Include="Config\ScriptEventConfigs.cs" />
     <Compile Include="EFContexts\DbFactory.cs" />
+    <Compile Include="ExcelHelper\AposeExcel.cs" />
+    <Compile Include="ExcelHelper\FileExcel.cs" />
     <Compile Include="PluginActivator.cs" />
     <Compile Include="BusinessModel\BaseModel.cs" />
     <Compile Include="EFContexts\RbacDbContext.cs" />

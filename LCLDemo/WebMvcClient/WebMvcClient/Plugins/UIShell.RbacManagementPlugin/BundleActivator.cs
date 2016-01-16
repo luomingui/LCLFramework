@@ -47,6 +47,7 @@ namespace UIShell.RbacManagementPlugin
                     new MvcModuleMeta{ Image="icon-user-group", Label = "群组管理", CustomUI="/UIShell.RbacManagementPlugin/Group/Index",EntityType=typeof(GroupController)},
                     new MvcModuleMeta{ Image="icon-user-group", Label = "用户群组", CustomUI="/UIShell.RbacManagementPlugin/UserGroup/Index",EntityType=typeof(GroupController)},
                     new MvcModuleMeta{ Image="icon-user-group", Label = "角色群组", CustomUI="/UIShell.RbacManagementPlugin/RoleGroup/Index",EntityType=typeof(GroupController)},
+                    new MvcModuleMeta{ Image="icon-user-group", Label = "一键导入", CustomUI="/UIShell.RbacManagementPlugin/User/Import"},
                     new MvcModuleMeta{ Image="icon-chart-organisation", Label = "流程定义", CustomUI="/UIShell.RbacManagementPlugin/WFRout/Index",EntityType=typeof(WFRoutController)},
                     new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }
