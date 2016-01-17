@@ -67,6 +67,7 @@
     <Compile Include="Build\Providers\AdoNetBuild.cs" />
     <Compile Include="Build\Providers\BootstrapBuild.cs" />
     <Compile Include="Build\Providers\EasyUIBuild.cs" />
+    <Compile Include="Build\Providers\ExcelBuild.cs" />
     <Compile Include="Build\Providers\LibraryBuild.cs" />
     <Compile Include="ConnectionString.cs">
       <SubType>Form</SubType>

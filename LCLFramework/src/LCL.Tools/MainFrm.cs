@@ -289,17 +289,31 @@ namespace LCL.Tools
         }
         private void adoNetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            try
+            {
+      string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             AdoNetBuild build = new AdoNetBuild();
             build.GenerateDAL(dir);
             MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "提示");
+            }
         }
         private void easyUIAdiniShellToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            try
+            {
+   string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             EasyUIBuild build = new EasyUIBuild();
             build.GenerateEasyUIBuild(dir);
             MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "提示");
+            }
         }
 
         private void bUIAdiniseShellToolStripMenuItem_Click(object sender, EventArgs e)
@@ -309,10 +323,32 @@ namespace LCL.Tools
 
         private void classLibToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            try
+            {
             string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             LibraryBuild build = new LibraryBuild();
             build.GenerateLibBuild(dir);
             MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "提示");
+            }
+        }
+
+        private void 生成ExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string dir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                ExcelBuild build = new ExcelBuild();
+                build.GenerateLibBuild(dir);
+                MessageBox.Show("已经生成到桌面的LCL文件夹下！！！", "提示");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "提示");
+            }
         }
     }
 }

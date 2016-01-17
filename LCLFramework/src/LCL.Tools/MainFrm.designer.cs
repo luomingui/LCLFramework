@@ -65,6 +65,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.生成ExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -114,7 +115,7 @@
             this.生成数据库文档ToolStripMenuItem,
             this.生成代码ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(207, 230);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(207, 252);
             // 
             // 刷新列表ToolStripMenuItem
             // 
@@ -189,7 +190,8 @@
             this.生成代码ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.winFromUIToolStripMenuItem,
             this.classLibToolStripMenuItem,
-            this.adoNetToolStripMenuItem});
+            this.adoNetToolStripMenuItem,
+            this.生成ExcelToolStripMenuItem});
             this.生成代码ToolStripMenuItem.Name = "生成代码ToolStripMenuItem";
             this.生成代码ToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.生成代码ToolStripMenuItem.Text = "生成代码";
@@ -419,6 +421,13 @@
             this.dataGridView2.Size = new System.Drawing.Size(526, 110);
             this.dataGridView2.TabIndex = 1;
             // 
+            // 生成ExcelToolStripMenuItem
+            // 
+            this.生成ExcelToolStripMenuItem.Name = "生成ExcelToolStripMenuItem";
+            this.生成ExcelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.生成ExcelToolStripMenuItem.Text = "生成Excel";
+            this.生成ExcelToolStripMenuItem.Click += new System.EventHandler(this.生成ExcelToolStripMenuItem_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -494,6 +503,7 @@
         private System.Windows.Forms.ToolStripMenuItem bootstrapAdminToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 根据类库生成数据库描述ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adoNetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 生成ExcelToolStripMenuItem;
 
     }
 }

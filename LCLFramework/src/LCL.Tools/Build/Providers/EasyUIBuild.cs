@@ -89,7 +89,7 @@ namespace LCL.Tools
             StringBuilder builder4 = new StringBuilder();
             foreach (var item in list)
             {
-                builder1.AppendLine(" $('#" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "').val(node." + item.ColumnName + "); ");
+                builder1.AppendLine(" $('#" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "').val(node.attributes." + item.ColumnName + "); ");
                 builder2.AppendLine(" $('#" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "').val(''); ");
                 builder3.AppendLine("var " + item.ColumnName + "= $('#" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "').val(); ");
                 builder4.Append("" + item.ColumnName + ": " + item.ColumnName + ",");
@@ -716,7 +716,7 @@ namespace LCL.Tools
             {
                 var item = list[i];
                 string isnull = "", validatebox = "";
-                if (item.Isnullable && item.MaxLength > 0)
+                if (!item.Isnullable && item.MaxLength > 0)
                 {
                     isnull = "<span style=\"color:red;\">*</span>";
                     validatebox = " data-options=\"required:true\" class=\"easyui-validatebox\" ";
@@ -747,6 +747,22 @@ namespace LCL.Tools
                                 builder.AppendLine("                    <td> ");
                                 builder.AppendLine("                        <input type=\"radio\" id=\"" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "1\" name=\"" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "\" value=\"true\" checked tabindex=\"" + i + "\" />是");
                                 builder.AppendLine("                        <input type=\"radio\" id=\"" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "2\" name=\"" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "\" value=\"false\" tabindex=\"" + i + "\" />否");
+                                builder.AppendLine("                    </td> ");
+                                builder.AppendLine("                </tr> ");
+                                break;
+                            case "datatime":
+                                builder.AppendLine("                <tr> ");
+                                builder.AppendLine("                    <td class=\"td_title\"><label style=\"color: black\" id=\"ff_lab_" + tm.TableName.ToLower() + "_" + item.ColumnName.ToLower() + "\">" + item.ColumnRemark + "" + isnull + "</label></td> ");
+                                builder.AppendLine("                    <td> ");
+                                builder.AppendLine("                        <input type=\"text\" id=\"" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "\" name=\"" + tm.TableName.ToLower() + "_Entity" + item.ColumnName + "\" value=\"  \"  class='easyui-datebox'  style=\"width:310px\" " + validatebox + " maxlength=\"" + item.MaxLength + "\" tabindex=\"" + i + "\" /> ");
+                                builder.AppendLine("                    </td> ");
+                                builder.AppendLine("                </tr> ");
+                                break;
+                            case "int":
+                                builder.AppendLine("                <tr> ");
+                                builder.AppendLine("                    <td class=\"td_title\"><label style=\"color: black\" id=\"ff_lab_" + tm.TableName.ToLower() + "_" + item.ColumnName.ToLower() + "\">" + item.ColumnRemark + "" + isnull + "</label></td> ");
+                                builder.AppendLine("                    <td> ");
+                                builder.AppendLine("                        <input type=\"text\" id=\"" + tm.TableName.ToLower() + "_Entity_" + item.ColumnName + "\" name=\"" + tm.TableName.ToLower() + "_Entity" + item.ColumnName + "\" value=\"  \"  class='easyui-numberbox'  style=\"width:310px\" " + validatebox + " maxlength=\"" + item.MaxLength + "\" tabindex=\"" + i + "\" /> ");
                                 builder.AppendLine("                    </td> ");
                                 builder.AppendLine("                </tr> ");
                                 break;

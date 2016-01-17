@@ -20,7 +20,7 @@ namespace LCL
     ///             save.RestoreDirectory = true;
     ///             if (save.ShowDialog() == DialogResult.OK)
     ///             {
-    ///                Common.MyExcelUtls.DataTable2Sheet(save.FileName, dt);
+    ///                MyExcelUtls.DataTable2Sheet(save.FileName, dt);
     ///              }
     /// ]]>
     /// </summary>

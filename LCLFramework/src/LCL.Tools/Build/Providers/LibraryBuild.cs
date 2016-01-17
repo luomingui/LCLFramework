@@ -52,7 +52,10 @@ namespace LCL.Tools
                 builder.AppendLine("    /// </summary> ");
                 builder.AppendLine("    public interface I" + tablename + "Repository : IRepository<" + tablename + ">  ");
                 builder.AppendLine("    {  ");
-                builder.AppendLine("  ");
+                if (tm.IsTree)
+                {
+                    builder.AppendLine("    string GetByName(Guid guid);");
+                }
                 builder.AppendLine("    }  ");
                 builder.AppendLine("    /// <summary> ");
                 builder.AppendLine("    /// " + tableInfo + " ");
@@ -64,6 +67,21 @@ namespace LCL.Tools
                 builder.AppendLine("        {   ");
                 builder.AppendLine("          ");
                 builder.AppendLine("        }  ");
+                if (tm.IsTree)
+                {
+                    builder.AppendLine("        public string GetByName(Guid guid) ");
+                    builder.AppendLine("        { ");
+                    builder.AppendLine("            try ");
+                    builder.AppendLine("            { ");
+                    builder.AppendLine("                var model = this.GetByKey(guid); ");
+                    builder.AppendLine("                return model.Name; ");
+                    builder.AppendLine("            } ");
+                    builder.AppendLine("            catch (Exception) ");
+                    builder.AppendLine("            { ");
+                    builder.AppendLine("                return \"保密\"; ");
+                    builder.AppendLine("            } ");
+                    builder.AppendLine("        } ");
+                }
                 builder.AppendLine("    }  ");
                 builder.AppendLine("}  ");
 
@@ -75,7 +93,6 @@ namespace LCL.Tools
                     Utils.CreateFiles(filename, builder.ToString());
                 }
             }
-
         }
         private void BuildDbContext(string path)
         {
