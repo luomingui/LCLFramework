@@ -75,36 +75,22 @@ namespace UIShell.HeatMeteringService.Controllers
                                             }
                                             else
                                             {
-                                                // 添加错误列
-                                                if (!dtImportDoc.Columns.Contains("是否成功"))
-                                                {
-                                                    dtImportDoc.Columns.Add("是否成功", typeof(string));
-                                                }
-                                                if (!dtImportDoc.Columns.Contains("错误信息"))
-                                                {
-                                                    dtImportDoc.Columns.Add("错误信息", typeof(string));
-                                                }
-                                                foreach (DataRow dr in dtImportDoc.Rows)
-                                                {
-                                                    dr["是否成功"] = "";
-                                                    dr["错误信息"] = "";
-                                                }
-                                                Hashtable ht = new Hashtable();
-                                                ht.Add("datatable", dtImportDoc);
-                                                ht.Add("FilePath", fileNamePath);
-                                                ht.Add("SheetName", "sheet1");
-                                                ht.Add("dtColName1", "是否成功");// 数据集列名
-                                                ht.Add("dtColName2", "错误信息");// 数据集列名
-                                                ht.Add("exColName1", "是否成功");// excel列名
-                                                ht.Add("exColName2", "错误信息");// excel列名
-                                                excel.UpdateDataExcel(ht);
                                                 result = ValidateDataImportDoc(dtImportDoc, null);
                                                 if (result.Success)
                                                 {
                                                     //入库
                                                     RF.Concrete<IHM_ClientInfoRepository>().ImportClientDbo(dtImportDoc);
                                                     result = new Result(true);
+                                                    try
+                                                    {
+                                                        System.IO.File.Delete(fileNamePath);
+                                                    }
+                                                    catch (Exception)
+                                                    {
+                                                        
+                                                    }
                                                 }
+                                                result.Message = result.Message + fileNamePath;
                                             }
                                         }
                                         break;
@@ -118,12 +104,36 @@ namespace UIShell.HeatMeteringService.Controllers
             {
                 result = new Result(false,ex.Message);
             }
+
             return View("ImportClient", result);
         }
         //单机版 验证Excel数据
         private Result ValidateDataImportDoc(DataTable dtImportDoc, string filePath)
         {
             var result = new Result(false);
+            // 添加错误列
+            if (!dtImportDoc.Columns.Contains("是否成功"))
+            {
+                dtImportDoc.Columns.Add("是否成功", typeof(string));
+            }
+            if (!dtImportDoc.Columns.Contains("错误信息"))
+            {
+                dtImportDoc.Columns.Add("错误信息", typeof(string));
+            }
+            foreach (DataRow dr in dtImportDoc.Rows)
+            {
+                dr["是否成功"] = "";
+                dr["错误信息"] = "";
+            }
+            Hashtable ht = new Hashtable();
+            ht.Add("datatable", dtImportDoc);
+            ht.Add("FilePath", filePath);
+            ht.Add("SheetName", "sheet1");
+            ht.Add("dtColName1", "是否成功");// 数据集列名
+            ht.Add("dtColName2", "错误信息");// 数据集列名
+            ht.Add("exColName1", "是否成功");// excel列名
+            ht.Add("exColName2", "错误信息");// excel列名
+            new AposeExcel().UpdateDataExcel(ht);
             //验证表格数据
             string strErrorMsg = "";
             for (int i = 0; i < dtImportDoc.Rows.Count; i++)
@@ -196,8 +206,7 @@ namespace UIShell.HeatMeteringService.Controllers
             }
             if (string.IsNullOrEmpty(drExcelDoc["客户姓名"].ToString()))
             {
-                drExcelDoc["是否成功"] = "否";
-                drExcelDoc["错误信息"] = "客户姓名不可为空；";
+                drExcelDoc["客户姓名"] = "暂无";
             }
             switch (drExcelDoc["楼层"].ToString())
             {
@@ -235,7 +244,6 @@ namespace UIShell.HeatMeteringService.Controllers
                     drExcelDoc["楼层"] = "0";
                     break;
             }
-
         }
         #endregion
     }

@@ -157,7 +157,6 @@ namespace UIShell.HeatMeteringService
                 dev.IsOpen = true;
                 dev.Remark = "";
                 device.Create(dev);
-
             }
             client.Context.Commit();
         }
@@ -167,7 +166,6 @@ namespace UIShell.HeatMeteringService
             var model = repo.Find(p => p.Name == name && p.ParentId == pid);
             return model;
         }
-
     }
 }
 
