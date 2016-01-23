@@ -1,272 +1,289 @@
-﻿<div class="easyui-layout" fit="true" id="tb"> 
-    <div data-options="region:'north'" style="padding: 1px; height:70px;"> 
-        <!-------------------------------搜索框-----------------------------------> 
-        <fieldset> 
-            <legend id="search_title">信息查询</legend> 
-            <form id="ffSearchhm_clientinfo" method="post"> 
-                <div id="toolbar" style="margin-bottom:5px"> 
-                    <label for="Keyword" id="search_key">搜:</label> 
-                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" /> 
-                    &nbsp; 
-                    <a id="btnSearchhm_clientinfo" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp; 
-                </div> 
-            </form> 
-        </fieldset> 
-    </div> 
-    <div data-options="region:'center'"> 
-        <!-------------------------------详细信息展示表格-----------------------------------> 
-        <table id="grid_hm_clientinfo" title="客户信息"  data-options="iconCls:'icon-view'" fit="true"></table> 
-   <!--   弹出框       --> 
-        <div id="win_hm_clientinfo"  style="padding: 5px;background: #fafafa;" >  
-            <div class="easyui-layout" fit="true"> 
-               <form id="ffhm_clientinfo" method="post" ajax="true">
-<table class="tb_searchbar"> 
- <tbody> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_clienttype">客户类型<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_ClientType" name="hm_clientinfo_EntityClientType" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="1" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heattype">取暖类型</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_HeatType" name="hm_clientinfo_EntityHeatType" value="  " style="width:310px"  maxlength="4" tabindex="2" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_helpecode">用户编码<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_HelpeCode" name="hm_clientinfo_EntityHelpeCode" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="3" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_cardno">房间卡号<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_Cardno" name="hm_clientinfo_EntityCardno" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="4" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_name">用户名称<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_Name" name="hm_clientinfo_EntityName" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="5" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_netinname">入网用户名<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_NetInName" name="hm_clientinfo_EntityNetInName" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="6" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_roomnumber">房间号<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_RoomNumber" name="hm_clientinfo_EntityRoomNumber" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="7" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_buildarea">建筑面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_BuildArea" name="hm_clientinfo_EntityBuildArea" value="  " style="width:310px"  maxlength="8" tabindex="8" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_insidebuildarea">套内建筑面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_InsideBuildArea" name="hm_clientinfo_EntityInsideBuildArea" value="  " style="width:310px"  maxlength="8" tabindex="9" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_superelevation">超高</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_Superelevation" name="hm_clientinfo_EntitySuperelevation" value="  " style="width:310px"  maxlength="8" tabindex="10" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconystate">阳台状态</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_BalconyState" name="hm_clientinfo_EntityBalconyState" value="  " style="width:310px"  maxlength="4" tabindex="11" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconyarea">阳台面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_BalconyArea" name="hm_clientinfo_EntityBalconyArea" value="  " style="width:310px"  maxlength="4" tabindex="12" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconyheatstate">阳台采暖状态</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_BalconyHeatState" name="hm_clientinfo_EntityBalconyHeatState" value="  " style="width:310px"  maxlength="4" tabindex="13" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconyheatarea">阳台收费面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_BalconyHeatArea" name="hm_clientinfo_EntityBalconyHeatArea" value="  " style="width:310px"  maxlength="4" tabindex="14" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_interlayerarea">阁楼夹层面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_InterlayerArea" name="hm_clientinfo_EntityInterlayerArea" value="  " style="width:310px"  maxlength="8" tabindex="15" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_interlayerstate">阁楼夹层采暖状态</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_InterlayerState" name="hm_clientinfo_EntityInterlayerState" value="  " style="width:310px"  maxlength="4" tabindex="16" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_interlayerheatarea">阁楼夹层收费面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_InterlayerHeatArea" name="hm_clientinfo_EntityInterlayerHeatArea" value="  " style="width:310px"  maxlength="8" tabindex="17" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_insidearea">套内面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_InsideArea" name="hm_clientinfo_EntityInsideArea" value="  " style="width:310px"  maxlength="8" tabindex="18" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heatarea">收费面积</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_HeatArea" name="hm_clientinfo_EntityHeatArea" value="  " style="width:310px"  maxlength="8" tabindex="19" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_unitpricetype">单价类别</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_UnitPriceType" name="hm_clientinfo_EntityUnitPriceType" value="  " style="width:310px"  maxlength="4" tabindex="20" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_networkdate">入网日期</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_NetworkDate" name="hm_clientinfo_EntityNetworkDate" value="  " style="width:310px"  maxlength="8" tabindex="21" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_isnetwork">拆网/入网</label></td> 
-                    <td> 
-                        <input type="radio" id="hm_clientinfo_Entity_IsNetwork1" name="hm_clientinfo_Entity_IsNetwork" value="true" checked tabindex="22" />是
-                        <input type="radio" id="hm_clientinfo_Entity_IsNetwork2" name="hm_clientinfo_Entity_IsNetwork" value="false" tabindex="22" />否
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_beginheatdate">开始供暖日期</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_BeginHeatDate" name="hm_clientinfo_EntityBeginHeatDate" value="  " style="width:310px"  maxlength="8" tabindex="23" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_totalheatsourcefactory">总热源厂<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_TotalHeatSourceFactory" name="hm_clientinfo_EntityTotalHeatSourceFactory" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="24" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heatsource">热源<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_HeatSource" name="hm_clientinfo_EntityHeatSource" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="25" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_floor">楼层</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_Floor" name="hm_clientinfo_EntityFloor" value="  " style="width:310px"  maxlength="4" tabindex="26" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_linetype">线别<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_LineType" name="hm_clientinfo_EntityLineType" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="27" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heatstate">报停/强停/复热</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_HeatState" name="hm_clientinfo_EntityHeatState" value="  " style="width:310px"  maxlength="4" tabindex="28" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_email">邮箱<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_Email" name="hm_clientinfo_EntityEmail" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="29" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_phone">联系电话<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_Phone" name="hm_clientinfo_EntityPhone" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="30" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_jobaddress">工作地址<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_JobAddress" name="hm_clientinfo_EntityJobAddress" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="31" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_homeaddress">家庭地址<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_HomeAddress" name="hm_clientinfo_EntityHomeAddress" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="32" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_gender">性别</label></td> 
-                    <td> 
-                        <input type="radio" id="hm_clientinfo_Entity_Gender1" name="hm_clientinfo_Entity_Gender" value="true" checked tabindex="33" />是
-                        <input type="radio" id="hm_clientinfo_Entity_Gender2" name="hm_clientinfo_Entity_Gender" value="false" tabindex="33" />否
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_birthday">生日</label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_Birthday" name="hm_clientinfo_EntityBirthday" value="  " style="width:310px"  maxlength="8" tabindex="34" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_zipcode">邮政编码<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_ZipCode" name="hm_clientinfo_EntityZipCode" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="35" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_idcard">身份证号<span style="color:red;">*</span></label></td> 
-                    <td> 
-                        <input type="text" id="hm_clientinfo_Entity_IDCard" name="hm_clientinfo_EntityIDCard" value="  " style="width:310px"  data-options="required:true" class="easyui-validatebox"  maxlength="50" tabindex="36" /> 
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_chargeannual_id">ChargeAnnual_ID<span style="color:red;">*</span></label></td> 
-                    <td> 
-<select id="hm_clientinfo_Entity_ChargeAnnual_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="40"  data-options="required:true" class="easyui-validatebox" ></select>
-                    </td> 
-                </tr> 
-                <tr> 
-                    <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_village_id">Village_ID<span style="color:red;">*</span></label></td> 
-                    <td> 
-<select id="hm_clientinfo_Entity_Village_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="41"  data-options="required:true" class="easyui-validatebox" ></select>
-                    </td> 
-                </tr> 
-<tr><td  colspan='1'><input type='hidden' id='hm_clientinfo_Entity_ID' name='hm_clientinfo_EntityID' value='' />
-<input type='hidden' id='hm_clientinfo_Entity_IsDelete' name='hm_clientinfo_EntityIsDelete' value='' />
-<input type='hidden' id='hm_clientinfo_Entity_AddDate' name='hm_clientinfo_EntityAddDate' value='' />
-<input type='hidden' id='hm_clientinfo_Entity_UpdateDate' name='hm_clientinfo_EntityUpdateDate' value='' />
-<td></tr>
- </tbody> 
-</table> 
+﻿<div class="easyui-layout" fit="true" id="tb">
+    <div data-options="region:'north'" style="padding: 1px; height:70px;">
+        <!-------------------------------搜索框----------------------------------->
+        <fieldset>
+            <legend id="search_title">信息查询</legend>
+            <form id="ffSearchhm_clientinfo" method="post">
+                <div id="toolbar" style="margin-bottom:5px">
+                    <label for="Keyword" id="search_key">搜:</label>
+                    <input id="cc1" class="easyui-combobox" data-options="
+        valueField: 'id',
+        textField: 'text',
+        url: '/UIShell.HeatMeteringPlugin/HM_Village/AjaxEasyUITree_HM_Village',
+        onSelect: function(rec){
+            var url = '/UIShell.HeatMeteringPlugin/HM_Village/AjaxEasyUITree_HM_Village?id='+rec.id;
+            $('#cc2').combobox('reload', url);
+        }" />
+                    <input id="cc2" class="easyui-combobox" data-options="valueField:'id',textField:'text',
+                          onSelect: function(rec){
+            var url = '/UIShell.HeatMeteringPlugin/HM_Village/AjaxEasyUITree_HM_Village?id='+rec.id;
+            $('#cc3').combobox('reload', url);
+        } " />
+                    <input id="cc3" class="easyui-combobox" data-options="valueField:'id',textField:'text'" />
+                    <input type="text" name="Keyword" id="Keyword" class="easyui-textbox" style="width: 220px; height: 25px; text-align: center;" placeholder="请输入" />
+                    &nbsp;
+                    <a id="btnSearchhm_clientinfo" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div data-options="region:'center'">
+        <!-------------------------------详细信息展示表格----------------------------------->
+        <table id="grid_hm_clientinfo" title="客户信息" data-options="iconCls:'icon-view'" fit="true"></table>
+        <!--   弹出框       -->
+        <div id="win_hm_clientinfo" style="padding: 5px;background: #fafafa;">
+            <div class="easyui-layout" fit="true">
+                <form id="ffhm_clientinfo" method="post" ajax="true">
+                    <table class="tb_searchbar">
+                        <tbody>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_clienttype">客户类型<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_ClientType" name="hm_clientinfo_EntityClientType" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="1" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heattype">取暖类型</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_HeatType" name="hm_clientinfo_EntityHeatType" value="  " style="width:310px" maxlength="4" tabindex="2" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_helpecode">用户编码<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_HelpeCode" name="hm_clientinfo_EntityHelpeCode" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="3" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_cardno">房间卡号<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_Cardno" name="hm_clientinfo_EntityCardno" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="4" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_name">用户名称<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_Name" name="hm_clientinfo_EntityName" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="5" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_netinname">入网用户名<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_NetInName" name="hm_clientinfo_EntityNetInName" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="6" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_roomnumber">房间号<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_RoomNumber" name="hm_clientinfo_EntityRoomNumber" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="7" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_buildarea">建筑面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_BuildArea" name="hm_clientinfo_EntityBuildArea" value="  " style="width:310px" maxlength="8" tabindex="8" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_insidebuildarea">套内建筑面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_InsideBuildArea" name="hm_clientinfo_EntityInsideBuildArea" value="  " style="width:310px" maxlength="8" tabindex="9" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_superelevation">超高</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_Superelevation" name="hm_clientinfo_EntitySuperelevation" value="  " style="width:310px" maxlength="8" tabindex="10" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconystate">阳台状态</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_BalconyState" name="hm_clientinfo_EntityBalconyState" value="  " style="width:310px" maxlength="4" tabindex="11" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconyarea">阳台面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_BalconyArea" name="hm_clientinfo_EntityBalconyArea" value="  " style="width:310px" maxlength="4" tabindex="12" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconyheatstate">阳台采暖状态</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_BalconyHeatState" name="hm_clientinfo_EntityBalconyHeatState" value="  " style="width:310px" maxlength="4" tabindex="13" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_balconyheatarea">阳台收费面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_BalconyHeatArea" name="hm_clientinfo_EntityBalconyHeatArea" value="  " style="width:310px" maxlength="4" tabindex="14" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_interlayerarea">阁楼夹层面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_InterlayerArea" name="hm_clientinfo_EntityInterlayerArea" value="  " style="width:310px" maxlength="8" tabindex="15" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_interlayerstate">阁楼夹层采暖状态</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_InterlayerState" name="hm_clientinfo_EntityInterlayerState" value="  " style="width:310px" maxlength="4" tabindex="16" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_interlayerheatarea">阁楼夹层收费面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_InterlayerHeatArea" name="hm_clientinfo_EntityInterlayerHeatArea" value="  " style="width:310px" maxlength="8" tabindex="17" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_insidearea">套内面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_InsideArea" name="hm_clientinfo_EntityInsideArea" value="  " style="width:310px" maxlength="8" tabindex="18" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heatarea">收费面积</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_HeatArea" name="hm_clientinfo_EntityHeatArea" value="  " style="width:310px" maxlength="8" tabindex="19" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_unitpricetype">单价类别</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_UnitPriceType" name="hm_clientinfo_EntityUnitPriceType" value="  " style="width:310px" maxlength="4" tabindex="20" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_networkdate">入网日期</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_NetworkDate" name="hm_clientinfo_EntityNetworkDate" value="  " style="width:310px" maxlength="8" tabindex="21" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_isnetwork">拆网/入网</label></td>
+                                <td>
+                                    <input type="radio" id="hm_clientinfo_Entity_IsNetwork1" name="hm_clientinfo_Entity_IsNetwork" value="true" checked tabindex="22" />是
+                                    <input type="radio" id="hm_clientinfo_Entity_IsNetwork2" name="hm_clientinfo_Entity_IsNetwork" value="false" tabindex="22" />否
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_beginheatdate">开始供暖日期</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_BeginHeatDate" name="hm_clientinfo_EntityBeginHeatDate" value="  " style="width:310px" maxlength="8" tabindex="23" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_totalheatsourcefactory">总热源厂<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_TotalHeatSourceFactory" name="hm_clientinfo_EntityTotalHeatSourceFactory" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="24" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heatsource">热源<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_HeatSource" name="hm_clientinfo_EntityHeatSource" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="25" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_floor">楼层</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_Floor" name="hm_clientinfo_EntityFloor" value="  " style="width:310px" maxlength="4" tabindex="26" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_linetype">线别<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_LineType" name="hm_clientinfo_EntityLineType" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="27" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_heatstate">报停/强停/复热</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_HeatState" name="hm_clientinfo_EntityHeatState" value="  " style="width:310px" maxlength="4" tabindex="28" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_email">邮箱<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_Email" name="hm_clientinfo_EntityEmail" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="29" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_phone">联系电话<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_Phone" name="hm_clientinfo_EntityPhone" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="30" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_jobaddress">工作地址<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_JobAddress" name="hm_clientinfo_EntityJobAddress" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="31" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_homeaddress">家庭地址<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_HomeAddress" name="hm_clientinfo_EntityHomeAddress" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="32" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_gender">性别</label></td>
+                                <td>
+                                    <input type="radio" id="hm_clientinfo_Entity_Gender1" name="hm_clientinfo_Entity_Gender" value="true" checked tabindex="33" />是
+                                    <input type="radio" id="hm_clientinfo_Entity_Gender2" name="hm_clientinfo_Entity_Gender" value="false" tabindex="33" />否
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_birthday">生日</label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_Birthday" name="hm_clientinfo_EntityBirthday" value="  " style="width:310px" maxlength="8" tabindex="34" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_zipcode">邮政编码<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_ZipCode" name="hm_clientinfo_EntityZipCode" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="35" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_idcard">身份证号<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <input type="text" id="hm_clientinfo_Entity_IDCard" name="hm_clientinfo_EntityIDCard" value="  " style="width:310px" data-options="required:true" class="easyui-validatebox" maxlength="50" tabindex="36" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_chargeannual_id">ChargeAnnual_ID<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <select id="hm_clientinfo_Entity_ChargeAnnual_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="40" data-options="required:true" class="easyui-validatebox"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_title"><label style="color: black" id="ff_lab_hm_clientinfo_village_id">Village_ID<span style="color:red;">*</span></label></td>
+                                <td>
+                                    <select id="hm_clientinfo_Entity_Village_ID" class='easyui-combotree' data-options='url:"AjaxEasyUITree"' style='width: 120px; height: 28px;' tabindex="41" data-options="required:true" class="easyui-validatebox"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan='1'>
+                                    <input type='hidden' id='hm_clientinfo_Entity_ID' name='hm_clientinfo_EntityID' value='' />
+                                    <input type='hidden' id='hm_clientinfo_Entity_IsDelete' name='hm_clientinfo_EntityIsDelete' value='' />
+                                    <input type='hidden' id='hm_clientinfo_Entity_AddDate' name='hm_clientinfo_EntityAddDate' value='' />
+                                    <input type='hidden' id='hm_clientinfo_Entity_UpdateDate' name='hm_clientinfo_EntityUpdateDate' value='' />
+                                <td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-               </form>
-            </div> 
-        </div> 
-    </div> 
-</div> 
-@section scripts{ 
-  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientinfo.cshtml.LanguageResource.js" type="text/javascript"></script> 
-  <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientinfo.cshtml.js" type="text/javascript"></script> 
-} 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientinfo.cshtml.LanguageResource.js" type="text/javascript"></script>
+    <script src="/Plugins/UIShell.HeatMeteringPlugin/ViewScript/hm_clientinfo.cshtml.js" type="text/javascript"></script>
+}
 

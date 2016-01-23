@@ -47,9 +47,8 @@ namespace UIShell.RbacManagementPlugin
                     new MvcModuleMeta{ Image="icon-user-group", Label = "群组管理", CustomUI="/UIShell.RbacManagementPlugin/Group/Index",EntityType=typeof(GroupController)},
                     new MvcModuleMeta{ Image="icon-user-group", Label = "用户群组", CustomUI="/UIShell.RbacManagementPlugin/UserGroup/Index",EntityType=typeof(GroupController)},
                     new MvcModuleMeta{ Image="icon-user-group", Label = "角色群组", CustomUI="/UIShell.RbacManagementPlugin/RoleGroup/Index",EntityType=typeof(GroupController)},
-                    new MvcModuleMeta{ Image="icon-user-group", Label = "一键导入", CustomUI="/UIShell.RbacManagementPlugin/User/Import"},
+                    new MvcModuleMeta{ Image="icon-user-group", Label = "一键导入", CustomUI="/UIShell.RbacManagementPlugin/User/ImportUser"},
                     new MvcModuleMeta{ Image="icon-chart-organisation", Label = "流程定义", CustomUI="/UIShell.RbacManagementPlugin/WFRout/Index",EntityType=typeof(WFRoutController)},
-                    new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
@@ -64,6 +63,7 @@ namespace UIShell.RbacManagementPlugin
                     new MvcModuleMeta{ Image="icon-book", Label = "字典管理", CustomUI="/UIShell.RbacManagementPlugin/DictType/Index",EntityType=typeof(DictTypeController)},
                     new MvcModuleMeta{ Image="icon-time", Label = "计划任务", CustomUI="/UIShell.RbacManagementPlugin/Schedule/Index",EntityType=typeof(ScheduleController)},   
                     new MvcModuleMeta{ Image="icon-server", Label = "文件服务器", CustomUI="/UIShell.RbacManagementPlugin/HostConfig/Index",EntityType=typeof(HostConfigController)},   
+                    new MvcModuleMeta{ Image="icon-book", Label = "日志管理", CustomUI="/UIShell.RbacManagementPlugin/TLog/Index",EntityType=typeof(TLogController)},
                 }
             });
         }

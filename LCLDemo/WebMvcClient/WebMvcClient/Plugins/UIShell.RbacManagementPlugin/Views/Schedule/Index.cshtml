@@ -68,11 +68,12 @@
                 title: '添加',
                 href: root + 'AddOrEdit',
                 width: 500,
-                height: 280,
-                iconCls: 'icon-add',
+                height: 300,
+                iconCls: 'icon-view',
                 modal: true,
                 buttons: [{
                     id: "ui_schedule_add_btn",
+                    iconCls: 'icon-add',
                     text: '添 加',
                     handler: function () {
                         $("#ffschedule").form("submit", {
@@ -111,7 +112,7 @@
                     id: 'dlg_schedule',
                     title: '修改',
                     width: 500,
-                    height: 280,
+                    height: 300,
                     href: root + 'AddOrEdit?id=' + $.LCLCore.ValidUI.Trim(ID),
                     iconCls: 'icon-edit',
                     modal: true,

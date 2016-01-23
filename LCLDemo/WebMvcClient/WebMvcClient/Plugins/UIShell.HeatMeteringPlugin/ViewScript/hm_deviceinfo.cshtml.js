@@ -66,7 +66,6 @@ function InitGrid() {
         columns: [[ 
                 { field: 'ID', title: $.LCLPageModel.Resource.PageLanguageResource.HM_DeviceInfo_Model_ID, width: 100,hidden:true }, 
                 { field: 'DeviceType', title: $.LCLPageModel.Resource.PageLanguageResource.HM_DeviceInfo_Model_DeviceType, width: 100 }, 
-                { field: 'IsOpen', title: $.LCLPageModel.Resource.PageLanguageResource.HM_DeviceInfo_Model_IsOpen, width: 100 }, 
                 { 
                     field: 'IsOpen', title: $.LCLPageModel.Resource.PageLanguageResource.HM_DeviceInfo_Model_IsOpen, width: 100, formatter: function (value, row, index) { 
                         return value ? '<div class="icon-true" style="width:16px; height:16px;" >&nbsp;&nbsp;</div>' : 

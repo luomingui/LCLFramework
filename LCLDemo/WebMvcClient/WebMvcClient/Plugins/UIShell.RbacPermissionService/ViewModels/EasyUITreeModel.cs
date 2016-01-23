@@ -23,6 +23,7 @@ namespace LCL.MvcExtensions
         public string parentId { get; set; }
         public string parentName { get; set; }
         public string iconCls { get; set; }
+        public bool selected { get; set; }
         public bool Checked { get; set; }
         /// <summary>
         /// 属性

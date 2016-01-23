@@ -149,7 +149,7 @@ function pageFunc_hm_chargeuserEdit(ID) {
                 closeDialog('win_hm_chargeuser'); 
             } 
         }); 
-        var ajaxUrl = pageAttr.JsonServerURL + 'hm_chargeuser/AjaxGetByModel?id=' + $.LCLCore.ValidUI.Trim(ID); 
+        var ajaxUrl =  'ImportBizLogic/AjaxGetByModel?id=' + $.LCLCore.ValidUI.Trim(ID);
         $.post(ajaxUrl, function (resultData) { 
             if (resultData.Success) { 
                 $('#hm_chargeuser_Entity_ID').val(resultData.DataObject.ID); 

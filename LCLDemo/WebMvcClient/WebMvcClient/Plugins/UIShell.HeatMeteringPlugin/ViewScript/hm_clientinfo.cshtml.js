@@ -70,16 +70,8 @@ function InitGrid() {
                 { field: 'HelpeCode', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_HelpeCode, width: 100 }, 
                 { field: 'Cardno', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_Cardno, width: 100 }, 
                 { field: 'Name', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_Name, width: 100 }, 
-                { field: 'NetInName', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_NetInName, width: 100 }, 
                 { field: 'RoomNumber', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_RoomNumber, width: 100 }, 
                 { field: 'HeatArea', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_HeatArea, width: 100 }, 
-                { field: 'HeatState', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_HeatState, width: 100 }, 
-                { 
-                    field: 'Gender', title: $.LCLPageModel.Resource.PageLanguageResource.HM_ClientInfo_Model_Gender, width: 100, formatter: function (value, row, index) { 
-                        return value ? '<div class="icon-true" style="width:16px; height:16px;" >&nbsp;&nbsp;</div>' : 
-                                       '<div class="icon-false" style="width:16px; height:16px;">&nbsp;&nbsp;</div>'; 
-                    } 
-                }, 
                 { 
                     field: 'opt', title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Grid_Operate, width: 120, align: 'center', 
                     formatter: function (value, rec, index) { 

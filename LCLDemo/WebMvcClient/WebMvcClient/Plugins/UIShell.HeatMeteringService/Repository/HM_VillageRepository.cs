@@ -20,8 +20,8 @@ using System.Threading.Tasks;
 namespace UIShell.HeatMeteringService  
 {  
     public interface IHM_VillageRepository : IRepository<HM_Village>  
-    {  
-  
+    {
+        string GetByName(Guid guid);
     }  
     public class HM_VillageRepository : EntityFrameworkRepository<HM_Village>, IHM_VillageRepository  
     {  
@@ -29,7 +29,19 @@ namespace UIShell.HeatMeteringService
             : base(context)  
         {   
           
-        }  
+        }
+        public string GetByName(Guid guid)
+        {
+            try
+            {
+                var model = this.GetByKey(guid);
+                return model.Name;
+            }
+            catch (Exception)
+            {
+                return "保密";
+            }
+        }
     }  
 }  
 

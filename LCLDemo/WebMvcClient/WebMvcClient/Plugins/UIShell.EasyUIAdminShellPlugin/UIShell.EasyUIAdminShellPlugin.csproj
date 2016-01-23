@@ -87,6 +87,7 @@
     <Content Include="Content\easyui-window-extend.1.2.js" />
     <Content Include="Content\easyuiDefault.css" />
     <Content Include="Content\icons.css" />
+    <Content Include="Content\images\1.gif" />
     <Content Include="Content\images\add.gif" />
     <Content Include="Content\images\bg_header.jpg" />
     <Content Include="Content\images\blocks.gif" />

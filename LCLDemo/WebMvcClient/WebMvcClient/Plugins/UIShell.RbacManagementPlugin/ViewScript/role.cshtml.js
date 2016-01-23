@@ -55,8 +55,8 @@ function InitGrid() {
         columns: [[ 
                 { field: 'Name', title: $.LCLPageModel.Resource.PageLanguageResource.Role_Model_Name, width: 100 }, 
                 { field: 'Remark', title: $.LCLPageModel.Resource.PageLanguageResource.Role_Model_Remark, width: 200 }, 
-                { field: 'AddDate', title: $.LCLPageModel.Resource.PageLanguageResource.Role_Model_AddDate, width: 120 }, 
-                { field: 'UpdateDate', title: $.LCLPageModel.Resource.PageLanguageResource.Role_Model_UpdateDate, width: 120 }, 
+                { field: 'AddDate', title: $.LCLPageModel.Resource.PageLanguageResource.Role_Model_AddDate, width: 150 }, 
+                { field: 'UpdateDate', title: $.LCLPageModel.Resource.PageLanguageResource.Role_Model_UpdateDate, width: 150 }, 
                 { 
                     field: 'opt', title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Grid_Operate, width: 120, align: 'center', 
                     formatter: function (value, rec, index) { 

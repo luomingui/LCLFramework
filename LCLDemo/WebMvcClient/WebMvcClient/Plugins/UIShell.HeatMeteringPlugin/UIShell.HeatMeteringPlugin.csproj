@@ -152,7 +152,9 @@
     </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\HM_ClientInfo\ImportClient.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UIShell.HeatMeteringService\UIShell.HeatMeteringService.csproj">
       <Project>{930a963f-348b-4c8d-81c1-9d7d63b61523}</Project>
@@ -181,6 +183,9 @@
     <Content Include="Views\HM_HeatPlant\Index.cshtml" />
     <Content Include="Views\HM_HisDeviceData\Index.cshtml" />
     <Content Include="Views\HM_Village\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\UIShell.HeatMeteringPlugin.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

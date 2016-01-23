@@ -313,6 +313,11 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             foreach (var item in list)
             {
                 EasyUITreeModel model = new EasyUITreeModel();
+                if (i == 0)
+                {
+                    model.selected = true;
+                    model.Checked = true;
+                }
                 model.id = item.ID.ToString();
                 model.text = item.Name;
                 model.iconCls = (item.DepartmentType == DepartmentType.公司) || item.Name != "" ? "icon-company" : "";
@@ -330,8 +335,6 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
                 model.attributes.Add("Level", item.Level);
                 model.attributes.Add("NodePath", item.NodePath);
                 model.attributes.Add("OrderBy", item.OrderBy);
-                if (i == 0)
-                    model.Checked = true;
                 easyTree.Add(model);
                 i++;
             }
@@ -358,7 +361,11 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             foreach (var item in list)
             {
                 EasyUITreeModel model = new EasyUITreeModel();
-                if (i == 0) model.Checked = true;
+                if (i == 0)
+                {
+                    model.selected = true;
+                    model.Checked = true;
+                }
                 model.id = item.ID.ToString();
                 model.text = item.Name;
                 model.parentId = item.ParentId.ToString();
@@ -402,6 +409,11 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             foreach (var item in list)
             {
                 EasyUITreeModel model = new EasyUITreeModel();
+                if (i == 0)
+                {
+                    model.selected = true;
+                    model.Checked = true;
+                }
                 model.id = item.ID.ToString();
                 model.text = item.Code;
                 model.parentId = item.ParentId.ToString();
@@ -411,8 +423,7 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
                 model.attributes.Add("Level", item.Level);
                 model.attributes.Add("NodePath", item.NodePath);
                 model.attributes.Add("OrderBy", item.OrderBy);
-                if (i == 0)
-                    model.Checked = true;
+               
                 easyTree.Add(model);
                 i++;
             }
@@ -439,6 +450,11 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
             foreach (var item in list)
             {
                 EasyUITreeModel model = new EasyUITreeModel();
+                if (i == 0)
+                {
+                    model.selected = true;
+                    model.Checked = true;
+                }
                 model.id = item.ID.ToString();
                 model.text = item.Name;
                 model.parentId = item.ParentId.ToString();
@@ -448,8 +464,6 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
                 model.attributes.Add("Level", item.Level);
                 model.attributes.Add("NodePath", item.NodePath);
                 model.attributes.Add("OrderBy", item.OrderBy);
-                if (i == 0)
-                    model.Checked = true;
                 easyTree.Add(model);
                 i++;
             }
@@ -487,6 +501,11 @@ rows 接受客户端的每页记录数，对应的就是pageSize  （用户在�
         {
             Response.Write("<script>$.messager.alert('消息','" + msg + "');</script>");
         }
-    
+        public FileResult GetFile(string templateName)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Template/";
+            string fileName = templateName + ".xls";
+            return File(path + fileName, "application/vnd.ms-excel", fileName);
+        }
     }
 }
