@@ -10,9 +10,13 @@ namespace UIShell.HeatMeteringService
     public partial class HM_DeviceInfo : BaseModel
     {
         /// <summary>
-        /// 客户设备
+        /// 客户编号
         /// </summary>
-        public HM_ClientInfo ClientInfo { get; set; }
+        public Guid ClientInfo_ID { get; set; }
+        /// <summary>
+        /// 客户姓名
+        /// </summary>
+        public string ClientInfo_Name { get; set; }
         /// <summary>
         /// 设备类型
         /// </summary>

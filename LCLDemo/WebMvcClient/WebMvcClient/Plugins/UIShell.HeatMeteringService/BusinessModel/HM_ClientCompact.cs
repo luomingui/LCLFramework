@@ -12,7 +12,19 @@ namespace UIShell.HeatMeteringService
         /// <summary>
         /// 客户
         /// </summary>
-        public HM_ClientInfo ClientInfo { set; get; }
+        public Guid ClientInfo_ID { set; get; }
+        /// <summary>
+        /// 客户姓名
+        /// </summary>
+        public string ClientInfo_Name { set; get; }
+        /// <summary>
+        /// 年度供热单价
+        /// </summary>
+        public Guid ChargeAnnual_ID { set; get; }
+        /// <summary>
+        /// 年度供热标识
+        /// </summary>
+        public string ChargeAnnual_Name { set; get; }
         /// <summary>
         /// 用户
         /// </summary>

@@ -11,7 +11,6 @@ namespace UIShell.RbacPermissionService
         public User()
         {
             this.Roles = new HashSet<Role>();
-            this.Groups = new HashSet<Group>();
         }
         /// <summary>
         /// 登录名称
@@ -30,10 +29,6 @@ namespace UIShell.RbacPermissionService
         /// 角色列表
         /// </summary>
         public ICollection<Role> Roles { get; set; }        
-        /// <summary>
-        /// 用户组
-        /// </summary>
-        public ICollection<Group> Groups { get; set; }
         /// <summary>
         /// 部门
         /// </summary>

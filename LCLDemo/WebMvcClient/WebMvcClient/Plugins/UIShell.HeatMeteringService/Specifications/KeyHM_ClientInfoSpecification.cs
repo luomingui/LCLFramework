@@ -39,9 +39,6 @@ namespace UIShell.HeatMeteringService
                 case "Name": // 用户名称
                     spec = c => c.Name.IndexOf(_keyword) != 0; 
                     break; 
-                case "NetInName": // 入网用户名
-                    spec = c => c.NetInName.IndexOf(_keyword) != 0; 
-                    break; 
                 case "RoomNumber": // 房间号
                     spec = c => c.RoomNumber.IndexOf(_keyword) != 0; 
                     break; 
@@ -51,22 +48,7 @@ namespace UIShell.HeatMeteringService
                     break; 
                 case "Superelevation": // 超高
                     break; 
-                case "BalconyState": // 阳台状态
-                    spec = c => c.BalconyState==Convert.ToInt32( _keyword); 
-                    break; 
-                case "BalconyArea": // 阳台面积
-                    spec = c => c.BalconyArea==Convert.ToInt32( _keyword); 
-                    break; 
-                case "BalconyHeatState": // 阳台采暖状态
-                    spec = c => c.BalconyHeatState==Convert.ToInt32( _keyword); 
-                    break; 
-                case "BalconyHeatArea": // 阳台收费面积
-                    spec = c => c.BalconyHeatArea==Convert.ToInt32( _keyword); 
-                    break; 
                 case "InterlayerArea": // 阁楼夹层面积
-                    break; 
-                case "InterlayerState": // 阁楼夹层采暖状态
-                    spec = c => c.InterlayerState==Convert.ToInt32( _keyword); 
                     break; 
                 case "InterlayerHeatArea": // 阁楼夹层收费面积
                     break; 
@@ -74,29 +56,8 @@ namespace UIShell.HeatMeteringService
                     break; 
                 case "HeatArea": // 收费面积
                     break; 
-                case "UnitPriceType": // 单价类别
-                    spec = c => c.UnitPriceType==Convert.ToInt32( _keyword); 
-                    break; 
-                case "NetworkDate": // 入网日期
-                    spec = c => c.NetworkDate==Convert.ToDateTime( _keyword); 
-                    break; 
-                case "IsNetwork": // 拆网/入网
-                    spec = c => c.IsNetwork==Convert.ToBoolean( _keyword); 
-                    break; 
-                case "BeginHeatDate": // 开始供暖日期
-                    spec = c => c.BeginHeatDate==Convert.ToDateTime( _keyword); 
-                    break; 
-                case "TotalHeatSourceFactory": // 总热源厂
-                    spec = c => c.TotalHeatSourceFactory.IndexOf(_keyword) != 0; 
-                    break; 
-                case "HeatSource": // 热源
-                    spec = c => c.HeatSource.IndexOf(_keyword) != 0; 
-                    break; 
                 case "Floor": // 楼层
                     spec = c => c.Floor==Convert.ToInt32( _keyword); 
-                    break; 
-                case "LineType": // 线别
-                    spec = c => c.LineType.IndexOf(_keyword) != 0; 
                     break; 
                 case "HeatState": // 报停/强停/复热
                     spec = c => c.HeatState==Convert.ToInt32( _keyword); 
@@ -133,9 +94,6 @@ namespace UIShell.HeatMeteringService
                     break; 
                 case "UpdateDate": // 更新时间
                     spec = c => c.UpdateDate==Convert.ToDateTime( _keyword); 
-                    break; 
-                case "ChargeAnnual_ID": // ChargeAnnual_ID
-                    spec = c => c.ChargeAnnual.ID== Guid.Parse(_keyword); 
                     break; 
                 case "Village_ID": // Village_ID
                     spec = c => c.Village.ID== Guid.Parse(_keyword); 

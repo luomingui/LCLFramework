@@ -40,7 +40,7 @@ namespace UIShell.HeatMeteringService
                     spec = c => c.UpdateDate==Convert.ToDateTime( _keyword); 
                     break; 
                 case "ClientInfo_ID": // ClientInfo_ID
-                    spec = c => c.ClientInfo.ID== Guid.Parse(_keyword); 
+                    spec = c => c.ClientInfo_ID== Guid.Parse(_keyword); 
                     break; 
             } 
             return spec; 

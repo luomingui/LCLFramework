@@ -93,6 +93,7 @@
     <Compile Include="Repository\HM_HeatPlantRepository.cs" />
     <Compile Include="Repository\HM_HisDeviceDataRepository.cs" />
     <Compile Include="Repository\HM_VillageRepository.cs" />
+    <Compile Include="Services\Calc\ClientChargeService.cs" />
     <Compile Include="Specifications\KeyHM_BillSpecification.cs" />
     <Compile Include="Specifications\KeyHM_BillTypeSpecification.cs" />
     <Compile Include="Specifications\KeyHM_ChargeAddDelSpecification.cs" />
@@ -110,9 +111,9 @@
     <Compile Include="Specifications\KeyHM_HeatPlantSpecification.cs" />
     <Compile Include="Specifications\KeyHM_HisDeviceDataSpecification.cs" />
     <Compile Include="Specifications\KeyHM_VillageSpecification.cs" />
+    <Compile Include="ViewModels\HM_ClientChargeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="ValidationModel\" />
   </ItemGroup>
   <ItemGroup>

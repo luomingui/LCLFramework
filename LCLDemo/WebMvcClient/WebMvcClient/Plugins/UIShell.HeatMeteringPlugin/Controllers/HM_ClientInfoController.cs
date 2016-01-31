@@ -75,7 +75,7 @@ namespace UIShell.HeatMeteringService.Controllers
                                             }
                                             else
                                             {
-                                                result = ValidateDataImportDoc(dtImportDoc, null);
+                                                result = ValidateDataImportDoc(dtImportDoc, fileNamePath);
                                                 if (result.Success)
                                                 {
                                                     //入库
@@ -90,7 +90,7 @@ namespace UIShell.HeatMeteringService.Controllers
                                                         
                                                     }
                                                 }
-                                                result.Message = result.Message + fileNamePath;
+                                                result.Message = result.Message +"</br>"+ fileNamePath;
                                             }
                                         }
                                         break;

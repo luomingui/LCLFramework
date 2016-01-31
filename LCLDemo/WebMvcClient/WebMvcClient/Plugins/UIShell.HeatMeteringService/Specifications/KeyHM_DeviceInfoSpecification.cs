@@ -51,9 +51,6 @@ namespace UIShell.HeatMeteringService
                 case "UpdateDate": // 更新时间
                     spec = c => c.UpdateDate==Convert.ToDateTime( _keyword); 
                     break; 
-                case "ClientInfo_ID": // ClientInfo_ID
-                    spec = c => c.ClientInfo.ID== Guid.Parse(_keyword); 
-                    break; 
             } 
             return spec; 
         } 

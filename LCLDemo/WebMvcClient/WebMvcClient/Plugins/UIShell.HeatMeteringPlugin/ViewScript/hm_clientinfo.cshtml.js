@@ -98,8 +98,8 @@ function pageFunc_hm_clientinfoAdd() {
     $('#ffhm_clientinfo').form('clear'); 
     $('#win_hm_clientinfo').dialog({ 
         title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Add, 
-        width: 500, 
-        height: 280, 
+        width: 1000, 
+        height: 700, 
         iconCls: 'icon-add', 
         modal: true, 
         buttons: [{ 
@@ -127,8 +127,8 @@ function pageFunc_hm_clientinfoEdit(ID) {
         pageAttr.Added = false; 
         $('#win_hm_clientinfo').dialog({ 
             title: $.LCLPageModel.Resource.PageLanguageResource.Page_Command_Edit, 
-            width: 550, 
-            height: 280, 
+            width: 1000, 
+            height: 700, 
             iconCls: 'icon-edit', 
             modal: true, 
             buttons: [{ 
