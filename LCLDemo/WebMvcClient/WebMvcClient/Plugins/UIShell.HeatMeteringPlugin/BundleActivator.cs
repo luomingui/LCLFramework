@@ -18,6 +18,17 @@ namespace UIShell.HeatMeteringPlugin
         {
             CommonModel.Modules.AddRoot(new MvcModuleMeta
             {
+                Label = "实时监控",
+                Image = "icon-money-yen",
+                Bundle = this,
+                Children = 
+                    { 
+                        new MvcModuleMeta{ Image = "icon-coins-add",  Label = "监控设备", CustomUI="/UIShell.HeatMeteringPlugin/HM_ClientCharge/Index",EntityType=typeof(HM_ClientChargeController)}, 
+                        new MvcModuleMeta{ Image = "icon-coins-delete",  Label = "历史数据", CustomUI="/UIShell.HeatMeteringPlugin/HM_ClientCharge/Index"}, 
+                    }
+            });
+            CommonModel.Modules.AddRoot(new MvcModuleMeta
+            {
                 Label = "计量收费",
                 Image = "icon-money-yen",
                 Bundle = this,
@@ -41,6 +52,18 @@ namespace UIShell.HeatMeteringPlugin
                         new MvcModuleMeta{ Image = "icon-vcard",  Label = "客户设备", CustomUI="/UIShell.HeatMeteringPlugin/HM_DeviceInfo/Index",EntityType=typeof(HM_DeviceInfoController)}, 
                         new MvcModuleMeta{ Image = "icon-vcard-add",  Label = "供热合同", CustomUI="/UIShell.HeatMeteringPlugin/HM_ClientCompact/Index",EntityType=typeof(HM_ClientCompactController)}, 
                         new MvcModuleMeta{ Image="icon-user-group", Label = "一键导入", CustomUI="/UIShell.HeatMeteringPlugin/HM_ClientInfo/ImportClient"},
+                    }
+            });
+            CommonModel.Modules.AddRoot(new MvcModuleMeta
+            {
+                Label = "收费报表",
+                Image = "icon-money-yen",
+                Bundle = this,
+                Children = 
+                    { 
+                        new MvcModuleMeta{ Image = "icon-coins-add",  Label = "同比环比", CustomUI="/UIShell.HeatMeteringPlugin/HM_ClientCharge/Index",EntityType=typeof(HM_ClientChargeController)}, 
+                        new MvcModuleMeta{ Image = "icon-coins-delete",  Label = "采暖季", CustomUI="/UIShell.HeatMeteringPlugin/HM_ClientCharge/Index"}, 
+                        new MvcModuleMeta{ Image = "icon-money-pound",  Label = "日期结帐", CustomUI="/UIShell.HeatMeteringPlugin/HM_ClientCharge/Index"}, 
                     }
             });
             CommonModel.Modules.AddRoot(new MvcModuleMeta
