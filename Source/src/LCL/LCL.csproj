@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C7F55469-A235-48FB-B92C-C48830577E14}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LCL.Core</RootNamespace>
+    <AssemblyName>LCL.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\packages\Autofac.Mvc5.3.3.1\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\ApplicationService.cs" />
+    <Compile Include="Domain\Entities\AggregateRoot.cs" />
+    <Compile Include="Events\Bus\EventBus.cs" />
+    <Compile Include="Events\Bus\IBus.cs" />
+    <Compile Include="Events\Bus\IEventBus.cs" />
+    <Compile Include="Events\Bus\MSMQBusOptions.cs" />
+    <Compile Include="Events\Bus\MSMQEventBus.cs" />
+    <Compile Include="Caching\Extensions.cs" />
+    <Compile Include="Caching\ICacheManager.cs" />
+    <Compile Include="Caching\MemoryCacheManager.cs" />
+    <Compile Include="Caching\NullCache.cs" />
+    <Compile Include="Caching\PerRequestCacheManager.cs" />
+    <Compile Include="Domain\Entities\EntityExtensions.cs" />
+    <Compile Include="Domain\Entities\IAggregateRoot.cs" />
+    <Compile Include="Domain\Entities\IEntity.cs" />
+    <Compile Include="Extensions\ByteExtensions.cs" />
+    <Compile Include="Extensions\DataTableConvertJson.cs" />
+    <Compile Include="Extensions\DictionaryEx.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\EnumExt.cs" />
+    <Compile Include="Extensions\ExtensionsEx.cs" />
+    <Compile Include="Extensions\IQueryableExtensions.cs" />
+    <Compile Include="Extensions\SwithCaseExtension.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Extensions\WhereExtension.cs" />
+    <Compile Include="Reflection\AssemblyExtensions.cs" />
+    <Compile Include="Reflection\DynamicMemberHandle.cs" />
+    <Compile Include="Reflection\DynamicMethodHandle.cs" />
+    <Compile Include="Reflection\DynamicMethodHandlerFactory.cs" />
+    <Compile Include="Reflection\EmitContext.cs" />
+    <Compile Include="Reflection\ExpressionHelper.cs" />
+    <Compile Include="Reflection\MemberInfoExtension.cs" />
+    <Compile Include="Reflection\MethodCacheKey.cs" />
+    <Compile Include="Reflection\MethodCaller.cs" />
+    <Compile Include="Reflection\ObjectHelper.cs" />
+    <Compile Include="Reflection\Reflect.cs" />
+    <Compile Include="Reflection\ReflectionUtil.cs" />
+    <Compile Include="Reflection\TypeExtentions.cs" />
+    <Compile Include="Reflection\TypeHelper.cs" />
+    <Compile Include="Threading\Async40.cs" />
+    <Compile Include="Threading\AsyncHelper.cs" />
+    <Compile Include="Threading\AsyncMultiActions.cs" />
+    <Compile Include="Threading\ForeAsyncLoader.cs" />
+    <Compile Include="Threading\IObservableActions.cs" />
+    <Compile Include="Threading\IParallelActions.cs" />
+    <Compile Include="Threading\ManagedThreadPool.cs" />
+    <Compile Include="Threading\ParallelActions.cs" />
+    <Compile Include="Threading\QueueServer.cs" />
+    <Compile Include="Threading\SimpleRWLock!.cs" />
+    <Compile Include="Threading\SimpleRWLock.cs" />
+    <Compile Include="Transactions\DistributedTransactionCoordinator.cs" />
+    <Compile Include="Transactions\ITransactionCoordinator.cs" />
+    <Compile Include="Transactions\SuppressedTransactionCoordinator.cs" />
+    <Compile Include="Transactions\TransactionCoordinator.cs" />
+    <Compile Include="Transactions\TransactionCoordinatorFactory.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Communication\ChannelFactoryManager.cs" />
+    <Compile Include="Communication\ServiceProxy.cs" />
+    <Compile Include="ComponentModel\DisposableObject.cs" />
+    <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
+    <Compile Include="ComponentModel\WriteLockDisposable.cs" />
+    <Compile Include="Config\ConfigurationExtension.cs" />
+    <Compile Include="Config\ConfigurationHelper.cs" />
+    <Compile Include="Config\ISettings.cs" />
+    <Compile Include="Config\LConfig.cs" />
+    <Compile Include="Domain\Entities\EntityHelper.cs" />
+    <Compile Include="Domain\Entities\IMayHaveTenant.cs" />
+    <Compile Include="Domain\Entities\IMustHaveTenant.cs" />
+    <Compile Include="Domain\Entities\IPassivable.cs" />
+    <Compile Include="Domain\Entities\ISoftDelete.cs" />
+    <Compile Include="Domain\Entities\LocaleStringResource.cs" />
+    <Compile Include="Domain\Entities\Setting.cs" />
+    <Compile Include="Events\ActionDelegatedEventHandler.cs" />
+    <Compile Include="Domain\Events\DomainEvent.cs" />
+    <Compile Include="Events\HandlesAsynchronouslyAttribute.cs" />
+    <Compile Include="Domain\Events\IDomainEvent.cs" />
+    <Compile Include="Domain\Events\IDomainEventHandler.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Domain\Services\DomainService.cs" />
+    <Compile Include="Domain\Services\IDomainService.cs" />
+    <Compile Include="IHandler.cs" />
+    <Compile Include="Domain\Repositories\IRepositoryContext.cs" />
+    <Compile Include="Domain\Repositories\Repository.cs" />
+    <Compile Include="Domain\Repositories\RepositoryContext.cs" />
+    <Compile Include="Extensions\SortByExtension.cs" />
+    <Compile Include="Domain\Repositories\SortOrder.cs" />
+    <Compile Include="Domain\Repositories\xml\XMLRepositoryContext.cs" />
+    <Compile Include="Domain\Repositories\xml\IXMLRepositoryContext.cs" />
+    <Compile Include="Domain\Repositories\xml\XMLRepository.cs" />
+    <Compile Include="Domain\Services\Configuration\SettingService.cs" />
+    <Compile Include="Domain\Services\Language\ILocalizationService.cs" />
+    <Compile Include="Domain\Services\Language\LocalizationExtensions.cs" />
+    <Compile Include="Domain\Services\Language\LocalizationService.cs" />
+    <Compile Include="Domain\Services\Configuration\ISettingService.cs" />
+    <Compile Include="Domain\Services\Logging\EventLogger.cs" />
+    <Compile Include="Domain\Services\Logging\FileLogger.cs" />
+    <Compile Include="Domain\Services\Logging\Logger.cs" />
+    <Compile Include="Domain\Services\Logging\LoggerBase.cs" />
+    <Compile Include="Domain\Services\Logging\TraceLogger.cs" />
+    <Compile Include="Domain\Uow\IUnitOfWork.cs" />
+    <Compile Include="Domain\Values\ValueObject.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Extensions\LockExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Infrastructure\ReflectionHelper.cs" />
+    <Compile Include="LData\DbSetting.cs" />
+    <Compile Include="Domain\Entities\Entity.cs" />
+    <Compile Include="LData\IDataProvider.cs" />
+    <Compile Include="Domain\Repositories\IRepository.cs" />
+    <Compile Include="Domain\Specifications\AndNotSpecification.cs" />
+    <Compile Include="Domain\Specifications\AndSpecification.cs" />
+    <Compile Include="Domain\Specifications\AnySpecification.cs" />
+    <Compile Include="Domain\Specifications\CompositeSpecification.cs" />
+    <Compile Include="Domain\Specifications\ExpressionFuncExtender.cs" />
+    <Compile Include="Domain\Specifications\ExpressionSpecification.cs" />
+    <Compile Include="Domain\Specifications\ICompositeSpecification.cs" />
+    <Compile Include="Domain\Specifications\ISpecification.cs" />
+    <Compile Include="Domain\Specifications\ISpecificationParser.cs" />
+    <Compile Include="Domain\Specifications\NoneSpecification.cs" />
+    <Compile Include="Domain\Specifications\NotSpecification.cs" />
+    <Compile Include="Domain\Specifications\OrSpecification.cs" />
+    <Compile Include="Domain\Specifications\ParameterRebinder.cs" />
+    <Compile Include="Domain\Specifications\Specification.cs" />
+    <Compile Include="Domain\Specifications\SpecificationException.cs" />
+    <Compile Include="Infrastructure\TypeFinder\AppDomainTypeFinder.cs" />
+    <Compile Include="Infrastructure\DependencyManagement\ContainerManager.cs" />
+    <Compile Include="Infrastructure\DependencyManagement\IDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\EngineContext.cs" />
+    <Compile Include="Infrastructure\IEngine.cs" />
+    <Compile Include="Infrastructure\IStartupTask.cs" />
+    <Compile Include="Infrastructure\TypeFinder\ITypeFinder.cs" />
+    <Compile Include="Infrastructure\LEngine.cs" />
+    <Compile Include="Infrastructure\Singleton.cs" />
+    <Compile Include="Infrastructure\TypeFinder\WebAppTypeFinder.cs" />
+    <Compile Include="LData\LIDbAccesser.cs" />
+    <Compile Include="LException.cs" />
+    <Compile Include="LVersion.cs" />
+    <Compile Include="PagedResult.cs" />
+    <Compile Include="Plugins\BasePlugin.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Plugins\IPluginFinder.cs" />
+    <Compile Include="IWebHelper.cs" />
+    <Compile Include="Plugins\IWidgetPlugin.cs" />
+    <Compile Include="Plugins\PluginDescriptor.cs" />
+    <Compile Include="Plugins\PluginExtensions.cs" />
+    <Compile Include="Plugins\PluginFileParser.cs" />
+    <Compile Include="Plugins\PluginFinder.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LResult.cs" />
+    <Compile Include="RF.cs" />
+    <Compile Include="Serialization\IObjectSerializer.cs" />
+    <Compile Include="Serialization\ObjectBinarySerializer.cs" />
+    <Compile Include="Serialization\ObjectDataContractSerializer.cs" />
+    <Compile Include="Serialization\ObjectJsonSerializer.cs" />
+    <Compile Include="Serialization\ObjectXmlSerializer.cs" />
+    <Compile Include="Serialization\SerializationException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

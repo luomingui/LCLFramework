@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD35220B-1A39-4561-8849-C5567B296E3F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LCL.Tests</RootNamespace>
+    <AssemblyName>LCL.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\packages\Autofac.Mvc5.3.3.1\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>..\..\packages\EntityFramework.SqlServerCompact.6.1.1\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MySql.Data.6.9.3\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="ACore\Domain\Events\GetUserOrdersEvent.cs" />
+    <Compile Include="ACore\Domain\Events\Handlers\GetUserOrdersEventHandler.cs" />
+    <Compile Include="ACore\Domain\Events\Handlers\OrderConfirmedEventHandler.cs" />
+    <Compile Include="ACore\Domain\Events\Handlers\OrderDispatchedEventHandler.cs" />
+    <Compile Include="ACore\Domain\Events\Handlers\SendEmailHandler.cs" />
+    <Compile Include="ACore\Domain\Events\OrderConfirmedEvent.cs" />
+    <Compile Include="ACore\Domain\Events\OrderDispatchedEvent.cs" />
+    <Compile Include="ACore\Domain\Model\Address.cs" />
+    <Compile Include="ACore\Domain\Model\Categorization.cs" />
+    <Compile Include="ACore\Domain\Model\Category.cs" />
+    <Compile Include="ACore\Domain\Model\Product.cs" />
+    <Compile Include="ACore\Domain\Model\Role.cs" />
+    <Compile Include="ACore\Domain\Model\SalesLine.cs" />
+    <Compile Include="ACore\Domain\Model\SalesOrder.cs" />
+    <Compile Include="ACore\Domain\Model\SalesOrderStatus.cs" />
+    <Compile Include="ACore\Domain\Model\ShoppingCart.cs" />
+    <Compile Include="ACore\Domain\Model\ShoppingCartItem.cs" />
+    <Compile Include="ACore\Domain\Model\User.cs" />
+    <Compile Include="ACore\Domain\Model\UserRole.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\CategorizationRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\CategoryRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\CategorizationTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\CategoryTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\ProductTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\RoleTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\SalesLineTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\SalesOrderTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\ShoppingCartItemTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\ShoppingCartTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\UserRoleTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ModelConfigurations\UserTypeConfiguration.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ProductRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\RoleRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\SalesOrderRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ShoppingCartItemRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\ShoppingCartRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\UserRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\UserRoleRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\ICategorizationRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\ICategoryRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\IProductRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\IRoleRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\ISalesOrderRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\IShoppingCartItemRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\IShoppingCartRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\IUserRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\IUserRoleRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\CategorizationRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\CategoryRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\GuidIDGeneratorConvention.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\MongoDBBootstrapper.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\MongoDBRepositoryContextSettings.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\ProductRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\RoleRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\SalesOrderRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\ShoppingCartItemRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\ShoppingCartRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\UserLocalDateTimeConvention.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\UserRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\MongoDB\UserRoleRepository.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\SalesOrderBelongsToUserSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\SalesOrderIDEqualsSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\ShoppingCartBelongsToCustomerSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\ShoppingCartItemBelongsToShoppingCartSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\ShoppingCartItemHasProductSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\UserEmailEqualsSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\UserNameEqualsSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\UserPasswordEqualsSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\UserRolesSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\Specifications\UserStringEqualsSpecification.cs" />
+    <Compile Include="ACore\Domain\Repositories\XDocuments\UserRepository.cs" />
+    <Compile Include="ACore\Domain\Services\FaultData.cs" />
+    <Compile Include="ACore\Domain\Services\OrderService.cs" />
+    <Compile Include="ACore\Helper.cs" />
+    <Compile Include="Caching\MemoryCacheManagerTests.cs" />
+    <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
+    <Compile Include="ACore\Domain\Repositories\EntityFramework\EFTestContext.cs" />
+    <Compile Include="Domain\Services\ServicesTest.cs" />
+    <Compile Include="Fakes\FakeTypeFinder.cs" />
+    <Compile Include="Fakes\TypeFindingBase.cs" />
+    <Compile Include="Infrastructuretest\DependencyManagement\AutofacTests.cs" />
+    <Compile Include="Infrastructuretest\SingletonTests.cs" />
+    <Compile Include="Infrastructuretest\TypeFinderTests.cs" />
+    <Compile Include="Domain\Events\Bus\BusTest.cs" />
+    <Compile Include="Domain\Events\TestDomainEvent.cs" />
+    <Compile Include="ACore\Infrastructure\DependencyRegistrar.cs" />
+    <Compile Include="Domain\Repositories\EFRepositoryTests.cs" />
+    <Compile Include="Domain\Repositories\XMLRepositoryTests.cs" />
+    <Compile Include="TestExtensions.cs" />
+    <Compile Include="TestsBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="olog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\LCL.Repositories.EntityFramework\LCL.Repositories.EntityFramework.csproj">
+      <Project>{b84421b4-9c83-49d4-a716-6063d946121e}</Project>
+      <Name>LCL.Repositories.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\LCL.Repositories.MongoDB\LCL.Repositories.MongoDB.csproj">
+      <Project>{42674ee0-407b-4a7a-8077-d767807e5e12}</Project>
+      <Name>LCL.Repositories.MongoDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\LCL\LCL.csproj">
+      <Project>{c7f55469-a235-48fb-b92c-c48830577e14}</Project>
+      <Name>LCL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,67 @@
+﻿The Entity Framework provider type 'System.Data.Entity.SqlServerCompact.SqlCeProviderServices,
+EntityFramework.SqlServerCompact' registered in the application config file for the ADO.NET
+provider with invariant name 'System.Data.SqlServerCe.4.0' could not be loaded.
+Make sure that the assembly-qualified name is used and that the assembly is available to 
+the running application.See http://go.microsoft.com/fwlink/?LinkId=260882 for more information.
+
+One or more validation errors were detected during model generation:
+LCL.Tests.ACore.EFAddress: : EntityType 'EFAddress' has no key defined. Define the key for this EntityType.
+EFAddresses: EntityType: EntitySet 'EFAddresses' is based on type 'EFAddress' that has no keys defined.
+
+None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' 
+on type 'LCL.Repositories.EntityFramework.EntityFrameworkRepositoryContext' 
+can be invoked with the available services and parameters:
+Cannot resolve parameter 'System.Data.Entity.DbContext efContext' 
+of constructor 'Void .ctor(System.Data.Entity.DbContext)'.
+
+The type 'System.Data.Entity.DbContext' is not assignable to service 'LCL.Tests.ACore.EFTestContext'.
+
+None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' on type
+'LCL.Repositories.XML.XMLRepositoryContext' can be invoked with the available services and parameters:
+Cannot resolve parameter 'System.Xml.Linq.XDocument efContext' of constructor
+'Void .ctor(System.Xml.Linq.XDocument)'.
+
+None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' 
+on type 'LCL.Tests.ACore.EFCustomerRepository' can be invoked with the available services and parameters:
+Cannot resolve parameter 'LCL.Core.Domain.Repositories.IRepositoryContext dbcontext' of constructor
+'Void .ctor(LCL.Core.Domain.Repositories.IRepositoryContext)'.
+No constructors on type 'LCL.Core.Domain.Repositories.RepositoryContext' can be found with the 
+constructor finder 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder'.
+
+The type 'LCL.Tests.ACore.CustomerRepository' is not assignable to service 
+'UCenter (LCL.Repositories.EntityFramework.IEntityFrameworkRepositoryContext)'.
+
+The type 'LCL.Tests.ACore.CustomerRepository' is not assignable to service 
+'LCL (LCL.Repositories.EntityFramework.IEntityFrameworkRepositoryContext)'.
+None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' 
+
+on type 'LCL.Repositories.EntityFramework.EntityFrameworkRepositoryContext' can be invoked with the available 
+services and parameters:Cannot resolve parameter 'LCL.Repositories.EntityFramework.BaseDbContext efContext' of 
+constructor 'Void .ctor(LCL.Repositories.EntityFramework.BaseDbContext)'.
+
+None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' 
+on type 'LCL.Repositories.EntityFramework.EntityFrameworkRepositoryContext' can be invoked with 
+the available services and parameters:
+Cannot resolve parameter 'LCL.Repositories.EntityFramework.BaseDbContext efContext' 
+of constructor 'Void .ctor(LCL.Repositories.EntityFramework.BaseDbContext)'.
+
+None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' on type '
+LCL.Repositories.EntityFramework.BaseDbContext' can be invoked with the available services and parameters:
+Cannot resolve parameter 'System.String nameOrConnectionString' of constructor 'Void .ctor(System.String)'.
+
+Failed to set Database.DefaultConnectionFactory to 
+an instance of the 'System.Data.Entity.Infrastructure.SqlCeConnectionFactory, EntityFramework' 
+type as specified in the application configuration. See inner exception for details.
+
+The type 'LCL.Tests.ACore.CustomerRepository' is not assignable to service '
+LCL (LCL.Core.Domain.Repositories.IRepositoryContext)'.
+
+None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' 
+on type 'LCL.Core.Bus.EventBus' can be invoked with the available services and parameters:
+Cannot resolve parameter 'LCL.Core.Bus.IEventAggregator aggregator' of constructor 
+'Void .ctor(LCL.Core.Bus.IEventAggregator)'.
+
+The requested service 'LCL.Core.Bus.EventBus' has not been registered. 
+To avoid this exception, either register a component to provide the service, 
+check for service registration using IsRegistered(), or use the ResolveOptional() 
+method to resolve an optional dependency.
