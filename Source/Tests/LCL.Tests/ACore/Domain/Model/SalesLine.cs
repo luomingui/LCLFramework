@@ -6,7 +6,7 @@ namespace LCL.Tests.Domain.Model
     /// <summary>
     /// 表示“销售订单明细”的领域实体对象。
     /// </summary>
-    public class SalesLine : IEntity
+    public class SalesLine : Entity
     {
         #region Private Fields
         private Guid id;

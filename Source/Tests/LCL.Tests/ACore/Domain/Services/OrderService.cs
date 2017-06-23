@@ -68,7 +68,7 @@ namespace LCL.Tests.ACore.Domain.Services
         {
             using (ITransactionCoordinator coordinator = TransactionCoordinatorFactory.Create(Context,EventBus))
             {
-                var salesOrder = salesOrderRepository.GetByKey(orderID);
+                var salesOrder = salesOrderRepository.Get(orderID);
                 salesOrder.Confirm();
                 salesOrderRepository.Update(salesOrder);
                 coordinator.Commit();

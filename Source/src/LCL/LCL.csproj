@@ -7,8 +7,8 @@
     <ProjectGuid>{C7F55469-A235-48FB-B92C-C48830577E14}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LCL.Core</RootNamespace>
-    <AssemblyName>LCL.Core</AssemblyName>
+    <RootNamespace>LCL</RootNamespace>
+    <AssemblyName>LCL</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ApplicationService.cs" />
+    <Compile Include="Communication\IApplicationServiceContract.cs" />
     <Compile Include="Domain\Entities\AggregateRoot.cs" />
     <Compile Include="Events\Bus\EventBus.cs" />
     <Compile Include="Events\Bus\IBus.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Domain\Entities\EntityExtensions.cs" />
     <Compile Include="Domain\Entities\IAggregateRoot.cs" />
     <Compile Include="Domain\Entities\IEntity.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\ByteExtensions.cs" />
     <Compile Include="Extensions\DataTableConvertJson.cs" />
     <Compile Include="Extensions\DictionaryEx.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Extensions\EnumExt.cs" />
     <Compile Include="Extensions\ExtensionsEx.cs" />
     <Compile Include="Extensions\IQueryableExtensions.cs" />
+    <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Extensions\SwithCaseExtension.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\WhereExtension.cs" />

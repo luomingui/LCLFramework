@@ -33,7 +33,7 @@ namespace LCL.Tests.Repositories.XMLRepositorys
             var con = new XMLRepositoryContext();
             var customerRepository = new UserRepository(con);
 
-            customerRepository.Add(customer);
+            customerRepository.Insert(customer);
             customerRepository.Context.Commit();
             customerRepository.Context.Dispose();
 

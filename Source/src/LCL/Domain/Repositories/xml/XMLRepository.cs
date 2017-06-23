@@ -18,9 +18,9 @@ namespace LCL.Repositories.XML
     {
         #region Private Fields
         static object lockObj = new object();
-        ISpecification<TAggregateRoot> spec = Specification<TAggregateRoot>.Eval(p => p.ID!=Guid.Empty);
+        ISpecification<TAggregateRoot> spec = Specification<TAggregateRoot>.Eval(p => p.ID != Guid.Empty);
         private readonly IXMLRepositoryContext xmlContext;
-       
+
         #endregion
         #region Ctor
         public XMLRepository(IRepositoryContext context)
@@ -67,19 +67,13 @@ namespace LCL.Repositories.XML
 
         public IQueryable<TAggregateRoot> Table
         {
-            get {
+            get
+            {
                 return this.xmlContext.GetModel<TAggregateRoot>();
             }
         }
 
-        protected override void DoAdd(TAggregateRoot aggregateRoot)
-        {
-            this.xmlContext.RegisterNew(aggregateRoot);
-        }
-        protected override TAggregateRoot DoGetByKey(object key)
-        {
-            return this.Table.FirstOrDefault(i => i.ID ==(Guid)key);
-        }
+    
 
         protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification,
             Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
@@ -251,14 +245,28 @@ namespace LCL.Repositories.XML
             return count != 0;
         }
 
-        protected override void DoRemove(TAggregateRoot aggregateRoot)
+        protected override void DoDelete(TAggregateRoot aggregateRoot)
         {
-           this.xmlContext.RegisterDeleted(aggregateRoot);
+            this.xmlContext.RegisterDeleted(aggregateRoot);
         }
-
-        protected override void DoUpdate(TAggregateRoot aggregateRoot)
+        public override void DoDelete(Guid id)
+        {
+            var entity= this.Table.FirstOrDefault<TAggregateRoot>(p => p.ID == id);
+            this.xmlContext.RegisterDeleted(entity);
+        }
+        protected override TAggregateRoot DoUpdate(TAggregateRoot aggregateRoot)
         {
             this.xmlContext.RegisterModified(aggregateRoot);
+            return aggregateRoot;
         }
+
+
+        protected override TAggregateRoot DoInsert(TAggregateRoot aggregateRoot)
+        {
+            this.xmlContext.RegisterNew(aggregateRoot);
+            return aggregateRoot;
+        }
+
+      
     }
 }

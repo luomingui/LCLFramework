@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LCL.Domain.Entities
 {
-    public partial class Setting : IAggregateRoot
+    public partial class Setting : AggregateRoot
     {
         public Setting() { }
 

@@ -44,14 +44,14 @@ namespace LCL.Repositories.XML
             get { return _xmlfilesavepath; }
         }
 
-        public IQueryable<TEntity> GetModel<TEntity>() where TEntity : class, IEntity
+        public IQueryable<TAggregateRoot> GetModel<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot
         {
-            IEnumerable<XElement> list = this.xmlContext.Root.Elements(typeof(TEntity).Name);
-            IList<TEntity> returnList = new List<TEntity>();
+            IEnumerable<XElement> list = this.xmlContext.Root.Elements(typeof(TAggregateRoot).Name);
+            IList<TAggregateRoot> returnList = new List<TAggregateRoot>();
             foreach (var item in list)
             {
-                TEntity entity = null;
-                foreach (var member in typeof(TEntity).GetType()
+                TAggregateRoot entity = null;
+                foreach (var member in typeof(TAggregateRoot).GetType()
                                              .GetProperties()
                                              .Where(i => i.PropertyType.IsValueType
                                                  || i.PropertyType == typeof(String)))//只找简单类型的属性

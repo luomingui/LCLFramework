@@ -92,7 +92,7 @@ namespace LCL.Domain.Services
             if (setting == null)
                 throw new ArgumentNullException("setting");
 
-            _settingRepository.Add(setting);
+            _settingRepository.Insert(setting);
 
             //cache
             if (clearCache)
@@ -114,7 +114,7 @@ namespace LCL.Domain.Services
         {
 
 
-            return _settingRepository.GetByKey(settingId);
+            return _settingRepository.Get(settingId);
         }
 
         public void DeleteSetting(Setting setting)
@@ -122,7 +122,7 @@ namespace LCL.Domain.Services
             if (setting == null)
                 throw new ArgumentNullException("setting");
 
-            _settingRepository.Remove(setting);
+            _settingRepository.Delete(setting);
 
             //cache
             _cacheManager.RemoveByPattern(SETTINGS_PATTERN_KEY);

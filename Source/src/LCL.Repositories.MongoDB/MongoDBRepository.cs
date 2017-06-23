@@ -12,15 +12,28 @@ using LCL;
 
 namespace LCL.Repositories.MongoDB
 {
-    public class MongoDBRepository<TAggregateRoot> : Repository<TAggregateRoot>
+    public class MongoDBRepository<TAggregateRoot> : MongoDBRepository<TAggregateRoot, Guid>
         where TAggregateRoot : class, IAggregateRoot
+    {
+         #region Ctor
+        public MongoDBRepository(IRepositoryContext context)
+            : base(context)
+        {
+          
+        }
+        #endregion
+    }
+
+    public class MongoDBRepository<TAggregateRoot, TPrimaryKey> : Repository<TAggregateRoot, TPrimaryKey>
+    where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
     {
         #region Private Fields
         private readonly IMongoDBRepositoryContext mongoDBRepositoryContext;
         #endregion
 
         #region Ctor
-        public MongoDBRepository(IRepositoryContext context) : base(context)
+        public MongoDBRepository(IRepositoryContext context)
+            : base(context)
         {
             if (context is IMongoDBRepositoryContext)
                 mongoDBRepositoryContext = context as MongoDBRepositoryContext;
@@ -30,15 +43,10 @@ namespace LCL.Repositories.MongoDB
         #endregion
 
         #region Protected Methods
-        protected override void DoAdd(TAggregateRoot aggregateRoot)
+        protected override TAggregateRoot DoInsert(TAggregateRoot aggregateRoot)
         {
             mongoDBRepositoryContext.RegisterNew(aggregateRoot);
-        }
-        protected override TAggregateRoot DoGetByKey(object key)
-        {
-            MongoCollection collection = mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
-            Guid id = (Guid)key;
-            return collection.AsQueryable<TAggregateRoot>().Where(p => p.ID == id).First();
+            return aggregateRoot;
         }
         protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {
@@ -100,7 +108,7 @@ namespace LCL.Repositories.MongoDB
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
-      
+
         protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification)
         {
             var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
@@ -117,14 +125,20 @@ namespace LCL.Repositories.MongoDB
             return this.DoFind(specification) != null;
         }
 
-        protected override void DoRemove(TAggregateRoot aggregateRoot)
+        protected override void DoDelete(TAggregateRoot aggregateRoot)
         {
             mongoDBRepositoryContext.RegisterDeleted(aggregateRoot);
         }
 
-        protected override void DoUpdate(TAggregateRoot aggregateRoot)
+        protected override TAggregateRoot DoUpdate(TAggregateRoot aggregateRoot)
         {
             mongoDBRepositoryContext.RegisterModified(aggregateRoot);
+            return aggregateRoot;
+        }
+        public override void DoDelete(TPrimaryKey id)
+        {    
+            var entity= this.FindAll().FirstOrDefault<TAggregateRoot>(ent => EqualityComparer<TPrimaryKey>.Default.Equals(ent.ID, id));
+            Delete(entity);
         }
         #endregion
     }

@@ -16,8 +16,20 @@ namespace LCL.Repositories.NHibernate
     /// Represents the repository which supports the NHibernate implementation.
     /// </summary>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-    public class NHibernateRepository<TAggregateRoot> : Repository<TAggregateRoot>
+    public class NHibernateRepository<TAggregateRoot> : NHibernateRepository<TAggregateRoot, Guid>
         where TAggregateRoot : class, IAggregateRoot
+    {
+        #region Ctor
+        public NHibernateRepository(IRepositoryContext context)
+            : base(context)
+        {
+
+        }
+        #endregion
+    }
+
+    public class NHibernateRepository<TAggregateRoot, TPrimaryKey> : Repository<TAggregateRoot, TPrimaryKey>
+    where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
     {
         #region Private Fields
         //private readonly ISession session = null;
@@ -43,26 +55,16 @@ namespace LCL.Repositories.NHibernate
         /// Adds an entity to the repository.
         /// </summary>
         /// <param name="entity">The entity object to be added.</param>
-        protected override void DoAdd(TAggregateRoot entity)
+        protected override TAggregateRoot DoInsert(TAggregateRoot entity)
         {
             this.Context.RegisterNew(entity);
+            return entity;
         }
-        /// <summary>
-        /// Gets the entity instance from repository by a given key.
-        /// </summary>
-        /// <param name="key">The key of the entity.</param>
-        /// <returns>The instance of the entity.</returns>
-        protected override TAggregateRoot DoGetByKey(object key)
-        {
-            return nhContext.GetByKey<TAggregateRoot>(key);
-        }
-
-
         /// <summary>
         /// Removes the entity from the repository.
         /// </summary>
         /// <param name="entity">The entity to be removed.</param>
-        protected override void DoRemove(TAggregateRoot entity)
+        protected override void DoDelete(TAggregateRoot entity)
         {
             this.Context.RegisterDeleted(entity);
         }
@@ -70,45 +72,15 @@ namespace LCL.Repositories.NHibernate
         /// Updates the entity in the repository.
         /// </summary>
         /// <param name="entity">The entity to be updated.</param>
-        protected override void DoUpdate(TAggregateRoot entity)
+        protected override TAggregateRoot DoUpdate(TAggregateRoot entity)
         {
             this.Context.RegisterModified(entity);
+            return entity;
         }
-        /// <summary>
-        /// Finds all the aggregate roots that match the given specification, and sorts the aggregate roots
-        /// by using the provided sort predicate and the specified sort order.
-        /// </summary>
-        /// <param name="specification">The specification with which the aggregate roots should match.</param>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enum which specifies the sort order.</param>
-        /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
-        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        public override void DoDelete(TPrimaryKey id)
         {
-            return nhContext.FindAll<TAggregateRoot>(specification, sortPredicate, sortOrder);
-        }
-        /// <summary>
-        /// Finds all the aggregate roots that match the given specification with paging enabled, and sorts the aggregate roots
-        /// by using the provided sort predicate and the specified sort order.
-        /// </summary>
-        /// <param name="specification">The specification with which the aggregate roots should match.</param>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <param name="pageNumber">The number of objects per page.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
-        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
-        {
-            return nhContext.FindAll<TAggregateRoot>(specification, sortPredicate, sortOrder, pageNumber, pageSize);
-        }
-
-        /// <summary>
-        /// Finds a single aggregate root that matches the given specification.
-        /// </summary>
-        /// <param name="specification">The specification with which the aggregate root should match.</param>
-        /// <returns>The instance of the aggregate root.</returns>
-        protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification)
-        {
-            return nhContext.Find<TAggregateRoot>(specification);
+            var entity = this.FindAll().FirstOrDefault<TAggregateRoot>(ent => EqualityComparer<TPrimaryKey>.Default.Equals(ent.ID, id));
+            Delete(entity);
         }
         /// <summary>
         /// Checkes whether the aggregate root which matches the given specification exists.
@@ -146,7 +118,7 @@ namespace LCL.Repositories.NHibernate
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
-      
+
         /// <summary>
         /// Finds a single aggregate root from the repository.
         /// </summary>
@@ -157,6 +129,44 @@ namespace LCL.Repositories.NHibernate
         {
             return this.DoFind(specification, eagerLoadingProperties);
         }
+
+        /// <summary>
+        /// Finds all the aggregate roots that match the given specification, and sorts the aggregate roots
+        /// by using the provided sort predicate and the specified sort order.
+        /// </summary>
+        /// <param name="specification">The specification with which the aggregate roots should match.</param>
+        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
+        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enum which specifies the sort order.</param>
+        /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        {
+            return nhContext.FindAll<TAggregateRoot, TPrimaryKey>(specification, sortPredicate, sortOrder);
+        }
+        /// <summary>
+        /// Finds all the aggregate roots that match the given specification with paging enabled, and sorts the aggregate roots
+        /// by using the provided sort predicate and the specified sort order.
+        /// </summary>
+        /// <param name="specification">The specification with which the aggregate roots should match.</param>
+        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
+        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
+        /// <param name="pageNumber">The number of objects per page.</param>
+        /// <param name="pageSize">The number of objects per page.</param>
+        /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        {
+            return nhContext.FindAll<TAggregateRoot, TPrimaryKey>(specification, sortPredicate, sortOrder, pageNumber, pageSize);
+        }
+
+        /// <summary>
+        /// Finds a single aggregate root that matches the given specification.
+        /// </summary>
+        /// <param name="specification">The specification with which the aggregate root should match.</param>
+        /// <returns>The instance of the aggregate root.</returns>
+        protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification)
+        {
+            return nhContext.Find<TAggregateRoot, TPrimaryKey>(specification);
+        }
         #endregion
+
     }
 }

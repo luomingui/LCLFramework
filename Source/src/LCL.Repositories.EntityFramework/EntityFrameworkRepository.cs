@@ -1,17 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 using LCL;
 using LCL.Domain.Entities;
 using LCL.Domain.Repositories;
 using LCL.Domain.Specifications;
+using System.Linq.Expressions;
+using System.Linq;
+using System.Data.Entity;
 
 namespace LCL.Repositories.EntityFramework
 {
-    public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>
+    public class EntityFrameworkRepository<TAggregateRoot> : EntityFrameworkRepository<TAggregateRoot,Guid>
         where TAggregateRoot : class, IAggregateRoot
+    {
+       #region Ctor
+        public EntityFrameworkRepository(IRepositoryContext context)
+            : base(context)
+        {
+          
+        }
+        #endregion
+    }
+
+    public class EntityFrameworkRepository<TAggregateRoot, TPrimaryKey> : Repository<TAggregateRoot, TPrimaryKey>
+        where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
     {
         #region Private Fields
         private readonly IEntityFrameworkRepositoryContext efContext;
@@ -65,17 +78,15 @@ namespace LCL.Repositories.EntityFramework
         {
             get { return efContext; }
         }
+        public virtual DbSet<TAggregateRoot> Table { get { return efContext.Context.Set<TAggregateRoot>(); } }
         #endregion
 
         #region Protected Methods
-        protected override void DoAdd(TAggregateRoot aggregateRoot)
+        protected override TAggregateRoot DoInsert(TAggregateRoot aggregateRoot)
         {
             efContext.RegisterNew(aggregateRoot);
+            return aggregateRoot;
         }
-        protected override TAggregateRoot DoGetByKey(object key)
-        {
-            return efContext.Context.Set<TAggregateRoot>().Where(p => p.ID == (Guid)key).First();
-        } 
         protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {
             var query = efContext.Context.Set<TAggregateRoot>()
@@ -85,9 +96,9 @@ namespace LCL.Repositories.EntityFramework
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return query.SortBy(sortPredicate);
+                        return query.SortBy<TAggregateRoot, TPrimaryKey>(sortPredicate);
                     case SortOrder.Descending:
-                        return query.SortByDescending(sortPredicate);
+                        return query.SortByDescending<TAggregateRoot, TPrimaryKey>(sortPredicate);
                     default:
                         break;
                 }
@@ -103,7 +114,7 @@ namespace LCL.Repositories.EntityFramework
             if (sortPredicate == null)
                 throw new ArgumentNullException("sortPredicate");
 
-            
+
             var query = efContext.Context.Set<TAggregateRoot>()
                 .Where(specification.GetExpression());
             int skip = (pageNumber - 1) * pageSize;
@@ -112,12 +123,12 @@ namespace LCL.Repositories.EntityFramework
             switch (sortOrder)
             {
                 case SortOrder.Ascending:
-                    var pagedGroupAscending = query.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                    var pagedGroupAscending = query.SortBy<TAggregateRoot, TPrimaryKey>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                     if (pagedGroupAscending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
                 case SortOrder.Descending:
-                    var pagedGroupDescending = query.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                    var pagedGroupDescending = query.SortByDescending<TAggregateRoot, TPrimaryKey>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                     if (pagedGroupDescending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
@@ -153,9 +164,9 @@ namespace LCL.Repositories.EntityFramework
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return queryable.SortBy(sortPredicate);
+                        return queryable.SortBy<TAggregateRoot, TPrimaryKey>(sortPredicate);
                     case SortOrder.Descending:
-                        return queryable.SortByDescending(sortPredicate);
+                        return queryable.SortByDescending<TAggregateRoot, TPrimaryKey>(sortPredicate);
                     default:
                         break;
                 }
@@ -198,12 +209,12 @@ namespace LCL.Repositories.EntityFramework
             switch (sortOrder)
             {
                 case SortOrder.Ascending:
-                    var pagedGroupAscending = queryable.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    var pagedGroupAscending = queryable.SortBy<TAggregateRoot, TPrimaryKey>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
                     if (pagedGroupAscending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
                 case SortOrder.Descending:
-                    var pagedGroupDescending = queryable.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    var pagedGroupDescending = queryable.SortByDescending<TAggregateRoot, TPrimaryKey>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
                     if (pagedGroupDescending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
@@ -245,15 +256,32 @@ namespace LCL.Repositories.EntityFramework
             return count != 0;
         }
 
-        protected override void DoRemove(TAggregateRoot aggregateRoot)
+        protected override void DoDelete(TAggregateRoot aggregateRoot)
         {
             efContext.RegisterDeleted(aggregateRoot);
         }
 
-        protected override void DoUpdate(TAggregateRoot aggregateRoot)
+        protected override TAggregateRoot DoUpdate(TAggregateRoot aggregateRoot)
         {
             efContext.RegisterModified(aggregateRoot);
+            return aggregateRoot;
         }
         #endregion
+
+        public override void DoDelete(TPrimaryKey id)
+        {
+            var entity = Table.Local.FirstOrDefault(ent => EqualityComparer<TPrimaryKey>.Default.Equals(ent.ID, id));
+            if (entity == null)
+            {
+                entity = Find(id);
+                if (entity == null)
+                {
+                    return;
+                }
+            }
+
+            Delete(entity);
+        }
     }
+
 }

@@ -13,5 +13,6 @@ namespace LCL.Domain.Entities
     public interface IEntity<TPrimaryKey>
     {
         TPrimaryKey ID { get; set; }
+        bool IsTransient();
     }
 }

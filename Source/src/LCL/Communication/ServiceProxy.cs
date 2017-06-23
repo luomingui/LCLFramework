@@ -4,13 +4,7 @@ using System.ServiceModel;
 
 namespace LCL.ServiceProxys
 {
-    /// <summary>
-    /// 表示实现该接口的类型为Application Service Contract。
-    /// </summary>
-    public interface IApplicationServiceContract : IDisposable
-    {
 
-    }
     /// <summary>
     /// 表示用于调用WCF服务的客户端服务代理类型。
     /// </summary>

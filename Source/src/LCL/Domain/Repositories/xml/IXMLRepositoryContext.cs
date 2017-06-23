@@ -17,7 +17,7 @@ namespace LCL.Repositories.XML
     {
         XDocument Context { get; }
         string XmlFileSavePath { get; }
-        IQueryable<TEntity> GetModel<TEntity>() where TEntity : class, IEntity;
+        IQueryable<TAggregateRoot> GetModel<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot;
 
     }
 }

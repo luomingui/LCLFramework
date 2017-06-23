@@ -80,7 +80,10 @@ namespace LCL
             return memberInfo.GetCustomAttributes(typeof(T), inherit).Cast<T>().ToArray();
         }
 
-
+        public static Assembly GetAssembly(this Type type)
+        {
+            return type.GetTypeInfo().Assembly;
+        }
 
         public static bool IsNullableType(this Type type)
         {

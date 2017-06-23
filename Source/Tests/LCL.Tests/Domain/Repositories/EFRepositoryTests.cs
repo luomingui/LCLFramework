@@ -66,7 +66,7 @@ namespace LCL.Tests.Repositories.EntityFrameworkRepository
 
             var customerRepository = RF.Service<IUserRepository>();
 
-            customerRepository.Add(customer);
+            customerRepository.Insert(customer);
             customerRepository.Context.Commit();
             customerRepository.Context.Dispose();
 
