@@ -7,7 +7,8 @@ $srcPath = Join-Path $slnPath "src"
 $projects = (
     "LCL.Core",
     "LCL.Repositories.EntityFramework",
-    "LCL.Repositories.MongoDB"
+    "LCL.Repositories.MongoDB",
+	"LCL.Repositories.NHibernate"
 )
 
 # Rebuild solution

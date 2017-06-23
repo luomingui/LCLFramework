@@ -31,6 +31,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Repositories.NHibernate
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL", "src\LCL\LCL.csproj", "{C7F55469-A235-48FB-B92C-C48830577E14}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9D6E1B6A-CF32-4FD6-BA04-25C7927F506F}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Docs", "http://localhost:52510", "{76F962B4-924F-4604-8386-7F50CFDC7E4A}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_52510"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\branches\gh-pages\Docs\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52510\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_52510"
+		Release.AspNetCompiler.PhysicalPath = "..\..\branches\gh-pages\Docs\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52510\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\..\branches\gh-pages\Docs\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,11 +80,16 @@ Global
 		{C7F55469-A235-48FB-B92C-C48830577E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7F55469-A235-48FB-B92C-C48830577E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7F55469-A235-48FB-B92C-C48830577E14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F962B4-924F-4604-8386-7F50CFDC7E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F962B4-924F-4604-8386-7F50CFDC7E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F962B4-924F-4604-8386-7F50CFDC7E4A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F962B4-924F-4604-8386-7F50CFDC7E4A}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DD35220B-1A39-4561-8849-C5567B296E3F} = {AB22A45C-7D87-4678-9609-197DDA6FB262}
+		{76F962B4-924F-4604-8386-7F50CFDC7E4A} = {9D6E1B6A-CF32-4FD6-BA04-25C7927F506F}
 	EndGlobalSection
 EndGlobal
