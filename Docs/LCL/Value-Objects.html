@@ -9,6 +9,12 @@
 <body>
     <div class="document-contents">
         <h3>值对象（Value Object）</h3>
+        <ul>
+            <li>对某个对象是什么不感兴趣，只关心它拥有的属性</li>
+            <li>用来描述领域的特殊方面、且没有标识符的一个对象，叫做值对象</li>
+            <li>能被简单的创建和丢弃，生命周期中不会被持久化</li>
+            <li>值对象可以被共享，值对象应该不可变</li>
+        </ul>
         <p>LCL有一个<strong>ValueObject&lt;T&gt;</strong>基类，它可以继承，以便容易地创建值对象类型。示例地址值对象类型::</p>
         <pre lang="cs">public class Address : <strong>ValueObject&lt;Address&gt;</strong>
 {

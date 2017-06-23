@@ -16,43 +16,49 @@
             <li>Repository模式实际用途：更换、升级ORM 引擎，不影响业务逻辑； </li>
             <li>Repository模式能提高测试效率，单元测试时，用Mock对象代替实际的数据库存取，可以成倍地提高测试用例运行速度。 </li>
         </ul>
-
         <h4 id="DocIRepositoryClasses">Repository与Dal的区别</h4>
-       <p> Repository是DDD中的概念，强调Repository是受Domain驱动的，Repository中定义的功能要体现Domain的意图和约束，而Dal更纯粹的就是提  供数据访问的功能,并不严格受限于Business层。</p>
+        <p> Repository是DDD中的概念，强调Repository是受Domain驱动的，Repository中定义的功能要体现Domain的意图和约束，而Dal更纯粹的就是提  供数据访问的功能,并不严格受限于Business层。</p>
         <p>使用Repository，隐含着一种意图倾向，就是 Domain需要什么我才提供什么，不该提供的功能就不要提供，一切都是以Domain的需求为核心；而使用Dal，其意图倾向在于我Dal层能使用的数 据库访问操作提供给Business层，你Business要用哪个自己选。换一个Business也可以用我这个Dal，一切是以我Dal能提供什么操 作为核心。</p>
         <h4 id="DocIRepositoryClasses">LCL与Repository</h4>
         <p></p>
         <img src="images/repository.png" />
-       <h4>IRepository</h4>
-        <p>每一个领域实体默认都实现了IRepository</p>
+        <h4>Default Repositories</h4>
+        <p>
+            在LCL中，一个存储库类实现了<strong>IRepository&lt;TEntity,TPrimaryKey&gt;</strong>
+            您需要手工<a href="Autofac.html">注入</a> <strong>IRepository&lt;TEntity&gt;</strong>
+            (IRepository&lt;TEntity, TPrimaryKey&gt;)。
+            一个示例应用程序服务使用一个存储库来将一个实体插入到数据库:
+        </p>
         <pre>
-public interface IRepository&lt;TEntity&gt; where TEntity : class, IEntity
-  {
-      IRepositoryContext Context { get; }
-      void Create(TEntity entity);
-      void Delete(TEntity entity);
-      void Update(TEntity entity);
-      IEnumerable&lt;TEntity&gt; Get(Expression&lt;func&lt;TEntity, bool=bool&gt;&gt; predicate);
-      IEnumerable&lt;TEntity&gt; GetAll(PagingInfo paging = null);
-      TEntity GetByKey(params object[] keyValues);
-      IEnumerable&lt;TEntity&gt; GetPage(Expression&lt;func&lt;TEntity, bool=bool&gt;&gt; predicate,PagingInfo paging);
-  }
+public class RoleAppService : IRoleAppService
+{
+    private readonly IRepository&lt;Role&gt; _roleRepository;
+    public RoleAppService(IRepository&lt;Role&gt; roleRepository)
+    {
+        _roleRepository = roleRepository;
+    }
+    public void CreateRole(Role input)
+    {        
+        _roleRepository.Insert(input);
+    }
+}
 </pre>
-        <h4>扩展IRepository</h4>
-        <p>当IRepository不满足的时候我们可以使用如下的方式进行扩展</p>
-        <pre>
-    public interface IRoleRepository : IRepository&lt;Role&gt; 
-    {  
-    }  
-    public class RoleRepository : EfRepository&lt;Role&gt; , IRoleRepository  
-    {  
-        public RoleRepository(IEfDbContext context)  
-            : base(context)  
-        {   
-          
-        }  
-    }  
-   </pre>
+        <p>RoleAppService 注入<strong>IRepository&lt;Role&gt;</strong> ，并使用插入方法。</p>
+        <h4>自定义库</h4>
+        <p>当您需要为该实体创建一个自定义存储库方法时，您只需要为实体创建一个存储库类。</p>
+        <p>一个Role实体的存储库定义如下所示:</p>
+<pre>
+public interface IRoleRepository : IRepository&lt;Role&gt; 
+{  
+}  
+</pre>
+        <p>IRoleRepository延伸 IRepository&lt;TEntity&gt;。它用于定义具有主键类型的Guid类型的实体。
+        如果您的实体的主键不是Guid，您可以扩展<strong>IRepository&lt;TEntity,TPrimaryKey&gt;</strong>:接口如下所示:</p>
+<pre lang="cs">
+public interface IRoleRepository : IRepository&lt;Role, long&gt;
+{
+}
+</pre>
         <div class="bs-callout bs-callout-warning">
             <h4>
                 <strong>提示: </strong>Role
@@ -62,6 +68,103 @@ public interface IRepository&lt;TEntity&gt; where TEntity : class, IEntity
             </p>
         </div>
 
+        <h3>自定义库的实现</h3>
+        <p>LCL的设计目的是独立于特定的ORM(对象/关系映射)框架或其他访问数据库的技术。存储库是在NHibernate,MongoDB和EntityFramework中实现的，它是开箱即用的。查看文档以实现在LCL中的存储库。</p>
+        <ul>
+            <li><a href="EntityFramework.html">EntityFramework</a></li>
+            <li><a href="MongoDB.html">MongoDB</a></li>
+            <li><a href="NHibernate.html">NHibernate</a></li>
+        </ul>
+        <h4>基础库的方法</h4>
+        <pre>
+public interface IRepository&lt;TAggregateRoot&gt;  where TAggregateRoot : class, IAggregateRoot
+{
+
+        IRepositoryContext Context { get; }
+
+        void Add(TAggregateRoot aggregateRoot);
+
+        TAggregateRoot GetByKey(object key);
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll();
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll(Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder);
+
+        PagedResult&lt;TAggregateRoot&gt; FindAll(Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize);
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll(ISpecification&lt;TAggregateRoot&gt; specification);
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll(ISpecification&lt;TAggregateRoot&gt; specification, Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder);
+
+        PagedResult&lt;TAggregateRoot&gt; FindAll(ISpecification&lt;TAggregateRoot&gt; specification, Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize);
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll(params Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt;[] eagerLoadingProperties);
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll(Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder, params Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt;[] eagerLoadingProperties);
+
+        PagedResult&lt;TAggregateRoot&gt; FindAll(Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt;[] eagerLoadingProperties);
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll(ISpecification&lt;TAggregateRoot&gt; specification, params Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt;[] eagerLoadingProperties);
+
+        IQueryable&lt;TAggregateRoot&gt; FindAll(ISpecification&lt;TAggregateRoot&gt; specification, Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder, params Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt;[] eagerLoadingProperties);
+
+        PagedResult&lt;TAggregateRoot&gt; FindAll(ISpecification&lt;TAggregateRoot&gt; specification, Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt; sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt;[] eagerLoadingProperties);
+
+        TAggregateRoot Find(ISpecification&lt;TAggregateRoot&gt; specification);
+
+        TAggregateRoot Find(ISpecification&lt;TAggregateRoot&gt; specification, params Expression&lt;func&lt;TAggregateRoot, dynamic=dynamic &gt;&gt;[] eagerLoadingProperties);
+
+        bool Exists(ISpecification&lt;TAggregateRoot&gt; specification);
+
+        void Remove(TAggregateRoot aggregateRoot);
+ 
+        void Update(TAggregateRoot aggregateRoot);
+}
+
+</pre>
+        <p>Get方法用于获得给定主键(Id)的实体。如果数据库中没有给定Id的实体，它会抛出异常。单个方法与Get相似，但使用表达式而不是Id。因此，您可以编写一个lambda表达式来获得一个实体。示例用法:</p>
+        <pre>
+var role = _roleRepository.GetByKey(42);
+var role = _roleRepository.Find(p => p.Name == "John");
+</pre>
+        <p>注意，如果没有给定条件的实体，或者存在多个实体，那么单一方法会抛出异常。</p>
+        <p>FirstOrDefault是类似的，但是如果没有给定的Id或表达式的实体，则返回null(而不是抛出异常)。如果给定条件下有多个实体，则返回第一个实体。</p>
+        <p>FindAll返回这个IQueryable < T >。所以，你可以在它之后添加Linq的方法。例子:</p>
+        <pre>
+//Example 1
+var query = from role in _roleRepository.FindAll()
+            where role.IsActive
+            orderby role.Name
+            select role;
+var role = query.ToList();
+//Example 2:
+List&lt;Role&gt; roleList2 = _personRepository.FindAll().Where(p => p.Name.Contains("H")).OrderBy(p => p.Name).Skip(40).Take(20).ToList();
+</pre>
+        <p>使用FindAll，几乎所有的查询都可以在Linq写。甚至可以在连接表达式中使用它。</p>
+        <div class="bs-callout bs-callout-warning">
+            <h4>About IQueryable&lt;T&gt;</h4>
+            <p>
+                当您从存储库方法中调用FindAll()时，必须有一个开放的数据库连接。这是因为IQueryable的延迟执行。
+                它不执行数据库查询，除非您调用ToList()方法，或者在foreach循环中使用IQueryable(或以某种方式访问查询的项)。
+                因此，当您调用ToList()方法时，数据库连接必须是活着的。
+                对于一个web应用程序，在大多数情况下，您并不关心这一点，因为MVC控制器方法是默认的工作单元，
+                并且数据库连接可以用于整个请求。请参阅<strong><a href="Unit-Of-Work.html">UnitOfWork</a></strong>文档以更好地理解它。
+            </p>
+  
+        </div>
+        <h3>库的最佳实践</h3>
+        <ul>
+            <li>对于一个T的实体，可以在任何可能的地方使用<strong>IRepository&lt;T&gt;</strong>。除非真的需要，否则不要创建自定义存储库。对于许多情况，预定义的存储库方法已经足够了。</li>
+            <li>
+                如果您正在创建一个自定义存储库(通过扩展<strong>IRepository&lt;TEntity&gt;</strong>);
+                <ul>
+                    <li>存储库类应该是无状态的。这意味着，您不应该定义储存库层次的状态对象，而存储库方法调用不应该影响另一个调用。</li>
+                    <li>自定义存储库方法不应该包含业务逻辑或应用程序逻辑。它应该只执行与数据相关的或特定于orm的任务。</li>
+                    <li>虽然存储库可以使用依赖项注入，但对其他服务定义更少或不依赖。</li>
+                </ul>
+            </li>
+
+        </ul>
     </div>
 </body>
 </html>
