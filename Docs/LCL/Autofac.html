@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Autofac</title>
+    <link type="text/css" rel="stylesheet" href="../res/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="lcl.css" />
+</head>
+<body>
+    <div class="document-contents">
+        <h3 id="DocServerSide">Autofac依赖注入分析</h3>
+        <p>通过Autofac对接口依赖的实现进行注入，需要用到的核心类如下</p>
+        <img src="images/Autofac.png" />
+        <p>
+            在项目启动的时候初始化引擎上下文
+
+            <pre>
+<code class="language-bash" data-lang="bash"> EngineContext.Initialize(false); </code>
+</pre>
+
+            在需要IOC的项目中建立DependencyRegistrar，
+            其作用就是调用Autofac相关的API进行依赖注入，我们只要打开这个类文件，搜索一个指定的接口，就可以找到它的依赖具体类。
+        </p>
+        <h3 id="DocServerSide">注入</h3>
+        <p></p>
+        <pre>
+          
+public partial interface IRoleService
+{
+}
+public partial class RoleService : IRoleService
+{
+}
+public class DependencyRegistrar : IDependencyRegistrar
+{
+        public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder)
+        {
+            //data layer
+            var dbset = DbSetting.FindOrCreate("LCL");     
+            builder.Register(x => new EfDataProviderManager(dbset)).As&lt;BaseDataProviderManager&gt;().InstancePerDependency();
+            builder.Register(x => x.Resolve&lt;BaseDataProviderManager&gt;().LoadDataProvider()).As&lt;IDataProvider&gt;().InstancePerDependency();
+            var efDataProviderManager = new EfDataProviderManager(dbset);
+            var dataProvider = efDataProviderManager.LoadDataProvider();
+            dataProvider.InitConnectionFactory();
+            builder.Register&lt;IEfDbContext>(c => new RbacDbContext(dbset.ConnectionString)).Named&lt;IEfDbContext&gt;(dbset.Name).InstancePerLifetimeScope();
+            //Repositories  
+            builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>))
+.WithParameter(ResolvedParameter.ForNamed&lt;IEfDbContext&gt;(dbset.name)).instanceperlifetimescope();
+            //services 
+            builder.RegisterType&lt;RoleService&gt;().As&lt;IRoleService&gt;().WithParameter(ResolvedParameter.ForNamed&lt;IEfDbContext&gt;(dbset.Name))
+                .InstancePerLifetimeScope(); 
+        }
+        public int Order
+        {
+            get { return 5; }
+        }
+}
+    
+</pre>
+    </div>
+</body>
+</html>

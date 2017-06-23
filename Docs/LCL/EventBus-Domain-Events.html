@@ -1,0 +1,189 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>EventBus & Domain Events</title>
+    <link type="text/css" rel="stylesheet" href="../res/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="lcl.css" />
+</head>
+<body>
+    <h3>领域事件和事件总线</h3>
+    <div id="cnblogs_post_body" class="cnblogs-markdown">
+        <hr />
+        <ul>
+            <li><strong><a href="#eventBus">事件总线</a></strong></li>
+            <li><strong><a href="#define">定义事件</a></strong></li>
+            <li><strong><a href="#trigger">触发事件</a></strong></li>
+            <li><strong><a href="#handle">处理事件</a></strong></li>
+            <li><strong><a href="#handler">句柄注册</a></strong></li>
+            <li><strong><a href="#unregister">取消注册</a></strong></li>
+        </ul>
+        <p>在C#中，我们可以在一个类中定义自己的事件，而其他的类可以注册该事件，当某些事情发生时，可以通知到该类。这对于桌面应用或者独立的windows服务来说是非常有用的。但对于一个web应用来说是有点问题的，因为对象都是在web请求中创建的，而且这些对象生命周期都很短，因而注册某些类的事件是很困难的。此外，注册其他类的事件会使得类紧耦合。</p>
+        <p>领域事件用于解耦并重复利用应用中的逻辑。</p>
+        <h3 id="事件总线"><a name='eventBus'></a>事件总线</h3>
+        <p>事件总线是被所有触发并处理事件的其他类共享的单例对象。要使用事件总线，首先应该获得它的一个引用。下面有两种方法来处理：</p>
+        <h4 id="创建默认实例">创建默认实例</h4>
+        <p>你可以直接使用 <strong>EventBus.Default</strong>。这是全局的事件总线，用法如下所示：</p>
+<pre><code>EventBus.Default.Trigger(...); //触发一个事件
+</code></pre>
+        <h4 id="注入ieventbus">注入IEventBus</h4>
+        <p>不直接使用EventBus.Default，你也可以使用依赖注入来获得<strong>IEventBus</strong>的引用。这有利于单元测试。这里我们使用属性注入模式：</p>
+<pre class="c#"><code>public class TaskAppService : ApplicationService
+{
+    public IEventBus EventBus { get; set; }
+        
+    public TaskAppService()
+    {
+        EventBus = NullEventBus.Instance;
+    }
+}
+</code></pre>
+        <p>对于注入事件总线这件事，属性注入比构造函数注入更合适。这样，你的类离开事件总线还能工作。NullEventBus实现了<strong><a href="https://en.wikipedia.org/wiki/Null_Object_pattern">null对象模式</a></strong>。当你调用上面的构造函数时，实际上啥都没做。</p>
+        <h3 id="定义事件"><a name='define'></a>定义事件</h3>
+        <p>触发事件之前，应该先要定义该事件。事件是使用派生自<strong>EventData</strong>的类来表示的。假设我们想当一个任务task完成时触发一个事件：</p>
+<pre class="c#"><code>public class TaskCompletedEventData : EventData
+{
+    public int TaskId { get; set; }
+}
+</code></pre>
+        <p>该类包含了类处理事件需要的属性。<strong>EventData</strong>类定义了 <strong>EventSource</strong>（事件源）和 <strong>EventTime</strong>(事件触发时间)属性。</p>
+        <h4 id="预定义事件">预定义事件</h4>
+        <p>ABP定义了<strong>AbpHandleExceptionData</strong>，当自动处理任何异常时都会触发这个事件。如果你想要获得更多的关于异常的信息（甚至ABP会自动记录所有的异常），那么这是特别有用的。注册这个事件之后，异常发生时就会通知你。</p>
+        <p>对于实体的更改也有泛型的事件数据类：<strong>EntityCreatedEventData<tentity>，EntityUpdateEventData<tentity></tentity></tentity></strong>和 <strong>EntityDeletedEventData<tentity></tentity></strong>。它们都定义在 <strong>Abp.Event.Bus.Entities</strong>命名空间中。当一个实体插入，更新或者删除时，ABP会自动地触发这些事件。比如，如果你有一个Person实体，将它注册到EntityCreatedEventData<person>，那么当创建的新的Person实体对象插入数据库时，会收到通知。这些事件也支持继承。如果Student类派生自Person类，而且你将它注册到EntityCreatedEventData<person>，那么当一个Person或者Student插入时，你会收到通知。</person></person></p>
+        <h3 id="触发事件"><a name='trigger'></a>触发事件</h3>
+        <p>触发一个事件很简单，如下所示：</p>
+<pre class="c#"><code>public class TaskAppService : ApplicationService
+{
+    public IEventBus EventBus { get; set; }
+        
+    public TaskAppService()
+    {
+        EventBus = NullEventBus.Instance;
+    }
+    public void CompleteTask(CompleteTaskInput input)
+    {
+        //TODO: 完成task的数据库操作...
+        EventBus.Trigger(new TaskCompletedEventData {TaskId = 42});
+    }
+}
+</code></pre>
+        <p>下面是Trigger方法的一些重载：</p>
+<pre class="c#"><code>EventBus.Trigger&lt;TaskCompletedEventData&gt;(new TaskCompletedEventData { TaskId = 42 }); //显示声明为泛型参数
+EventBus.Trigger(this, new TaskCompletedEventData { TaskId = 42 }); //将 &#39;事件源&#39;设置为&#39;this&#39;
+EventBus.Trigger(typeof(TaskCompletedEventData), this, new TaskCompletedEventData { TaskId = 42 });//调用非泛型版本（第一个参数是事件类的类型）
+</code></pre>
+        <h3 id="处理事件"><a name='handle'></a>处理事件</h3>
+        <p>要处理一个事件，应该要实现<strong>IEventHandler<t></t></strong>接口，如下所示：</p>
+<pre class="c#"><code>public class ActivityWriter : IEventHandler&lt;TaskCompletedEventData&gt;, ITransientDependency
+{
+    public void HandleEvent(TaskCompletedEventData eventData)
+    {
+        WriteActivity(&quot;A task is completed by id = &quot; + eventData.TaskId);
+    }
+}
+</code></pre>
+        <p>事件总线（EventBus）已经集成到ABP的依赖注入系统中。正如上面实现ITransientDependency一样，当TaskCompleted事件发生时，它会创建ActivityWriter类的一个新实例，然后调用HandleEvent方法，最后释放它。更多知识请查看<strong><a href="http://www.cnblogs.com/farb/p/ABPDependencyInjection.html">依赖注入</a></strong>。</p>
+        <h4 id="处理基事件">处理基事件</h4>
+        <p>事件总线支持事件的<strong>继承</strong>。比如，你创建了一个<strong>TaskEventData</strong>和它的两个子类： <strong>TaskCompletedEventData</strong>和 <strong>TaskCreatedEventData</strong>:</p>
+<pre class="c#"><code>public class TaskEventData : EventData
+{
+    public Task Task { get; set; }
+}
+public class TaskCreatedEventData : TaskEventData
+{
+    public User CreatorUser { get; set; }
+}
+public class TaskCompletedEventData : TaskEventData
+{
+    public User CompletorUser { get; set; }
+}
+</code></pre>
+        <p>然后你可以实现<strong>IEventHandler<taskeventdata></taskeventdata></strong>来处理这两个事件：</p>
+<pre class="c#"><code>public class ActivityWriter : IEventHandler&lt;TaskEventData&gt;, ITransientDependency
+{
+    public void HandleEvent(TaskEventData eventData)
+    {
+        if (eventData is TaskCreatedEventData)
+        {
+            //...
+        }
+        else if (eventData is TaskCompletedEventData)
+        {
+            //...
+        }
+    }
+}
+</code></pre>
+        <p>当然了，你可以实现IEventHandler<eventdata>来处理所有你想要处理的事件。</eventdata></p>
+        <h4 id="处理多事件">处理多事件</h4>
+        <p>在一个单一的处理句柄中，可以处理多个事件。这时，你应该为每个事件实现IEventHandler<t>。比如：</t></p>
+<pre class="c#"><code>public class ActivityWriter : 
+    IEventHandler&lt;TaskCompletedEventData&gt;, 
+    IEventHandler&lt;TaskCreatedEventData&gt;, 
+    ITransientDependency
+{
+    public void HandleEvent(TaskCompletedEventData eventData)
+    {
+        //TODO: 处理事件...
+    }
+    public void HandleEvent(TaskCreatedEventData eventData)
+    {
+        //TODO: 处理事件...
+    }
+}
+</code></pre>
+        <h3 id="句柄注册"><a name='handler'></a>句柄注册</h3>
+        <p>为了处理事件，我们必须将事件句柄注册给事件总线。</p>
+        <h4 id="自动">自动</h4>
+        <p>ABP会自动扫描所有的实现了IEventHandler的类，并<strong>自动</strong>将它们注册到事件总线上。当一个事件发生时，它会使用依赖注入获得该句柄的一个引用，而且在处理该事件之后就会释放该句柄。建议这样使用ABP中的事件总线。</p>
+        <h4 id="手动">手动</h4>
+        <p>也可能会手动注册到事件，但是要小心使用。在一个web应用中，事件注册应该在应用启动时完成。在web请求时注册到一个事件不是一个好的方法，因为请求完成之后注册的类仍旧是注册的，而且对于每个请求继续再次注册。这可能会对你的应用造成问题，因为注册的类可能被调用多次。而且要记住手动注册不会使用依赖注入系统。</p>
+        <p>这里有一些事件总线的方法的重载。最简单的一个等待了一个委托（或者一个lambda）：</p>
+<pre class="c#"><code>EventBus.Register&lt;TaskCompletedEventData&gt;(eventData =&gt;
+    {
+        WriteActivity(&quot;A task is completed by id = &quot; + eventData.TaskId);
+    });
+</code></pre>
+        <p>这样，当“一个task完成”事件发生时，这个lambda方法就会调用。第二个等待一个实现了IEventHandler<t>的对象：</t></p>
+<pre class="c#"><code>EventBus.Register&lt;TaskCompletedEventData&gt;(new ActivityWriter());
+</code></pre>
+        <p>事件会调用ActivityWriter的相同实例。该方法也有一个非泛型的重载。另一个重载接受两个泛型的参数：</p>
+<pre class="c#"><code>EventBus.Register&lt;TaskCompletedEventData, ActivityWriter&gt;();
+</code></pre>
+        <p>此时，事件总线会为每个事件创建一个新的ActivityWriter。如果它是可释放的，那么会调用ActivityWriter.Dispose方法。</p>
+        <p>最后，为了处理句柄的创建，你可以注册一个<strong>事件句柄工厂</strong>。句柄工厂有两个方法：<strong>GetHandler和ReleaseHandler</strong>。例如：</p>
+<pre class="c#"><code>public class ActivityWriterFactory : IEventHandlerFactory
+{
+    public IEventHandler GetHandler()
+    {
+        return new ActivityWriter();
+    }
+    public void ReleaseHandler(IEventHandler handler)
+    {
+        //TODO:释放ActivityWriter实例 (handler)
+    }
+}
+</code></pre>
+        <p>还有一个特殊的工厂类<strong>IocHandlerFactory</strong>，它可以使用依赖注入系统创建或者释放句柄。ABP在自动注册模式中使用了这个类。因此，如果你想使用依赖注入系统，直接使用自动注册。</p>
+        <h3 id="取消注册"><a name='unregister'></a>取消注册</h3>
+        <p>手动注册到事件总线时，你可能会在以后想要取消注册该事件。取消注册一个事件的最简单方法是释放该<strong>注册</strong>方法的返回值。如下所示：</p>
+<pre class="c#"><code>//注册到一个事件...
+var registration = EventBus.Register&lt;TaskCompletedEventData&gt;(eventData =&gt; WriteActivity(&quot;A task is completed by id = &quot; + eventData.TaskId) );
+//取消注册事件
+registration.Dispose();
+</code></pre>
+        <p>当然了，注销注册会在某个地方和某个时间。保留注册对象并在想要取消注册时释放它。所有注册方法的重载都会返回一个可释放的对象以取消注册该事件。</p>
+        <p>事件总线也提供了<strong>Unregister</strong>方法。样例用法：</p>
+<pre class="c#"><code>//创建一个句柄
+var handler = new ActivityWriter();
+            
+//注册到事件
+EventBus.Register&lt;TaskCompletedEventData&gt;(handler);
+//从事件取消注册
+EventBus.Unregister&lt;TaskCompletedEventData&gt;(handler);
+</code></pre>
+        <p>它也提供了重载来注销委托和工厂，注销句柄对象必须是之前注册的相同对象。</p>
+        <p>最后，事件总线提供了<strong>UnregisterAll<t></t></strong>方法来注销一个事件的所有句柄，<strong>RegisterAll()</strong>方法会注销所有事件的所有句柄。</p>
+    </div>
+</body>
+</html>

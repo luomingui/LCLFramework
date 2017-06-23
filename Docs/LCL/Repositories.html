@@ -1,0 +1,67 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Repositories</title>
+    <link type="text/css" rel="stylesheet" href="../res/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="lcl.css" />
+</head>
+<body>
+    <div class="document-contents">
+        <h3>仓储（Repository）</h3>
+        <p>Respository模式在示例中的实际目的小结一下</p>
+        <ul>
+            <li>Repository模式是架构模式，在设计架构时，才有参考价值； </li>
+            <li>Repository模式主要是封装数据查询和存储逻辑； </li>
+            <li>Repository模式实际用途：更换、升级ORM 引擎，不影响业务逻辑； </li>
+            <li>Repository模式能提高测试效率，单元测试时，用Mock对象代替实际的数据库存取，可以成倍地提高测试用例运行速度。 </li>
+        </ul>
+
+        <h4 id="DocIRepositoryClasses">Repository与Dal的区别</h4>
+       <p> Repository是DDD中的概念，强调Repository是受Domain驱动的，Repository中定义的功能要体现Domain的意图和约束，而Dal更纯粹的就是提  供数据访问的功能,并不严格受限于Business层。</p>
+        <p>使用Repository，隐含着一种意图倾向，就是 Domain需要什么我才提供什么，不该提供的功能就不要提供，一切都是以Domain的需求为核心；而使用Dal，其意图倾向在于我Dal层能使用的数 据库访问操作提供给Business层，你Business要用哪个自己选。换一个Business也可以用我这个Dal，一切是以我Dal能提供什么操 作为核心。</p>
+        <h4 id="DocIRepositoryClasses">LCL与Repository</h4>
+        <p></p>
+        <img src="images/repository.png" />
+       <h4>IRepository</h4>
+        <p>每一个领域实体默认都实现了IRepository</p>
+        <pre>
+public interface IRepository&lt;TEntity&gt; where TEntity : class, IEntity
+  {
+      IRepositoryContext Context { get; }
+      void Create(TEntity entity);
+      void Delete(TEntity entity);
+      void Update(TEntity entity);
+      IEnumerable&lt;TEntity&gt; Get(Expression&lt;func&lt;TEntity, bool=bool&gt;&gt; predicate);
+      IEnumerable&lt;TEntity&gt; GetAll(PagingInfo paging = null);
+      TEntity GetByKey(params object[] keyValues);
+      IEnumerable&lt;TEntity&gt; GetPage(Expression&lt;func&lt;TEntity, bool=bool&gt;&gt; predicate,PagingInfo paging);
+  }
+</pre>
+        <h4>扩展IRepository</h4>
+        <p>当IRepository不满足的时候我们可以使用如下的方式进行扩展</p>
+        <pre>
+    public interface IRoleRepository : IRepository&lt;Role&gt; 
+    {  
+    }  
+    public class RoleRepository : EfRepository&lt;Role&gt; , IRoleRepository  
+    {  
+        public RoleRepository(IEfDbContext context)  
+            : base(context)  
+        {   
+          
+        }  
+    }  
+   </pre>
+        <div class="bs-callout bs-callout-warning">
+            <h4>
+                <strong>提示: </strong>Role
+            </h4>
+            <p>
+                Role是实体类，请查看<a href="Entities.html">实体</a>类的编写。
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>
