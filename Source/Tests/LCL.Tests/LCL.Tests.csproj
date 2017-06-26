@@ -173,6 +173,9 @@
     <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
     <Compile Include="ACore\Domain\Repositories\EntityFramework\EFTestContext.cs" />
     <Compile Include="Domain\Services\ServicesTest.cs" />
+    <Compile Include="Domain\Specifications\Specification_Tests.cs" />
+    <Compile Include="Extensions\ObjectExtension_Test.cs" />
+    <Compile Include="Extensions\StringExtensions_Tests.cs" />
     <Compile Include="Fakes\FakeTypeFinder.cs" />
     <Compile Include="Fakes\TypeFindingBase.cs" />
     <Compile Include="Infrastructuretest\DependencyManagement\AutofacTests.cs" />

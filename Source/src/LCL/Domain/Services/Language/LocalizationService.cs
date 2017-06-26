@@ -15,14 +15,12 @@ namespace LCL.Domain.Services
 {
     public class LocalizationService : ILocalizationService
     {
-        private readonly ICacheManager _cacheManager;
         private readonly LConfig _config;
         private readonly IWebHelper _webHelper;
         private const string LOCALSTRINGRESOURCES_ALL_KEY = "LCL.lsr.all-{0}";
         private string _xmlPath = "";
-        public LocalizationService(ICacheManager cacheManager, LConfig config, IWebHelper webHelper)
+        public LocalizationService(LConfig config, IWebHelper webHelper)
         {
-            this._cacheManager = cacheManager;
             this._config = config;
             this._webHelper = webHelper;
             this._xmlPath = this._webHelper.MapPath(this._config.LanguagePath);
@@ -37,7 +35,9 @@ namespace LCL.Domain.Services
         public List<LocaleStringResource> GetStringResourceAll()
         {
             string key = string.Format(LOCALSTRINGRESOURCES_ALL_KEY, this._config.LanguageName);
-            return this._cacheManager.Get(key, () =>
+           
+            
+            return RF.Cache.Get(key, () =>
             {
                 #region MyRegion
                 var list = new List<LocaleStringResource>();
@@ -85,7 +85,7 @@ namespace LCL.Domain.Services
             root.AppendChild(xe1);
             xmlDoc.Save(this._xmlPath); 
             string key = string.Format(LOCALSTRINGRESOURCES_ALL_KEY, this._config.LanguageName);
-            this._cacheManager.RemoveByPattern(key);
+            RF.Cache.Remove(key);
         }
         public virtual void UpdateLocaleStringResource(LocaleStringResource localeStringResource)
         {
@@ -114,7 +114,7 @@ namespace LCL.Domain.Services
             }
             xmlDoc.Save(this._xmlPath);
             string key = string.Format(LOCALSTRINGRESOURCES_ALL_KEY, this._config.LanguageName);
-            this._cacheManager.RemoveByPattern(key);
+            RF.Cache.Remove(key);
         }
         public virtual void DeleteLocaleStringResource(LocaleStringResource localeStringResource)
         {
@@ -133,7 +133,7 @@ namespace LCL.Domain.Services
             }
             xmlDoc.Save(this._xmlPath);
             string key = string.Format(LOCALSTRINGRESOURCES_ALL_KEY, this._config.LanguageName);
-            this._cacheManager.RemoveByPattern(key);
+            RF.Cache.Remove(key);
         }
     
     }

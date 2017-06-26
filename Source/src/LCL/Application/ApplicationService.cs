@@ -73,13 +73,6 @@ namespace LCL.Application
                 return RF.Service<ILocalizationService>();
             }
         }
-        public static ICacheManager Cache
-        {
-            get
-            {
-                return RF.Service<ICacheManager>();
-            }
-        }
         public static IPluginFinder PluginFinder
         {
             get
@@ -111,8 +104,6 @@ namespace LCL.Application
 
 
         #endregion
-
-
-        
+      
     }
 }

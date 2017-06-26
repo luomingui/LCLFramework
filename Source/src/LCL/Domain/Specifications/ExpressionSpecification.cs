@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace LCL.Domain.Specifications
 {
-    internal sealed class ExpressionSpecification<T> : Specification<T>
+    public sealed class ExpressionSpecification<T> : Specification<T>
     {
         #region Private Fields
         private Expression<Func<T, bool>> expression;

@@ -49,6 +49,13 @@ namespace LCL
                 return Service<LConfig>();
             }
         }
+        public static ICacheManager Cache
+        {
+            get
+            {
+                return Service<ICacheManager>();
+            }
+        }
         public static ISettingService Setting
         {
             get
@@ -61,13 +68,6 @@ namespace LCL
             get
             {
                 return Service<ILocalizationService>();
-            }
-        }
-        public static ICacheManager Cache
-        {
-            get
-            {
-                return Service<ICacheManager>();
             }
         }
         public static IPluginFinder PluginFinder

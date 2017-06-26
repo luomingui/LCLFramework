@@ -22,14 +22,12 @@ namespace LCL.Domain.Services
         #region Fields
 
         private readonly IRepository<Setting> _settingRepository;
-        private readonly ICacheManager _cacheManager;
 
         #endregion
 
         #region Ctor
-        public SettingService(ICacheManager cacheManager,IRepository<Setting> settingRepository)
+        public SettingService(IRepository<Setting> settingRepository)
         {
-            this._cacheManager = cacheManager;
             this._settingRepository = settingRepository;
         }
 
@@ -53,7 +51,7 @@ namespace LCL.Domain.Services
         {
             //cache
             string key = string.Format(SETTINGS_ALL_KEY);
-            return _cacheManager.Get(key, () =>
+            return RF.Cache.Get(key, () =>
             {
                 var settings = GetAllSettings();
                 var dictionary = new Dictionary<string, IList<SettingForCaching>>();
@@ -96,7 +94,7 @@ namespace LCL.Domain.Services
 
             //cache
             if (clearCache)
-                _cacheManager.RemoveByPattern(SETTINGS_PATTERN_KEY);
+                RF.Cache.Remove(SETTINGS_PATTERN_KEY);
         }
         public virtual void UpdateSetting(Setting setting, bool clearCache = true)
         {
@@ -107,7 +105,7 @@ namespace LCL.Domain.Services
 
             //cache
             if (clearCache)
-                _cacheManager.RemoveByPattern(SETTINGS_PATTERN_KEY);
+                RF.Cache.Remove(SETTINGS_PATTERN_KEY);
 
         }
         public Setting GetSettingById(Guid settingId)
@@ -125,7 +123,7 @@ namespace LCL.Domain.Services
             _settingRepository.Delete(setting);
 
             //cache
-            _cacheManager.RemoveByPattern(SETTINGS_PATTERN_KEY);
+            RF.Cache.Remove(SETTINGS_PATTERN_KEY);
         }
 
         public T GetSettingByKey<T>(string key, T defaultValue = default(T), int storeId = 0, bool loadSharedValueIfNotFound = false)
@@ -345,7 +343,7 @@ namespace LCL.Domain.Services
 
         public void ClearCache()
         {
-            _cacheManager.RemoveByPattern(SETTINGS_PATTERN_KEY);
+            RF.Cache.Remove(SETTINGS_PATTERN_KEY);
         }
         #endregion
     }

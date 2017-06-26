@@ -9,6 +9,11 @@ namespace LCL.Tests
 {
     public static class TestExtensions
     {
+        public static T ShouldBe<T>(this T obj,int intsuam)
+        {
+            Assert.IsNull(obj);
+            return obj;
+        }
         public static T ShouldNotNull<T>(this T obj)
         {
             Assert.IsNull(obj);

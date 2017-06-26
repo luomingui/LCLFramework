@@ -69,18 +69,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ApplicationService.cs" />
-    <Compile Include="Communication\IApplicationServiceContract.cs" />
-    <Compile Include="Domain\Entities\AggregateRoot.cs" />
-    <Compile Include="Events\Bus\EventBus.cs" />
-    <Compile Include="Events\Bus\IBus.cs" />
-    <Compile Include="Events\Bus\IEventBus.cs" />
-    <Compile Include="Events\Bus\MSMQBusOptions.cs" />
-    <Compile Include="Events\Bus\MSMQEventBus.cs" />
     <Compile Include="Caching\Extensions.cs" />
     <Compile Include="Caching\ICacheManager.cs" />
     <Compile Include="Caching\MemoryCacheManager.cs" />
     <Compile Include="Caching\NullCache.cs" />
     <Compile Include="Caching\PerRequestCacheManager.cs" />
+    <Compile Include="Communication\IApplicationServiceContract.cs" />
+    <Compile Include="Domain\Entities\AggregateRoot.cs" />
+    <Compile Include="Domain\Specifications\SpecificationExtensions.cs" />
+    <Compile Include="Events\Bus\EventBus.cs" />
+    <Compile Include="Events\Bus\IBus.cs" />
+    <Compile Include="Events\Bus\IEventBus.cs" />
+    <Compile Include="Events\Bus\MSMQBusOptions.cs" />
+    <Compile Include="Events\Bus\MSMQEventBus.cs" />
     <Compile Include="Domain\Entities\EntityExtensions.cs" />
     <Compile Include="Domain\Entities\IAggregateRoot.cs" />
     <Compile Include="Domain\Entities\IEntity.cs" />
@@ -96,6 +97,11 @@
     <Compile Include="Extensions\SwithCaseExtension.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\WhereExtension.cs" />
+    <Compile Include="Extensions\XmlExtensions.cs" />
+    <Compile Include="NamedTypeSelector.cs" />
+    <Compile Include="NameValue.cs" />
+    <Compile Include="ObjectMapping\IObjectMapper.cs" />
+    <Compile Include="ObjectMapping\NullObjectMapper.cs" />
     <Compile Include="Reflection\AssemblyExtensions.cs" />
     <Compile Include="Reflection\DynamicMemberHandle.cs" />
     <Compile Include="Reflection\DynamicMethodHandle.cs" />
