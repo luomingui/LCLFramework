@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="..\_Items\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
+      <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="BaseDbContext.cs" />
     <Compile Include="DataProvider\EfDataProviderManager.cs" />
     <Compile Include="DependencyRegistrar.cs" />

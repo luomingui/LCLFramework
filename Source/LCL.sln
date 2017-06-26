@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		Settings.StyleCop = Settings.StyleCop
+		src\_Items\SharedAssemblyInfo.cs = src\_Items\SharedAssemblyInfo.cs
+		src\_Items\SharedAssemblyVersionInfo.cs = src\_Items\SharedAssemblyVersionInfo.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AE1D8464-0A15-41B7-B3D2-688B4CA44FC6}"

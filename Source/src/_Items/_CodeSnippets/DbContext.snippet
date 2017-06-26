@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>LCL</Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Add a DbContext class</Title>
+      <Author>luomingui</Author>
+      <Description>LCLFramework就是一套在.NET下支持面向领域驱动的软件系统开发框架</Description>
+      <HelpUrl>http://www.cnblogs.com/luomingui</HelpUrl>
+      <Shortcut>LCLDbContext</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>DbContext</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="type decl" Delimiter="$"><![CDATA[
+    public class $ClassName$Context : DbContext
+    {
+        public $ClassName$Context()
+            : base("$ClassName$")
+        {
+
+        }
+
+        //public DbSet<ClientType> ClientType { get; set; }
+    }
+    /// <summary>
+    /// 数据库初始化操作类
+    /// </summary>
+    internal static class DatabaseInitializer
+    {
+        /// <summary>
+        /// 数据库初始化
+        /// </summary>
+        public static void Initialize()
+        {
+            try
+            {
+                Database.SetInitializer<$ClassName$Context>(new DropCreateDatabaseIfModelChanges<$ClassName$Context>());
+                Database.SetInitializer(new SampleData());
+                using (var db = new $ClassName$Context())
+                {
+                    db.Database.Initialize(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("数据库初始化", ex);
+            }
+        }
+    }
+    /// <summary>
+    /// 数据库初始化策略
+    /// </summary>
+    internal class SampleData : CreateDatabaseIfNotExists<$ClassName$Context>
+    {
+        protected override void Seed($ClassName$Context context)
+        {
+            //客户类型
+            //context.Set<ClientType>().Add(new ClientType { PID = Guid.Empty, Name = "居民", IsOpen = true, });
+            //context.SaveChanges();
+        }
+    }
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

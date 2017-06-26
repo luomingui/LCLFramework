@@ -68,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+   <Compile Include="..\_Items\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
+      <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Application\ApplicationService.cs" />
     <Compile Include="Caching\Extensions.cs" />
     <Compile Include="Caching\ICacheManager.cs" />
@@ -135,9 +141,9 @@
     <Compile Include="Utils.cs" />
     <Compile Include="Communication\ChannelFactoryManager.cs" />
     <Compile Include="Communication\ServiceProxy.cs" />
-    <Compile Include="ComponentModel\DisposableObject.cs" />
-    <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
-    <Compile Include="ComponentModel\WriteLockDisposable.cs" />
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="GenericListTypeConverter.cs" />
+    <Compile Include="WriteLockDisposable.cs" />
     <Compile Include="Config\ConfigurationExtension.cs" />
     <Compile Include="Config\ConfigurationHelper.cs" />
     <Compile Include="Config\ISettings.cs" />
