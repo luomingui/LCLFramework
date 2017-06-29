@@ -56,6 +56,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Docs", "http://localhost:52
 		SlnRelativePath = "..\..\branches\gh-pages\Docs\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Repositories.MyBatis", "src\LCL.Repositories.MyBatis\LCL.Repositories.MyBatis.csproj", "{B5804478-5DB1-4A66-941D-489FF7A8A10A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{76F962B4-924F-4604-8386-7F50CFDC7E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F962B4-924F-4604-8386-7F50CFDC7E4A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{76F962B4-924F-4604-8386-7F50CFDC7E4A}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{B5804478-5DB1-4A66-941D-489FF7A8A10A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5804478-5DB1-4A66-941D-489FF7A8A10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5804478-5DB1-4A66-941D-489FF7A8A10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5804478-5DB1-4A66-941D-489FF7A8A10A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

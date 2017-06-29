@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B339671F-EC53-45F2-9999-A46F45847F78}</ProjectGuid>
+    <ProjectGuid>{B5804478-5DB1-4A66-941D-489FF7A8A10A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LCL.Repositories.NHibernate</RootNamespace>
-    <AssemblyName>LCL.Repositories.NHibernate</AssemblyName>
+    <RootNamespace>LCL.Repositories.MyBatis</RootNamespace>
+    <AssemblyName>LCL.Repositories.MyBatis</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -32,8 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NHibernate">
-      <HintPath>..\..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\..\packages\MyBatis.NET.1.6.4\lib\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper">
+      <HintPath>..\..\packages\MyBatis.NET.1.6.4\lib\IBatisNet.DataMapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,27 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\_Items\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
-      <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
-    </Compile>
-    <Compile Include="DatabaseSessionFactory.cs" />
-    <Compile Include="INHibernateContext.cs" />
-    <Compile Include="NHibernateApplicationConfiguration.cs" />
-    <Compile Include="NHibernateContext.cs" />
-    <Compile Include="NHibernateRepository.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LCL\LCL.csproj">
-      <Project>{c7f55469-a235-48fb-b92c-c48830577e14}</Project>
-      <Name>LCL</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

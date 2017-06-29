@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Autofac 3.5.0" Category="包" Bounds="195.073615824381,110.480002288818,95.1866666666668,25.24" Label="Autofac 3.5.0" />
+    <Node Id="Autofac.Mvc5 3.3.1" Category="包" Bounds="161.106949157715,20.2399996566772,129.153333333333,25.24" Label="Autofac.Mvc5 3.3.1" UseManualLocation="True" />
+    <Node Id="EntityFramework 6.1.1" Category="包" Bounds="419.535425720215,165.119952087402,146.776666666667,25.24" Label="EntityFramework 6.1.1" UseManualLocation="True" />
+    <Node Id="EntityFramework.SqlServerCompact 6.1.1" Category="包" Bounds="514.122919209798,55.2400025177002,255.16,25.24" Label="EntityFramework.SqlServerCompact 6.1.1" />
+    <Node Id="LCL" Category="项目" Bounds="144.958333333333,-53,50,25.24" Label="LCL" UseManualLocation="True" />
+    <Node Id="LCL.Repositories.EntityFramework" Category="项目" Bounds="563.268333333333,-76,213.38,25.24" Label="LCL.Repositories.EntityFramework" UseManualLocation="True" />
+    <Node Id="LCL.Repositories.MongoDB" Category="项目" Bounds="213.768759053548,184.360049133301,175.766666666667,25.24" Label="LCL.Repositories.MongoDB" UseManualLocation="True" />
+    <Node Id="LCL.Repositories.NHibernate" Category="项目" Bounds="-18.61791015625,144.720141420492,183.636666666667,25.24" Label="LCL.Repositories.NHibernate" UseManualLocation="True" />
+    <Node Id="Microsoft.AspNet.Mvc 5.2.0" Category="包" Bounds="-19.9804141235352,75.4800363342285,177.916666666667,25.24" Label="Microsoft.AspNet.Mvc 5.2.0" UseManualLocation="True" />
+    <Node Id="Microsoft.SqlServer.Compact 4.0.8876.1" Category="包" Bounds="623.0620997111,162.479998474121,247.71,25.24" Label="Microsoft.SqlServer.Compact 4.0.8876.1" UseManualLocation="True" />
+    <Node Id="NHibernate 4.0.1.4000" Category="包" Bounds="-32.2166666666666,230.96,148.07,25.24" Label="NHibernate 4.0.1.4000" UseManualLocation="True" />
+    <Node Id="Tests\LCL.Tests" Category="项目" Bounds="344.71,-67,72.4966666666667,25.24" Label="LCL.Tests" UseManualLocation="True" />
+    <Node Id="mongocsharpdriver 1.9.2" Category="包" Bounds="320.260282491048,72.2399967956543,163,25.24" Label="mongocsharpdriver 1.9.2" UseManualLocation="True" />
+  </Nodes>
+  <Links>
+    <Link Source="Autofac.Mvc5 3.3.1" Target="Autofac 3.5.0" Category="程序包依赖项" Bounds="228.058722876853,45.4799996566772,10.5685261509178,56.1552793528953" />
+    <Link Source="Autofac.Mvc5 3.3.1" Target="Microsoft.AspNet.Mvc 5.2.0" Category="程序包依赖项" Bounds="113.266581883739,45.4799996566772,76.6164432883862,27.0079207265399" />
+    <Link Source="EntityFramework.SqlServerCompact 6.1.1" Target="EntityFramework 6.1.1" Category="程序包依赖项" Bounds="517.251052528174,80.4800025177002,107.364210542277,79.2931767382081" />
+    <Link Source="EntityFramework.SqlServerCompact 6.1.1" Target="Microsoft.SqlServer.Compact 4.0.8876.1" Category="程序包依赖项" Bounds="654.084541313695,80.4800025177002,74.1479674859227,75.5756439853855" />
+    <Link Source="LCL" Target="Autofac.Mvc5 3.3.1" Category="安装的程序包" Bounds="179.560364448919,-27.7600001144409,31.0715681823368,40.837503860441" />
+    <Link Source="LCL.Repositories.EntityFramework" Target="EntityFramework.SqlServerCompact 6.1.1" Category="安装的程序包" Bounds="646.314224691283,-50.7600010681152,20.9270601542038,97.2016060438785" />
+    <Link Source="LCL.Repositories.MongoDB" Target="mongocsharpdriver 1.9.2" Category="安装的程序包" Bounds="312.9200623634,104.193405930078,71.5780767616623,80.1666432032232" />
+    <Link Source="LCL.Repositories.NHibernate" Target="NHibernate 4.0.1.4000" Category="安装的程序包" Bounds="49.4882709123346,169.960141296387,19.1198262354078,52.5424156644216" />
+    <Link Source="Tests\LCL.Tests" Target="Autofac.Mvc5 3.3.1" Category="安装的程序包" Bounds="255.991791027905,-41.7600010681152,102.504743838902,57.5915665034828" />
+    <Link Source="Tests\LCL.Tests" Target="EntityFramework.SqlServerCompact 6.1.1" Category="安装的程序包" Bounds="407.877478506428,-41.7600010681152,198.757374475797,93.1796896156719" />
+    <Link Source="Tests\LCL.Tests" Target="mongocsharpdriver 1.9.2" Category="安装的程序包" Bounds="382.843710799402,-41.7600010681152,15.7013798517953,105.098784055596" />
+  </Links>
+  <Categories>
+    <Category Id="包" />
+    <Category Id="安装的程序包" />
+    <Category Id="程序包依赖项" />
+    <Category Id="项目" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="标签" Description="可批注对象的可显示标签" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="项目" ValueLabel="True">
+      <Condition Expression="HasCategory('项目')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="程序包依赖项" ValueLabel="True">
+      <Condition Expression="HasCategory('程序包依赖项')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>
