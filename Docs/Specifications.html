@@ -64,7 +64,9 @@
                 n.Name.StartsWith(Name)－－相当于A%<br />
                 n.Name.EndsWith(Name)  －－相当于%A<br />
                 n.Name.IndexOf(Name)!=-1 --相当于%A%<br />
-                var listWhere = list.Where(n=>n.Name.StartsWith(Name)||n.Name.EndsWith(Name)||n.Name.IndexOf(Name)!=-1);<br />
+                var listWhere = list.Where(n=>n.Name.StartsWith(Name)||
+                n.Name.EndsWith(Name)||<br />
+                n.Name.IndexOf(Name)!=-1);<br />
                 或<br />
                 var listWhere = list.Where(n=>n.Name.Contains(Name));<br />
             </p>
