@@ -1,0 +1,75 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Value Object-LCL框架文档</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr>
+                <th colspan="3" align="center" style="text-align: center;">Value Object</th>
+            </tr>
+            <tr>
+                <td width="20%" align="left">
+                    <a accesskey="p" href="Entities.html">Prev</a>&nbsp;
+                </td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">
+                    &nbsp;
+                    <a accesskey="n" href="Repositories.html">Next</a>
+                </td>
+            </tr>
+        </table><hr />
+    </div>
+    <div class="document-contents">
+        <h3>值对象（Value Object）</h3>
+        <ul>
+            <li>对某个对象是什么不感兴趣，只关心它拥有的属性</li>
+            <li>用来描述领域的特殊方面、且没有标识符的一个对象，叫做值对象</li>
+            <li>能被简单的创建和丢弃，生命周期中不会被持久化</li>
+            <li>值对象可以被共享，值对象应该不可变</li>
+        </ul>
+        <p>LCL有一个<strong>ValueObject&lt;T&gt;</strong>基类，它可以继承，以便容易地创建值对象类型。示例地址值对象类型::</p>
+        <pre lang="cs">public class Address : <strong>ValueObject&lt;Address&gt;</strong>
+{
+    public Guid CityId { get; private set; } //A reference to a City entity.
+    public string Street { get; private set; }
+    public int Number { get; private set; }
+    public Address(Guid cityId, string street, int number)
+    {
+        CityId = cityId;
+        Street = street;
+        Number = number;
+    }
+}</pre>
+        <p>ValueObject基类覆盖相等操作符(和其他相关操作符和方法)，以比较两个值对象，并假设所有属性都相同，它们是相同的。所有这些测试都通过了:</p>
+        <pre lang="cs">var address1 = new Address(new Guid(&quot;21C67A65-ED5A-4512-AA29-66308FAAB5AF&quot;), &quot;Baris Manco Street&quot;, 42);
+var address2 = new Address(new Guid(&quot;21C67A65-ED5A-4512-AA29-66308FAAB5AF&quot;), &quot;Baris Manco Street&quot;, 42);
+Assert.Equal(address1, address2);
+Assert.Equal(address1.GetHashCode(), address2.GetHashCode());
+Assert.True(address1 == address2);
+Assert.False(address1 != address2);</pre>
+        <p>即使它们在内存中是不同的对象，它们在我们的域是相同的。.</p>
+        <h3>最佳实践</h3>
+        <p>这里，一些用于值对象的最佳实践:</p>
+        <ul>
+            <li>如果没有很好的理由将其设计为可变的，那么设计一个值对象是不可变的(就像上面的地址)。.</li>
+            <li>组成一个值对象的属性应该形成一个概念整体.</li>
+        </ul>
+    </div>
+
+    <div class="navfooter">
+        <hr /><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left"><a accesskey="p" href="Entities.html">Prev</a>&nbsp;</td>
+                <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a>&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="Repositories.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

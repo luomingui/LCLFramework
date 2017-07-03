@@ -1,0 +1,73 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Domain Service-LCL框架文档</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr>
+                <th colspan="3" align="center" style="text-align: center;">Domain Service</th>
+            </tr>
+            <tr>
+                <td width="20%" align="left">
+                    <a accesskey="p" href="Repositories.html">Prev</a>&nbsp;
+                </td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">
+                    &nbsp;
+                    <a accesskey="n" href="Specifications.html">Next</a>
+                </td>
+            </tr>
+        </table><hr />
+    </div>
+
+    <div class="document-contents">
+        <h3 id="DocIntro">领域服务（Domain Service）</h3>
+        <p>领域中的一些概念不太适合建模为对象，即归类到实体对象或值对象，因为它们本质上就是一些操作，一些动作，而不是事物。</p>
+        <pre>
+public partial interface IRoleService
+{
+    Setting GetRoleById(int roleId);    
+}
+</pre>
+        <p>实现IRoleService</p>
+        <pre>
+public partial class RoleService : IRoleService
+{       
+    private readonly IRepository&lt;Role&gt; _roleRepository;
+    private readonly ICacheManager _cacheManager;
+    public RoleService(ICacheManager cacheManager,IRepository&lt;Role&gt; roleRepository)
+    {
+        this._cacheManager = cacheManager;
+        this._roleRepository = roleRepository;
+    }
+    public Setting GetRoleById(int roleId)
+    {
+        return _roleRepository.GetById(roleId);
+    }
+}
+</pre>
+        <p><a href="Autofac.html">注入到ICO中</a></p>
+        <hr />
+        <p>使用RoleService</p>
+        <pre>
+            var server = RF.Service&lt;IRoleService&gt;();
+</pre>
+    </div>
+
+    <div class="navfooter">
+        <hr /><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left"><a accesskey="p" href="Repositories.html">Prev</a>&nbsp;</td>
+                <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a>&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="Specifications.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

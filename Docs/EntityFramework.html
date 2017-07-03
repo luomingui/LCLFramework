@@ -1,0 +1,102 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>EntityFramework-LCL框架文档</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr>
+                <th colspan="3" align="center" style="text-align: center;">EntityFramework</th>
+            </tr>
+            <tr>
+                <td width="20%" align="left">
+                    <a accesskey="p" href="XSRF-CSRF-Protection.html">Prev</a>&nbsp;
+                </td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">
+                    &nbsp;
+                    <a accesskey="n" href="MongoDB.html">Next</a>
+                </td>
+            </tr>
+        </table><hr />
+    </div>
+
+    <div class="document-contents">
+        <p>Nuget包在LCL中使用EntityFramework作为ORM LCL.Repositories.EntityFramework。您应该将它添加到您的应用程序中。最好在应用程序的一个独立的程序集(dll)中实现EntityFramework，并依赖于这个程序集的包。</p>
+        <h4>DbContext</h4>
+        <p>如您所知，要使用EntityFramework，您应该为您的应用程序定义一个DbContext类。下面显示了一个DbContext示例:</p>
+        <pre>
+    public class EFTestContext : BaseDbContext
+    {
+        #region Ctor
+        public EFTestContext()
+            : base("LCL")
+        {
+        }
+        public EFTestContext(string nameOrConnectionString)
+            : base(nameOrConnectionString)
+        {
+            EntityTypeConfigurations = Assembly.GetExecutingAssembly().GetTypes();
+        }
+        #endregion
+        #region Public Properties
+        public DbSet&lt;Role&gt; Roles
+        {
+            get { return Set&lt;Role&gt;(); }
+        }
+        #endregion
+ 
+        #region Protected Methods  
+        public override void LModelCreating(DbModelBuilder modelBuilder)
+        {
+          
+        }
+        #endregion
+    }
+</pre>
+        <p>它是一个常规的DbContext类</p>
+        <ul>
+            <li>它派生自BaseDbContext而不是DbContext.</li>
+            <li>
+                它应该有构造函数作为上面的示例(构造函数的参数名也应该是相同的)。解释:
+                <ul>
+                    <li>在web.config/app中有一个名为“默认”的连接字符串。这个构造函数不是LCL使用的，而是由EF命令行迁移工具命令(比如update-database)所使用。</li>
+                    <li>构造函数获得nameOrConnectionString，由LCL在运行时传递连接名或字符串。</li>
+                </ul>
+            </li>
+        </ul>
+        <p>
+            EntityFramework可以用传统的方式将类映射到数据库表。你甚至不需要做任何配置，除非你做一些自定义的东西。
+            在本例中，我们将实体映射到不同的表。默认情况下，任务实体映射到任务表。但我们把它改成了stst问起表。
+            我不喜欢用数据注释属性配置它，而是喜欢使用流畅的配置。你可以选择你喜欢的方式。
+        </p>
+        <h3>EF仓库(EntityFrameworkRepository)</h3>
+        <p>存储库用于从更高的层抽象数据访问。更多信息请参阅<a href="Repositories.html">存储库文档</a>。</p>
+        <pre>
+public class RoleRepository : EntityFrameworkRepository&lt;Role&gt;, IRoleRepository
+{
+    public RoleRepository(IRepositoryContext context)
+        : base(context)
+    { }
+}
+</pre>
+        <h4>数据仓库（Data Stores）</h4>
+        <p>由于LCL与EntityFramework进行了内置集成，因此它可以与数据存储实体框架支持。我们的免费启动模板是用来与Sql Server一起工作的，但是您可以修改它们以使用不同的数据存储。</p>
+    </div>
+
+    <div class="navfooter">
+        <hr /><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left"><a accesskey="p" href="XSRF-CSRF-Protection.html">Prev</a>&nbsp;</td>
+                <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a>&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="MongoDB.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

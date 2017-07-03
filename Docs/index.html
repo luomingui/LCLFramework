@@ -1,210 +1,108 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<html>
 <head>
-    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <title>LCL框架文档</title>
-    <link rel="stylesheet" type="text/css" href="res/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="res/css/main.css" />
-    <script src="res/js/jquery-latest.min.js" type="text/javascript" charset="utf-8"></script>
-    <style type="text/css">
-        #header_box {
-            display: block;
-            height: 68px;
-            padding: 0px 15px;
-            background: #2e2f2f;
-        }
-
-        #logo {
-            float: left;
-            width: 280px;
-            height: 68px;
-        }
-
-        #topsearch {
-            width: 246px;
-            height: 26px;
-            border: 1px #F8F8F8 solid;
-            background: #F1F1F1;
-            position: absolute;
-            left: 280px;
-            top: 22px;
-        }
-
-        #top_nav {
-            position: absolute;
-            right: 8px;
-            top: 25px;
-            width: auto;
-            line-height: 18px;
-            text-align: right;
-        }
-
-        #topsearch .search_input {
-            width: 216px;
-            height: 26px;
-            background: none;
-            border: none;
-            padding: 0px;
-            line-height: 26px;
-            float: left;
-        }
-
-        #topsearch .search_btn {
-            width: 30px;
-            height: 26px;
-            background: url(/Template/pc/doc/static/images/search_btn.jpg) no-repeat;
-            border: none;
-            padding: 0px;
-            cursor: pointer;
-            float: left;
-        }
-
-        #top_nav a {
-            color: #FFF;
-            font-size: 14px;
-            margin: 0px 10px;
-        }
-    </style>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+    <link rel="home" href="index.html" title="LCL Framework Reference Guide" />
 </head>
-<body>
-    <!--<div id="header_box">
-        <div id="logo">LCLFramework 在线帮助 </div>
-    </div>-->
-    <div class="Bookcontent">
-        <div class="bookleft">
-            <div class="logo"><span>LCL框架文档</span></div>
-            <div class="dl up">
-                <div class="dt">概览<i></i></div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">介绍 </a>
+<body class="firstpage" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr><th colspan="3" align="center" style="text-align: center;">LCL框架文档</th></tr>
+            <tr>
+                <td width="20%" align="left">&nbsp;</td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">&nbsp;<a accesskey="n" href="boot-documentation.html">Next</a></td>
+            </tr>
+        </table>
+        <hr />
+    </div>
+    <div lang="en" class="book">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h1 class="title"><a name="d0e3"></a>LCL框架文档</h1>
                 </div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">N层架构</a>
+                <div><p class="copyright">Copyright &copy; 2013-2017 </p></div><div>
+                    <div class="legalnotice">
+                        <a name="d0e98" href="#d0e98"></a><p>
+                            本文档您可以自己使用，或发布给别人，印刷版还是以电子形式都可以，但必须包含本版权声明，不可进行盈利。
+                        </p>
+                    </div>
                 </div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">启动配置</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Debugging.html" target="bookframe">调试</a>
-                </div>
-            </div>
-            <div class="dl up">
-                <div class="dt">通用结构<i></i></div>
-                <div class="dd">
-                    <a href="LCL/Autofac.html" target="bookframe">依赖注入</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Logging.html" target="bookframe">日志</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Caching.html" target="bookframe">缓存</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">设置配置</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/TypeFinder.html" target="bookframe">TypeFinder</a>
-                </div>
-            </div>
-            <div class="dl up">
-                <div class="dt">领域驱动<i></i></div>
-                <div class="dd">
-                    <a href="LCL/LCL-DDD.html" target="bookframe">LCL与DDD</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Entities.html" target="bookframe">Entities</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Value-Objects.html" target="bookframe">Value Objects</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Repositories.html" target="bookframe">Repositories</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Domain-Services.html" target="bookframe">Domain Services</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Specifications.html" target="bookframe">Specifications</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Unit-Of-Work.html" target="bookframe">Unit-Of-Work</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/EventBus-Domain-Events.html" target="bookframe">Domain Events</a>
-                </div>
-            </div>
-            <div class="dl up">
-                <div class="dt">ASP.NET MVC<i></i></div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">MVC Controllers</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">MVC Views</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/Localization.html" target="bookframe">Localization</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">CSRF/XSRF Protection</a>
-                </div>
-            </div>
-            <div class="dl up">
-                <div class="dt">基础设施层<i></i></div>
-                <div class="dd">
-                    <a href="LCL/EntityFramework.html" target="bookframe">EntityFramework集成</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/MongoDB.html" target="bookframe">MongoDB集成</a>
-                </div>
-            </div>
-            <div class="dl up">
-                <div class="dt">发布说明<i></i></div>
-                <div class="dd">
-                    <a href="LCL/Nuget-Packages.html" target="bookframe">Nuget包</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">更改日志和发布</a>
-                </div>
-            </div>
-            <div class="dl up">
-                <div class="dt">常见问题<i></i></div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">开发者常见问题</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/index.html" target="bookframe">二次开发视频教程</a>
-                </div>
-                <div class="dd">
-                    <a href="LCL/open-source.html" target="bookframe">开源组织</a>
-                </div>
-            </div>
+            </div><hr />
         </div>
-        <div class="bookright">
-            <iframe src="LCL/index.html" id="bookframe" name="bookframe" width="950" height="100%" frameborder="0" scrolling="yes" style="overflow: visible;"></iframe>
+        <!--
+           i ii iii iv v vi vii viii ix x xi xii
+        -->
+        <div class="toc">
+            <p><b>目录</b></p>
+            <dl class="toc">
+                <dt><span class="part"><a href="boot-documentation.html">I. 概览</a></span></dt>
+                <dd>
+                    <dl>
+                        <dt><span class="chapter"><a href="boot-documentation-about.html">介绍</a></span></dt>
+                        <dt><span class="chapter"><a href="n-layer.html">N层架构</a></span></dt>
+                        <dt><span class="chapter"><a href="startup-config.html">启动配置</a></span></dt>
+                        <dt><span class="chapter"><a href="Debugging.html">调试</a></span></dt>
+                    </dl>
+                </dd>
+                <dt><span class="part">II. 通用结构</span></dt>
+                <dd>
+                    <dl>
+                        <dt><span class="chapter"><a href="Autofac.html">依赖注入</a></span></dt>
+                        <dt><span class="chapter"><a href="Logging.html">日志</a></span></dt>
+                        <dt><span class="chapter"><a href="Caching.html">缓存</a></span></dt>
+                        <dt><span class="chapter"><a href="TypeFinder.html">TypeFinder</a></span></dt>
+                    </dl>
+                </dd>
+                <dt><span class="part"><a href="boot-ddd.html">III. 领域驱动</a></span></dt>
+                <dd>
+                    <dl>
+                        <dt><span class="chapter"><a href="LCL-DDD.html">LCL与DDD</a></span></dt>
+                        <dt><span class="chapter"><a href="Entities.html">Entities</a></span></dt>
+                        <dt><span class="chapter"><a href="Value-Objects.html">Value Objects</a></span></dt>
+                        <dt><span class="chapter"><a href="Repositories.html">Repositories</a></span></dt>
+                        <dt><span class="chapter"><a href="Domain-Services.html">Domain Services</a></span></dt>
+                        <dt><span class="chapter"><a href="Specifications.html">Specifications</a></span></dt>
+                        <dt><span class="chapter"><a href="Unit-Of-Work.html">Unit-Of-Work</a></span></dt>
+                        <dt><span class="chapter"><a href="EventBus-Domain-Events.html">Domain Events</a></span></dt>
+                    </dl>
+                </dd>
+                <dt><span class="part">IV. ASP.NET MVC</span></dt>
+                <dd>
+                    <dl>
+                        <dt><span class="chapter"><a href="Localization.html">Localization</a></span></dt>
+                        <dt><span class="chapter"><a href="MVC-Controllers.html">MVC Controllers</a></span></dt>
+                        <dt><span class="chapter"><a href="MVC-Views.html">MVC Views</a></span></dt>                      
+                        <dt><span class="chapter"><a href="XSRF-CSRF-Protection.html">CSRF/XSRF Protection</a></span></dt>
+                    </dl>
+                </dd>
+                <dt><span class="part">V. 基础设施层</span></dt>
+                <dd>
+                    <dl>
+                        <dt><span class="chapter"><a href="EntityFramework.html">EntityFramework集成</a></span></dt>
+                        <dt><span class="chapter"><a href="MongoDB.html">MongoDB集成</a></span></dt>
+                    </dl>
+                </dd>
+                <dt><span class="part">VI. 发布说明</span></dt>
+                <dd>
+                    <dl>
+                        <dt><a href="Nuget-Packages.html">Nuget包</a></dt>
+                    </dl>
+                </dd>
+            </dl>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            //自适应宽高
-            $("#bookframe,.bookleft,.bookright").height($(window).height() - 2);
-            $("#bookframe,.bookright").width($(window).width() - 210);
-            if (navigator.userAgent.toLowerCase().indexOf("chrome") > -1)
-                $(window).resize(function () {
-                    $("#bookframe,.bookleft,.bookright").height($(window).height() - 2);
-                    if (navigator.userAgent.toLowerCase().indexOf("chrome") > -1)
-                        $("#bookframe,.bookright").width($(window).width() - 210);
-                });
-
-            //导航显示隐藏
-            $(".bookleft .dt").click(function () {
-                if ($(this).parent().hasClass("up")) {
-                    $(this).parent().removeClass("up").siblings().addClass("up");
-                } else {
-                    $(this).parent().addClass("up");
-                }
-            })
-        });
-    </script>
+    <div class="navfooter">
+        <hr><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left">&nbsp;</td>
+                <td width="20%" align="center">&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="boot-documentation.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
 </body>
-
 </html>
