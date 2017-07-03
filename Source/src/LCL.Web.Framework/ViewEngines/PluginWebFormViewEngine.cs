@@ -1,6 +1,6 @@
-﻿using LCL.Core;
-using LCL.Core.Domain.Services;
-using LCL.Core.Plugins;
+﻿using LCL;
+using LCL.Domain.Services;
+using LCL.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

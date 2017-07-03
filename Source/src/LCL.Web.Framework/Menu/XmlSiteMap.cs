@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Web.Routing;
 using System.Xml;
-using LCL.Core;
-using LCL.Core.Infrastructure;
-using LCL.Core.Domain.Services;
+using LCL;
+using LCL.Infrastructure;
+using LCL.Domain.Services;
 
 namespace LCL.Web.Framework.Menu
 {

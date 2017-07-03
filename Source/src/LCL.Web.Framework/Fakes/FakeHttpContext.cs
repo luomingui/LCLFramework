@@ -5,7 +5,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.SessionState;
 
-namespace LCL.Core.Fakes
+namespace LCL.Web.Framework.Fakes
 {
     public class FakeHttpContext : HttpContextBase
     {

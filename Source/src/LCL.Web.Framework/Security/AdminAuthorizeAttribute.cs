@@ -1,4 +1,4 @@
-﻿using LCL.Core.Infrastructure;
+﻿using LCL.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

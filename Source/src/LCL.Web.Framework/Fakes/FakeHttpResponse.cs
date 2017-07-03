@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Web;
 
-namespace LCL.Core.Fakes
+namespace LCL.Web.Framework.Fakes
 {
     public class FakeHttpResponse : HttpResponseBase
     {

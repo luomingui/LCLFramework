@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Principal;
 
-namespace LCL.Core.Fakes
+namespace LCL.Web.Framework.Fakes
 {
     public class FakePrincipal : IPrincipal
     {

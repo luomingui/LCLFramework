@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Routing;
-using LCL.Core;
-using LCL.Core.Infrastructure;
+using LCL;
+using LCL.Infrastructure;
 
 namespace LCL.Web.Framework.Localization
 {

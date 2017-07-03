@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LCL.Core.Fakes
+namespace LCL.Web.Framework.Fakes
 {
     public class FakeHttpRequest : HttpRequestBase
     {

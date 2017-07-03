@@ -1,6 +1,6 @@
 ﻿#region Using...
-using LCL.Core.Domain.Services;
-using LCL.Core.Infrastructure;
+using LCL.Domain.Services;
+using LCL.Infrastructure;
 using LCL.Web.Framework.Localization;
 using System;
 using System.IO;

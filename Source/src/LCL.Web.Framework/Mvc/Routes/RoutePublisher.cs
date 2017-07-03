@@ -1,5 +1,5 @@
-﻿using LCL.Core.Infrastructure;
-using LCL.Core.Plugins;
+﻿using LCL.Infrastructure;
+using LCL.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;

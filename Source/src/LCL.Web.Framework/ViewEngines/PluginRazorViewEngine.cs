@@ -3,9 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Mvc;
-using LCL.Core.Plugins;
-using LCL.Core.Domain.Services;
-using LCL.Core;
+using LCL.Plugins;
+using LCL.Domain.Services;
+using LCL;
 
 namespace LCL.Web.Framework.ViewEngines
 {

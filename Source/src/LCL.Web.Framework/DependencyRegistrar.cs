@@ -8,16 +8,16 @@ using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
-using LCL.Core.Infrastructure.DependencyManagement;
-using LCL.Core.Infrastructure;
-using LCL.Core.Fakes;
-using LCL.Core.Configuration;
-using LCL.Core.Plugins;
+using LCL.Infrastructure.DependencyManagement;
+using LCL.Infrastructure;
+using LCL.Plugins;
 using LCL.Web.Framework.Mvc.Routes;
-using LCL.Core;
-using LCL.Core.Caching;
-using LCL.Core.LData;
-using LCL.Core.Domain.Services;
+using LCL;
+using LCL.Caching;
+using LCL.LData;
+using LCL.Domain.Services;
+using LCL.Config;
+using LCL.Web.Framework.Fakes;
 
 namespace LCL.Web.Framework
 {

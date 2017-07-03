@@ -1,6 +1,6 @@
 ﻿
 
-using LCL.Core.Plugins;
+using LCL.Plugins;
 namespace LCL.Web.Framework.ViewEngines
 {
     public interface IPluginViewEngineFactory

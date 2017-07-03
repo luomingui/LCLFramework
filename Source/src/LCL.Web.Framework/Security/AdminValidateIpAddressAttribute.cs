@@ -1,6 +1,6 @@
-﻿using LCL.Core;
-using LCL.Core.Domain.Entities;
-using LCL.Core.Infrastructure;
+﻿using LCL;
+using LCL.Domain.Entities;
+using LCL.Infrastructure;
 using System;
 using System.Web;
 using System.Web.Mvc;

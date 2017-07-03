@@ -1,8 +1,8 @@
-﻿using LCL.Core;
-using LCL.Core.Domain.Entities;
-using LCL.Core.Domain.Repositories;
-using LCL.Core.Domain.Specifications;
-using LCL.Core.Infrastructure;
+﻿using LCL;
+using LCL.Domain.Entities;
+using LCL.Domain.Repositories;
+using LCL.Domain.Specifications;
+using LCL.Infrastructure;
 using LCL.Web.Framework.Models;
 using LCL.Web.Framework.Mvc;
 using LCL.Web.Framework.Security;
@@ -42,7 +42,7 @@ namespace LCL.Web.Framework.Controllers
             int pageNumber = page.Value;
             int pageSize = rows.Value;
 
-            var modelList = this.Repository<TAggregateRoot>().FindAll(p => p.Id, SortOrder.Descending, pageNumber, pageSize);
+            var modelList = this.Repository<TAggregateRoot>().FindAll(p => p.ID, SortOrder.Descending, pageNumber, pageSize);
 
             var gridModel = new EasyUIGridModel<TAggregateRoot>();
             if (modelList != null)
@@ -62,8 +62,7 @@ namespace LCL.Web.Framework.Controllers
             if (!rows.HasValue) rows = 10;
             int pageNumber = page.Value;
             int pageSize = rows.Value;
-            var modelList = this.Repository<TAggregateRoot>().FindAll(p => p.Id, SortOrder.Descending, pageNumber, pageSize);
-
+            var modelList = this.Repository<TAggregateRoot>().FindAll(p => p.ID, SortOrder.Descending, pageNumber, pageSize);
             var json = new LJsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = modelList;
@@ -77,7 +76,7 @@ namespace LCL.Web.Framework.Controllers
             try
             {
                 var customerRepository = this.Repository<TAggregateRoot>();
-                customerRepository.Add(model);
+                customerRepository.Insert(model);
                 customerRepository.Context.Commit();
                 customerRepository.Context.Dispose();
             }
@@ -100,9 +99,9 @@ namespace LCL.Web.Framework.Controllers
             {
                 var customerRepository = this.Repository<TAggregateRoot>();
 
-                var entity = customerRepository.GetByKey(model.Id);
+                var entity = customerRepository.Get(model.ID);
                 if (entity != null)
-                    customerRepository.Remove(entity);
+                    customerRepository.Delete(entity);
                 customerRepository.Context.Commit();
                 customerRepository.Context.Dispose();
             }
@@ -133,15 +132,15 @@ namespace LCL.Web.Framework.Controllers
             return json;
         }
         [HttpPost]
-        public virtual LJsonResult AjaxDeleteList(IList<int> idList)
+        public virtual LJsonResult AjaxDeleteList(IList<Guid> idList)
         {
             var result = new LResult(true);
             try
             {
                 for (int i = 0; i < idList.Count; i++)
                 {
-                    var entity = this.Repository<TAggregateRoot>().GetByKey(idList[i]);
-                    this.Repository<TAggregateRoot>().Remove(entity);
+                    var entity = this.Repository<TAggregateRoot>().Get(idList[i]);
+                    this.Repository<TAggregateRoot>().Delete(entity);
                 }
             }
             catch (Exception)
@@ -153,12 +152,12 @@ namespace LCL.Web.Framework.Controllers
             json.Data = result;
             return json;
         }
-        public virtual LJsonResult AjaxGetByModel(int id)
+        public virtual LJsonResult AjaxGetByModel(Guid id)
         {
             var result = new LResult(true);
             try
             {
-                var model = this.Repository<TAggregateRoot>().GetByKey(id);
+                var model = this.Repository<TAggregateRoot>().Get(id);
                 result.Data = model;
             }
             catch (Exception)

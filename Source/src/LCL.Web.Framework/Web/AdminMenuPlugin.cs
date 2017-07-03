@@ -1,4 +1,4 @@
-﻿using LCL.Core.Plugins;
+﻿using LCL.Plugins;
 using LCL.Web.Framework.Menu;
 
 namespace LCL.Web.Framework.Web

@@ -1,4 +1,4 @@
-﻿using LCL.Core.Plugins;
+﻿using LCL.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Principal;
 
-namespace LCL.Core.Fakes
+namespace LCL.Web.Framework.Fakes
 {
     public class FakeIdentity : IIdentity
     {

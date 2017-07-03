@@ -1,5 +1,5 @@
-using LCL.Core.Domain.Services;
-using LCL.Core.Plugins;
+using LCL.Domain.Services;
+using LCL.Plugins;
 using System.Collections.Concurrent;
 using System.Web.Mvc;
 

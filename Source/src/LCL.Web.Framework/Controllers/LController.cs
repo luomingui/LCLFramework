@@ -1,8 +1,8 @@
-﻿using LCL.Core.Bus;
-using LCL.Core.Domain.Entities;
-using LCL.Core.Domain.Repositories;
-using LCL.Core.Domain.Services;
-using LCL.Core.Infrastructure;
+﻿using LCL.Bus;
+using LCL.Domain.Entities;
+using LCL.Domain.Repositories;
+using LCL.Domain.Services;
+using LCL.Infrastructure;
 using LCL.Web.Framework.Mvc;
 using LCL.Web.Framework.Security;
 using LCL.Web.Framework.Template;

@@ -1,5 +1,5 @@
-﻿using LCL.Core;
-using LCL.Core.Infrastructure;
+﻿using LCL;
+using LCL.Infrastructure;
 using LCL.Web.Framework.Security;
 using System;
 using System.Web.Mvc;

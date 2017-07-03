@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace LCL.Core.Fakes
+namespace LCL.Web.Framework.Fakes
 {
     public static class Extensions
     {
