@@ -5,10 +5,11 @@ $srcPath = Join-Path $slnPath "src"
 
 # List of projects
 $projects = (
-    "LCL.Core",
+    "LCL",
     "LCL.Repositories.EntityFramework",
     "LCL.Repositories.MongoDB",
-	"LCL.Repositories.NHibernate"
+	"LCL.Repositories.NHibernate",
+	"LCL.Web.Framework"
 )
 
 # Rebuild solution

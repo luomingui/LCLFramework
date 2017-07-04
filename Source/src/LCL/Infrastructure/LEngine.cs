@@ -13,6 +13,7 @@ using LCL.Caching;
 using LCL.Bus;
 using LCL.Domain.Events;
 using LCL.Config;
+using LCL.ObjectMapping;
 
 namespace LCL.Infrastructure
 {
@@ -70,7 +71,7 @@ namespace LCL.Infrastructure
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().InstancePerLifetimeScope();
             builder.RegisterType<DomainEvent>().As<IDomainEvent>().InstancePerLifetimeScope();
 
-
+            builder.RegisterType<IObjectMapper>().As<NullObjectMapper>().InstancePerLifetimeScope();
 
             builder.RegisterInstance(this).As<IEngine>().SingleInstance();
             builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();

@@ -5,6 +5,7 @@ using LCL.Domain.Repositories;
 using LCL.Domain.Services;
 using LCL.Infrastructure;
 using LCL.LData;
+using LCL.ObjectMapping;
 using LCL.Plugins;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,12 @@ namespace LCL
                 return Service<ITypeFinder>();
             }
         }
+        public static IObjectMapper ObjectMapper
+        { 
+            get{
+                return Service<IObjectMapper>();
+            } 
+        }
         public static LCL.Serialization.IObjectSerializer Serializer
         {
             get
@@ -95,5 +102,7 @@ namespace LCL
         {
             return new LIDbAccesser(connectionString, providerType);
         }
+
+      
     }
 }

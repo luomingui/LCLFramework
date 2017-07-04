@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AE1D84
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
-		nupkg\pack.ps1 = nupkg\pack.ps1
+		.nuget\pack.ps1 = .nuget\pack.ps1
 		.nuget\pushNupkg.bat = .nuget\pushNupkg.bat
 		.nuget\发布到nuget官网.bat = .nuget\发布到nuget官网.bat
 	EndProjectSection
