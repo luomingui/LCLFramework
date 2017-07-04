@@ -1,11 +1,15 @@
+﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Caching;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace LCL.Caching
+namespace LCL.Caching.Memory
 {
-    public partial class MemoryCacheManager : ICacheManager
+    public class MemoryCacheProvider : ICacheProvider
     {
         protected ObjectCache Cache
         {
@@ -26,10 +30,6 @@ namespace LCL.Caching
             var policy = new CacheItemPolicy();
             policy.AbsoluteExpiration = DateTime.Now + TimeSpan.FromMinutes(cacheTime);
             Cache.Add(new CacheItem(key, data), policy);
-        }
-        public virtual bool IsSet(string key)
-        {
-            return (Cache.Contains(key));
         }
         public virtual void Remove(string key)
         {
@@ -53,6 +53,12 @@ namespace LCL.Caching
         {
             foreach (var item in Cache)
                 Remove(item.Key);
+        }
+
+
+        public bool Exists(string key)
+        {
+            return (Cache.Contains(key));
         }
     }
 }
