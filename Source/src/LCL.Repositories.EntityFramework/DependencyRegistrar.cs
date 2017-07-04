@@ -29,7 +29,6 @@ namespace LCL.Repositories.EntityFramework
             //builder.Register<BaseDbContext>(c => new BaseDbContext(dbset.ConnectionString)).As(typeof(IRepositoryContext)).InstancePerLifetimeScope();
   
 
-
             Logger.LogInfo(Order + " init plugin LCL.Repositories.EntityFramework");
         }
 

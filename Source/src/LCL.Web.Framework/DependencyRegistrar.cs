@@ -36,6 +36,9 @@ namespace LCL.Web.Framework
             //controllers
             builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
 
+            //web helper
+            builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
+
             ////work context
             //builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope();
             ////store context

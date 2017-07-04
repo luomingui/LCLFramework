@@ -8,6 +8,9 @@ using Autofac.Integration.Mvc;
 
 namespace LCL.Infrastructure.DependencyManagement
 {
+    /// <summary>
+    /// 容器管理类
+    /// </summary>
     public class ContainerManager
     {
         private readonly IContainer _container;

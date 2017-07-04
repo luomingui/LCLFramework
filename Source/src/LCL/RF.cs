@@ -50,11 +50,11 @@ namespace LCL
                 return Service<LConfig>();
             }
         }
-        public static ICacheManager Cache
+        public static CacheManager Cache
         {
             get
             {
-                return Service<ICacheManager>();
+                return Singleton<CacheManager>.Instance;
             }
         }
         public static ISettingService Setting

@@ -14,6 +14,7 @@ using LCL.Bus;
 using LCL.Domain.Events;
 using LCL.Config;
 using LCL.ObjectMapping;
+using LCL.Caching.Memory;
 
 namespace LCL.Infrastructure
 {
@@ -55,15 +56,11 @@ namespace LCL.Infrastructure
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
             builder.RegisterType<RepositoryContext>().As<IRepositoryContext>().InstancePerLifetimeScope();
 
-            //web helper
-            builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
-
             //plugins
             builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerLifetimeScope();
 
             //cache manager
-            builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().Named<ICacheManager>("lcl_cache_static").SingleInstance();
-            builder.RegisterType<PerRequestCacheManager>().As<ICacheManager>().Named<ICacheManager>("lcl_cache_per_request").InstancePerLifetimeScope();
+            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>().Named<ICacheProvider>("lcl_cache_static").SingleInstance();
 
             //event bus
             builder.RegisterType<EventBus>().As<IEventBus>().InstancePerLifetimeScope();
@@ -71,7 +68,6 @@ namespace LCL.Infrastructure
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().InstancePerLifetimeScope();
             builder.RegisterType<DomainEvent>().As<IDomainEvent>().InstancePerLifetimeScope();
 
-            builder.RegisterType<IObjectMapper>().As<NullObjectMapper>().InstancePerLifetimeScope();
 
             builder.RegisterInstance(this).As<IEngine>().SingleInstance();
             builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
@@ -91,8 +87,8 @@ namespace LCL.Infrastructure
 
             this._containerManager = new ContainerManager(container);
 
-            //set dependency resolver
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            //设置依赖项解析器
+           // DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
         #endregion

@@ -68,18 +68,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-   <Compile Include="..\_Items\SharedAssemblyInfo.cs">
+    <Compile Include="..\_Items\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Application\ApplicationService.cs" />
-    <Compile Include="Caching\Extensions.cs" />
-    <Compile Include="Caching\ICacheManager.cs" />
-    <Compile Include="Caching\MemoryCacheManager.cs" />
-    <Compile Include="Caching\NullCache.cs" />
-    <Compile Include="Caching\PerRequestCacheManager.cs" />
+    <Compile Include="Caching\CacheExtensions.cs" />
+    <Compile Include="Caching\CacheManager.cs" />
+    <Compile Include="Caching\CachingAttribute.cs" />
+    <Compile Include="Caching\CachingMethod.cs" />
+    <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Caching\Memory\MemoryCacheProvider.cs" />
     <Compile Include="Communication\IApplicationServiceContract.cs" />
     <Compile Include="Domain\Entities\AggregateRoot.cs" />
     <Compile Include="Domain\Specifications\SpecificationExtensions.cs" />

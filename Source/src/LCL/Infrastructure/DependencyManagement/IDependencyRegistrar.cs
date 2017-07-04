@@ -3,7 +3,7 @@
 namespace LCL.Infrastructure.DependencyManagement
 {
     /// <summary>
-    /// 依赖注册
+    /// 容器注册类
     /// </summary>
     public interface IDependencyRegistrar
     {
