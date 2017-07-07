@@ -84,6 +84,9 @@
     <Compile Include="Communication\IApplicationServiceContract.cs" />
     <Compile Include="Domain\Entities\AggregateRoot.cs" />
     <Compile Include="Domain\Specifications\SpecificationExtensions.cs" />
+    <Compile Include="Domain\Uow\DataFilterConfiguration.cs" />
+    <Compile Include="Domain\Uow\LclDataFilters.cs" />
+    <Compile Include="Domain\Uow\UnitOfWorkOptions.cs" />
     <Compile Include="Events\Bus\EventBus.cs" />
     <Compile Include="Events\Bus\IBus.cs" />
     <Compile Include="Events\Bus\IEventBus.cs" />
@@ -94,6 +97,7 @@
     <Compile Include="Domain\Entities\IEntity.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\ByteExtensions.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DataTableConvertJson.cs" />
     <Compile Include="Extensions\DictionaryEx.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
@@ -105,6 +109,9 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\WhereExtension.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
+    <Compile Include="GuidGenerator\IGuidGenerator.cs" />
+    <Compile Include="GuidGenerator\RegularGuidGenerator.cs" />
+    <Compile Include="GuidGenerator\SequentialGuidGenerator.cs" />
     <Compile Include="NamedTypeSelector.cs" />
     <Compile Include="NameValue.cs" />
     <Compile Include="ObjectMapping\IObjectMapper.cs" />

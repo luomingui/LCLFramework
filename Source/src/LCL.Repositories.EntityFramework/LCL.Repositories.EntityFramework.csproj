@@ -49,6 +49,9 @@
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="EntityFramework.DynamicFilters, Version=2.8.1.0, Culture=neutral, PublicKeyToken=146423a1b8d60775, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.DynamicFilters.2.8.1\lib\net40\EntityFramework.DynamicFilters.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
@@ -57,6 +60,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
@@ -77,7 +81,8 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="BaseDbContext.cs" />
+    <Compile Include="Initializers\AutoMigrationsConfiguration.cs" />
+    <Compile Include="LclDbContext.cs" />
     <Compile Include="DataProvider\EfDataProviderManager.cs" />
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="EfStartUpTask.cs" />
@@ -95,6 +100,7 @@
     <Compile Include="DataProvider\SqlServerDataProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="key.snk" />
     <None Include="packages.config" />
   </ItemGroup>

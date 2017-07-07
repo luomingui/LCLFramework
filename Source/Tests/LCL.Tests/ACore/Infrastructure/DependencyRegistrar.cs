@@ -26,7 +26,7 @@ namespace LCL.Tests.ACore
             var dataProvider = efDataProviderManager.LoadDataProvider();
             dataProvider.InitConnectionFactory();
             builder.Register(c => dbset).As<DbSetting>();
-            builder.Register<BaseDbContext>(c => new EFTestContext(dbset.ConnectionString)).As(typeof(IRepositoryContext)).Named<IRepositoryContext>(dbset.Name).InstancePerLifetimeScope();
+            builder.Register<LclDbContext>(c => new EFTestContext(dbset.ConnectionString)).As(typeof(IRepositoryContext)).Named<IRepositoryContext>(dbset.Name).InstancePerLifetimeScope();
             builder.Register<IRepositoryContext>(c => new EFTestContext(dbset.ConnectionString)).Named<IRepositoryContext>(dbset.Name).InstancePerLifetimeScope();
 
             builder.RegisterType<CategorizationRepository>().As<ICategorizationRepository>().InstancePerLifetimeScope();

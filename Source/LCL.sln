@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AB22A45C-7D87-4678-9609-197DDA6FB262}"
 EndProject
@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Repositories.MongoDB", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C42AFA7-AEE1-4A95-9FEE-92DDCC89AC63}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		common.props = common.props
 		README.md = README.md
 		Settings.StyleCop = Settings.StyleCop
 		src\_Items\SharedAssemblyInfo.cs = src\_Items\SharedAssemblyInfo.cs
@@ -60,6 +62,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Repositories.MyBatis", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Web.Framework", "src\LCL.Web.Framework\LCL.Web.Framework.csproj", "{50F04942-5BC7-419D-95F2-8A98461C9EB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.AutoMapper", "src\LCL.AutoMapper\LCL.AutoMapper.csproj", "{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +102,10 @@ Global
 		{50F04942-5BC7-419D-95F2-8A98461C9EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50F04942-5BC7-419D-95F2-8A98461C9EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50F04942-5BC7-419D-95F2-8A98461C9EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

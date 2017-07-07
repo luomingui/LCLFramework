@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <Version>2.1.0-rc1</Version>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageIconUrl>http://files.cnblogs.com/files/luomingui/0128.gif</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/luomingui/LCLFramework</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/luomingui/LCLFramework/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/luomingui/LCLFramework</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.1.2" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

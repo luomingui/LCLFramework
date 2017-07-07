@@ -26,7 +26,6 @@ namespace LCL.Domain.Entities
         {
             return Name;
         }
-        public Guid ID { get; set; }
     }
     public partial  class SecuritySettings : ISettings
     {

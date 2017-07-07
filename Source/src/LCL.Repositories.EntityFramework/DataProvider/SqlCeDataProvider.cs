@@ -22,7 +22,7 @@ namespace LCL.Repositories.EntityFramework
         }
         public virtual void SetDatabaseInitializer()
         {
-            var initializer = new CreateCeDatabaseIfNotExists<BaseDbContext>();
+            var initializer = new CreateCeDatabaseIfNotExists<LclDbContext>();
             Database.SetInitializer(initializer);
         }
         public virtual bool StoredProceduredSupported

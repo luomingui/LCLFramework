@@ -54,6 +54,7 @@ namespace LCL.Infrastructure
             builder.RegisterType<LocalizationService>().As<ILocalizationService>().SingleInstance();
             builder.RegisterType<SettingService>().As<ISettingService>().SingleInstance();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>)).InstancePerLifetimeScope();
             builder.RegisterType<RepositoryContext>().As<IRepositoryContext>().InstancePerLifetimeScope();
 
             //plugins
@@ -72,7 +73,7 @@ namespace LCL.Infrastructure
             builder.RegisterInstance(this).As<IEngine>().SingleInstance();
             builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
             builder.Update(container);
-            
+
             //register dependencies provided by other assemblies
             builder = new ContainerBuilder();
             var drTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
@@ -88,7 +89,7 @@ namespace LCL.Infrastructure
             this._containerManager = new ContainerManager(container);
 
             //设置依赖项解析器
-           // DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            // DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
         #endregion
@@ -96,22 +97,16 @@ namespace LCL.Infrastructure
         #region Methods
         public void Initialize(LConfig config)
         {
-            try
-            {
-                Logger.LogInfo("LCL Initialize components and plugins in the nop environment. ");
-                //register dependencies
-                RegisterDependencies(config);
+            Logger.LogInfo("LCL Initialize components and plugins in the nop environment. ");
+            //register dependencies
+            RegisterDependencies(config);
 
-                //startup tasks
-                if (!config.IgnoreStartupTasks)
-                {
-                    RunStartupTasks();
-                }
-            }
-            catch (Exception ex)
+            //startup tasks
+            if (!config.IgnoreStartupTasks)
             {
-                Logger.LogError(ex.Message, ex);
+                RunStartupTasks();
             }
+
         }
         public T Resolve<T>() where T : class
         {

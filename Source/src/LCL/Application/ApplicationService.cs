@@ -6,9 +6,11 @@ using LCL.Domain.Entities;
 using LCL.Domain.Repositories;
 using LCL.Domain.Services;
 using LCL.Infrastructure;
+using LCL.ObjectMapping;
 using LCL.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace LCL.Application
@@ -21,6 +23,7 @@ namespace LCL.Application
         #region Private Fields
         private readonly IRepositoryContext context;
         private readonly IEventBus bus;
+        public IObjectMapper ObjectMapper { get; set; }
         #endregion
 
         #region Ctor
@@ -28,15 +31,11 @@ namespace LCL.Application
         {
             this.context = context;
             this.bus = bus;
+            ObjectMapper = NullObjectMapper.Instance;
         }
         #endregion
 
         #region Protected Properties
-        public static IRepository<TAggregateRoot> Repository<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot
-        {
-            var repo = RF.Service<IRepository<TAggregateRoot>>();
-            return repo;
-        }
         protected IEventBus EventBus
         {
             get { return this.bus; }
@@ -45,42 +44,42 @@ namespace LCL.Application
         {
             get { return this.context; }
         }
-        public static IWebHelper WebHelper
+        public IWebHelper WebHelper
         {
             get
             {
                 return RF.Service<IWebHelper>();
             }
         }
-        public static LConfig Config
+        public LConfig Config
         {
             get
             {
                 return RF.Service<LConfig>();
             }
         }
-        public static ISettingService Setting
+        public ISettingService Setting
         {
             get
             {
                 return RF.Service<ISettingService>();
             }
         }
-        public static ILocalizationService Localization
+        public ILocalizationService Localization
         {
             get
             {
                 return RF.Service<ILocalizationService>();
             }
         }
-        public static IPluginFinder PluginFinder
+        public IPluginFinder PluginFinder
         {
             get
             {
                 return RF.Service<IPluginFinder>();
             }
         }
-        public static ITypeFinder TypeFinder
+        public ITypeFinder TypeFinder
         {
             get
             {
@@ -90,6 +89,28 @@ namespace LCL.Application
         #endregion
 
         #region Protected Methods
+        public static IRepository<TAggregateRoot> Repository<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot
+        {
+            var repo = RF.Service<IRepository<TAggregateRoot>>();
+            return repo;
+        }
+        protected virtual string L(string name)
+        {
+            return Localization.GetResource(name);
+        }
+        protected string L(string name, params object[] args)
+        {
+            return Localization.GetString(name, args);
+        }
+
+        protected virtual string L(string name, CultureInfo culture)
+        {
+            return Localization.GetString(name, culture);
+        }
+        protected string L(string name, CultureInfo culture, params object[] args)
+        {
+            return Localization.GetString(name, culture, args);
+        }
         protected bool IsEmptyGuidString(string s)
         {
             if (string.IsNullOrWhiteSpace(s))
@@ -97,12 +118,10 @@ namespace LCL.Application
             Guid guid = new Guid(s);
             return guid == Guid.Empty;
         }
-
         protected override void Dispose(bool disposing)
         {
+
         }
-
-
         #endregion
       
     }

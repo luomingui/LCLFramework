@@ -19,9 +19,10 @@ namespace LCL.Repositories.EntityFramework
             builder.Register(x => new EfDataProviderManager(x.Resolve<DbSetting>())).As<BaseDataProviderManager>().InstancePerDependency();
             builder.Register(x => x.Resolve<BaseDataProviderManager>().LoadDataProvider()).As<IDataProvider>().InstancePerDependency();
             //上下文注入
-            builder.RegisterType<EntityFrameworkRepositoryContext>().As<IEntityFrameworkRepositoryContext>().InstancePerLifetimeScope();
+            builder.RegisterType<EntityFrameworkRepositoryContext>().As<IEntityFrameworkRepositoryContext>().Named("ef", typeof(IEntityFrameworkRepositoryContext)).InstancePerLifetimeScope();
             //仓储模式注入
-            builder.RegisterGeneric(typeof(EntityFrameworkRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(EntityFrameworkRepository<>)).As(typeof(IRepository<>)).Named("ef", typeof(IRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(EntityFrameworkRepository<,>)).As(typeof(IRepository<,>)).Named("ef", typeof(IRepository<>)).InstancePerLifetimeScope();
 
 
             ////DbContext注入

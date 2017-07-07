@@ -5,6 +5,7 @@ using LCL.Infrastructure;
 using LCL.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,25 @@ namespace LCL.Domain.Services
 {
     public static class LocalizationExtensions
     {
+
+        public static string GetString(this ILocalizationService source, string name, params object[] args)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            return string.Format(source.GetString(name), args);
+        }
+        public static string GetString(this ILocalizationService source, string name, CultureInfo culture, params object[] args)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            return string.Format(source.GetString(name, culture), args);
+        }
         public static void AddOrUpdatePluginLocaleResource(this BasePlugin plugin, string resourceName, string resourceValue)
         {
             if (plugin == null)

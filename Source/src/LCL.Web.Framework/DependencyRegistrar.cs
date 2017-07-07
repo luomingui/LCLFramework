@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -10,11 +9,7 @@ using Autofac.Core;
 using Autofac.Integration.Mvc;
 using LCL.Infrastructure.DependencyManagement;
 using LCL.Infrastructure;
-using LCL.Plugins;
 using LCL.Web.Framework.Mvc.Routes;
-using LCL;
-using LCL.Caching;
-using LCL.LData;
 using LCL.Domain.Services;
 using LCL.Config;
 using LCL.Web.Framework.Fakes;

@@ -94,7 +94,7 @@ namespace LCL.Repositories.EntityFramework
             //use webHelper.MapPath instead of HostingEnvironment.MapPath which is not available in unit tests
             customCommands.AddRange(ParseCommands(HostingEnvironment.MapPath("~/App_Data/SqlServer.StoredProcedures.sql"), false));
 
-            var initializer = new CreateTablesIfNotExist<BaseDbContext>(tablesToValidate, customCommands.ToArray());
+            var initializer = new CreateTablesIfNotExist<LclDbContext>(tablesToValidate, customCommands.ToArray());
             Database.SetInitializer(initializer);
         }
         public virtual bool StoredProceduredSupported

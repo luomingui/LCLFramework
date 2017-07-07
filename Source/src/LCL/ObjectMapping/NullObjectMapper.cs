@@ -1,6 +1,4 @@
 
-using LCL.ObjectMapping;
-
 namespace LCL.ObjectMapping
 {
     public sealed class NullObjectMapper : IObjectMapper

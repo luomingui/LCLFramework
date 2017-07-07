@@ -1,0 +1,34 @@
+configuration: Release
+version: 2.1.0-beta{build}
+image: Visual Studio 2017
+
+nuget:
+  disable_publish_on_pr: true
+
+before_build:
+- cmd: set PATH=D:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin;%PATH%
+- cmd: nuget install nuget.commandline -source https://dotnet.myget.org/F/nuget-build -prerelease -excludeversion
+- cmd: set PATH=%appveyor_build_folder%\NuGet.CommandLine\tools;%PATH%
+- cmd: dotnet.exe restore
+
+after_build:
+- ps: >-
+    $versionSuffix=(Get-Item Env:APPVEYOR_BUILD_NUMBER).Value
+    
+    Set-Location "nupkg"
+    
+    .\pack.ps1 -versionSuffix "$versionSuffix"
+
+build:
+  verbosity: minimal
+
+pull_requests:  
+  do_not_increment_build_number: true
+
+test:
+  assemblies:
+  - Tests\LCL.Tests\bin\Debug\LCL.Tests.dll
+
+artifacts:
+- path: nupkg\*.nupkg
+  name: nuget-packages

@@ -15,7 +15,7 @@ using LCL.Tests.Domain.Model;
 
 namespace LCL.Tests.ACore
 {
-    public class EFTestContext : BaseDbContext
+    public class EFTestContext : LclDbContext
     {
         #region Ctor
         public EFTestContext()
