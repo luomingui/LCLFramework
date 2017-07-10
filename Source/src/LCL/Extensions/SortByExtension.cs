@@ -9,34 +9,34 @@ namespace LCL
     public static class SortByExtension
     {
         #region Internal Methods
-        public static IOrderedQueryable<TAggregateRoot> SortBy<TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-            where TAggregateRoot : IAggregateRoot
+        public static IOrderedQueryable<TEntity> SortBy<TEntity>(this IQueryable<TEntity> query, Expression<Func<TEntity, dynamic>> sortPredicate)
+            where TEntity : IEntity
         {
             return InvokeSortBy(query, sortPredicate, SortOrder.Ascending);
         }
-        public static IOrderedQueryable<TAggregateRoot> SortBy<TAggregateRoot, TPrimaryKey>(this IQueryable<TAggregateRoot> query,
-            Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-        where TAggregateRoot : IAggregateRoot<TPrimaryKey>
+        public static IOrderedQueryable<TEntity> SortBy<TEntity, TPrimaryKey>(this IQueryable<TEntity> query,
+            Expression<Func<TEntity, dynamic>> sortPredicate)
+        where TEntity : IEntity<TPrimaryKey>
         {
-            return InvokeSortBy<TAggregateRoot, TPrimaryKey>(query, sortPredicate, SortOrder.Ascending);
+            return InvokeSortBy<TEntity, TPrimaryKey>(query, sortPredicate, SortOrder.Ascending);
         }
 
-        public static IOrderedQueryable<TAggregateRoot> SortByDescending<TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-            where TAggregateRoot : IAggregateRoot
+        public static IOrderedQueryable<TEntity> SortByDescending<TEntity>(this IQueryable<TEntity> query, Expression<Func<TEntity, dynamic>> sortPredicate)
+            where TEntity : IEntity
         {
             return InvokeSortBy(query, sortPredicate, SortOrder.Descending);
         }
-        public static IOrderedQueryable<TAggregateRoot> SortByDescending<TAggregateRoot, TPrimaryKey>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-            where TAggregateRoot : IAggregateRoot<TPrimaryKey>
+        public static IOrderedQueryable<TEntity> SortByDescending<TEntity, TPrimaryKey>(this IQueryable<TEntity> query, Expression<Func<TEntity, dynamic>> sortPredicate)
+            where TEntity : IEntity<TPrimaryKey>
         {
-            return InvokeSortBy<TAggregateRoot, TPrimaryKey>(query, sortPredicate, SortOrder.Descending);
+            return InvokeSortBy<TEntity, TPrimaryKey>(query, sortPredicate, SortOrder.Descending);
         }
         #endregion
 
         #region Private Methods
-        private static IOrderedQueryable<TAggregateRoot> InvokeSortBy<TAggregateRoot>(IQueryable<TAggregateRoot> query,
-            Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
-            where TAggregateRoot : IAggregateRoot
+        private static IOrderedQueryable<TEntity> InvokeSortBy<TEntity>(IQueryable<TEntity> query,
+            Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
+            where TEntity : IEntity
         {
             var param = sortPredicate.Parameters[0];
             string propertyName = null;
@@ -65,7 +65,7 @@ namespace LCL
                 throw new InvalidOperationException(@"Cannot evaluate the type of property since the member expression 
                 represented by the sort predicate expression does not contain a PropertyInfo object.");
 
-            Type funcType = typeof(Func<,>).MakeGenericType(typeof(TAggregateRoot), propertyType);
+            Type funcType = typeof(Func<,>).MakeGenericType(typeof(TEntity), propertyType);
             LambdaExpression convertedExpression = Expression.Lambda(funcType,
                 Expression.Convert(Expression.Property(param, propertyName), propertyType), param);
 
@@ -74,13 +74,13 @@ namespace LCL
             var sortingMethod = sortingMethods.Where(sm => sm.Name == sortingMethodName &&
                 sm.GetParameters() != null &&
                 sm.GetParameters().Length == 2).First();
-            return (IOrderedQueryable<TAggregateRoot>)sortingMethod
-                .MakeGenericMethod(typeof(TAggregateRoot), propertyType)
+            return (IOrderedQueryable<TEntity>)sortingMethod
+                .MakeGenericMethod(typeof(TEntity), propertyType)
                 .Invoke(null, new object[] { query, convertedExpression });
         }
-        private static IOrderedQueryable<TAggregateRoot> InvokeSortBy<TAggregateRoot, TPrimaryKey>(IQueryable<TAggregateRoot> query,
-           Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
-           where TAggregateRoot : IAggregateRoot<TPrimaryKey>
+        private static IOrderedQueryable<TEntity> InvokeSortBy<TEntity, TPrimaryKey>(IQueryable<TEntity> query,
+           Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
+           where TEntity : IEntity<TPrimaryKey>
         {
             var param = sortPredicate.Parameters[0];
             string propertyName = null;
@@ -109,7 +109,7 @@ namespace LCL
                 throw new InvalidOperationException(@"Cannot evaluate the type of property since the member expression 
                 represented by the sort predicate expression does not contain a PropertyInfo object.");
 
-            Type funcType = typeof(Func<,>).MakeGenericType(typeof(TAggregateRoot), propertyType);
+            Type funcType = typeof(Func<,>).MakeGenericType(typeof(TEntity), propertyType);
             LambdaExpression convertedExpression = Expression.Lambda(funcType,
                 Expression.Convert(Expression.Property(param, propertyName), propertyType), param);
 
@@ -118,8 +118,8 @@ namespace LCL
             var sortingMethod = sortingMethods.Where(sm => sm.Name == sortingMethodName &&
                 sm.GetParameters() != null &&
                 sm.GetParameters().Length == 2).First();
-            return (IOrderedQueryable<TAggregateRoot>)sortingMethod
-                .MakeGenericMethod(typeof(TAggregateRoot), propertyType)
+            return (IOrderedQueryable<TEntity>)sortingMethod
+                .MakeGenericMethod(typeof(TEntity), propertyType)
                 .Invoke(null, new object[] { query, convertedExpression });
         }
 

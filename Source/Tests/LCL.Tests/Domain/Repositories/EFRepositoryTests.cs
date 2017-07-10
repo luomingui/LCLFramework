@@ -63,7 +63,6 @@ namespace LCL.Tests.Repositories.EntityFrameworkRepository
                 Email = "271391233@qq.com",
                 Password = "123456"
             };
-
             var customerRepository = RF.Service<IUserRepository>();
 
             customerRepository.Insert(customer);

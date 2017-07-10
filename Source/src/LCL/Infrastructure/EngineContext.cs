@@ -1,4 +1,5 @@
 ﻿using LCL.Config;
+using LCL.Config.Startup;
 using System;
 using System.Configuration;
 using System.Runtime.CompilerServices;
@@ -39,6 +40,8 @@ namespace LCL.Infrastructure
                 var config = ConfigurationManager.GetSection("LConfig") as LConfig;
                 Singleton<IEngine>.Instance = CreateEngineInstance(config);
                 Singleton<IEngine>.Instance.Initialize(config);
+
+                Singleton<LclStartupConfiguration>.Instance.Initialize();
             }
             return Singleton<IEngine>.Instance;
         }

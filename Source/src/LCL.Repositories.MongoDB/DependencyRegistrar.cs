@@ -12,20 +12,18 @@ namespace LCL.Repositories.MongoDB
     {
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
-            //data layer
-            builder.Register(x => x.Resolve<BaseDataProviderManager>().LoadDataProvider()).As<IDataProvider>().InstancePerDependency();
             //上下文注入
             builder.RegisterType<MongoDBRepositoryContext>().As<IMongoDBRepositoryContext>().Named("mongodb", typeof(IMongoDBRepositoryContext)).InstancePerLifetimeScope();
             //仓储模式注入
             builder.RegisterGeneric(typeof(MongoDBRepository<>)).As(typeof(IRepository<>)).Named("mongodb", typeof(IRepository<>)).InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(MongoDBRepository<,>)).As(typeof(IRepository<,>)).Named("mongodb", typeof(IRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(MongoDBRepository<,>)).As(typeof(IRepository<,>)).Named("mongodb", typeof(IRepository<,>)).InstancePerLifetimeScope();
 
             Logger.LogInfo(Order + " init plugin LCL.Repositories.MongoDB");
         }
 
         public int Order
         {
-            get { return -1; }
+            get { return -2; }
         }
     }
 }

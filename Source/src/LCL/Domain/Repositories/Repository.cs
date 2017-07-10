@@ -10,8 +10,8 @@ using System.Reflection;
 
 namespace LCL.Domain.Repositories
 {
-    public abstract class Repository<TAggregateRoot> : Repository<TAggregateRoot, Guid>, IRepository<TAggregateRoot>
-      where TAggregateRoot : class, IAggregateRoot
+    public abstract class Repository<TEntity> : Repository<TEntity, Guid>, IRepository<TEntity>
+      where TEntity : class, IEntity
     {
         #region Ctor
         public Repository(IRepositoryContext context)
@@ -22,8 +22,8 @@ namespace LCL.Domain.Repositories
         #endregion
     }
 
-    public abstract class Repository<TAggregateRoot, TPrimaryKey> : IRepository<TAggregateRoot, TPrimaryKey>
-      where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
+    public abstract class Repository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
+      where TEntity : class, IEntity<TPrimaryKey>
     {
         #region Private Fields
         private readonly IRepositoryContext context;
@@ -37,45 +37,45 @@ namespace LCL.Domain.Repositories
         #endregion
 
         #region Protected Methods
-        protected abstract IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder);
-        protected abstract PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize);
-        protected abstract IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
-        protected abstract PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
-        protected abstract TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification);
-        protected abstract TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
-        protected abstract bool DoExists(ISpecification<TAggregateRoot> specification);
+        protected abstract IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder);
+        protected abstract PagedResult<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize);
+        protected abstract IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
+        protected abstract PagedResult<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
+        protected abstract TEntity DoFind(ISpecification<TEntity> specification);
+        protected abstract TEntity DoFind(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
+        protected abstract bool DoExists(ISpecification<TEntity> specification);
   
-        protected virtual IQueryable<TAggregateRoot> DoFindAll()
+        protected virtual IQueryable<TEntity> DoFindAll()
         {
-            return DoFindAll(new AnySpecification<TAggregateRoot>(), null, SortOrder.Unspecified);
+            return DoFindAll(new AnySpecification<TEntity>(), null, SortOrder.Unspecified);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        protected virtual IQueryable<TEntity> DoFindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
         {
-            return DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder);
+            return DoFindAll(new AnySpecification<TEntity>(), sortPredicate, sortOrder);
         }
-        protected virtual PagedResult<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        protected virtual PagedResult<TEntity> DoFindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
-            return DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, pageNumber, pageSize);
+            return DoFindAll(new AnySpecification<TEntity>(), sortPredicate, sortOrder, pageNumber, pageSize);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification)
+        protected virtual IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification)
         {
             return DoFindAll(specification, null, SortOrder.Unspecified);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected virtual IQueryable<TEntity> DoFindAll(params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
-            return DoFindAll(new AnySpecification<TAggregateRoot>(), null, SortOrder.Unspecified, eagerLoadingProperties);
+            return DoFindAll(new AnySpecification<TEntity>(), null, SortOrder.Unspecified, eagerLoadingProperties);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected virtual IQueryable<TEntity> DoFindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
-            return DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, eagerLoadingProperties);
+            return DoFindAll(new AnySpecification<TEntity>(), sortPredicate, sortOrder, eagerLoadingProperties);
         }
-        protected virtual PagedResult<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected virtual PagedResult<TEntity> DoFindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
-            return DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
+            return DoFindAll(new AnySpecification<TEntity>(), sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
         }
-        protected virtual IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected virtual IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
-            return DoFindAll(new AnySpecification<TAggregateRoot>(), null, SortOrder.Unspecified, eagerLoadingProperties);
+            return DoFindAll(new AnySpecification<TEntity>(), null, SortOrder.Unspecified, eagerLoadingProperties);
         }
 
         #endregion
@@ -87,27 +87,27 @@ namespace LCL.Domain.Repositories
         }
 
         #region Insert
-        protected abstract TAggregateRoot DoInsert(TAggregateRoot entity);
+        protected abstract TEntity DoInsert(TEntity entity);
 
-        public virtual TAggregateRoot Insert(TAggregateRoot entity)
+        public virtual TEntity Insert(TEntity entity)
         {
             return this.DoInsert(entity);
         }
-        public virtual Task<TAggregateRoot> InsertAsync(TAggregateRoot entity)
+        public virtual Task<TEntity> InsertAsync(TEntity entity)
         {
             return Task.FromResult(Insert(entity));
         }
 
-        public virtual TPrimaryKey InsertAndGetId(TAggregateRoot entity)
+        public virtual TPrimaryKey InsertAndGetId(TEntity entity)
         {
             return Insert(entity).ID;
         }
 
-        public virtual Task<TPrimaryKey> InsertAndGetIdAsync(TAggregateRoot entity)
+        public virtual Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity)
         {
             return Task.FromResult(InsertAndGetId(entity));
         }
-        public virtual TAggregateRoot InsertOrUpdate(TAggregateRoot entity)
+        public virtual TEntity InsertOrUpdate(TEntity entity)
         {
             return entity.IsTransient()
                 ? Insert(entity)
@@ -116,24 +116,24 @@ namespace LCL.Domain.Repositories
         #endregion   
 
         #region Update
-        protected abstract TAggregateRoot DoUpdate(TAggregateRoot entity);
-        public virtual TAggregateRoot Update(TAggregateRoot entity)
+        protected abstract TEntity DoUpdate(TEntity entity);
+        public virtual TEntity Update(TEntity entity)
         {
             return this.DoUpdate(entity);
         }
-        public virtual Task<TAggregateRoot> UpdateAsync(TAggregateRoot entity)
+        public virtual Task<TEntity> UpdateAsync(TEntity entity)
         {
             return Task.FromResult(Update(entity));
         }
 
-        public virtual TAggregateRoot Update(TPrimaryKey id, Action<TAggregateRoot> updateAction)
+        public virtual TEntity Update(TPrimaryKey id, Action<TEntity> updateAction)
         {
             var entity = Get(id);
             updateAction(entity);
             return entity;
         }
 
-        public virtual async Task<TAggregateRoot> UpdateAsync(TPrimaryKey id, Func<TAggregateRoot, Task> updateAction)
+        public virtual async Task<TEntity> UpdateAsync(TPrimaryKey id, Func<TEntity, Task> updateAction)
         {
             var entity = await GetAsync(id);
             await updateAction(entity);
@@ -144,12 +144,12 @@ namespace LCL.Domain.Repositories
 
         #region delete
 
-        protected abstract void DoDelete(TAggregateRoot entity);
-        public virtual void Delete(TAggregateRoot entity)
+        protected abstract void DoDelete(TEntity entity);
+        public virtual void Delete(TEntity entity)
         {
             this.DoDelete(entity);
         }
-        public virtual Task DeleteAsync(TAggregateRoot entity)
+        public virtual Task DeleteAsync(TEntity entity)
         {
             Delete(entity);
             return Task.FromResult(0);
@@ -166,7 +166,7 @@ namespace LCL.Domain.Repositories
             return Task.FromResult(0);
         }
 
-        public virtual void Delete(Expression<Func<TAggregateRoot, bool>> predicate)
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             foreach (var entity in FindAll().Where(predicate).ToList())
             {
@@ -174,7 +174,7 @@ namespace LCL.Domain.Repositories
             }
         }
 
-        public virtual Task DeleteAsync(Expression<Func<TAggregateRoot, bool>> predicate)
+        public virtual Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
         {
             Delete(predicate);
             return Task.FromResult(0);
@@ -182,91 +182,91 @@ namespace LCL.Domain.Repositories
         #endregion
 
         #region Select/Get/Query  
-        public TAggregateRoot Get(TPrimaryKey id)
+        public TEntity Get(TPrimaryKey id)
         {
             var entity = Find(id);
             if (entity == null)
             {
-                throw new LException(typeof(TAggregateRoot), id);
+                throw new LException(typeof(TEntity), id);
             }
             return entity;
         }
-        public virtual async Task<TAggregateRoot> GetAsync(TPrimaryKey id)
+        public virtual async Task<TEntity> GetAsync(TPrimaryKey id)
         {
             var entity = await FindAsync(id);
             if (entity == null)
             {
-                throw new LException(typeof(TAggregateRoot), id);
+                throw new LException(typeof(TEntity), id);
             }
 
             return entity;
         }
-        public IQueryable<TAggregateRoot> FindAll()
+        public IQueryable<TEntity> FindAll()
         {
             return this.DoFindAll();
         }
-        public virtual Task<List<TAggregateRoot>> FindAllAsync()
+        public virtual Task<List<TEntity>> FindAllAsync()
         {
             return Task.FromResult(FindAll().ToList());
         }
-        public IQueryable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        public IQueryable<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
         {
             return this.DoFindAll(sortPredicate, sortOrder);
         }
-        public IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification)
+        public IQueryable<TEntity> FindAll(ISpecification<TEntity> specification)
         {
             return this.DoFindAll(specification);
         }
-        public IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        public IQueryable<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder);
         }
-        public PagedResult<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        public PagedResult<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return this.DoFindAll(sortPredicate, sortOrder, pageNumber, pageSize);
         }
-        public PagedResult<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        public PagedResult<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
-        public IQueryable<TAggregateRoot> FindAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public IQueryable<TEntity> FindAll(params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(eagerLoadingProperties);
         }
-        public IQueryable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public IQueryable<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(sortPredicate, sortOrder, eagerLoadingProperties);
         }
-        public PagedResult<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public PagedResult<TEntity> FindAll(Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
         }
-        public IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public IQueryable<TEntity> FindAll(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, eagerLoadingProperties);
         }
-        public IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public IQueryable<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, eagerLoadingProperties);
         }
-        public PagedResult<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public PagedResult<TEntity> FindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
         }
-        public virtual T Query<T>(Func<IQueryable<TAggregateRoot>, T> queryMethod)
+        public virtual T Query<T>(Func<IQueryable<TEntity>, T> queryMethod)
         {
             return queryMethod(FindAll());
         }
         
-        public TAggregateRoot Find(ISpecification<TAggregateRoot> specification)
+        public TEntity Find(ISpecification<TEntity> specification)
         {
             return this.DoFind(specification);
         }
-        public TAggregateRoot Find(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public TEntity Find(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFind(specification, eagerLoadingProperties);
         }
-        public bool Exists(ISpecification<TAggregateRoot> specification)
+        public bool Exists(ISpecification<TEntity> specification)
         {
             return this.DoExists(specification);
         }
@@ -275,51 +275,51 @@ namespace LCL.Domain.Repositories
 
 
         #region Find
-        public virtual TAggregateRoot Find(TPrimaryKey id)
+        public virtual TEntity Find(TPrimaryKey id)
         {
             return FindAll().FirstOrDefault(CreateEqualityExpressionForId(id));
         }
-        public virtual Task<TAggregateRoot> FindAsync(TPrimaryKey id)
+        public virtual Task<TEntity> FindAsync(TPrimaryKey id)
         {
             return Task.FromResult(Find(id));
         }
 
-        public virtual TAggregateRoot Find(Expression<Func<TAggregateRoot, bool>> predicate)
+        public virtual TEntity Find(Expression<Func<TEntity, bool>> predicate)
         {
             return FindAll().FirstOrDefault(predicate);
         }
 
-        public virtual Task<TAggregateRoot> FindAsync(Expression<Func<TAggregateRoot, bool>> predicate)
+        public virtual Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return Task.FromResult(Find(predicate));
         }
 
         #endregion
 
-        protected virtual IQueryable<TAggregateRoot> ApplyFilters(IQueryable<TAggregateRoot> query)
+        protected virtual IQueryable<TEntity> ApplyFilters(IQueryable<TEntity> query)
         {
            // query = ApplyMultiTenancyFilter(query);
             query = ApplySoftDeleteFilter(query);
             return query;
         }
-        private IQueryable<TAggregateRoot> ApplySoftDeleteFilter(IQueryable<TAggregateRoot> query)
+        private IQueryable<TEntity> ApplySoftDeleteFilter(IQueryable<TEntity> query)
         {
-            if (typeof(ISoftDelete).GetTypeInfo().IsAssignableFrom(typeof(TAggregateRoot)))
+            if (typeof(ISoftDelete).GetTypeInfo().IsAssignableFrom(typeof(TEntity)))
             {
                 query = query.Where(e => !((ISoftDelete)e).IsDeleted);
             }
             return query;
         }
-        protected static Expression<Func<TAggregateRoot, bool>> CreateEqualityExpressionForId(TPrimaryKey id)
+        protected static Expression<Func<TEntity, bool>> CreateEqualityExpressionForId(TPrimaryKey id)
         {
-            var lambdaParam = Expression.Parameter(typeof(TAggregateRoot));
+            var lambdaParam = Expression.Parameter(typeof(TEntity));
 
             var lambdaBody = Expression.Equal(
                 Expression.PropertyOrField(lambdaParam, "ID"),
                 Expression.Constant(id, typeof(TPrimaryKey))
                 );
 
-            return Expression.Lambda<Func<TAggregateRoot, bool>>(lambdaBody, lambdaParam);
+            return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
         #endregion
 

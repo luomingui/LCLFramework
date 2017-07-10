@@ -25,22 +25,6 @@ using System.Resources;
 *******************************************************/
 
 /*
-4.5.3.0
-  ★删除接口 （LCL.DomainEntitys 换成 LCL ）
-  添加接口 （IAggregateRoot，权限加入开关）
-  重构（仓库加入 FindXXXX 方法并加入了缓存，取消了“数据门户”）
-4.5.1.0
-     BUG修改
-        LCL.Repositories.EntityFramework.EntityFrameworkRepository.RemoveHoldingEntityInContext 
-        EF Repository Update 实体状态问题 。
- 5.0.0.0
-     内部修改
-     * LCL.MvcExtensions.BaseRepoController.ErrorMsg
-     * 打印ModelState.Errors信息到日志中。
- 
- 6.1.0.0
-     内部修改
-     * 删除标记，添加时间，更新时间，没有物理删除。
-     * 加入默认仓库自动加载
+
        
 */

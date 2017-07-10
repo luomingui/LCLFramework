@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
     </Reference>
@@ -51,6 +54,7 @@
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="DatabaseSessionFactory.cs" />
+    <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="INHibernateContext.cs" />
     <Compile Include="NHibernateApplicationConfiguration.cs" />
     <Compile Include="NHibernateContext.cs" />

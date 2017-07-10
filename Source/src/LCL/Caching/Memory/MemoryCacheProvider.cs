@@ -22,6 +22,10 @@ namespace LCL.Caching.Memory
         {
             return (T)Cache[key];
         }
+        public object GetOrDefault(string key)
+        {
+            return Cache[key];
+        }
         public virtual void Set(string key, object data, int cacheTime)
         {
             if (data == null)

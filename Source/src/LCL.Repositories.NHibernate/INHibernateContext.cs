@@ -21,8 +21,8 @@ namespace LCL.Repositories.NHibernate
         /// </summary>
         /// <param name="key">The key of the aggregate root.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        TAggregateRoot Get<TAggregateRoot, TPrimaryKey>(TPrimaryKey id)
-            where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>;
+        TEntity Get<TEntity, TPrimaryKey>(TPrimaryKey id)
+            where TEntity : class, IEntity<TPrimaryKey>;
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -30,8 +30,8 @@ namespace LCL.Repositories.NHibernate
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        IQueryable<TAggregateRoot> FindAll<TAggregateRoot, TPrimaryKey>(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
-            where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>;
+        IQueryable<TEntity> FindAll<TEntity, TPrimaryKey>(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
+            where TEntity : class, IEntity<TPrimaryKey>;
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -41,15 +41,15 @@ namespace LCL.Repositories.NHibernate
         /// <param name="pageNumber">The number of objects per page.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>The aggregate roots.</returns>
-        PagedResult<TAggregateRoot> FindAll<TAggregateRoot, TPrimaryKey>(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
-            where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>;
+        PagedResult<TEntity> FindAll<TEntity, TPrimaryKey>(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+            where TEntity : class, IEntity<TPrimaryKey>;
         /// <summary>
         /// Finds a single aggregate root from the repository.
         /// </summary>
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        TAggregateRoot Find<TAggregateRoot, TPrimaryKey>(ISpecification<TAggregateRoot> specification)
-            where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>;
+        TEntity Find<TEntity, TPrimaryKey>(ISpecification<TEntity> specification)
+            where TEntity : class, IEntity<TPrimaryKey>;
 
         #endregion
     }

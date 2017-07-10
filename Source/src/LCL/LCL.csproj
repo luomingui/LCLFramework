@@ -82,6 +82,10 @@
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Caching\Memory\MemoryCacheProvider.cs" />
     <Compile Include="Communication\IApplicationServiceContract.cs" />
+    <Compile Include="Config\IDictionaryBasedConfig.cs" />
+    <Compile Include="Config\Startup\ILclStartupConfiguration.cs" />
+    <Compile Include="Config\Startup\IModuleConfigurations.cs" />
+    <Compile Include="Config\Startup\LclStartupConfigurationExtensions.cs" />
     <Compile Include="Domain\Entities\AggregateRoot.cs" />
     <Compile Include="Domain\Specifications\SpecificationExtensions.cs" />
     <Compile Include="Domain\Uow\DataFilterConfiguration.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DataTableConvertJson.cs" />
     <Compile Include="Extensions\DictionaryEx.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumExt.cs" />
     <Compile Include="Extensions\ExtensionsEx.cs" />

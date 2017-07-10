@@ -92,6 +92,8 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\LclMvcConfigurationExtensions.cs" />
+    <Compile Include="Configuration\ILclMvcConfiguration.cs" />
     <Compile Include="Controllers\LController!.cs" />
     <Compile Include="Controllers\LController.cs" />
     <Compile Include="DependencyRegistrar.cs" />

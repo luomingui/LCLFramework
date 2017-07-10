@@ -196,10 +196,10 @@ namespace LCL.Repositories.NHibernate
         /// </summary>
         /// <param name="key">The key of the aggregate root.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        public TAggregateRoot Get<TAggregateRoot, TPrimaryKey>(TPrimaryKey id) where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
+        public TEntity Get<TEntity, TPrimaryKey>(TPrimaryKey id) where TEntity : class, IEntity<TPrimaryKey>
         {
             EnsureSession();
-            var result = (TAggregateRoot)this.session.Get(typeof(TAggregateRoot), id);
+            var result = (TEntity)this.session.Get(typeof(TEntity), id);
             // Use of implicit transactions is discouraged.
             // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
             Commit();
@@ -212,11 +212,11 @@ namespace LCL.Repositories.NHibernate
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        public IQueryable<TAggregateRoot> FindAll<TAggregateRoot, TPrimaryKey>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
+        public IQueryable<TEntity> FindAll<TEntity, TPrimaryKey>(ISpecification<TEntity> specification, System.Linq.Expressions.Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder) where TEntity : class, IEntity<TPrimaryKey>
         {
             EnsureSession();
-            IQueryable<TAggregateRoot> result = null;
-            var query = this.session.Query<TAggregateRoot>()
+            IQueryable<TEntity> result = null;
+            var query = this.session.Query<TEntity>()
                 .Where(specification.GetExpression());
             switch (sortOrder)
             {
@@ -246,7 +246,7 @@ namespace LCL.Repositories.NHibernate
         /// <param name="pageNumber">The number of objects per page.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>The aggregate roots.</returns>
-        public PagedResult<TAggregateRoot> FindAll<TAggregateRoot, TPrimaryKey>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize) where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
+        public PagedResult<TEntity> FindAll<TEntity, TPrimaryKey>(ISpecification<TEntity> specification, System.Linq.Expressions.Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize) where TEntity : class, IEntity<TPrimaryKey>
         {
             EnsureSession();
             if (pageNumber <= 0)
@@ -256,15 +256,15 @@ namespace LCL.Repositories.NHibernate
             if (sortPredicate == null)
                 throw new ArgumentNullException("sortPredicate");
 
-            var query = this.session.Query<TAggregateRoot>()
+            var query = this.session.Query<TEntity>()
                 .Where(specification.GetExpression());
 
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             int totalCount = 0;
             int totalPages = 0;
-            List<TAggregateRoot> pagedData = null;
-            PagedResult<TAggregateRoot> result = null;
+            List<TEntity> pagedData = null;
+            PagedResult<TEntity> result = null;
 
             switch (sortOrder)
             {
@@ -272,13 +272,13 @@ namespace LCL.Repositories.NHibernate
                     totalCount = query.ToFutureValue(x => x.Count()).Value;
                     totalPages = (totalCount + pageSize - 1) / pageSize;
                     pagedData = query.OrderBy(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
-                    result = new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
+                    result = new PagedResult<TEntity>(totalCount, totalPages, pageSize, pageNumber, pagedData);
                     break;
                 case SortOrder.Descending:
                     totalCount = query.ToFutureValue(x => x.Count()).Value;
                     totalPages = (totalCount + pageSize - 1) / pageSize;
                     pagedData = query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
-                    result = new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
+                    result = new PagedResult<TEntity>(totalCount, totalPages, pageSize, pageNumber, pagedData);
                     break;
                 default:
                     break;
@@ -294,10 +294,10 @@ namespace LCL.Repositories.NHibernate
         /// </summary>
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        public TAggregateRoot Find<TAggregateRoot, TPrimaryKey>(ISpecification<TAggregateRoot> specification) where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
+        public TEntity Find<TEntity, TPrimaryKey>(ISpecification<TEntity> specification) where TEntity : class, IEntity<TPrimaryKey>
         {
             EnsureSession();
-            var result = this.session.Query<TAggregateRoot>().Where(specification.GetExpression()).FirstOrDefault();
+            var result = this.session.Query<TEntity>().Where(specification.GetExpression()).FirstOrDefault();
             // Use of implicit transactions is discouraged.
             // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
             Commit();

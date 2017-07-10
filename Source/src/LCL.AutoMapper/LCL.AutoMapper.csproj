@@ -46,9 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_Items\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
+      <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="AutoMapAttribute.cs" />
     <Compile Include="AutoMapAttributeBase.cs" />
     <Compile Include="AutoMapExtensions.cs" />
     <Compile Include="AutoMapFromAttribute.cs" />
+    <Compile Include="AutoMapperConfigurationExtensions.cs" />
     <Compile Include="AutoMapperObjectMapper.cs" />
     <Compile Include="AutoMapToAttribute.cs" />
     <Compile Include="DependencyRegistrar.cs" />

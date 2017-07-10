@@ -8,6 +8,7 @@ namespace LCL.Caching
     public interface ICacheProvider
     {
         #region Methods
+        object GetOrDefault(string key);
         T Get<T>(string key);
         void Set(string key, object data, int cacheTime);
         bool Exists(string key);

@@ -64,6 +64,12 @@ namespace LCL
                 return Service<ISettingService>();
             }
         }
+        public static ILclStartupConfiguration Configuration
+        {
+            get {
+                return Service<ILclStartupConfiguration>();
+            }
+        }
         public static ILocalizationService Localization
         {
             get
@@ -90,6 +96,13 @@ namespace LCL
             get{
                 return Service<IObjectMapper>();
             } 
+        }
+
+        public static IGuidGenerator Guid
+        {
+            get {
+                return Service<IGuidGenerator>();
+            }
         }
         public static LCL.Serialization.IObjectSerializer Serializer
         {

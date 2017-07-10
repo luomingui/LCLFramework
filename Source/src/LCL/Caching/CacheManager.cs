@@ -62,6 +62,10 @@ namespace LCL.Caching
         {
             return cacheProvider.Get<T>(key);
         }
+        public object GetOrDefault(string key)
+        {
+            return cacheProvider.GetOrDefault(key);
+        }
         /// <summary>
         /// 从缓存中移除对象。
         /// </summary>
@@ -86,5 +90,7 @@ namespace LCL.Caching
         {
             cacheProvider.Clear();
         }
+
+       
     }
 }

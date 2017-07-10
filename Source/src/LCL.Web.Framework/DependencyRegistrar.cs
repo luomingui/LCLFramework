@@ -13,6 +13,7 @@ using LCL.Web.Framework.Mvc.Routes;
 using LCL.Domain.Services;
 using LCL.Config;
 using LCL.Web.Framework.Fakes;
+using LCL.Web.Framework.Configuration;
 
 namespace LCL.Web.Framework
 {
@@ -41,7 +42,9 @@ namespace LCL.Web.Framework
 
             builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
 
-           
+
+            builder.RegisterType<LclMvcConfiguration>().As<ILclMvcConfiguration>().SingleInstance();
+
 
             System.Diagnostics.Debug.WriteLine(Order + " init LCL.Web.Framework");
         }

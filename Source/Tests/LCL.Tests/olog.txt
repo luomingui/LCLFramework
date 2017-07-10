@@ -65,3 +65,16 @@ The requested service 'LCL.Core.Bus.EventBus' has not been registered.
 To avoid this exception, either register a component to provide the service, 
 check for service registration using IsRegistered(), or use the ResolveOptional() 
 method to resolve an optional dependency.
+
+The type 'LCL.Tests.Domain.Events.GetUserOrdersEvent' 
+is not assignable to service 
+'LCL.Domain.Events.IDomainEventHandler`1[[LCL.Tests.Domain.Events.GetUserOrdersEvent, LCL.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+
+
+System.InvalidOperationException:
+“The type 'LCL.Repositories.EntityFramework.EntityFrameworkRepository`1' 
+does not implement the interface 'LCL.Domain.Repositories.IRepository`1'.”
+
+System.InvalidOperationException:“The type 'LCL.Repositories.MongoDB.
+MongoDBRepository`1' does not implement the interface 'LCL.Domain.
+Repositories.IRepository`1'.”

@@ -27,5 +27,23 @@ namespace LCL.Caching
                 return result;
             }
         }
+        public static TValue Get<TKey, TValue>(this ICacheProvider cache, TKey key, Func<TKey, TValue> factory)
+        {
+            return (TValue)cache.Get(key.ToString(), (k) => (object)factory(key));
+        }
+        public static TValue Get<TKey, TValue>(this ICacheProvider cache, TKey key, Func<TValue> factory)
+        {
+            return cache.Get(key, (k) => factory());
+        }
+        public static TValue GetOrDefault<TKey, TValue>(this ICacheProvider cache, TKey key)
+        {
+            var value = cache.GetOrDefault(key.ToString());
+            if (value == null)
+            {
+                return default(TValue);
+            }
+
+            return (TValue)value;
+        }
     }
 }

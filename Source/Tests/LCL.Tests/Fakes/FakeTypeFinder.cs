@@ -52,5 +52,29 @@ namespace LCL.Tests
         {
             return FindClassesOfType(typeof(T), onlyConcreteClasses);
         }
+
+        public Type[] Find(Func<Type, bool> predicate)
+        {
+            var result = new List<Type>();
+            var assemblies = GetAssemblies();
+            foreach (var a in assemblies)
+            {
+                Type[] types = null;
+                try
+                {
+                    types = a.GetTypes();
+                }
+                catch
+                {
+                }
+                if (types != null)
+                {
+                    result.AddRange(types.Where(predicate));
+                }
+            }
+
+            return result.ToArray();
+
+        }
     }
 }

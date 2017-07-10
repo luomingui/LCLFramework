@@ -12,8 +12,8 @@ using LCL;
 
 namespace LCL.Repositories.MongoDB
 {
-    public class MongoDBRepository<TAggregateRoot> : MongoDBRepository<TAggregateRoot, Guid>
-        where TAggregateRoot : class, IAggregateRoot
+    public class MongoDBRepository<TEntity> : MongoDBRepository<TEntity, Guid>
+        where TEntity : class, IEntity
     {
          #region Ctor
         public MongoDBRepository(IRepositoryContext context)
@@ -24,8 +24,8 @@ namespace LCL.Repositories.MongoDB
         #endregion
     }
 
-    public class MongoDBRepository<TAggregateRoot, TPrimaryKey> : Repository<TAggregateRoot, TPrimaryKey>
-    where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
+    public class MongoDBRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>
+    where TEntity : class, IEntity<TPrimaryKey>
     {
         #region Private Fields
         private readonly IMongoDBRepositoryContext mongoDBRepositoryContext;
@@ -43,15 +43,15 @@ namespace LCL.Repositories.MongoDB
         #endregion
 
         #region Protected Methods
-        protected override TAggregateRoot DoInsert(TAggregateRoot aggregateRoot)
+        protected override TEntity DoInsert(TEntity aggregateRoot)
         {
             mongoDBRepositoryContext.RegisterNew(aggregateRoot);
             return aggregateRoot;
         }
-        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        protected override IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder)
         {
-            var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
-            var query = collection.AsQueryable<TAggregateRoot>().Where(specification.GetExpression());
+            var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TEntity));
+            var query = collection.AsQueryable<TEntity>().Where(specification.GetExpression());
             if (sortPredicate != null)
             {
                 switch (sortOrder)
@@ -67,7 +67,7 @@ namespace LCL.Repositories.MongoDB
             return query;
         }
 
-        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        protected override PagedResult<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
@@ -76,8 +76,8 @@ namespace LCL.Repositories.MongoDB
             if (sortPredicate == null)
                 throw new ArgumentNullException("sortPredicate");
 
-            var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
-            var query = collection.AsQueryable<TAggregateRoot>().Where(specification.GetExpression());
+            var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TEntity));
+            var query = collection.AsQueryable<TEntity>().Where(specification.GetExpression());
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             int totalCount = query.Count();
@@ -88,10 +88,10 @@ namespace LCL.Repositories.MongoDB
                 {
                     case SortOrder.Ascending:
                         var pagedCollectionAscending = query.OrderBy(sortPredicate).Skip(skip).Take(take).ToList();
-                        return new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedCollectionAscending);
+                        return new PagedResult<TEntity>(totalCount, totalPages, pageSize, pageNumber, pagedCollectionAscending);
                     case SortOrder.Descending:
                         var pagedCollectionDescending = query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToList();
-                        return new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedCollectionDescending);
+                        return new PagedResult<TEntity>(totalCount, totalPages, pageSize, pageNumber, pagedCollectionDescending);
                     default:
                         break;
                 }
@@ -99,45 +99,45 @@ namespace LCL.Repositories.MongoDB
             return null;
         }
 
-        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override IQueryable<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder);
         }
 
-        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override PagedResult<TEntity> DoFindAll(ISpecification<TEntity> specification, Expression<Func<TEntity, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
 
-        protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification)
+        protected override TEntity DoFind(ISpecification<TEntity> specification)
         {
-            var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
-            return collection.AsQueryable<TAggregateRoot>().Where(specification.GetExpression()).FirstOrDefault();
+            var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TEntity));
+            return collection.AsQueryable<TEntity>().Where(specification.GetExpression()).FirstOrDefault();
         }
 
-        protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override TEntity DoFind(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFind(specification);
         }
 
-        protected override bool DoExists(ISpecification<TAggregateRoot> specification)
+        protected override bool DoExists(ISpecification<TEntity> specification)
         {
             return this.DoFind(specification) != null;
         }
 
-        protected override void DoDelete(TAggregateRoot aggregateRoot)
+        protected override void DoDelete(TEntity aggregateRoot)
         {
             mongoDBRepositoryContext.RegisterDeleted(aggregateRoot);
         }
 
-        protected override TAggregateRoot DoUpdate(TAggregateRoot aggregateRoot)
+        protected override TEntity DoUpdate(TEntity aggregateRoot)
         {
             mongoDBRepositoryContext.RegisterModified(aggregateRoot);
             return aggregateRoot;
         }
         public override void DoDelete(TPrimaryKey id)
         {    
-            var entity= this.FindAll().FirstOrDefault<TAggregateRoot>(ent => EqualityComparer<TPrimaryKey>.Default.Equals(ent.ID, id));
+            var entity= this.FindAll().FirstOrDefault<TEntity>(ent => EqualityComparer<TPrimaryKey>.Default.Equals(ent.ID, id));
             Delete(entity);
         }
         #endregion

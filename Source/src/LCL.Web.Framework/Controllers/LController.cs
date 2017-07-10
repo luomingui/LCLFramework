@@ -3,12 +3,14 @@ using LCL.Domain.Entities;
 using LCL.Domain.Repositories;
 using LCL.Domain.Services;
 using LCL.Infrastructure;
+using LCL.Web.Framework.Configuration;
 using LCL.Web.Framework.Mvc;
 using LCL.Web.Framework.Security;
 using LCL.Web.Framework.Template;
 using LCL.Web.Framework.UI;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,11 +26,11 @@ namespace LCL.Web.Framework.Controllers
     public class LController : Controller
     {
         private readonly Dictionary<Type, object> _services = new Dictionary<Type, object>();
+        public ILclMvcConfiguration LclMvcConfiguration { get; set; }
         public IEventBus EventBus { get; set; }
         protected LController()
         {
             ModelBinders.Binders.DefaultBinder = new NopModelBinder();
-           // EventBus = NullEventBus.Instance;
         }
         /// <summary>
         /// 获取服务。
@@ -61,6 +63,26 @@ namespace LCL.Web.Framework.Controllers
             //return new HttpUnauthorizedResult();
             return RedirectToAction("AccessDenied", "Security", new { pageUrl = this.Request.RawUrl });
         }
+
+
+        #region L
+        protected virtual string L(string name)
+        {
+            return RF.Localization.GetString(name);
+        }
+        protected string L(string name, params object[] args)
+        {
+            return RF.Localization.GetString(name, args);
+        }
+        protected virtual string L(string name, CultureInfo culture)
+        {
+            return RF.Localization.GetString(name, culture);
+        }
+        protected string L(string name, CultureInfo culture, params object[] args)
+        {
+            return RF.Localization.GetString(name, culture, args);
+        }
+        #endregion
 
         #region RenderPartialViewToString
         public virtual string RenderPartialViewToString()
@@ -149,5 +171,7 @@ namespace LCL.Web.Framework.Controllers
             }
         }
         #endregion
+
     }
 }
+

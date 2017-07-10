@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -58,7 +59,34 @@ namespace LCL.Infrastructure
         #endregion
 
         #region Methods
+        public Type[] Find(Func<Type, bool> predicate)
+        {
+            var result = new List<Type>();
+            var assemblies = GetAssemblies();
+            foreach (var a in assemblies)
+            {
+                Type[] types = null;
+                try
+                {
+                    types = a.GetTypes();
+                }
+                catch
+                {
+                    //Entity Framework 6 doesn't allow getting types (throws an exception)
+                    if (!ignoreReflectionErrors)
+                    {
+                        throw;
+                    }
+                }
+                if (types != null)
+                {
+                    result.AddRange(types.Where(predicate));
+                }
+            }
 
+            return result.ToArray();
+    
+        }
         public IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true)
         {
             return FindClassesOfType(typeof(T), onlyConcreteClasses);

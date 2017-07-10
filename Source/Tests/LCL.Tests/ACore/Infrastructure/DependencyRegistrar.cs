@@ -44,14 +44,15 @@ namespace LCL.Tests.ACore
             builder.RegisterType<SendEmailHandler>().As<IEventHandler<OrderConfirmedEvent>>().InstancePerLifetimeScope();
 
             // Domain Event Handlers
-            builder.RegisterType<GetUserOrdersEvent>().As<IDomainEventHandler<GetUserOrdersEvent>>().InstancePerLifetimeScope();
+            builder.RegisterType<GetUserOrdersEventHandler>().As<IDomainEventHandler<GetUserOrdersEvent>>().InstancePerLifetimeScope();
             builder.RegisterType<OrderDispatchedEventHandler>().As<IDomainEventHandler<OrderDispatchedEvent>>().InstancePerLifetimeScope();
             builder.RegisterType<OrderConfirmedEventHandler>().As<IDomainEventHandler<OrderConfirmedEvent>>().InstancePerLifetimeScope();
 
             // Event Aggregator
 
+
             // Server
-            builder.RegisterType<OrderService>().As<IOrderService>().InstancePerLifetimeScope();
+            //builder.RegisterType<OrderService>().As<IOrderService>().InstancePerLifetimeScope();
 
 
             System.Diagnostics.Debug.WriteLine(Order + " init plugin LCL.Plugin.EasyUI.UCenter");

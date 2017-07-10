@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using Autofac;
-using Autofac.Integration.Mvc;
 
 using LCL.Infrastructure.DependencyManagement;
 using LCL.Domain.Services;
@@ -13,8 +11,9 @@ using LCL.Caching;
 using LCL.Bus;
 using LCL.Domain.Events;
 using LCL.Config;
-using LCL.ObjectMapping;
 using LCL.Caching.Memory;
+using LCL.Config.Startup;
+using LCL.LData;
 
 namespace LCL.Infrastructure
 {
@@ -51,27 +50,31 @@ namespace LCL.Infrastructure
             var typeFinder = new WebAppTypeFinder(config);
             builder = new ContainerBuilder();
             builder.RegisterInstance(config).As<LConfig>().SingleInstance();
+            builder.RegisterInstance(this).As<IEngine>().SingleInstance();
+            builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
             builder.RegisterType<LocalizationService>().As<ILocalizationService>().SingleInstance();
             builder.RegisterType<SettingService>().As<ISettingService>().SingleInstance();
+            builder.RegisterType<SequentialGuidGenerator>().As<IGuidGenerator>().InstancePerLifetimeScope();
+
+            // DDD
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>)).InstancePerLifetimeScope();
             builder.RegisterType<RepositoryContext>().As<IRepositoryContext>().InstancePerLifetimeScope();
-
-            //plugins
-            builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerLifetimeScope();
-
-            //cache manager
-            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>().Named<ICacheProvider>("lcl_cache_static").SingleInstance();
-
-            //event bus
             builder.RegisterType<EventBus>().As<IEventBus>().InstancePerLifetimeScope();
-
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().InstancePerLifetimeScope();
             builder.RegisterType<DomainEvent>().As<IDomainEvent>().InstancePerLifetimeScope();
 
+            //plugins
+            builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerLifetimeScope();
+            builder.Register(x => x.Resolve<BaseDataProviderManager>().LoadDataProvider()).As<IDataProvider>().InstancePerDependency();
 
-            builder.RegisterInstance(this).As<IEngine>().SingleInstance();
-            builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
+            //cache manager
+            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>().Named<ICacheProvider>("lcl_cache_static").SingleInstance();
+            //config
+            builder.RegisterType<DictionaryBasedConfig>().As<IDictionaryBasedConfig>().InstancePerLifetimeScope();
+            builder.RegisterType<ModuleConfigurations>().As<IModuleConfigurations>().InstancePerLifetimeScope();
+            builder.RegisterType<LclStartupConfiguration>().As<ILclStartupConfiguration>().InstancePerLifetimeScope();
+           
             builder.Update(container);
 
             //register dependencies provided by other assemblies

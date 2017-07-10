@@ -11,6 +11,7 @@ namespace LCL.Infrastructure
     {
         IList<Assembly> GetAssemblies();
 
+        Type[] Find(Func<Type, bool> predicate);
         IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, bool onlyConcreteClasses = true);
 
         IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true);
