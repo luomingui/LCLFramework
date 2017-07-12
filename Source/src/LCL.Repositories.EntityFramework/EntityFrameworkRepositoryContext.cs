@@ -1,6 +1,7 @@
-﻿
+﻿using System.Linq;
+using LCL.Domain.Services;
 using LCL.Domain.Repositories;
-using System;
+using System.Data.Entity.Validation;
 using System.Data.Entity;
 
 namespace LCL.Repositories.EntityFramework
@@ -41,17 +42,17 @@ namespace LCL.Repositories.EntityFramework
         #region IRepositoryContext Members
         public override void RegisterNew(object obj)
         {
-            this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Added;
+            this.efContext.Entry(obj).State = EntityState.Added;
             Committed = false;
         }
         public override void RegisterModified(object obj)
         {
-            this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+            this.efContext.Entry(obj).State = EntityState.Modified;
             Committed = false;
         }
         public override void RegisterDeleted(object obj)
         {
-            this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
+            this.efContext.Entry(obj).State = EntityState.Deleted;
             Committed = false;
         }
         #endregion
@@ -63,20 +64,35 @@ namespace LCL.Repositories.EntityFramework
         }
         public override void Commit()
         {
-            if (!Committed)
+            try
             {
-                lock (sync)
+                if (!Committed)
                 {
-                    efContext.SaveChanges();
+                    lock (sync)
+                    {
+                        this.efContext.SaveChanges();
+                    }
+                    Committed = true;
                 }
-                Committed = true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                LogDbEntityValidationException(ex);
+                throw;
             }
         }
         public override void Rollback()
         {
             Committed = false;
         }
-
+        protected virtual void LogDbEntityValidationException(DbEntityValidationException exception)
+        {
+            Logger.LogDebug("There are some validation errors while saving changes in EntityFramework:");
+            foreach (var ve in exception.EntityValidationErrors.SelectMany(eve => eve.ValidationErrors))
+            {
+                Logger.LogDebug(" - " + ve.PropertyName + ": " + ve.ErrorMessage);
+            }
+        }
         #endregion
     }
 }

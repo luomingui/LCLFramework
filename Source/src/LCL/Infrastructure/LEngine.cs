@@ -14,6 +14,8 @@ using LCL.Config;
 using LCL.Caching.Memory;
 using LCL.Config.Startup;
 using LCL.LData;
+using System.Web.Mvc;
+using Autofac.Integration.Mvc;
 
 namespace LCL.Infrastructure
 {
@@ -52,21 +54,18 @@ namespace LCL.Infrastructure
             builder.RegisterInstance(config).As<LConfig>().SingleInstance();
             builder.RegisterInstance(this).As<IEngine>().SingleInstance();
             builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
-            builder.RegisterType<LocalizationService>().As<ILocalizationService>().SingleInstance();
-            builder.RegisterType<SettingService>().As<ISettingService>().SingleInstance();
-            builder.RegisterType<SequentialGuidGenerator>().As<IGuidGenerator>().InstancePerLifetimeScope();
 
             // DDD
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>)).InstancePerLifetimeScope();
             builder.RegisterType<RepositoryContext>().As<IRepositoryContext>().InstancePerLifetimeScope();
+
             builder.RegisterType<EventBus>().As<IEventBus>().InstancePerLifetimeScope();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().InstancePerLifetimeScope();
             builder.RegisterType<DomainEvent>().As<IDomainEvent>().InstancePerLifetimeScope();
 
             //plugins
             builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerLifetimeScope();
-            builder.Register(x => x.Resolve<BaseDataProviderManager>().LoadDataProvider()).As<IDataProvider>().InstancePerDependency();
 
             //cache manager
             builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>().Named<ICacheProvider>("lcl_cache_static").SingleInstance();
@@ -74,7 +73,11 @@ namespace LCL.Infrastructure
             builder.RegisterType<DictionaryBasedConfig>().As<IDictionaryBasedConfig>().InstancePerLifetimeScope();
             builder.RegisterType<ModuleConfigurations>().As<IModuleConfigurations>().InstancePerLifetimeScope();
             builder.RegisterType<LclStartupConfiguration>().As<ILclStartupConfiguration>().InstancePerLifetimeScope();
-           
+
+            builder.RegisterType<LocalizationService>().As<ILocalizationService>().SingleInstance();
+            builder.RegisterType<SettingService>().As<ISettingService>().SingleInstance();
+            builder.RegisterType<SequentialGuidGenerator>().As<IGuidGenerator>().InstancePerLifetimeScope();
+
             builder.Update(container);
 
             //register dependencies provided by other assemblies
@@ -92,7 +95,7 @@ namespace LCL.Infrastructure
             this._containerManager = new ContainerManager(container);
 
             //设置依赖项解析器
-            // DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
         #endregion

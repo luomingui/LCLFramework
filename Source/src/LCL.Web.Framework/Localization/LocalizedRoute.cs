@@ -10,11 +10,6 @@ namespace LCL.Web.Framework.Localization
     /// </summary>
     public class LocalizedRoute : Route
     {
-        #region Fields
-
-        private bool? _seoFriendlyUrlsForLanguagesEnabled;
-
-        #endregion
 
         #region Constructors
 
@@ -26,6 +21,7 @@ namespace LCL.Web.Framework.Localization
         public LocalizedRoute(string url, IRouteHandler routeHandler)
             : base(url, routeHandler)
         {
+           
         }
 
         /// <summary>
@@ -98,7 +94,7 @@ namespace LCL.Web.Framework.Localization
 
         public virtual void ClearSeoFriendlyUrlsCachedValue()
         {
-            _seoFriendlyUrlsForLanguagesEnabled = null;
+          
         }
 
         #endregion

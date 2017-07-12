@@ -41,7 +41,8 @@ namespace LCL.Infrastructure
                 Singleton<IEngine>.Instance = CreateEngineInstance(config);
                 Singleton<IEngine>.Instance.Initialize(config);
 
-                Singleton<LclStartupConfiguration>.Instance.Initialize();
+                var setting = new LclStartupConfiguration();
+                setting.Initialize();
             }
             return Singleton<IEngine>.Instance;
         }

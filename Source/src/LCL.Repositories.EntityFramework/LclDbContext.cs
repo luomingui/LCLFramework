@@ -6,17 +6,12 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
 using EntityFramework.DynamicFilters;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
-using System.Data.Common;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using LCL.Reflection;
 using LCL.Domain.Uow;
 using LCL.Domain.Services;
 using System.Data.Entity.Validation;
-using System.Threading.Tasks;
-using LCL.Domain.Events;
 using System.Threading;
 
 namespace LCL.Repositories.EntityFramework
@@ -93,7 +88,7 @@ namespace LCL.Repositories.EntityFramework
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Filter(LclDataFilters.SoftDelete, (ISoftDelete d) => d.IsDeleted, false);
-            modelBuilder.Filter(LclDataFilters.MustHaveTenant, (IMustHaveTenant t, int tenantId) => t.TenantId == tenantId || (int?)t.TenantId == null, 0); //While "(int?)t.TenantId == null" seems wrong, it's needed. See https://github.com/jcachat/EntityFramework.DynamicFilters/issues/62#issuecomment-208198058
+            modelBuilder.Filter(LclDataFilters.MustHaveTenant, (IMustHaveTenant t, int tenantId) => t.TenantId == tenantId, 0); //While "(int?)t.TenantId == null" seems wrong, it's needed. See https://github.com/jcachat/EntityFramework.DynamicFilters/issues/62#issuecomment-208198058
             modelBuilder.Filter(LclDataFilters.MayHaveTenant, (IMayHaveTenant t, int? tenantId) => t.TenantId == tenantId, 0);
 
         }
@@ -175,7 +170,6 @@ namespace LCL.Repositories.EntityFramework
             }
             Committed = false;
         }
-
         public bool DistributedTransactionSupported
         {
             get { return true; }
@@ -186,7 +180,6 @@ namespace LCL.Repositories.EntityFramework
             get { return localCommitted.Value; }
             protected set { localCommitted.Value = value; }
         }
-
         public void Commit()
         {
             try
@@ -206,10 +199,9 @@ namespace LCL.Repositories.EntityFramework
                 throw;
             }
         }
-
         public void Rollback()
         {
-            throw new NotImplementedException();
+            Committed = false;
         }
 
         protected virtual void LogDbEntityValidationException(DbEntityValidationException exception)

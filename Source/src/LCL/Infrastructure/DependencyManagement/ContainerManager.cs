@@ -5,6 +5,7 @@ using System.Web;
 using Autofac;
 using Autofac.Core.Lifetime;
 using Autofac.Integration.Mvc;
+using LCL.Domain.Services;
 
 namespace LCL.Infrastructure.DependencyManagement
 {
@@ -146,6 +147,7 @@ namespace LCL.Infrastructure.DependencyManagement
 
                 //when such lifetime scope is returned, you should be sure that it'll be disposed once used (e.g. in schedule tasks)
                 return Container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+                Logger.LogError("ContainerManager", exc);
             }
         }
     }

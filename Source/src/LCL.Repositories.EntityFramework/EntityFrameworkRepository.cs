@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using LCL;
 using LCL.Domain.Entities;
 using LCL.Domain.Repositories;
 using LCL.Domain.Specifications;
@@ -11,7 +9,7 @@ using System.Data.Entity;
 
 namespace LCL.Repositories.EntityFramework
 {
-    public class EntityFrameworkRepository<TEntity> : EntityFrameworkRepository<TEntity,Guid>
+    public class EntityFrameworkRepository<TEntity> : EntityFrameworkRepository<TEntity,Guid>, IRepository<TEntity>
         where TEntity : class, IEntity
     {
        #region Ctor
@@ -23,7 +21,7 @@ namespace LCL.Repositories.EntityFramework
         #endregion
     }
 
-    public class EntityFrameworkRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>
+    public class EntityFrameworkRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>, IRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
         #region Private Fields

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LCL.Web.Framework</RootNamespace>
     <AssemblyName>LCL.Web.Framework</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -58,7 +58,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -117,12 +116,12 @@
     <Compile Include="Models\EasyUITreeModel.cs" />
     <Compile Include="Models\EasyUIGridModel.cs" />
     <Compile Include="Models\PagedListViewModel.cs" />
-    <Compile Include="Mvc\BaseNopModel.cs" />
+    <Compile Include="Mvc\BaseLclModel.cs" />
     <Compile Include="Mvc\DeleteConfirmationModel.cs" />
     <Compile Include="Mvc\IModelAttribute.cs" />
     <Compile Include="Mvc\LJsonResult.cs" />
-    <Compile Include="Mvc\NopMetadataProvider.cs" />
-    <Compile Include="Mvc\NopModelBinder.cs" />
+    <Compile Include="Mvc\LclMetadataProvider.cs" />
+    <Compile Include="Mvc\LclModelBinder.cs" />
     <Compile Include="Mvc\NullJsonResult.cs" />
     <Compile Include="Mvc\Routes\GuidConstraint.cs" />
     <Compile Include="Mvc\Routes\IRouteProvider.cs" />

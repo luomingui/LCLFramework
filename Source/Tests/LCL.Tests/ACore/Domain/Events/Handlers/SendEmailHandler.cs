@@ -1,6 +1,7 @@
 ﻿
 using LCL;
 using LCL.Domain.Events;
+using LCL.Domain.Services;
 using LCL.Tests.ACore;
 using LCL.Tests.Domain.Events;
 using System;
@@ -34,8 +35,7 @@ namespace LCL.Tests.Domain.Events.Handlers
             }
             catch (Exception ex)
             {
-                // 如遇异常，直接记Log
-               // Helper.Log(ex);
+                Logger.LogError("SendEmail", ex);
             }
         }
 
@@ -59,8 +59,7 @@ namespace LCL.Tests.Domain.Events.Handlers
             }
             catch (Exception ex)
             {
-                // 如遇异常，直接记Log
-               
+                Logger.LogError("SendEmail", ex);
             }
         }
 

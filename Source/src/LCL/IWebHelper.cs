@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LCL.Domain.Services;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -52,6 +53,7 @@ namespace LCL
             }
             catch (HttpException ex)
             {
+                Logger.LogError("IsRequestAvailable", ex);
                 return false;
             }
 

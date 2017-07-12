@@ -119,17 +119,5 @@ namespace LCL.Tests.Domain.Model
             return !(a == b);
         }
         #endregion
-
-        #region IEntity Members
-        /// <summary>
-        /// 获取或设置当前实体对象的全局唯一标识。
-        /// </summary>
-        public Guid ID
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
-        #endregion
     }
 }

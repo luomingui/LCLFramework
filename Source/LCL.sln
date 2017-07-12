@@ -39,6 +39,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9D6E1B6A-C
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Docs", "http://localhost:52510", "{76F962B4-924F-4604-8386-7F50CFDC7E4A}"
 	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_52510"
@@ -119,5 +123,18 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DD35220B-1A39-4561-8849-C5567B296E3F} = {AB22A45C-7D87-4678-9609-197DDA6FB262}
 		{76F962B4-924F-4604-8386-7F50CFDC7E4A} = {9D6E1B6A-CF32-4FD6-BA04-25C7927F506F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://luomingui.visualstudio.com/
+		SccWebProject0 = true
+		SccProjectUniqueName0 = http://localhost:52510
+		SccProjectTopLevelParentUniqueName0 = LCL.sln
+		SccProjectName0 = $/LCLFramework/Source/Docs
+		SccAuxPath0 = https://luomingui.visualstudio.com
+		SccLocalPath0 = ..\\..\\branches\\gh-pages\\Docs
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectEnlistmentChoice0 = 2
 	EndGlobalSection
 EndGlobal

@@ -51,7 +51,7 @@ namespace LCL.Web.Framework
 
         public int Order
         {
-            get { return 1; }
+            get { return 2; }
         }
     }
 

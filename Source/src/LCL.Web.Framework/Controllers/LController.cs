@@ -30,7 +30,7 @@ namespace LCL.Web.Framework.Controllers
         public IEventBus EventBus { get; set; }
         protected LController()
         {
-            ModelBinders.Binders.DefaultBinder = new NopModelBinder();
+            ModelBinders.Binders.DefaultBinder = new LclModelBinder();
         }
         /// <summary>
         /// 获取服务。
