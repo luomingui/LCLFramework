@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LCL.Web.Framework.Models
+namespace LCL
 {
     public class EasyUIGridModel<TModel>
     {

@@ -1,15 +1,17 @@
 ﻿
 using LCL.Application;
 using LCL.Bus;
+using LCL.Domain.Entities;
 using LCL.Domain.Repositories;
-
+using System;
+using System.Collections.Generic;
 
 namespace LCL.Domain.Services
 {
     /// <summary>
-    /// 表示用于Byteart Retail领域模型中的领域服务类型。
+    /// 表示用于领域模型中的领域服务类型。
     /// </summary>
-    public class DomainService : ApplicationService, IDomainService
+    public partial class DomainService : ApplicationService, IDomainService
     {
 
         #region Ctor
@@ -22,7 +24,5 @@ namespace LCL.Domain.Services
           
         }
         #endregion
-
-        
     }
 }

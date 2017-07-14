@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LCL.Web.Framework.Models
+namespace LCL
 {
     ///// <summary>
     ///// 视图模型 分页帮助类

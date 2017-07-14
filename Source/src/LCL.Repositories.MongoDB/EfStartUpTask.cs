@@ -13,14 +13,7 @@ namespace LCL.Repositories.MongoDB
     {
         public void Execute()
         {
-            var settings = EngineContext.Current.Resolve<DbSetting>();
-            if (settings != null)
-            {
-                var provider = EngineContext.Current.Resolve<IDataProvider>();
-                if (provider == null)
-                    throw new Exception("No IDataProvider found");
-                provider.SetDatabaseInitializer();
-            }
+        
         }
 
         public int Order

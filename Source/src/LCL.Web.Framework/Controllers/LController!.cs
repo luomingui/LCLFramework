@@ -1,17 +1,8 @@
-﻿using LCL;
-using LCL.Domain.Entities;
-using LCL.Domain.Repositories;
-using LCL.Domain.Specifications;
-using LCL.Infrastructure;
-using LCL.Web.Framework.Models;
+﻿using LCL.Domain.Entities;
 using LCL.Web.Framework.Mvc;
-using LCL.Web.Framework.Security;
-using LCL.Web.Framework.Template;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace LCL.Web.Framework.Controllers
@@ -169,6 +160,10 @@ namespace LCL.Web.Framework.Controllers
             json.Data = result;
             return json;
         }
+        #endregion
+
+        #region CURD
+
         #endregion
     }
 }

@@ -16,7 +16,7 @@ using System.Threading;
 
 namespace LCL.Repositories.EntityFramework
 {
-    public class LclDbContext : DbContext, IEntityFrameworkRepositoryContext, IRepositoryContext
+    public class LclDbContext : DbContext, IEntityFrameworkRepositoryContext
     {
         #region Ctor
         private readonly object sync = new object();
@@ -214,9 +214,11 @@ namespace LCL.Repositories.EntityFramework
         }
         #endregion
 
-        public LclDbContext Context
+        public DbContext Context
         {
             get { return this; }
         }
+
+    
     }
 }

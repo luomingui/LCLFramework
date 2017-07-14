@@ -1,7 +1,7 @@
 ﻿using LCL.Domain.Services;
 using LCL.Infrastructure;
 using LCL.Web.Framework.Mvc;
-namespace LCL.Web.Framework
+namespace LCL
 {
     public class LResourceDisplayName : System.ComponentModel.DisplayNameAttribute, IModelAttribute
     {

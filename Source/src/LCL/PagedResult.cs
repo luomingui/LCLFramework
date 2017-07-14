@@ -7,7 +7,6 @@ namespace LCL
 {
     public class PagedResult<T> : ICollection<T>
     {
-        public const int DefaultPageSize = 10;
         #region Ctor
         public PagedResult()
         {
@@ -51,7 +50,7 @@ namespace LCL
         private void ResetPageSizeList(int totalCount)
         {
            
-            AddPageSize(DefaultPageSize);
+            AddPageSize(PageSize.Value);
             if (totalCount > 10)
             {
                 AddPageSize(10);
@@ -113,6 +112,7 @@ namespace LCL
             this._data = data.Skip((pageNumber.Value - 1) * PageSize.Value).Take(PageSize.Value).ToList();
         }
         #endregion
+
         #region Public Properties
         public List<int> PageSizeList { get; private set; }
         private int? totalRecords;

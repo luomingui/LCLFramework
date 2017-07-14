@@ -1,6 +1,5 @@
 ﻿using LCL.Domain.Services;
 using LCL.Infrastructure;
-using LCL.Web.Framework.Localization;
 using LCL.Web.Framework.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,13 +7,10 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using System.Web.WebPages;
 
-namespace LCL.Web.Framework
+namespace LCL
 {
     public static class HtmlExtensions
     {

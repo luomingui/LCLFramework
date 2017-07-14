@@ -111,16 +111,6 @@ namespace LCL.Domain.Events
             {
                 return true;
             }
-            //if (typeof(TPrimaryKey) == typeof(int))
-            //{
-            //    return Convert.ToInt32(ID) <= 0;
-            //}
-
-            //if (typeof(TPrimaryKey) == typeof(long))
-            //{
-            //    return Convert.ToInt64(ID) <= 0;
-            //}
-
             return false;
         }
     }

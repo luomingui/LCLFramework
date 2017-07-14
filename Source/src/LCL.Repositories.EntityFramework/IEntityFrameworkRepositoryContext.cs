@@ -5,6 +5,6 @@ namespace LCL.Repositories.EntityFramework
 {
     public interface IEntityFrameworkRepositoryContext : IRepositoryContext
     {
-        LclDbContext Context { get; }
+        DbContext Context { get; }
     }
 }

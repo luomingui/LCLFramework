@@ -9,12 +9,12 @@ namespace LCL.Repositories.EntityFramework
     public class EntityFrameworkRepositoryContext : RepositoryContext, IEntityFrameworkRepositoryContext
     {
         #region Private Fields
-        private readonly LclDbContext efContext;
+        private readonly DbContext efContext;
         private readonly object sync = new object();
         #endregion
 
         #region Ctor
-        public EntityFrameworkRepositoryContext(LclDbContext efContext)
+        public EntityFrameworkRepositoryContext(DbContext efContext)
         {
             this.efContext = efContext;
         }
@@ -32,7 +32,7 @@ namespace LCL.Repositories.EntityFramework
         #endregion
 
         #region IEntityFrameworkRepositoryContext Members
-        public LclDbContext Context
+        public DbContext Context
         {
             get { return this.efContext; }
         }

@@ -22,9 +22,7 @@ namespace LCL.Tests.ACore
         {
             // EntityFramework  Repository Context & Repositories
             var dbset = DbSetting.FindOrCreate("LCL");
-            var efDataProviderManager = new EfDataProviderManager(dbset);
-            var dataProvider = efDataProviderManager.LoadDataProvider();
-            dataProvider.InitConnectionFactory();
+
             builder.Register(c => dbset).As<DbSetting>();
             builder.Register<LclDbContext>(c => new EFTestContext(dbset.ConnectionString)).As(typeof(IRepositoryContext)).Named<IRepositoryContext>(dbset.Name).InstancePerLifetimeScope();
             builder.Register<IRepositoryContext>(c => new EFTestContext(dbset.ConnectionString)).Named<IRepositoryContext>(dbset.Name).InstancePerLifetimeScope();

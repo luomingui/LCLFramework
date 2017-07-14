@@ -118,6 +118,10 @@ namespace LCL.Application
             Guid guid = new Guid(s);
             return guid == Guid.Empty;
         }
+        protected bool IsEmptyGuidString(Guid guid)
+        {
+            return guid == Guid.Empty;
+        }
         protected override void Dispose(bool disposing)
         {
 

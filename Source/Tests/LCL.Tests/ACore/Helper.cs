@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Messaging;
-using System.Reflection;
-using MySql.Data.MySqlClient;
-using MongoDB.Driver;
 using System.Net.Mail;
 using System.Net;
 

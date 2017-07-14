@@ -52,6 +52,7 @@ namespace LCL.Domain.Repositories
 
         #region Insert
         TEntity Insert(TEntity entity);
+        void Insert(List<TEntity> entitys);
         Task<TEntity> InsertAsync(TEntity entity);
         TPrimaryKey InsertAndGetId(TEntity entity);
         Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity);
@@ -59,6 +60,7 @@ namespace LCL.Domain.Repositories
 
         #region Update
         TEntity Update(TEntity entity);
+        void Update(List<TEntity> entitys);
         Task<TEntity> UpdateAsync(TEntity entity);
         TEntity Update(TPrimaryKey id, Action<TEntity> updateAction);
         Task<TEntity> UpdateAsync(TPrimaryKey id, Func<TEntity, Task> updateAction);
@@ -66,6 +68,7 @@ namespace LCL.Domain.Repositories
 
         #region Delete
         void Delete(TEntity entity);
+        void Delete(List<TPrimaryKey> ids);
         Task DeleteAsync(TEntity entity);
         void Delete(TPrimaryKey id);
         Task DeleteAsync(TPrimaryKey id);

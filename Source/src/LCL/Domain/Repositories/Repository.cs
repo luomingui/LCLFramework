@@ -44,7 +44,7 @@ namespace LCL.Domain.Repositories
         protected abstract TEntity DoFind(ISpecification<TEntity> specification);
         protected abstract TEntity DoFind(ISpecification<TEntity> specification, params Expression<Func<TEntity, dynamic>>[] eagerLoadingProperties);
         protected abstract bool DoExists(ISpecification<TEntity> specification);
-  
+
         protected virtual IQueryable<TEntity> DoFindAll()
         {
             return DoFindAll(new AnySpecification<TEntity>(), null, SortOrder.Unspecified);
@@ -93,6 +93,13 @@ namespace LCL.Domain.Repositories
         {
             return this.DoInsert(entity);
         }
+        public void Insert(List<TEntity> entitys)
+        {
+            foreach (var item in entitys)
+            {
+                this.DoInsert(item);
+            }
+        }
         public virtual Task<TEntity> InsertAsync(TEntity entity)
         {
             return Task.FromResult(Insert(entity));
@@ -121,6 +128,13 @@ namespace LCL.Domain.Repositories
         {
             return this.DoUpdate(entity);
         }
+        public void Update(List<TEntity> entitys)
+        {
+            foreach (var item in entitys)
+            {
+                this.DoUpdate(item);
+            }
+        }
         public virtual Task<TEntity> UpdateAsync(TEntity entity)
         {
             return Task.FromResult(Update(entity));
@@ -148,6 +162,13 @@ namespace LCL.Domain.Repositories
         public virtual void Delete(TEntity entity)
         {
             this.DoDelete(entity);
+        }
+        public void Delete(List<TPrimaryKey> ids)
+        {
+            for (int i = 0; i < ids.Count; i++)
+            {
+                this.DoDelete(ids[i]);
+            }
         }
         public virtual Task DeleteAsync(TEntity entity)
         {
@@ -257,7 +278,7 @@ namespace LCL.Domain.Repositories
         {
             return queryMethod(FindAll());
         }
-        
+
         public TEntity Find(ISpecification<TEntity> specification)
         {
             return this.DoFind(specification);
@@ -298,7 +319,7 @@ namespace LCL.Domain.Repositories
 
         protected virtual IQueryable<TEntity> ApplyFilters(IQueryable<TEntity> query)
         {
-           // query = ApplyMultiTenancyFilter(query);
+            // query = ApplyMultiTenancyFilter(query);
             query = ApplySoftDeleteFilter(query);
             return query;
         }
@@ -321,15 +342,12 @@ namespace LCL.Domain.Repositories
 
             return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
+
+
+
         #endregion
 
 
 
-
-
-
-
-
-    
     }
 }

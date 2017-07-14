@@ -1,4 +1,6 @@
-﻿namespace LCL.ObjectMapping
+﻿using LCL.Domain.Entities;
+
+namespace LCL.ObjectMapping
 {
     public interface IObjectMapper
     {

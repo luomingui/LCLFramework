@@ -12,10 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -63,7 +59,6 @@ namespace LCL.Web.Framework.Controllers
             //return new HttpUnauthorizedResult();
             return RedirectToAction("AccessDenied", "Security", new { pageUrl = this.Request.RawUrl });
         }
-
 
         #region L
         protected virtual string L(string name)
@@ -170,6 +165,47 @@ namespace LCL.Web.Framework.Controllers
                 ((List<string>)ViewData[dataKey]).Add(message);
             }
         }
+        #endregion
+
+        #region Private Constants
+        private const string SUCCESS_PAGE_ACTION = "SuccessPage";
+        private const string SUCCESS_PAGE_CONTROLLER = "Home";
+        #endregion
+
+        #region Protected Properties
+        /// <summary>
+        /// 获取当前登录用户的ID值。
+        /// </summary>
+        protected string UserID
+        {
+            get
+            {
+                if (Session["UserID"] != null)
+                    return Session["UserID"].ToString();
+                else
+                {
+                    var id = Membership.GetUser().ProviderUserKey.ToString();
+                    Session["UserID"] = id;
+                    return id;
+                }
+            }
+        }
+        #endregion
+
+        #region Protected Methods
+        /// <summary>
+        /// 将页面重定向到成功页面。
+        /// </summary>
+        /// <param name="pageTitle">需要在成功页面显示的成功信息。</param>
+        /// <param name="action">成功信息显示后返回的Action名称。默认值：Index。</param>
+        /// <param name="controller">成功信息显示后返回的Controller名称。默认值：Home。</param>
+        /// <param name="waitSeconds">在成功页面停留的时间（秒）。默认值：3。</param>
+        /// <returns>执行的Action Result。</returns>
+        protected ActionResult RedirectToSuccess(string pageTitle, string action = "Index", string controller = "Home", int waitSeconds = 3)
+        {
+            return this.RedirectToAction(SUCCESS_PAGE_ACTION, SUCCESS_PAGE_CONTROLLER, new { pageTitle = pageTitle, retAction = action, retController = controller, waitSeconds = waitSeconds });
+        }
+
         #endregion
 
     }

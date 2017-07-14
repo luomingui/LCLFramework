@@ -16,6 +16,9 @@ using LCL.Config.Startup;
 using LCL.LData;
 using System.Web.Mvc;
 using Autofac.Integration.Mvc;
+using Autofac.Core.Activators.Reflection;
+using LCL.Domain.Entities;
+using System.Reflection;
 
 namespace LCL.Infrastructure
 {
