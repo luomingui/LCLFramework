@@ -6,4 +6,6 @@
 @for /r . %%I in (Presentation/LCL.Web/Plugins/) do if exist "%%I" rd/s/q "%%I"
 del /s/q/f *.user
 del /s/q/f *.suo
+del /s/q/f *.vspscc
+rd /s/q .vs
 

@@ -29,6 +29,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
@@ -124,6 +130,7 @@
     <Compile Include="Security\SslRequirement.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="key.snk" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
