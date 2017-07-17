@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 
-namespace LCL.Wcf
+namespace LCL.ServiceModel
 {
     /// <summary>
     /// 表示Channel Factory管理器。

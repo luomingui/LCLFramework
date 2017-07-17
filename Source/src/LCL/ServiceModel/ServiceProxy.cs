@@ -2,7 +2,7 @@
 using System;
 using System.ServiceModel;
 
-namespace LCL.Wcf
+namespace LCL.ServiceModel
 {
 
     /// <summary>
