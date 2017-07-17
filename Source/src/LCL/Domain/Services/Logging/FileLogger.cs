@@ -73,16 +73,15 @@ namespace LCL.Domain.Services
             string t = "";
             try
             {
-                t = EngineContext.Current.Resolve<LConfig>().LoggerPath;
+                t = RF.Config.LoggerPath;
             }
             catch (Exception)
             {
-
+                t = "Log";
             }
             string path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "/" + t;
             string logfile = path + "/" + logType + DateTime.Now.ToString("yyyyMMdd") + ".log";
-            if (!Directory.Exists(path))
-            {
+            if (!Directory.Exists(path)){
                 Directory.CreateDirectory(path);
             }
             File.AppendAllText(logfile, contents);

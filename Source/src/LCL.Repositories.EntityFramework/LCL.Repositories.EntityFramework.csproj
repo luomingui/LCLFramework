@@ -80,6 +80,8 @@
     <Compile Include="..\_Items\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="DbContextExtensions.cs" />
+    <Compile Include="EfStartupTask.cs" />
     <Compile Include="Initializers\AutoMigrationsConfiguration.cs" />
     <Compile Include="LclDbContext.cs" />
     <Compile Include="DependencyRegistrar.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="key.snk" />
     <None Include="packages.config" />
   </ItemGroup>

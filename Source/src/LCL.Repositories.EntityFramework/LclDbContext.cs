@@ -219,6 +219,16 @@ namespace LCL.Repositories.EntityFramework
             get { return this; }
         }
 
-    
+
+        /// <summary>
+        /// 解决provider不能自动加载的问题
+        /// （不需要调用，放在这里即可）
+        /// </summary>
+        private static void FixProvidersNotAutoLoadProblem()
+        {
+            //var _ = typeof(System.Data.SQLite.EF6.SQLiteProviderFactory);
+            var __ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
+            var ___ = typeof(System.Data.Entity.SqlServerCompact.SqlCeProviderServices);
+        }
     }
 }

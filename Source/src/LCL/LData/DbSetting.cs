@@ -145,7 +145,7 @@ namespace LCL.LData
     {
         public const string Provider_SQLite = "System.Data.SQLite";
         public const string Provider_SqlClient = "System.Data.SqlClient";
-        public const string Provider_SqlCe = "System.Data.SqlServerCe";
+        public const string Provider_SqlCe = "System.Data.SqlServerCe.4.0";
         public const string Provider_Oracle = "System.Data.OracleClient";
         //public const string Provider_Oracle = "Oracle.DataAccess.Client";
         public const string Provider_Odbc = "System.Data.Odbc";

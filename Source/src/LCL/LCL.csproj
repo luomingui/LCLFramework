@@ -14,6 +14,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <WebGreaseLibPath>..\..\..\LCLDemo\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,10 +44,6 @@
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -81,7 +78,7 @@
     <Compile Include="Caching\CachingMethod.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Caching\Memory\MemoryCacheProvider.cs" />
-    <Compile Include="Communication\IApplicationServiceContract.cs" />
+    <Compile Include="ServiceModel\IApplicationServiceContract.cs" />
     <Compile Include="Config\IDictionaryBasedConfig.cs" />
     <Compile Include="Config\Startup\ILclStartupConfiguration.cs" />
     <Compile Include="Config\Startup\IModuleConfigurations.cs" />
@@ -117,6 +114,8 @@
     <Compile Include="GuidGenerator\IGuidGenerator.cs" />
     <Compile Include="GuidGenerator\RegularGuidGenerator.cs" />
     <Compile Include="GuidGenerator\SequentialGuidGenerator.cs" />
+    <Compile Include="Infrastructure\DependencyManagement\DependencyRegisterAttribute.cs" />
+    <Compile Include="LResourceDisplayName.cs" />
     <Compile Include="NamedTypeSelector.cs" />
     <Compile Include="NameValue.cs" />
     <Compile Include="ObjectMapping\IObjectMapper.cs" />
@@ -152,8 +151,8 @@
     <Compile Include="Transactions\TransactionCoordinator.cs" />
     <Compile Include="Transactions\TransactionCoordinatorFactory.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="Communication\ChannelFactoryManager.cs" />
-    <Compile Include="Communication\ServiceProxy.cs" />
+    <Compile Include="ServiceModel\ChannelFactoryManager.cs" />
+    <Compile Include="ServiceModel\ServiceProxy.cs" />
     <Compile Include="DisposableObject.cs" />
     <Compile Include="GenericListTypeConverter.cs" />
     <Compile Include="WriteLockDisposable.cs" />
@@ -259,6 +258,7 @@
     <Compile Include="Serialization\SerializationException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="key.snk" />
     <None Include="packages.config" />
   </ItemGroup>

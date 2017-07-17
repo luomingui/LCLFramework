@@ -1,23 +1,19 @@
-﻿using System;
+﻿using Autofac;
+using LCL;
+using LCL.Bus;
+using LCL.Caching;
+using LCL.Caching.Memory;
+using LCL.Config;
+using LCL.Config.Startup;
+using LCL.Domain.Events;
+using LCL.Domain.Repositories;
+using LCL.Domain.Services;
+using LCL.Infrastructure.DependencyManagement;
+using LCL.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac;
-
-using LCL.Infrastructure.DependencyManagement;
-using LCL.Domain.Services;
-using LCL.Domain.Repositories;
-using LCL.Plugins;
-using LCL.Caching;
-using LCL.Bus;
-using LCL.Domain.Events;
-using LCL.Config;
-using LCL.Caching.Memory;
-using LCL.Config.Startup;
-using LCL.LData;
 using System.Web.Mvc;
-using Autofac.Integration.Mvc;
-using Autofac.Core.Activators.Reflection;
-using LCL.Domain.Entities;
 using System.Reflection;
 
 namespace LCL.Infrastructure
@@ -81,6 +77,12 @@ namespace LCL.Infrastructure
             builder.RegisterType<SettingService>().As<ISettingService>().SingleInstance();
             builder.RegisterType<SequentialGuidGenerator>().As<IGuidGenerator>().InstancePerLifetimeScope();
 
+
+            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                         .Where(t => t.GetCustomAttribute<DependencyRegisterAttribute>() != null)
+                         .AsImplementedInterfaces()
+                         .InstancePerRequest();
+
             builder.Update(container);
 
             //register dependencies provided by other assemblies
@@ -96,9 +98,6 @@ namespace LCL.Infrastructure
             builder.Update(container);
 
             this._containerManager = new ContainerManager(container);
-
-            //设置依赖项解析器
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
         #endregion

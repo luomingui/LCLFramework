@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using Autofac;
 using Autofac.Core.Lifetime;
-using Autofac.Integration.Mvc;
 using LCL.Domain.Services;
 
 namespace LCL.Infrastructure.DependencyManagement
@@ -133,21 +132,15 @@ namespace LCL.Infrastructure.DependencyManagement
         {
             try
             {
-                if (HttpContext.Current != null)
-                    return AutofacDependencyResolver.Current.RequestLifetimeScope;
+                //if (HttpContext.Current != null)
+                //    return AutofacDependencyResolver.Current.RequestLifetimeScope;
 
-                //when such lifetime scope is returned, you should be sure that it'll be disposed once used (e.g. in schedule tasks)
                 return Container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
             }
             catch (Exception exc)
             {
-                //we can get an exception here if RequestLifetimeScope is already disposed
-                //for example, requested in or after "Application_EndRequest" handler
-                //but note that usually it should never happen
-
-                //when such lifetime scope is returned, you should be sure that it'll be disposed once used (e.g. in schedule tasks)
-                return Container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
                 Logger.LogError("ContainerManager", exc);
+                return Container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
             }
         }
     }

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.IO;
 using System.Data;
 using System.Diagnostics;
 using LCL.LData;
@@ -158,14 +153,8 @@ namespace LCL.Domain.Services
                 {
                     var args = new DbAccessedEventArgs(sql, parameters, connectionSchema);
 
-                    if (handler1 != null)
-                    {
-                        handler1(null, new DbAccessedEventArgs(sql, parameters, connectionSchema));
-                    }
-                    if (handler2 != null)
-                    {
-                        handler2(null, new DbAccessedEventArgs(sql, parameters, connectionSchema));
-                    }
+                    handler1?.Invoke(null, new DbAccessedEventArgs(sql, parameters, connectionSchema));
+                    handler2?.Invoke(null, new DbAccessedEventArgs(sql, parameters, connectionSchema));
                 }
             }
         }

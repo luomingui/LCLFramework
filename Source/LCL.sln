@@ -64,11 +64,13 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Docs", "http://localhost:52
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Repositories.MyBatis", "src\LCL.Repositories.MyBatis\LCL.Repositories.MyBatis.csproj", "{B5804478-5DB1-4A66-941D-489FF7A8A10A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Web.Framework", "src\LCL.Web.Framework\LCL.Web.Framework.csproj", "{50F04942-5BC7-419D-95F2-8A98461C9EB5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.AutoMapper", "src\LCL.AutoMapper\LCL.AutoMapper.csproj", "{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.RedisCache", "src\LCL.RedisCache\LCL.RedisCache.csproj", "{F1D9747C-7402-49D3-AED5-428EFF1E1023}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{22D006AD-285D-4949-905C-1B2BCAB195FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCL.Web", "src\LCL.Web\LCL.Web.csproj", "{2E91B1B8-9C11-4868-8658-CB1CCA7B1009}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,10 +106,6 @@ Global
 		{B5804478-5DB1-4A66-941D-489FF7A8A10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5804478-5DB1-4A66-941D-489FF7A8A10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5804478-5DB1-4A66-941D-489FF7A8A10A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50F04942-5BC7-419D-95F2-8A98461C9EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50F04942-5BC7-419D-95F2-8A98461C9EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50F04942-5BC7-419D-95F2-8A98461C9EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50F04942-5BC7-419D-95F2-8A98461C9EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1D0E0C2-F1B4-4A28-93CB-AB7E777393D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -116,6 +114,10 @@ Global
 		{F1D9747C-7402-49D3-AED5-428EFF1E1023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1D9747C-7402-49D3-AED5-428EFF1E1023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1D9747C-7402-49D3-AED5-428EFF1E1023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E91B1B8-9C11-4868-8658-CB1CCA7B1009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E91B1B8-9C11-4868-8658-CB1CCA7B1009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E91B1B8-9C11-4868-8658-CB1CCA7B1009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E91B1B8-9C11-4868-8658-CB1CCA7B1009}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +125,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DD35220B-1A39-4561-8849-C5567B296E3F} = {AB22A45C-7D87-4678-9609-197DDA6FB262}
 		{76F962B4-924F-4604-8386-7F50CFDC7E4A} = {9D6E1B6A-CF32-4FD6-BA04-25C7927F506F}
+		{2E91B1B8-9C11-4868-8658-CB1CCA7B1009} = {22D006AD-285D-4949-905C-1B2BCAB195FC}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 1
