@@ -23,14 +23,16 @@ foreach($project in $projects) {
 
     # Create nuget pack
     Set-Location $projectFolder
-    Remove-Item -Recurse (Join-Path $projectFolder "bin/Release")
+    Remove-Item -Recurse (Join-Path $projectFolder "bin/Debug")
     & dotnet msbuild /t:pack /p:Configuration=Release /p:IncludeSymbols=true /p:SourceLinkCreate=true
 
     # Copy nuget package
-    $projectPackPath = Join-Path $projectFolder ("/bin/Release/" + $project + ".*.nupkg")
+    $projectPackPath = Join-Path $projectFolder ("/bin/Debug/" + $project + ".*.nupkg")
     Move-Item $projectPackPath $packFolder
 
 }
 
 # Go back to the pack folder
 Set-Location $packFolder
+
+
