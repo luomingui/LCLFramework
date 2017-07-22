@@ -5,6 +5,7 @@ using System.Web;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
+using System.Linq;
 using LCL.Infrastructure.DependencyManagement;
 using LCL.Infrastructure;
 using LCL.Domain.Services;
