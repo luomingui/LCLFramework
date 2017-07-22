@@ -10,8 +10,8 @@ namespace LCL.Caching.Redis
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
             //cache manager
-            builder.RegisterType<LclRedisCache>().As<ICacheProvider>().Named<ICacheProvider>("lcl_cache_static").SingleInstance();
-            Logger.LogInfo(Order + " init plugin LCL.Repositories.EntityFramework");
+            builder.RegisterType<LclRedisCache>().As<ICacheProvider>().Named<ICacheProvider>("lcl_cache_redis").SingleInstance();
+            Logger.LogInfo(Order + " init plugin LCL.Caching.Redis");
         }
 
         public int Order
