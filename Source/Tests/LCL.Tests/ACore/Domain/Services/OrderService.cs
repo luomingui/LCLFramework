@@ -1,7 +1,7 @@
 ﻿using LCL.Application;
 using LCL.Bus;
 using LCL.Domain.Repositories;
-using LCL.ServiceProxys;
+using LCL.ServiceModel;
 using LCL.Tests.Domain.Repositories;
 using LCL.Transactions;
 using System;
