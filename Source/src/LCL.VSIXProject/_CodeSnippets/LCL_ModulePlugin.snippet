@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>LCL</Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Add a ModulePlugin class</Title>
+      <Author>luomingui</Author>
+      <Description>LCLFramework就是一套在.NET下支持面向领域驱动的软件系统开发框架</Description>
+      <HelpUrl>http://www.cnblogs.com/luomingui</HelpUrl>
+      <Shortcut>LCLPlugin</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>DomainRepository</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="type decl" Delimiter="$">
+        <![CDATA[
+    public class $ClassName$Plugin : LCLPlugin
+    {
+        public override void Initialize(IApp app)
+        {
+            app.AllPluginsIntialized += app_AllPluginsIntialized;
+            app.ModuleOperations += app_ModuleOperations;
+        }
+        void app_ModuleOperations(object sender, EventArgs e)
+        {
+         //
+        }
+        void app_AllPluginsIntialized(object sender, System.EventArgs e)
+        {
+          //
+        }
+    }
+
+]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

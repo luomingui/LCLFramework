@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>LCL</Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Add a Specification  class</Title>
+      <Author>luomingui</Author>
+      <Description>LCLFramework就是一套在.NET下支持面向领域驱动的软件系统开发框架</Description>
+      <HelpUrl>http://www.cnblogs.com/luomingui</HelpUrl>
+      <Shortcut>LCL_Specification</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="type decl" Delimiter="$">
+        <![CDATA[
+    /// <summary>
+    ///  根据关键字进行查询
+    ///  Linq模糊查询 http://www.cnblogs.com/cracker/archive/2011/02/07/1949669.html
+    /// </summary>
+    public class Key$ClassName$Specification : Specification<$ClassName$>
+    {
+        string _keyword = "";
+        string _dateFlg = "";
+        public Key$ClassName$Specification(string keyword, string dateFlg)
+        {
+            _keyword = keyword;
+            _dateFlg = dateFlg;
+        }
+        public override Expression<Func<$ClassName$, bool>> GetExpression()
+        {
+            Expression<Func<$ClassName$, bool>> spec = null;
+            switch (_dateFlg)
+            {
+                case "Name":
+                    spec = c => c.Name.IndexOf(_keyword) != -1;
+                    break;
+            }
+            return spec;
+        }
+    }
+    
+    ]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

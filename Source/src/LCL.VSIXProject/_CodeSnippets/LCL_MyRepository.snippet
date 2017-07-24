@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>LCL</Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Add a Repository  class</Title>
+      <Author>luomingui</Author>
+      <Description>
+      </Description>
+      <HelpUrl>http://www.cnblogs.com/luomingui</HelpUrl>
+      <Shortcut>LCLRepositoryExtend</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>Repository</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="type decl" Delimiter="$">
+        <![CDATA[
+       public interface I$ClassName$Repository : IRepository<$ClassName$>  
+       {  
+  
+       }  
+       public class $ClassName$Repository : EntityFrameworkRepository<$ClassName$>
+       {
+          public $ClassName$Repository(IRepositoryContext context)
+              : base(context)
+          { }
+       }
+]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
