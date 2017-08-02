@@ -13,7 +13,7 @@ namespace LCL.Repositories.EntityFramework
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
             //上下文注入
-            builder.RegisterType<EntityFrameworkRepositoryContext>().As<IEntityFrameworkRepositoryContext>()
+            builder.RegisterType<EntityFrameworkRepositoryContext>().As<IRepositoryContext>()
                 .FindConstructorsWith(new DefaultConstructorFinder(type => type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance)))
                 .InstancePerLifetimeScope();
             //仓储模式注入

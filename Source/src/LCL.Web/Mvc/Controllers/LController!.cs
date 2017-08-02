@@ -1,7 +1,11 @@
 ﻿using LCL.Domain.Entities;
+using LCL.Domain.Services;
+using LCL.Web.Mvc.ViewEngines;
+using LCL.Web.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 
 namespace LCL.Web.Mvc.Controllers
@@ -10,7 +14,7 @@ namespace LCL.Web.Mvc.Controllers
     public class LController<TAggregateRoot> : LController where TAggregateRoot : class,IAggregateRoot
     {
         #region Ajax CURD
-        public virtual LJsonResult AjaxGetBy()
+        public virtual LJsonResult GetByAjax()
         {
             var modelList = this.Repository<TAggregateRoot>().FindAll().ToList();
 
@@ -20,7 +24,24 @@ namespace LCL.Web.Mvc.Controllers
 
             return json;
         }
-        public virtual LJsonResult EasyUIAjaxGetPage(int? page, int? rows)
+        public virtual LJsonResult GetByIdAjax(Guid id)
+        {
+            var result = new LResult(true);
+            try
+            {
+                var model = this.Repository<TAggregateRoot>().Get(id);
+                result.Data = model;
+            }
+            catch (Exception)
+            {
+                result = new LResult(false);
+            }
+            var json = new LJsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            json.Data = result;
+            return json;
+        }
+        public virtual LJsonResult GetPageEasyUIAjax(int? page, int? rows)
         {
             /*
    1、easyui-datagrid 分页接收参数
@@ -46,7 +67,7 @@ namespace LCL.Web.Mvc.Controllers
 
             return json;
         }
-        public virtual LJsonResult AjaxGetByPage(int? page, int? rows)
+        public virtual LJsonResult GetByPageAjax(int? page, int? rows)
         {
             if (!page.HasValue) page = 1;
             if (!rows.HasValue) rows = 10;
@@ -60,7 +81,7 @@ namespace LCL.Web.Mvc.Controllers
             return json;
         }
         [HttpPost]
-        public virtual LJsonResult AjaxAdd(TAggregateRoot model)
+        public virtual LJsonResult AddAjax(TAggregateRoot model)
         {
             var result = new LResult(true);
             try
@@ -82,7 +103,7 @@ namespace LCL.Web.Mvc.Controllers
             return json;
         }
         [HttpPost]
-        public virtual LJsonResult AjaxDelete(TAggregateRoot model)
+        public virtual LJsonResult DeleteAjax(TAggregateRoot model)
         {
             var result = new LResult(true);
             try
@@ -105,7 +126,7 @@ namespace LCL.Web.Mvc.Controllers
             return json;
         }
         [HttpPost]
-        public virtual LJsonResult AjaxEdit(TAggregateRoot model)
+        public virtual LJsonResult EditAjax(TAggregateRoot model)
         {
             var result = new LResult(true);
             try
@@ -122,7 +143,7 @@ namespace LCL.Web.Mvc.Controllers
             return json;
         }
         [HttpPost]
-        public virtual LJsonResult AjaxDeleteList(IList<Guid> idList)
+        public virtual LJsonResult DeleteListAjax(IList<Guid> idList)
         {
             var result = new LResult(true);
             try
@@ -142,27 +163,126 @@ namespace LCL.Web.Mvc.Controllers
             json.Data = result;
             return json;
         }
-        public virtual LJsonResult AjaxGetByModel(Guid id)
-        {
-            var result = new LResult(true);
-            try
-            {
-                var model = this.Repository<TAggregateRoot>().Get(id);
-                result.Data = model;
-            }
-            catch (Exception)
-            {
-                result = new LResult(false);
-            }
-            var json = new LJsonResult();
-            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            json.Data = result;
-            return json;
-        }
+  
         #endregion
 
         #region CURD
+        public virtual ActionResult List(int? currentPageNum, int? pageSize, FormCollection collection)
+        {
+            if (!currentPageNum.HasValue) currentPageNum = 1;
+            if (!pageSize.HasValue) pageSize = 10;
+            int pageNum = currentPageNum.Value;
 
+            var pageList = this.Repository<TAggregateRoot>().FindAll(p => p.ID, LCL.SortOrder.Descending, currentPageNum.Value, pageSize.Value);
+            return View(pageList);
+        }
+        [Permission("首页", "Index")]
+        public virtual ActionResult Index(int? currentPageNum, int? pageSize, FormCollection collection)
+        {
+            return View();
+        }
+        public virtual ActionResult AddOrEdit(int? currentPageNum, int? pageSize, Guid? id, FormCollection collection)
+        {
+            if (!currentPageNum.HasValue) currentPageNum = 1;
+            if (!pageSize.HasValue) pageSize =10;
+            int pageNum = currentPageNum.Value;
+
+            if (!id.HasValue)
+            {
+                ViewBag.Action = "Add";
+
+                return View(new AddOrEditViewModel<TAggregateRoot>
+                {
+                    Added = true,
+                    Entity = null,
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
+                });
+            }
+            else
+            {
+                ViewBag.Action = "Edit";
+                var repo =this.Repository<TAggregateRoot>();
+                var village = repo.Get(id.Value);
+                return View(new AddOrEditViewModel<TAggregateRoot>
+                {
+                    Added = false,
+                    Entity = village,
+                    CurrentPageNum = currentPageNum.Value,
+                    PageSize = pageSize.Value
+                });
+            }
+        }
+        [Permission("删除", "Delete")]
+        [HttpPost]
+        public virtual ActionResult Delete(TAggregateRoot model, int? currentPageNum, int? pageSize, FormCollection collection)
+        {
+            if (!currentPageNum.HasValue)
+            {
+                currentPageNum = 1;
+            }
+            if (!pageSize.HasValue)
+            {
+                pageSize = 10;
+            }
+            var repo = this.Repository<TAggregateRoot>();
+            var entity = repo.Get(model.ID);
+            repo.Delete(entity);
+            repo.Context.Commit();
+
+            return RedirectToAction("Index", new { currentPageNum = currentPageNum, pageSize = pageSize });
+        }
+        [Permission("添加", "Add")]
+        [HttpPost]
+        public virtual ActionResult Add(AddOrEditViewModel<TAggregateRoot> model, FormCollection collection)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelErrorMsg();
+                return View("AddOrEdit", model);
+            }
+            this.Repository<TAggregateRoot>().Insert(model.Entity);
+            this.Repository<TAggregateRoot>().Context.Commit();
+
+            return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
+        }
+        [Permission("修改", "Edit")]
+        [HttpPost]
+        public virtual ActionResult Edit(AddOrEditViewModel<TAggregateRoot> model, FormCollection collection)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelErrorMsg();
+                return View("AddOrEdit", model);
+            }
+            this.Repository<TAggregateRoot>().Update(model.Entity);
+            this.Repository<TAggregateRoot>().Context.Commit();
+
+            return RedirectToAction("Index", new { currentPageNum = model.CurrentPageNum, pageSize = model.PageSize });
+        }
+        public void ModelErrorMsg()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string msg = "BaseRepoController ModelErrorMsg class:{0} property:{1} error:{2}";
+            //获取所有错误的Key
+            List<string> Keys = ModelState.Keys.ToList();
+            //获取每一个key对应的ModelStateDictionary
+            foreach (var key in Keys)
+            {
+                var errors = ModelState[key].Errors.ToList();
+                //将错误描述添加到sb中
+                foreach (var error in errors)
+                {
+                    sb.AppendLine(string.Format(msg, typeof(TAggregateRoot).Name, key, error.ErrorMessage));
+                }
+            }
+            Logger.LogDebug(sb.ToString());
+        }
+        public ActionResult NoPermissionView()
+        {
+            return View(PermissionAttribute.NoPermissionView);
+        }
         #endregion
     }
 }

@@ -124,6 +124,7 @@
     <Compile Include="Security\AdminValidateIpAddressAttribute.cs" />
     <Compile Include="Security\FilePermissionHelper.cs" />
     <Compile Include="Security\LCLHttpsRequirementAttribute.cs" />
+    <Compile Include="Security\PermissionAttribute.cs" />
     <Compile Include="Security\SslRequirement.cs" />
   </ItemGroup>
   <ItemGroup>
