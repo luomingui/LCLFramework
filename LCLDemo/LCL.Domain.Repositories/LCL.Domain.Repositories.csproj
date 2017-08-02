@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{540C1C33-3A98-4049-A8D0-1A11342326F8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LCL.Domain.Repositories</RootNamespace>
+    <AssemblyName>LCL.Domain.Repositories</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntityFramework\CategorizationRepository.cs" />
+    <Compile Include="EntityFramework\CategoryRepository.cs" />
+    <Compile Include="EntityFramework\EFTestContext.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\CategorizationTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\CategoryTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ProductTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\RoleTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\SalesLineTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\SalesOrderTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ShoppingCartItemTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ShoppingCartTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\UserRoleTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\UserTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ProductRepository.cs" />
+    <Compile Include="EntityFramework\RoleRepository.cs" />
+    <Compile Include="EntityFramework\SalesOrderRepository.cs" />
+    <Compile Include="EntityFramework\ShoppingCartItemRepository.cs" />
+    <Compile Include="EntityFramework\ShoppingCartRepository.cs" />
+    <Compile Include="EntityFramework\UserRepository.cs" />
+    <Compile Include="EntityFramework\UserRoleRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XDocuments\UserRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\src\LCL.Repositories.EntityFramework\LCL.Repositories.EntityFramework.csproj">
+      <Project>{b84421b4-9c83-49d4-a716-6063d946121e}</Project>
+      <Name>LCL.Repositories.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\src\LCL\LCL.csproj">
+      <Project>{c7f55469-a235-48fb-b92c-c48830577e14}</Project>
+      <Name>LCL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LCL.Domain\LCL.Domain.csproj">
+      <Project>{fab4ee85-f1ea-49ac-9b07-84ae088c9324}</Project>
+      <Name>LCL.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LCL.Infrastructure\LCL.Infrastructure.csproj">
+      <Project>{33fb49bb-fe4a-48ee-86c2-5f871de23abc}</Project>
+      <Name>LCL.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="key.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

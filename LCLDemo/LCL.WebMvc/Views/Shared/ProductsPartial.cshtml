@@ -1,0 +1,35 @@
+﻿@using LCL;
+@{
+    ViewBag.Title = "商品";
+}
+@if (ViewBag.CategoryName != null)
+{
+    <h2>商品分类：@ViewBag.CategoryName</h2>
+}
+@{
+    if (Model != null && Model.Data.Count > 0)
+    {
+        foreach (var view in Model.Data)
+        {
+            <div class="col-md-4">
+                <h4>@view.Name</h4>
+                <p>
+                    <a href="@Url.Action("ProductInfo", "Product", new { id = view.ID })">
+                        <img src="@Url.Content(string.Format("~/Images/Products/{0}", view.ImageUrl))" alt="" width="175" height="144" border="0">
+                    </a>
+                </p>
+                <p>
+                    <a href="@Url.Action("ProductInfo", "Product", new { id = view.ID })" id="blue1">详细信息</a>
+                    <a href="@Url.Action("AddToCart", "Home", new { productID = view.ID, items = "1" })" id="blue1">购买</a>
+                    @Html.Encode(string.Format("{0:N2} {1}", view.UnitPrice, "元"))
+                </p>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-md-4">
+            <h3>没有数据</h3>
+        </div>
+    }
+}

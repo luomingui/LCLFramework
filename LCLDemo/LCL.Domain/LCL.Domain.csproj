@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FAB4EE85-F1EA-49AC-9B07-84AE088C9324}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LCL.Domain</RootNamespace>
+    <AssemblyName>LCL.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Events\GetUserOrdersEvent.cs" />
+    <Compile Include="Events\Handlers\GetUserOrdersEventHandler.cs" />
+    <Compile Include="Events\Handlers\OrderConfirmedEventHandler.cs" />
+    <Compile Include="Events\Handlers\OrderDispatchedEventHandler.cs" />
+    <Compile Include="Events\Handlers\SendEmailHandler.cs" />
+    <Compile Include="Events\OrderConfirmedEvent.cs" />
+    <Compile Include="Events\OrderDispatchedEvent.cs" />
+    <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\Categorization.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\SalesLine.cs" />
+    <Compile Include="Model\SalesOrder.cs" />
+    <Compile Include="Model\SalesOrderStatus.cs" />
+    <Compile Include="Model\ShoppingCart.cs" />
+    <Compile Include="Model\ShoppingCartItem.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserRole.cs" />
+    <Compile Include="Model\ValidationModel\Role.cs" />
+    <Compile Include="Model\ViewModels\ShoppingCartModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ICategorizationRepository.cs" />
+    <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Repositories\IProductRepository.cs" />
+    <Compile Include="Repositories\IRoleRepository.cs" />
+    <Compile Include="Repositories\ISalesOrderRepository.cs" />
+    <Compile Include="Repositories\IShoppingCartItemRepository.cs" />
+    <Compile Include="Repositories\IShoppingCartRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\IUserRoleRepository.cs" />
+    <Compile Include="Services\ILCLDomainService.cs" />
+    <Compile Include="Services\IOrderService.cs" />
+    <Compile Include="Services\IPostbackService.cs" />
+    <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\LDomainService.cs" />
+    <Compile Include="Specifications\SalesOrderBelongsToUserSpecification.cs" />
+    <Compile Include="Specifications\SalesOrderIDEqualsSpecification.cs" />
+    <Compile Include="Specifications\ShoppingCartBelongsToCustomerSpecification.cs" />
+    <Compile Include="Specifications\ShoppingCartItemBelongsToShoppingCartSpecification.cs" />
+    <Compile Include="Specifications\ShoppingCartItemHasProductSpecification.cs" />
+    <Compile Include="Specifications\UserEmailEqualsSpecification.cs" />
+    <Compile Include="Specifications\UserNameEqualsSpecification.cs" />
+    <Compile Include="Specifications\UserPasswordEqualsSpecification.cs" />
+    <Compile Include="Specifications\UserRolesSpecification.cs" />
+    <Compile Include="Specifications\UserStringEqualsSpecification.cs" />
+    <Compile Include="ValueObject\ValueObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\src\LCL\LCL.csproj">
+      <Project>{c7f55469-a235-48fb-b92c-c48830577e14}</Project>
+      <Name>LCL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LCL.Infrastructure\LCL.Infrastructure.csproj">
+      <Project>{33fb49bb-fe4a-48ee-86c2-5f871de23abc}</Project>
+      <Name>LCL.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="key.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

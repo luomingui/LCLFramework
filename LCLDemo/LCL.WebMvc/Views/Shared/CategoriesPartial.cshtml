@@ -1,0 +1,20 @@
+﻿@using LCL;
+@{
+    ViewBag.Title = "商品" + ViewBag.CategoryName;
+}
+<a href="/Product/Category"><h4>商 品 分 类</h4></a>
+<ul class="nav">
+    @foreach (var item in Model)
+    {
+        <li>
+            @if (ViewBag.CategoryName != null && ViewBag.CategoryName == item.Name)
+            {
+                <a class="active" href="/Product/Category?categoryID=@item.ID"><span class="badge">@item.Count</span>@item.Name</a>
+            }
+            else
+            {
+                <a class="" href="/Product/Category?categoryID=@item.ID"><span class="badge">@item.Count</span>@item.Name</a>
+            }
+        </li>
+    }
+</ul>

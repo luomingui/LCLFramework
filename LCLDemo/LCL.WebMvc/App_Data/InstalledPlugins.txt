@@ -1,0 +1,5 @@
+LCL.Plugin.EasyUI
+LCL.Plugin.UCenter
+LCL.Plugin.Rbac
+Widgets.NivoSlider
+Widgets.Avatars

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LCL WEB MVC</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <a id="skippy" class="sr-only sr-only-focusable" href="#content"><div class="container"><span class="skiplink-text">Skip to main content</span></div></a>
+    <header class="navbar navbar-static-top bs-docs-nav" id="top">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("LCL Web Mvc", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <nav id="bs-navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><i class="pe-7s-home"></i>@Html.ActionLink("主页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("商品", "Index", "Product")</li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            关于
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("关于本项目", "About", "Home")</li>
+                            <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li><a>欢迎您，@User.Identity.Name</a></li>
+                    <li>
+                        <a href="Account/Account" class="dropdown-toggle" data-toggle="dropdown">
+                            我的
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("订单", "SalesOrders", "Home")</li>
+                            <li>@Html.ActionLink("账户", "Account", "Account")</li>
+                            <li>@Html.ActionLink("购物篮", "ShoppingCart", "Home")</li>
+                        </ul>
+                    </li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li>
+                        <a href="Admin/Administration" class="dropdown-toggle" data-toggle="dropdown">
+                            管理
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLinkWithPermission("销售订单管理", "SalesOrders", "Admin", PermissionKeys.Administrators | PermissionKeys.SalesReps)</li>
+                            <li>@Html.ActionLinkWithPermission("商品分类管理", "Categories", "Admin", PermissionKeys.Administrators | PermissionKeys.Buyers)</li>
+                            <li>@Html.ActionLinkWithPermission("商品信息管理", "Products", "Admin", PermissionKeys.Administrators | PermissionKeys.Buyers)</li>
+                            <li>@Html.ActionLinkWithPermission("用户账户管理", "UserAccounts", "Admin", PermissionKeys.Administrators)</li>
+                            <li>@Html.ActionLinkWithPermission("用户角色管理", "Roles", "Admin", PermissionKeys.Administrators)</li>
+                        </ul>
+                    </li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("退出", "LogOff", "Account")</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("注册", "Register", "Account")</li>
+                    <li>@Html.ActionLink("登录", "Login", "Account")</li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    @RenderBody()
+
+    <hr />
+    <div class="container bs-docs-container">
+        <footer>
+            <p>
+                @Html.ActionLink("主页", "Index", "Home")&nbsp; | &nbsp;&nbsp;
+                @Html.ActionLink("所有分类", "Category", "Product", null, null)&nbsp;&nbsp;|&nbsp;&nbsp;
+                @Html.ActionLink("我的账户", "Account", "Account")&nbsp;&nbsp; |&nbsp;&nbsp;
+                @Html.ActionLink("联系我们", "Contact", "Home")&nbsp;&nbsp; |&nbsp;&nbsp;
+                @Html.ActionLink("关于本站", "About", "Home")&nbsp;&nbsp;
+                版权所有 &copy; 2011-@DateTime.Now.Year, LCL Web Mvc, 保留所有权利。
+            </p>
+        </footer>
+    </div>
+
+   
+    @RenderSection("scripts", required: false)
+</body>
+</html>

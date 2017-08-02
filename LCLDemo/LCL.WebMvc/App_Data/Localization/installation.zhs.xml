@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language Name="简体中文" IsDefault="true" IsRightToLeft="false">
+  <LocaleResource Name="SystemTitle">
+    <Value>企业信息化快速开发框架</Value>
+  </LocaleResource>
+  <LocaleResource Name="keywords">
+    <Value>MVC,EasyUI,LCL,DDD,Domain,Services,Specifications,Events</Value>
+  </LocaleResource>
+  <LocaleResource Name="description">
+    <Value>ASP.NET MVC+EasyUI+LCL+插件构建的企业信息化快速开发框架,LCLFramework就是一套在.NET下支持面向领域驱动的软件系统管理类软件的快速开发框架</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.UCenter">
+    <Value>用户中心</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.UCenter.Application">
+    <Value>应用列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.UCenter.UserList">
+    <Value>用户列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.UCenter.MyCenter">
+    <Value>个人中心</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac">
+    <Value>基础设置</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac.UserList">
+    <Value>用户管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac.Role">
+    <Value>角色管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac.Group">
+    <Value>群组管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac.Department">
+    <Value>部门管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac.Dictionary">
+    <Value>字典管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac.Xzqy">
+    <Value>行政区域</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.Rbac.Schedule">
+    <Value>计划任务</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.EasyUI.Plugins">
+    <Value>插件管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Menu.EasyUI.Plugin">
+    <Value>插件列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.ContactUs">
+    <Value>联系我们</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Operation">
+    <Value>操作</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Add">
+    <Value>添加</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Edit">
+    <Value>编辑</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Del">
+    <Value>删除</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.query">
+    <Value>查询</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Save">
+    <Value>保存</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Cancel">
+    <Value>取消</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Installed">
+    <Value>安装</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Uninstall">
+    <Value>卸载</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Id">
+    <Value>编号</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.AddDate">
+    <Value>添加时间</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.UpdateDate">
+    <Value>更新时间</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Status">
+    <Value>状态</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Configure">
+    <Value>配置</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.ConfigurationNotRequired">
+    <Value>不需要配置</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Show">
+    <Value>显示</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Hide">
+    <Value>隐藏</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Alert.Title">
+    <Value>提示</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Alert.DelTop">
+    <Value>请选择！</Value>
+  </LocaleResource>
+  <LocaleResource Name="Common.Alert.DelTop1">
+    <Value>是否删除！</Value>
+  </LocaleResource>
+  <LocaleResource Name="Widgets.BackToList">
+    <Value>返回挂件列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application">
+    <Value>应用程序</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application.Type">
+    <Value>应用类型</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application.Name">
+    <Value>应用名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application.Url">
+    <Value>应用地址</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application.AuthKey">
+    <Value>应用密钥</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application.IP">
+    <Value>应用IP</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application.ViewProUrl">
+    <Value>用户资料查看地址</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Application.ApiFileName">
+    <Value>接口文件名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members">
+    <Value>用户列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.Name">
+    <Value>登录名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.Password">
+    <Value>登录密码</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.IsLockedOut">
+    <Value>是否锁定</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.UserPhoto">
+    <Value>照片</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.Sex">
+    <Value>性别</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.Birthday">
+    <Value>出生年月</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.NationalID">
+    <Value>民族</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.PoliticalID">
+    <Value>政治面貌</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.IdCard">
+    <Value>身份证号</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.Telephone">
+    <Value>电话</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.UserQQ">
+    <Value>QQ</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Members.Email">
+    <Value>Email</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User">
+    <Value>用户列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.Name">
+    <Value>登录名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.Password">
+    <Value>登录密码</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.IsLockedOut">
+    <Value>是否锁定</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.UserPhoto">
+    <Value>照片</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.Sex">
+    <Value>性别</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.Birthday">
+    <Value>出生年月</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.NationalID">
+    <Value>民族</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.PoliticalID">
+    <Value>政治面貌</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.IdCard">
+    <Value>身份证号</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.Telephone">
+    <Value>电话</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.UserQQ">
+    <Value>QQ</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.User.Email">
+    <Value>Email</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Role">
+    <Value>角色管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Role.Name">
+    <Value>角色名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Role.Remark">
+    <Value>角色描述</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Role.RoleType">
+    <Value>角色类型</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Group">
+    <Value>群组管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Group.Name">
+    <Value>群组名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Group.Remark">
+    <Value>群组描述</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Group.GroupType">
+    <Value>群组类型</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department">
+    <Value>部门管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.Name">
+    <Value>部门名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.DepartmentType">
+    <Value>类型</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.OfficePhone">
+    <Value>办公电话</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.Address">
+    <Value>办公地址</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.Source">
+    <Value>来源</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.Remark">
+    <Value>简介</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.Order">
+    <Value>排序</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Department.Xzqy_Id">
+    <Value>所属区域</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Dictionary">
+    <Value>字典管理</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Dictionary.Name">
+    <Value>字典名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Dictionary.Value">
+    <Value>值</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Dictionary.Order">
+    <Value>排序</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Dictionary.DictType_Id">
+    <Value>所属类型</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Xzqy">
+    <Value>行政区域</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Xzqy.HelperCode">
+    <Value>区域助记码</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Xzqy.Name">
+    <Value>行政区域名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Xzqy.Intro">
+    <Value>行政区域简介</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask">
+    <Value>计划任务</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.Type">
+    <Value>任务类型</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.Name">
+    <Value>任务名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.Seconds">
+    <Value>间隔时间(秒)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.Enabled">
+    <Value>已启用</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.StopOnError">
+    <Value>发生错误时停止</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.LastStartUtc">
+    <Value>最后开始日期</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.LastEndUtc">
+    <Value>最后结束日期</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.ScheduleTask.LastSuccessUtc">
+    <Value>最后成功日志</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.ContentManagement.Widgets">
+    <Value>挂件管理 </Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Widgets.Fields.FriendlyName">
+    <Value>友好名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Widgets.Fields.SystemName">
+    <Value>系统名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Widgets.Fields.DisplayOrder">
+    <Value>显示顺序</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Widgets.Fields.IsActiv">
+    <Value>已启用</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Widgets.BackToList">
+    <Value>返回挂件列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin">
+    <Value>插件列表</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.Group">
+    <Value>插件分类</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.FriendlyName">
+    <Value>插件名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.LogoUrl">
+    <Value>插件商标</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.SystemName">
+    <Value>系统名称</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.Version">
+    <Value>插件版本</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.DisplayOrder">
+    <Value>显示顺序</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.Installed">
+    <Value>已安装</Value>
+  </LocaleResource>
+  <LocaleResource Name="Entity.Plugin.IsEnabled">
+    <Value>已启用</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Common.EditPass">
+    <Value>修改密码</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Common.Welcome">
+    <Value>用户您好！欢迎进</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Common.LoginOut">
+    <Value>退出</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Common.Feedback">
+    <Value>反馈建议</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugin.EasyUI.Common.Menu">
+    <Value>操作平台</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.LVersion">
+    <Value>LCL 版本</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.OperatingSystem">
+    <Value>操作系统</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.ASPNETInfo">
+    <Value>ASP.NET版本</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.IsFullTrust">
+    <Value>完全信任级别</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.ServerTimeZone">
+    <Value>服务器时区</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.ServerLocalTime">
+    <Value>服务器本地时间</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.UTCTime">
+    <Value>格林威治标准时间(GMT/UTC)</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.HTTPHOST">
+    <Value>HTTP_HOST</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.ServerVariables">
+    <Value>服务器变量</Value>
+  </LocaleResource>
+  <LocaleResource Name="System.SystemInfo.LoadedAssemblies">
+    <Value>已加载的程序集</Value>
+  </LocaleResource>
+</Language>

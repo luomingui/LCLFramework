@@ -1,0 +1,18 @@
+﻿@using LCL;
+@{
+    ViewBag.Title = "商品" + ViewBag.CategoryName;
+}
+<div class="container bs-docs-container">
+    <div class="row">
+        @{Html.RenderAction("FeaturedProductsPartial", "Layout");}
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-9" role="main">
+            @{Html.RenderAction("ProductsPartial", "Layout");}
+        </div>
+        <div class="col-md-3" role="complementary">
+            @{Html.RenderAction("CategoriesPartial", "Layout");}
+        </div>
+    </div>
+</div>

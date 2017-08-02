@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dictionary>
+  <Words>
+    <Unrecognized></Unrecognized>
+    <Deprecated></Deprecated>
+    <Recognized>
+      <Word>Unstyled</Word>
+      <Word>Blockquote</Word>
+    </Recognized>
+    <Compound>
+    </Compound>
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>Mvc</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

@@ -1,0 +1,52 @@
+2017/7/19 16:25:58|1|Error|Application Error: System.IO.FileLoadException: 未能加载文件或程序集“Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+文件名:“Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da”
+   在 LCL.Web.DependencyRegistrar.Register(ContainerBuilder builder, ITypeFinder typeFinder)
+   在 LCL.Infrastructure.LEngine.RegisterDependencies(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 96
+   在 LCL.Infrastructure.LEngine.Initialize(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 110
+   在 LCL.Infrastructure.EngineContext.Initialize(Boolean forceRecreate) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\EngineContext.cs:行号 41
+   在 LCL.WebMvc.MvcApplication.Application_Start() 位置 F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\Global.asax.cs:行号 17
+
+=== 预绑定状态信息 ===
+日志: DisplayName = Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da
+ (Fully-specified)
+日志: Appbase = file:///F:/Github2018/LCL/trunk/LCLDemo/LCL.WebMvc/
+日志: 初始 PrivatePath = F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\bin
+调用程序集: Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da。
+===
+日志: 此绑定从 default 加载上下文开始。
+日志: 正在使用应用程序配置文件: F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\web.config
+日志: 使用主机配置文件: D:\Documents\IISExpress\config\aspnet.config
+日志: 使用 C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config 的计算机配置文件。
+日志: 策略后引用: Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da
+日志: 尝试下载新的 URL file:///C:/Windows/Microsoft.NET/Framework/v4.0.30319/Temporary ASP.NET Files/vs/9d4a7999/2830763d/Autofac.DLL。
+日志: 尝试下载新的 URL file:///C:/Windows/Microsoft.NET/Framework/v4.0.30319/Temporary ASP.NET Files/vs/9d4a7999/2830763d/Autofac/Autofac.DLL。
+日志: 尝试下载新的 URL file:///F:/Github2018/LCL/trunk/LCLDemo/LCL.WebMvc/bin/Autofac.DLL。
+警告: 比较程序集名称时发生不匹配: 次版本
+错误: 未能完成程序集的安装(hr = 0x80131040)。探测终止。
+
+2017/7/19 16:33:38|1|Error|Application Error: System.IO.FileLoadException: 未能加载文件或程序集“Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+文件名:“Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da”
+   在 LCL.Web.DependencyRegistrar.Register(ContainerBuilder builder, ITypeFinder typeFinder)
+   在 LCL.Infrastructure.LEngine.RegisterDependencies(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 97
+   在 LCL.Infrastructure.LEngine.Initialize(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 110
+   在 LCL.Infrastructure.EngineContext.Initialize(Boolean forceRecreate) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\EngineContext.cs:行号 42
+   在 LCL.WebMvc.MvcApplication.Application_Start() 位置 F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\Global.asax.cs:行号 17
+
+=== 预绑定状态信息 ===
+日志: DisplayName = Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da
+ (Fully-specified)
+日志: Appbase = file:///F:/Github2018/LCL/trunk/LCLDemo/LCL.WebMvc/
+日志: 初始 PrivatePath = F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\bin
+调用程序集: Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da。
+===
+日志: 此绑定从 default 加载上下文开始。
+日志: 正在使用应用程序配置文件: F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\web.config
+日志: 使用主机配置文件: D:\Documents\IISExpress\config\aspnet.config
+日志: 使用 C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config 的计算机配置文件。
+日志: 策略后引用: Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da
+日志: 尝试下载新的 URL file:///C:/Windows/Microsoft.NET/Framework/v4.0.30319/Temporary ASP.NET Files/vs/9d4a7999/2830763d/Autofac.DLL。
+日志: 尝试下载新的 URL file:///C:/Windows/Microsoft.NET/Framework/v4.0.30319/Temporary ASP.NET Files/vs/9d4a7999/2830763d/Autofac/Autofac.DLL。
+日志: 尝试下载新的 URL file:///F:/Github2018/LCL/trunk/LCLDemo/LCL.WebMvc/bin/Autofac.DLL。
+警告: 比较程序集名称时发生不匹配: 次版本
+错误: 未能完成程序集的安装(hr = 0x80131040)。探测终止。
+

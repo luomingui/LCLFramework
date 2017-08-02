@@ -1,0 +1,26 @@
+2017/8/2 11:02:24|1|Error|Application Error: System.ArgumentException: The type 'LCL.Domain.Repositories.EntityFramework.CategorizationRepository' is not assignable to service 'LCL.Domain.Repositories.IRepositoryContext'.
+   在 Autofac.Builder.RegistrationBuilder.CreateRegistration(Guid id, RegistrationData data, IInstanceActivator activator, IEnumerable`1 services, IComponentRegistration target)
+   在 Autofac.Builder.RegistrationBuilder.CreateRegistration[TLimit,TActivatorData,TSingleRegistrationStyle](IRegistrationBuilder`3 builder)
+   在 Autofac.Builder.RegistrationBuilder.RegisterSingleComponent[TLimit,TActivatorData,TSingleRegistrationStyle](IComponentRegistry cr, IRegistrationBuilder`3 builder)
+   在 Autofac.RegistrationExtensions.<>c__DisplayClass3_0`1.<RegisterType>b__0(IComponentRegistry cr)
+   在 Autofac.ContainerBuilder.Build(IComponentRegistry componentRegistry, Boolean excludeDefaultModules)
+   在 Autofac.ContainerBuilder.UpdateRegistry(IComponentRegistry componentRegistry)
+   在 Autofac.ContainerBuilder.Update(IContainer container, ContainerBuildOptions options)
+   在 Autofac.ContainerBuilder.Update(IContainer container)
+   在 LCL.Infrastructure.LEngine.RegisterDependencies(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 98
+   在 LCL.Infrastructure.LEngine.Initialize(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 110
+   在 LCL.Infrastructure.EngineContext.Initialize(Boolean forceRecreate) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\EngineContext.cs:行号 42
+   在 LCL.WebMvc.MvcApplication.Application_Start() 位置 F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\Global.asax.cs:行号 17
+2017/8/2 11:09:27|1|Error|Application Error: System.ArgumentException: The type 'LCL.Domain.Repositories.EntityFramework.CategorizationRepository' is not assignable to service 'LCL.Domain.Repositories.IRepositoryContext'.
+   在 Autofac.Builder.RegistrationBuilder.CreateRegistration(Guid id, RegistrationData data, IInstanceActivator activator, IEnumerable`1 services, IComponentRegistration target)
+   在 Autofac.Builder.RegistrationBuilder.CreateRegistration[TLimit,TActivatorData,TSingleRegistrationStyle](IRegistrationBuilder`3 builder)
+   在 Autofac.Builder.RegistrationBuilder.RegisterSingleComponent[TLimit,TActivatorData,TSingleRegistrationStyle](IComponentRegistry cr, IRegistrationBuilder`3 builder)
+   在 Autofac.RegistrationExtensions.<>c__DisplayClass3_0`1.<RegisterType>b__0(IComponentRegistry cr)
+   在 Autofac.ContainerBuilder.Build(IComponentRegistry componentRegistry, Boolean excludeDefaultModules)
+   在 Autofac.ContainerBuilder.UpdateRegistry(IComponentRegistry componentRegistry)
+   在 Autofac.ContainerBuilder.Update(IContainer container, ContainerBuildOptions options)
+   在 Autofac.ContainerBuilder.Update(IContainer container)
+   在 LCL.Infrastructure.LEngine.RegisterDependencies(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 98
+   在 LCL.Infrastructure.LEngine.Initialize(LConfig config) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\LEngine.cs:行号 110
+   在 LCL.Infrastructure.EngineContext.Initialize(Boolean forceRecreate) 位置 F:\Github2018\LCL\trunk\Source\src\LCL\Infrastructure\EngineContext.cs:行号 42
+   在 LCL.WebMvc.MvcApplication.Application_Start() 位置 F:\Github2018\LCL\trunk\LCLDemo\LCL.WebMvc\Global.asax.cs:行号 17

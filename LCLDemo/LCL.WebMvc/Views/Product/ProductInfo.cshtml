@@ -1,0 +1,58 @@
+﻿@model LCL.Domain.Model.Product
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="container bs-docs-container">
+    <div class="row">
+        @{Html.RenderAction("FeaturedProductsPartial", "Layout");}
+    </div>
+    <br />
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <table>
+        <tr>
+            <td>
+                <img src="@Url.Content(string.Format("~/Images/Products/{0}",Model.ImageUrl))" alt="" width="175" height="144" border="0">
+            </td>
+            <td>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UnitPrice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UnitPrice)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsFeatured)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IsFeatured)
+                    </dd>
+
+                </dl>
+
+            </td>
+        </tr>
+    </table>
+
+</div>

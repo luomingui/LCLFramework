@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "关于LCLWebMvcDemo项目";
+}
+<!-- Docs page layout -->
+<div class="bs-docs-header" id="content" tabindex="-1">
+    <div class="container">
+        <h1>项目简介</h1>
+        <p> LCL Web Mvc是一个基于.NET开发的企业级应用程序，目的在于演示领域驱动设计在.NET开发中的应用。</p>
+    </div>
+</div>
+<div class="container bs-docs-container">
+    <h3>项目简介</h3>
+    <p>
+        LCL Web Mvc是一个基于.NET开发的企业级应用程序，目的在于演示领域驱动设计在.NET开发中的应用。
+        LCL Web Mvc以在线零售为业务背景，从各个技术层面展示了.NET企业级应用程序的架构设计，希望它能够
+        给社区朋友带来一定的帮助。
+    </p>
+    <h3>当前版本号</h3>
+    <p>V1</p>
+
+    <h3>LCLWebMvcDemo所演示的模式和设计思想</h3>
+    <p>LCLWebMvcDemo项目演示或涵盖了以下模式和设计思想： </p>
+    <ul>
+        <li>实体、值对象、领域服务</li>
+        <li>规约、仓储、仓储上下文</li>
+        <li>领域事件、事件聚合器、事件总线</li>
+        <li>事务协调器</li>
+        <li>服务定位器模式、工作单元模式、分离接口模式、数据传输对象模式、层超类型模式、传输对象组装器模式</li>
+    </ul>
+
+    <h3>登录账户</h3>
+    <p>启动成功后，就可以单击页面右上角的“登录”链接进行账户登录。默认的登录账户有（用户名/密码）：</p>
+
+    <p>
+        <ul>
+            <li>admin/admin：以管理员角色登录，可以对站点进行管理</li>
+            <li>sales/sales：以销售人员角色登录，可以查看系统中订单信息并进行发货等操作</li>
+            <li>buyer/buyer：以采购人员角色登录，可以管理商品分类和商品信息</li>
+            <li>luomingui/luomingui：普通用户角色，不能对系统进行任何管理操作</li>
+        </ul>
+    </p>
+    <h2>解决方案结构</h2>
+    <p>LCLWebMvcDemo.sln包含以下项目：</p>
+    <ul>
+        <li>LCL.Application：应用层</li>
+        <li>LCL.Domain：领域层</li>
+        <li>LCL.Domain.Repositories：仓储的具体实现（目前是基于Entity Framework 5.0的实现）</li>
+        <li>LCL.Infrastructure：基础结构层</li>
+        <li>LCL.WebAPI：基于MVC的API</li>
+        <li>LCL.Services：WCF服务</li>
+        <li>LCL.WebMvc：基于ASP.NET MVC的站点程序（表示层）</li>
+    </ul>
+
+</div>
