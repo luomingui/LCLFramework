@@ -1,0 +1,277 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Unit of Work-LCL框架文档</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr>
+                <th colspan="3" align="center" style="text-align: center;">Unit of Work</th>
+            </tr>
+            <tr>
+                <td width="20%" align="left">
+                    <a accesskey="p" href="Specifications.html">Prev</a>&nbsp;
+                </td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">
+                    &nbsp;
+                    <a accesskey="n" href="EventBus-Domain-Events.html">Next</a>
+                </td>
+            </tr>
+        </table><hr />
+    </div>
+    <div class="document-contents">
+        <div id="cnblogs_post_body" class="cnblogs-markdown">
+            <h3 id="工作单元">工作单元(Unit of Work)</h3>
+            <ul>
+                <li><strong><a href="#ways">公共连接和事务管理方法</a></strong></li>
+                <li>
+                    <strong><a href="#abpConn">LCL中的连接和事务管理</a></strong>
+                    <ul>
+                        <li><strong><a href="#repo">仓储类</a></strong></li>
+                        <li><strong><a href="#appService">应用服务</a></strong></li>
+                        <li><strong><a href="#uow">工作单元</a></strong></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong><a href="#uowDetail">工作单元详解</a></strong>
+                    <ul>
+                        <li><strong><a href="#disable">关闭工作单元</a></strong></li>
+                        <li><strong><a href="#nonTrans">非事务的工作单元</a></strong></li>
+                        <li><strong><a href="#callAnother">工作单元方法调用其它</a></strong></li>
+                        <li><strong><a href="#scope">工作单元作用域</a></strong></li>
+                        <li><strong><a href="#autoSaving">自动保存</a></strong></li>
+                        <li><strong><a href="#getAll">IRepository.GetAll()方法</a></strong></li>
+                        <li><strong><a href="#restrictions">UnitOfWork特性的限制</a></strong></li>
+                    </ul>
+                </li>
+                <li><strong><a href="#options">选项</a></strong></li>
+                <li><strong><a href="#methods">方法</a></strong></li>
+                <li><strong><a href="#events">事件</a></strong></li>
+            </ul>
+            <h3 id="公共连接和事务管理方法"><a name='ways'></a>公共连接和事务管理方法</h3>
+            <p>在使用了数据库的应用中，连接和事务管理是最重要的概念之一。何时打开一个连接,何时开始一个事务，如何释放连接等等。</p>
+            <p>你可能已经知道，Net使用了连接池。因此，创建一个连接实际上是从连接池中获取一个连接，因为因为创建一个连接是有消耗的。如果在连接池中没有可用的连接，那么会创建一个新的连接，并将该连接加入连接池。当你释放连接时，实际上是将该连接发送回给连接池，并没有完全释放。这种机制是.Net提供的立即可用的功能。因此，在我们使用完一个连接后应该立即释放，在需要的时候才创建一个新的连接。总之，最佳实践记住这八个字足矣：<strong>尽晚打开，尽早释放</strong>。</p>
+            <p>这里我推荐一篇关于数据库连接的文章，写得很浅显易懂：<strong><a href="http://www.cnblogs.com/liuhaorain/archive/2012/02/19/2353110.html">《细说数据库连接》</a></strong></p>
+            <p>在一个应用中创建或者释放一个数据库连接，通常有2种方法。</p>
+            <p><strong>第一种方法</strong>：当Web请求开始（在Global.asax的Application_BeginRequest事件中）的时候创建一个连接，在所有的数据库操作时使用相同的连接，并且在请求结束（Application_EndRequest）时关闭或者释放该连接。这种方法很简单但是不够高效。为啥呢？</p>
+            <ul>
+                <li>在一个请求中也许没有数据库操作，但是连接已经打开了。这造成了连接池的无效使用。</li>
+                <li>在一次请求中，可能请求需要消耗很长的时间而数据库操作只花费很短的时间，这也会造成连接池的无效使用。</li>
+                <li>这只在Web应用中是可行的。如果应用是一个Windows服务，那么可能不会实现。</li>
+            </ul>
+            <p>以<strong>事务</strong>的方式执行数据库操作已被认为是一种最佳实践。如果一个操作失败了，那么所有的操作都会回滚。因为一个事务可以锁定数据库中的一些行（甚至表），所以它必须是短暂存活的。</p>
+            <p><strong>第二种方法</strong>：当需要时（仅在使用前）创建一个连接，使用后立即关闭。这是最有效的，但是到处创建或者释放连接是一项重复乏味的工作。</p>
+            <h3 id="abp中的连接和事务管理"><a name='abpConn'></a>LCL中的连接和事务管理</h3>
+            <p>LCL兼备了这两种方法并且提供了一个简单而又有效的模型。</p>
+            <h4 id="仓储类"><a name='repo'></a>仓储类</h4>
+            <p>仓储式执行数据库操作主要的类。当进入一个仓储方法时，LCL会打开一个数据库连接（可能不是立即打开，但是在第一次使用数据库时肯定是打开的，取决于ORM提供者的实现）并开始一个事务。因此，在一个仓储方法中可以安全地使用连接。在方法的结束，事务被提交并且连接被释放。如果仓储方法抛出任何异常，那么事务都会<strong>回滚</strong>且连接被释放。这样一来，仓储方法就是<strong>原子的（一个工作单元）</strong>。LCL对于这些会自动处理。这里是一个简单的仓储：</p>
+<pre class="c#"><code>public class ContentRepository : NhRepositoryBase&lt;Content&gt;, IContentRepository
+{
+    public List&lt;Content&gt; GetActiveContents(string searchCondition)
+    {
+        var query = from content in Session.Query&lt;Content&gt;()
+                    where content.IsActive &amp;&amp; !content.IsDeleted
+                    select content;
+        if (!string.IsNullOrEmpty(searchCondition))
+        {
+            query = query.Where(content =&gt; content.Text.Contains(searchCondition));
+        }
+        return query.ToList();
+    }
+}
+</code></pre>
+            <p>这个例子使用了NHibernate作为ORM。正如上面演示的，没有编写数据库连接（在NHibernate中是Session）打开或者关闭的代码。</p>
+            <p>如果一个仓储方法调用了其他的仓储方法（一般而言，如果一个工作单元调用了其他的工作单元方法），那么它们共享相同的连接和事务。第一个进入的方法管理连接和事务，其他方法使用相同的连接和事务。</p>
+            <h4 id="应用服务"><a name='appService'></a>应用服务</h4>
+            <p>一个应用服务也被认为是一个工作单元。假设我们有一个像下面的应用服务：</p>
+<pre class="c#"><code>public class PersonAppService : IPersonAppService
+{
+    private readonly IPersonRepository _personRepository;
+    private readonly IStatisticsRepository _statisticsRepository;
+    public PersonAppService(IPersonRepository personRepository, IStatisticsRepository statisticsRepository)
+    {
+        _personRepository = personRepository;
+        _statisticsRepository = statisticsRepository;
+    }
+    public void CreatePerson(CreatePersonInput input)
+    {
+        var person = new Person { Name = input.Name, EmailAddress = input.EmailAddress };
+        _personRepository.Insert(person);
+        _statisticsRepository.IncrementPeopleCount();
+    }
+}
+</code></pre>
+            <p>在CreatePerson方法中，我们使用了person仓储插入了一个person，而且使用statistics仓储增加总人数。在这里例子中，这两个仓储共享相同的连接和事务，因为它们在一个应用服务方法中。LCL在进入CreatePerson方法时打开一个数据库连接并开始一个事务，如果没有抛出异常事务会在方法结尾时提交，如果有任何异常发生，将会回滚。这样一来，在CreatePerson方法中的所有数据库操作都成了<strong>原子的（工作单元）</strong>。</p>
+            <h4 id="工作单元"><a name='uow'></a>工作单元</h4>
+            <p>工作单元对于仓储和应用服务方法<strong>隐式</strong>有效。如果你想在其他地方控制数据库连接和事务，那么可以<strong>显式</strong>使用它。</p>
+            <h5 id="unitofwork特性">UnitOfWork特性</h5>
+            <p>最受人欢迎的方法是使用<strong>UnitOfWorkAttribute</strong>。例如：</p>
+<pre class="c#"><code>[UnitOfWork]
+public void CreatePerson(CreatePersonInput input)
+{
+    var person = new Person { Name = input.Name, EmailAddress = input.EmailAddress };
+    _personRepository.Insert(person);
+    _statisticsRepository.IncrementPeopleCount();
+}
+</code></pre>
+            <p>这样，CreatePerson方法变成了工作单元并且管理数据库连接和事务，两个仓储使用相同的工作单元，注意的是，如果这是一个应用服务方法，就不需要UnitOfWork特性。</p>
+            <h5 id="iunitofworkmanager">IUnitOfWorkManager</h5>
+            <p>第二种方法是使用<strong>IUnitOfWorkManager.Begin()</strong>方法，如下所示：</p>
+<pre class="c#"><code>public class MyService
+{
+    private readonly IUnitOfWorkManager _unitOfWorkManager;
+    private readonly IPersonRepository _personRepository;
+    private readonly IStatisticsRepository _statisticsRepository;
+    public MyService(IUnitOfWorkManager unitOfWorkManager, IPersonRepository personRepository, IStatisticsRepository statisticsRepository)
+    {
+        _unitOfWorkManager = unitOfWorkManager;
+        _personRepository = personRepository;
+        _statisticsRepository = statisticsRepository;
+    }
+    public void CreatePerson(CreatePersonInput input)
+    {
+        var person = new Person { Name = input.Name, EmailAddress = input.EmailAddress };
+        using (var unitOfWork = _unitOfWorkManager.Begin())
+        {
+            _personRepository.Insert(person);
+            _statisticsRepository.IncrementPeopleCount();
+            unitOfWork.Complete();
+        }
+    }
+}
+</code></pre>
+            <p>你可以注入然后使用IUnitOfWork，正如这里演示的这样（如果你的应用继承自ApplicationService类，那么你可以直接使用<strong>CurrentUnitOfWork</strong>属性。如果没有，你要先注入IUnitOfWorkManager）。这样，你就可以创建更多的<strong>限制作用域</strong>的工作单元。用这种方法，你应该手动调用<strong>Complete</strong>方法。如果没有调用，事务就会回滚，改变就不会保存。</p>
+            <p>Begin方法有很多重载来设置<strong>工作单元选项</strong>。</p>
+            <p>如果找不到一个很好的理由，建议还是使用<strong>UnitOfWork特性</strong>，因为代码越短越好。</p>
+            <h3 id="工作单元详解"><a name='uowDetail'></a>工作单元详解</h3>
+            <h4 id="关闭工作单元"><a name='disable'></a>关闭工作单元</h4>
+            <p>有时候你可能想关闭应用服务方法的工作单元（因为默认是开启的），此时，可以使用UnitOfWorkAttribute的IsDisabled属性。用法如下：</p>
+<pre class="c#"><code>[UnitOfWork(IsDisabled = true)]
+public virtual void RemoveFriendship(RemoveFriendshipInput input)
+{
+    _friendshipRepository.Delete(input.Id);
+}
+</code></pre>
+            <p>正常情况下，不需要关闭数据单元，因为应用服务方法应该是原子的且一般都会使用数据库。但也有些例外情况让你想要关闭应用服务方法的工作单元：</p>
+            <ul>
+                <li>方法不执行任何数据库操作而且你也不想打开一个没有必要的数据库连接。</li>
+                <li>如上面描述的，你想要在一个UnitOfWorkScope类的有限作用域内使用工作单元。</li>
+            </ul>
+            <p><strong>注意：</strong>如果一个工作单元方法调用了这个<em>RemoveFriendship</em>方法，那么后者的关闭工作单元的功能将会失效，并且也会使用和调用者方法相同的工作单元。因此，要小心使用工作单元的关闭功能。</p>
+            <h4 id="非事务的工作单元"><a name='nonTrans'></a>非事务的工作单元</h4>
+            <p>工作单元默认是事务的（本质如此）。因此，LCL会开始-&gt;提交-&gt;回滚一个显式的数据库级别的事务。在一些特殊场合，事务可能会造成问题，因为它可能会锁住数据库中的一些行或者表。在这种情况下，你可能想关闭数据库级别的事务。UnitOfWork特性可以在构造函数中获得一个布尔值，从而以非事务形式工作。用法如下：</p>
+<pre class="c#"><code>[UnitOfWork(isTransactional: false)]
+public GetTasksOutput GetTasks(GetTasksInput input)
+{
+    var tasks = _taskRepository.GetAllWithPeople(input.AssignedPersonId, input.State);
+    return new GetTasksOutput
+            {
+                Tasks = Mapper.Map&lt;List&lt;TaskDto&gt;&gt;(tasks)
+            };
+}
+</code></pre>
+            <p>建议使用<strong>[UnitOfWork(isTransactional: false)]</strong>，因为它是更具可读性的，但你也可以使用[UnitOfWork(false)]。</p>
+            <p>注意ORM框架（如EF和NH）内部使用了一条单一命令来保存更改。假设你以非事务的UOW（工作单元）更新了一些实体的情景，甚至在这种情况下所有的更新都是在工作单元结束时以一个单一的数据库命令执行的。但是如果你直接执行一个SQL查询，它会立即执行。</p>
+            <p>非事务的UOW有一个限制。如果你已经处于一个事务的工作单元的作用域内，那么将isTransactional设置为false将会被忽略。</p>
+            <p>使用非事务的工作单元要小心，因为大多数时候对于数据的集成是事务的。如果你的方法只是读数据，不需要改变数据，当然该方法是可以为非事务的了。</p>
+            <h4 id="工作单元方法调用其它"><a name='callAnother'></a>工作单元方法调用其它</h4>
+            <p>如果一个工作单元的方法（使用了UnitOfWork特性声明的方法）调用另一个工作单元的方法，那么它们共享相同的连接和事务。第一个方法管理连接，其他方法使用连接。这个对于运行在相同<strong>线程</strong>的方法是成立的（对于web应用则是相同的请求）。实际上，当一个工作单元作用域开始时，在同一线程执行的所有代码都共享同一个连接和事务，直到工作单元作用域结束。这对于UnitOfWork特性和UnitOfWorkScope类都是成立的。</p>
+            <h4 id="工作单元作用域"><a name='scope'></a>工作单元作用域</h4>
+            <p>在其他事务中可以创建一个不同而又隔离的事务，或者可以在一个事务中创建一个非事务的作用域。.Net中定义了<strong><a href="https://msdn.microsoft.com/en-us/library/system.transactions.transactionscopeoption(v=vs.110).aspx">TransactionScopeOption</a></strong>，你可以为工作单元设置作用域选项。</p>
+            <h4 id="自动保存"><a name='autoSaving'></a>自动保存</h4>
+            <p>当我们为一个方法使用了工作单元时，LCL会在该方法结束时自动保存所有的更改。假设我们有一个更新person的name的方法：</p>
+<pre class="c#"><code>[UnitOfWork]
+public void UpdateName(UpdateNameInput input)
+{
+    var person = _personRepository.Get(input.PersonId);
+    person.Name = input.NewName;
+}
+</code></pre>
+            <p>你要做的就这么多，person的name就改变了。我们甚至不用调用<strong>_personRepository.Update</strong>方法。ORM框架会跟踪工作单元中实体的所有改变，并将改变反应给数据库。</p>
+            <p>注意没有必要为应用服务方法声明<strong>UnitOfWork</strong>特性，因为它们默认已经是工作单元了。</p>
+            <h4 id="irepository.getall方法"><a name='getAll'></a>IRepository.GetAll()方法</h4>
+            <p>当在一个仓储方法之外调用GetAll()时，必须存在一个打开的数据库连接，因为GetAll返回了<strong>IQueryable</strong>，而且IQueryable会延迟执行。直到调用ToList()方法或者在foreach循环中使用IQueryable,才会真正执行数据库查询。因此，调用ToList()方法时，数据库连接必须是活着的（alive）。</p>
+            <p>考虑一下下面的例子：</p>
+<pre class="c#"><code>[UnitOfWork]
+public SearchPeopleOutput SearchPeople(SearchPeopleInput input)
+{
+    //返回IQueryable&lt;Person&gt;
+    var query = _personRepository.GetAll();
+    //添加一些过滤
+    if (!string.IsNullOrEmpty(input.SearchedName))
+    {
+        query = query.Where(person =&gt; person.Name.StartsWith(input.SearchedName));
+    }
+    if (input.IsActive.HasValue)
+    {
+        query = query.Where(person =&gt; person.IsActive == input.IsActive.Value);
+    }
+    //获得分页结果列表
+    var people = query.Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
+    return new SearchPeopleOutput { People = Mapper.Map&lt;List&lt;PersonDto&gt;&gt;(people) };
+}
+</code></pre>
+            <p>这里，SearchPeople方法必须是工作单元，因为IQueryable的ToList()在方法体内调用了，当执行IQueryable.ToList()执行时，数据库连接必须是打开的状态。</p>
+            <p>就像GetAll()方法一样，如果在仓储之外需要数据库连接，那么必须使用工作单元。注意，应用服务方法默认是工作单元。</p>
+            <h4 id="unitofwork特性的限制"><a name='restrictions'></a>UnitOfWork特性的限制</h4>
+            <p>UnitOfWork可以用于以下几个条件：</p>
+            <ul>
+                <li>所有用于接口的类的<strong>public或public virtual</strong>方法（如用于用于服务接口的应用服务类的方法）。</li>
+                <li>自注入类的所有<strong>public virtual</strong>（如MVC 控制器和Web Api控制器）。</li>
+                <li>所有的<strong>protected virtual</strong>方法。</li>
+            </ul>
+            <p>建议总是将方法声明为<strong>virtual</strong>，但是<strong>不能用于private方法</strong>。因为LCL为virtual方法私有了动态代理，private方法不能被派生的类访问到。如果你没有使用依赖注入且实例化类，那么UnitOfWork特性（和任何代理）就不能工作。</p>
+            <h3 id="选项"><a name='options'></a>选项</h3>
+            <p>有很多可以用于改变工作单元行为的选项。</p>
+            <p>首先，我们可以在启动配置中更改所有工作单元的默认值。这通常是在模块的PreInitialize方法中处理的。</p>
+<pre class="c#"><code>public class SimpleTaskSystemCoreModule : AbpModule
+{
+    public override void PreInitialize()
+    {
+        Configuration.UnitOfWork.IsolationLevel = IsolationLevel.ReadCommitted;
+        Configuration.UnitOfWork.Timeout = TimeSpan.FromMinutes(30);
+    }
+    //...其他模块方法
+}
+</code></pre>
+            <p>其次，我们可以为一个特定的工作单元重写默认值。比如，<strong>UnitOfWork</strong>特性的构造函数和IUnitOfWorkManager的<strong>Begin</strong>方法都有获得选项的重载。</p>
+            <h3 id="方法"><a name='methods'></a>方法</h3>
+            <p>UnitOfWork系统无缝而不可见地工作。但是在某些场合，你需要调用它的方法。</p>
+            <h4 id="savechanges">SaveChanges</h4>
+            <p>LCL会在工作单元结束时保存所有更改，我们根本不用做任何事情。但是有时候你可能想在工作单元操作的中间将更改保存到数据库中。在这种情况下，你可以注入IUnitOfWorkManager，然后调用IUnitOfWorkManager.Current.<strong>SaveChanges()</strong>方法。注意：如果当前的工作单元是事务的，那么如果有异常发生了，事务中的所有改变都会回滚，即使是已保存的改变。</p>
+            <h3 id="事件"><a name='events'></a>事件</h3>
+            <p>工作单元有<strong>Completed,Failed和Disposed</strong>事件。你可以注册这些事件，然后执行需要的操作。通过注入IUnitOfWorkManager然后使用IUnitOfWorkManager.Current属性来获得激活的工作单元，然后注册到它的事件。</p>
+            <p>在当前的工作单元成功完成时，你可能想运行一些代码，下面是一个例子：</p>
+<pre class="c#"><code>public void CreateTask(CreateTaskInput input)
+{
+    var task = new Task { Description = input.Description };
+    if (input.AssignedPersonId.HasValue)
+    {
+        task.AssignedPersonId = input.AssignedPersonId.Value;
+        _unitOfWorkManager.Current.Completed += (sender, args) =&gt; { /* TODO: 给派发的人发送邮件*/ };
+    }
+    _taskRepository.Insert(task);
+}
+</code></pre>
+        </div>
+
+    </div>
+
+    <div class="navfooter">
+        <hr /><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left"><a accesskey="p" href="Specifications.html">Prev</a>&nbsp;</td>
+                <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a>&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="EventBus-Domain-Events.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
+

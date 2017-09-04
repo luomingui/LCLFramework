@@ -1,0 +1,72 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Caching-LCL框架文档</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr>
+                <th colspan="3" align="center" style="text-align: center;">Caching</th>
+            </tr>
+            <tr>
+                <td width="20%" align="left">
+                    <a accesskey="p" href="Logger.html">Prev</a>&nbsp;
+                </td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">
+                    &nbsp;
+                    <a accesskey="n" href="TypeFinder.html">Next</a>
+                </td>
+            </tr>
+        </table><hr />
+    </div>
+    <div class="document-contents">
+        <h3>缓存分析</h3>
+        <p>
+            LCL提供了一种抽象的缓存。它内部使用这个缓存抽象。
+            虽然默认的实现使用<a target="_blank" href="https://msdn.microsoft.com/en-us/library/system.runtime.caching.memorycache(v=vs.110).aspx?f=255&amp;MSPPError=-2147217396">
+                MemoryCache
+            </a>，但它可以实现并可用于任何其他缓存提供者。
+        </p>
+        <h3>ICacheManager</h3>
+        <p>
+            缓存的主要接口是ICacheManager。我们可以<a href="Autofac.html">注入</a>它并使用它来获得缓存。例子:
+        </p>
+        <pre lang="cs">public class TestAppService : ApplicationService
+{
+    private readonly ICacheManager _cacheManager;
+    public TestAppService(ICacheManager cacheManager)
+    {
+        _cacheManager = cacheManager;
+    }
+    public Item GetItem(int id)
+    {
+            string key = string.Format(SETTINGS_ALL_KEY);
+            return _cacheManager.Get(key, () =>
+            { 
+                    var item=new Item();
+             });
+    }
+}</pre>
+        <p>在这个例子中，我们注入了ICacheManager，并获取了一个叫做<strong>MyCache</strong>的缓存对象。</p>
+        <blockquote>
+            <h4 id="警告getcache方法">警告：GetCache方法</h4>
+            <p>不要在构造函数中使用GetCache方法。如果你的类是transient（每次使用都会创建）的，那么这可能会释放缓存，因为第二次创建类的对象时，会再次调用构造函数，之前的第一次的缓存可能会被释放。</p>
+        </blockquote>
+
+    </div>
+    <div class="navfooter">
+        <hr /><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left"><a accesskey="p" href="Logger.html">Prev</a>&nbsp;</td>
+                <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a>&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="TypeFinder.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

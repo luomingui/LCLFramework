@@ -1,0 +1,102 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>本地化-LCL框架文档</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr>
+                <th colspan="3" align="center" style="text-align: center;">本地化</th>
+            </tr>
+            <tr>
+                <td width="20%" align="left">
+                    <a accesskey="p" href="EventBus-Domain-Events.html">Prev</a>&nbsp;
+                </td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">
+                    &nbsp;
+                    <a accesskey="n" href="MVC-Controllers.html">Next</a>
+                </td>
+            </tr>
+        </table><hr />
+    </div>
+
+    <div class="document-contents">
+        <h2 id="本地化">本地化</h2>
+        <ul>
+            <li><strong><a href="#appLang">应用语言</a></strong></li>
+            <li><strong><a href="#source">本地化资源</a></strong></li>
+            <li><strong><a href="#text">获取本地化文本</a></strong></li>
+            <li><strong><a href="#extend">扩展本地化资源</a></strong></li>
+            <li><strong><a href="#bestPractice">最佳实践</a></strong></li>
+        </ul>
+        <h3 id="应用语言"><a name='appLang'></a>应用语言</h3>
+        <p>一个应用至少有一种UI语言，许多应用不止有一种语言。LCL为应用提供了一个灵活的本地化系统。</p>
+        <p>第一件事情就是需要在Web.config文件中声明支持哪些语言，如下所示：</p>
+        <pre class="xml">
+&lt;lconfig&gt;
+&lt;language name="zh" path="~/App_Data/Localization/installation.zhs.xml" />&gt;
+&lt;/lconfig&gt;
+</pre>
+        <h3 id="本地化资源"><a name='source'></a>本地化资源</h3>
+        <p>
+            本地化文本可以存储在不同的资源中。甚至你可以在相同的应用中使用不止一种语言（如果你有不止一个模块，每个模块可以定义一个单独的本地化资源）。
+            应该为本地化资源实现<strong>ILocalizationService</strong>接口，然后将它注册到ABP的本地化配置中。
+        </p>
+        <p>每个本地化资源必须有一个<strong>唯一的资源名</strong>。 <strong>XML文件</strong>和 <strong>资源</strong>文件是预定义的本地化资源类型。</p>
+        <h4 id="xml文件">XML文件</h4>
+        <p>本地化文本可以存储在XML文件中，XML文件的内容就像下面展示的那样：</p>
+        <pre class="xml">
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;language name="English" isdefault="true" isrighttoleft="false"&gt;
+        &lt; localeresource name="AdminEmail"&gt;
+        &lt; value>Admin user email &lt;/value&gt;
+&lt;/localeresource&gt;
+&lt;/language&gt;
+</pre>
+        <p>
+            XML文件必须是<strong>utf-8</strong>编码， <strong>name=&quot;English&quot;</strong>声明该XML文件包含了英语文本。对于文本节点，
+            <strong>name</strong>特性用于标识一个文本。你可以使用 <strong>value</strong>特性或者 <strong>inner text</strong>(如上面的最后一个)给本地化文本赋值。如下所示，
+            我们为<strong>每种语言</strong>创建了一个单独的XML文件：
+        </p>
+        <p><img src="images/localization.png" /></p>
+        <h3 id="获取本地化文本"><a name="text"></a>获取本地化文本</h3>
+        <p>当创建了资源并把它注册到ABP的本地化系统之后，文本就能轻易地本地化了。</p>
+        <h4>在MVC控制中</h4>
+        <p>在控制中也可以使用如下方法：</p>
+        <pre> this._localizationService.GetResource("资源名称");</pre>
+        <h4>在MVC视图中</h4>
+        <p>在视图中也可以使用相同的L方法：</p>
+        <pre> @T("资源名称").Text</pre>
+        <h3 id="扩展本地化资源"><a name="extend"></a>扩展本地化资源</h3>
+        <p>使用编码方式扩展</p>
+        <pre> 
+public partial class RbacPlugin : BasePlugin, IAdminMenuPlugin
+{
+    public override void Install()
+    {
+        //locales
+        this.AddOrUpdatePluginLocaleResource("Entity.Role", "角色管理");
+    }
+｝
+</pre>
+        <p>直接修改XML文件</p>
+    </div>
+
+    <div class="navfooter">
+        <hr /><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left"><a accesskey="p" href="EventBus-Domain-Events.html">Prev</a>&nbsp;</td>
+                <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a>&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="MVC-Controllers.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+
+
+</body>
+</html>

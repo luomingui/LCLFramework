@@ -1,0 +1,87 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>MongoDB-LCL框架文档</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/lcl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="navheader">
+        <table width="100%" summary="Navigation header">
+            <tr>
+                <th colspan="3" align="center" style="text-align: center;">MongoDB</th>
+            </tr>
+            <tr>
+                <td width="20%" align="left">
+                    <a accesskey="p" href="EntityFramework.html">Prev</a>&nbsp;
+                </td>
+                <th width="60%" align="center">&nbsp;</th>
+                <td width="20%" align="right">
+                    &nbsp;
+                    <a accesskey="n" href="Nuget-Packages.html">Next</a>
+                </td>
+            </tr>
+        </table><hr />
+    </div>
+    <div class="document-contents">
+        <p>
+            Nuget包在LCL中使用MongoDB作为ORM LCL.Repositories.MongoDB。您应该将它添加到您的应用程序中。
+            最好在应用程序的一个独立的程序集(dll)中实现MongoDB，并依赖于这个程序集的包。
+        </p>
+        <h4>ContextSettings</h4>
+        <p>如您所知，要使用MongoDB，您应该为您的应用程序定义一个ContextSettings类。下面显示了一个ContextSettings示例:</p>
+        <pre>
+public class MongoDBRepositoryContextSettings : IMongoDBRepositoryContextSettings
+{
+    #region IMongoDBRepositoryContextSettings Members
+    public MongoServerSettings ServerSettings
+    {
+        get
+        {
+            var settings = new MongoServerSettings();
+            settings.Server = new MongoServerAddress("localhost");
+            settings.WriteConcern = WriteConcern.Acknowledged;
+            return settings;
+        }
+    }
+    public MongoDatabaseSettings GetDatabaseSettings(MongoServer server)
+    {
+        return new MongoDatabaseSettings();
+    }
+    public MapTypeToCollectionNameDelegate MapTypeToCollectionName
+    {
+        get { return null; }
+    }
+    public string DatabaseName
+    {
+        get { return Helper.MongoDB_Database; }
+    }
+    #endregion
+}
+</pre>
+        <h3>MongoDB仓库(MongoDBRepository)</h3>
+        <p>存储库用于从更高的层抽象数据访问。更多信息请参阅<a href="Repositories.html">存储库文档</a>。</p>
+        <pre>
+public class RoleRepository : MongoDBRepository&lt;Role&gt;, IRoleRepository
+{
+    public RoleRepository(IRepositoryContext context)
+    : base(context)
+    { }
+}
+</pre>
+        <h4>数据仓库（Data Stores）</h4>
+        <p>由于LCL与MongoDB进行了内置集成，因此它可以与数据存储实体框架支持。我们的免费启动模板是用来与MongoDB一起工作的，但是您可以修改它们以使用不同的数据存储。</p>
+    </div>
+
+    <div class="navfooter">
+        <hr /><table width="100%" summary="Navigation footer">
+            <tr>
+                <td width="40%" align="left"><a accesskey="p" href="EntityFramework.html">Prev</a>&nbsp;</td>
+                <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a>&nbsp;</td>
+                <td width="40%" align="right"><a accesskey="n" href="Nuget-Packages.html">Next</a>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
